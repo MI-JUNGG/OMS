@@ -11,11 +11,11 @@ function Card() {
                 </div>
                 <div className="cardTitle">
                     <span>title</span>
-                    <div className="cardTitleInput"></div>
+                    <textarea type="text" className="cardTitleInput" />
                 </div>
                 <div className="contents">
                     <span>contents</span>
-                    <div className="contentsInput"></div>
+                    <textarea className="contentsInput" />
                 </div>
 
                 <button type="button">완료</button>
