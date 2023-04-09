@@ -2,9 +2,32 @@
     color: blueviolet;
     border: 1px solid black;
     width: 400px;
-    padding: 5px;
+    height: 80vh;
+    padding: 10px;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     .selectColor {
         border: 1px solid black;
+        height: 10vh;
+    }
+    .cardTitle {
+        .cardTitleInput {
+            width: 100%;
+            height: 10vh;
+            border: 1px solid black;
+        }
+    }
+    .contents {
+        .contentsInput {
+            width: 100%;
+            height: 50vh;
+            border: 1px solid black;
+        }
+    }
+    button {
+        align-self: flex-end;
     }
 }
