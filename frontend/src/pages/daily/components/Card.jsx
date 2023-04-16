@@ -1,16 +1,7 @@
-import { useDispatch, useSelector } from "@reduxjs/toolkit/es/react-redux";
 import { Addcard } from "../../../modules/card";
 import "./Card.scss";
 
 function Card() {
-    const createCard = useSelector((state) => {
-        state;
-    });
-    console.log(createCard);
-    const dispatch = useDispatch();
-    const cardHandler = () => {
-        dispatch(Addcard());
-    };
     return (
         <div>
             <div className="card">
