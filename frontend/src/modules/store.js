@@ -1,10 +1,11 @@
 // store.js
 
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./reducers";
+import cardReducer from "./card/";
+import divcounterReducer from "./divcounter";
 
 const store = configureStore({
-    reducer: rootReducer,
+    reducer: { cardReducer, divcounterReducer },
 });
 
 export default store;
