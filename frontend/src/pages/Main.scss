@@ -1,0 +1,59 @@
+.calendar {
+    max-width: 80vw;
+    height: 800px;
+    margin: 0 auto;
+    border-collapse: collapse; // border-collapse 속성 추가
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .weekdays {
+        display: flex;
+        margin-bottom: 10px;
+
+        .weekday {
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+
+    .days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        // gap: 10px;
+        border: 1px solid black;
+
+        .empty {
+            height: 50px;
+        }
+
+        .day {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+
+            cursor: pointer;
+
+            &:hover {
+                background-color: #f2f2f2;
+            }
+        }
+
+        .today {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .selected {
+            background-color: #007bff;
+            color: #fff;
+        }
+    }
+}
