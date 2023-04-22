@@ -1,6 +1,7 @@
 import "./Card.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { title, content } from "../../../modules/card";
+import { counter } from "../../../modules/divcounter";
 
 function Card() {
     const dispatch = useDispatch();
@@ -12,7 +13,9 @@ function Card() {
     const createContent = (e) => {
         dispatch(content(e.target.value));
     };
-
+    const counterHandler = (e) => {
+        dispatch(counter());
+    };
     return (
         <div>
             <div className="card">
@@ -30,7 +33,9 @@ function Card() {
                     <textarea onChange={createContent} name="contents" />
                 </div>
 
-                <button type="button">완료</button>
+                <button onClick={counterHandler} type="button">
+                    완료
+                </button>
             </div>
         </div>
     );
