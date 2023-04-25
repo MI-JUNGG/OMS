@@ -1,5 +1,5 @@
 import Card from "./components/Card";
-import Seletime from "/Users/joyunhwan/Desktop/OMS/frontend/src/pages/daily/components/Seletime.jsx";
+import Seletime from "./components/Seletime";
 import CreatedCard from "./components/CreatedCard";
 import { useRef } from "react";
 import { useSelector } from "react-redux";
