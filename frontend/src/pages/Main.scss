@@ -3,12 +3,18 @@
     height: 800px;
     margin: 0 auto;
     border-collapse: collapse; // border-collapse 속성 추가
+    user-select: none;
 
     .header {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-evenly;
         align-items: center;
         margin-bottom: 20px;
+
+        h1 {
+            width: 300px;
+            text-align: center;
+        }
     }
 
     .weekdays {

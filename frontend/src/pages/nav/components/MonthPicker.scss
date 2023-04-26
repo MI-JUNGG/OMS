@@ -1,4 +1,4 @@
-// @use "/src/styles/mixin.js" as mixin;
+// @use "/src/styles/mixin.js";
 
 .monthContainer {
     width: 30vw;
@@ -7,6 +7,7 @@
     max-width: 435px;
     background-color: white;
     border-radius: 15px;
+    padding: 0 15px;
 
     .monthListWrapper {
         display: flex;
@@ -26,12 +27,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            color: gray;
         }
         .pick {
             width: 20px;
             margin: 0 8px;
             font-size: 22px;
-            padding: 3px;
+            // padding: 3px;
             border-bottom: 2px solid gray;
 
             display: flex;
