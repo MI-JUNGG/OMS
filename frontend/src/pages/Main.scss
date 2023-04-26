@@ -15,6 +15,26 @@
             width: 300px;
             text-align: center;
         }
+
+        .nextBtn {
+            padding: 5px;
+            font-size: 35px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            &:hover {
+                transform: translateX(8px);
+            }
+        }
+
+        .prevBtn {
+            padding: 5px;
+            font-size: 35px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            &:hover {
+                transform: translateX(-8px);
+            }
+        }
     }
 
     .weekdays {

@@ -71,8 +71,10 @@ function Main() {
         <div className="calendar">
             <div className="header">
                 <AiOutlineLeft
+                    className="prevBtn"
                     onClick={handlePrevMonth}
                     style={{
+                        padding: "20px",
                         fontSize: "35px",
                         cursor: "pointer",
                     }}
@@ -81,13 +83,7 @@ function Main() {
                 <h1>
                     {date.getFullYear(yearForm) + "년"} {monthForm + "월"}
                 </h1>
-                <AiOutlineRight
-                    onClick={handleNextMonth}
-                    style={{
-                        fontSize: "35px",
-                        cursor: "pointer",
-                    }}
-                />
+                <AiOutlineRight className="nextBtn" onClick={handleNextMonth} />
             </div>
             <div className="weekdays">
                 {weekdays.map((weekday) => (
