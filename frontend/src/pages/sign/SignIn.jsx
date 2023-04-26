@@ -1,7 +1,7 @@
 function SignIn() {
     return (
         <>
-            <div>SignIn</div>
+            <div className="signInContainer">SignIn</div>
             <div />
         </>
     );
