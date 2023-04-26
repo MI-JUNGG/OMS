@@ -6,4 +6,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .login {
+        margin: 0 35px;
+        cursor: pointer;
+        padding: 5px;
+    }
 }

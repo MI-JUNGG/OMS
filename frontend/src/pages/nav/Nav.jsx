@@ -15,7 +15,15 @@ function Nav() {
                     <YearPicker />
                     <MonthPicker />
                 </div>
-                <ViewSwitcher />
+                <div
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                    }}
+                >
+                    <ViewSwitcher />
+                    <span className="login">로그인</span>
+                </div>
             </div>
         </>
     );
