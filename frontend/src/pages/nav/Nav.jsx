@@ -6,8 +6,23 @@ function Nav() {
     return (
         <>
             <div className="navWrapper">
-                <MonthPicker />
-                <ViewSwitcher />
+                <div
+                    style={{
+                        display: "flex",
+                    }}
+                >
+                    <YearPicker />
+                    <MonthPicker />
+                </div>
+                <div
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                    }}
+                >
+                    <ViewSwitcher />
+                    <span className="login">로그인</span>
+                </div>
             </div>
         </>
     );
