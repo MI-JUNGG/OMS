@@ -1,13 +1,27 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import "./Main.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { month } from "../modules/monthPicker";
 import { year } from "../modules/year";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
-import { Link } from "react-router-dom";
 
 function Main() {
+    useEffect(
+        () =>
+            fetch("/data/test.json")
+                .then((response) => response.json())
+                .then((data) => {
+                    // console.log(data[0].data.backgroundColor);
+                    const backgroundColor = data[0].data.backgroundColor;
+                    document.documentElement.style.setProperty(
+                        "--background-color",
+                        backgroundColor,
+                    );
+                }),
+        [],
+    );
+
     const yearForm = useSelector((state) => state.yearReducer.value);
     const monthForm = useSelector((state) => state.monthReducer.month);
     const monthList = useSelector((state) => state.monthReducer.monthList);
@@ -80,9 +94,7 @@ function Main() {
                     }}
                 />
 
-                <h1>
-                    {date.getFullYear(yearForm) + "년"} {monthForm + "월"}
-                </h1>
+                <h1>{monthForm + "월"}</h1>
                 <AiOutlineRight className="nextBtn" onClick={handleNextMonth} />
             </div>
             <div className="weekdays">
