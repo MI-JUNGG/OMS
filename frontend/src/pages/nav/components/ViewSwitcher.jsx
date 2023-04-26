@@ -23,7 +23,14 @@ function ViewSwitcher() {
                             key={i}
                             onClick={() => changeView(value)}
                         >
-                            <Link to={form.element[i]}>{value}</Link>
+                            <Link
+                                to={form.element[i]}
+                                style={{
+                                    backgroundColor: "white",
+                                }}
+                            >
+                                {value}
+                            </Link>
                         </div>
                     );
                 })}
