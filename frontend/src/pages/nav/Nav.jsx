@@ -1,6 +1,7 @@
 import "./Nav.scss";
 import MonthPicker from "./components/MonthPicker";
 import ViewSwitcher from "./components/ViewSwitcher";
+import YearPicker from "./components/YearPicker";
 
 function Nav() {
     return (

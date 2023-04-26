@@ -1,35 +1,42 @@
 import { useState } from "react";
 import "./Main.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { month } from "../modules/monthPicker";
+import { year } from "../modules/year";
+import { AiOutlineLeft } from "react-icons/ai";
+import { AiOutlineRight } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 function Main() {
-    const [date, setDate] = useState(new Date());
+    const yearForm = useSelector((state) => state.yearReducer.value);
+    const monthForm = useSelector((state) => state.monthReducer.month);
+    const monthList = useSelector((state) => state.monthReducer.monthList);
+    const dispatch = useDispatch();
+
+    // console.log("year:", yearForm, "month:", monthForm);
+
+    const date = new Date(yearForm, monthForm - 1);
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const monthNames = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
+    const monthNames = [];
+    monthNames.push(monthList.map((value) => value + "월"));
 
     const handlePrevMonth = () => {
-        setDate((prevDate) => {
-            return new Date(prevDate.getFullYear(), prevDate.getMonth() - 1, 1);
-        });
+        if (monthForm === 1) {
+            dispatch(month(12));
+            dispatch(year(yearForm - 1));
+        } else {
+            dispatch(month(monthForm - 1));
+        }
     };
 
     const handleNextMonth = () => {
-        setDate((prevDate) => {
-            return new Date(prevDate.getFullYear(), prevDate.getMonth() + 1, 1);
-        });
+        if (monthForm === 12) {
+            dispatch(month(1));
+            dispatch(year(yearForm + 1));
+        } else {
+            dispatch(month(monthForm + 1));
+        }
     };
 
     const daysInMonth = (year, month) => {
@@ -63,11 +70,20 @@ function Main() {
     return (
         <div className="calendar">
             <div className="header">
-                <button onClick={handlePrevMonth}>Prev</button>
+                <AiOutlineLeft
+                    className="prevBtn"
+                    onClick={handlePrevMonth}
+                    style={{
+                        padding: "20px",
+                        fontSize: "35px",
+                        cursor: "pointer",
+                    }}
+                />
+
                 <h1>
-                    {monthNames[date.getMonth()]} {date.getFullYear()}
+                    {date.getFullYear(yearForm) + "년"} {monthForm + "월"}
                 </h1>
-                <button onClick={handleNextMonth}>Next</button>
+                <AiOutlineRight className="nextBtn" onClick={handleNextMonth} />
             </div>
             <div className="weekdays">
                 {weekdays.map((weekday) => (
