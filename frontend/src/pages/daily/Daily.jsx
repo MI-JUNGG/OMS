@@ -2,11 +2,10 @@ import Card from "./components/Card";
 import Seletime from "/Users/joyunhwan/Desktop/OMS/frontend/src/pages/daily/components/Seletime.jsx";
 import CreatedCard from "./components/CreatedCard";
 import { useRef } from "react";
-import { useSelector } from "react-redux";
+
 import "./Daily.scss";
 
 function Daily() {
-    const divCount = useSelector((state) => state.divcounterReducer.counter);
     const ref = useRef();
     return (
         <div className="topContanier">
@@ -15,9 +14,7 @@ function Daily() {
                 <Seletime />
             </div>
             <div className="schedule">
-                {Array.from({ length: divCount }, (_, index) => (
-                    <CreatedCard key={index} />
-                ))}
+                <CreatedCard />
             </div>
         </div>
     );

@@ -1,21 +1,33 @@
 import "./Card.scss";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { title, content } from "../../../modules/card";
-import { counter } from "../../../modules/divcounter";
+import { addCard } from "../../../modules/card";
 
 function Card() {
     const dispatch = useDispatch();
-    const create = useSelector((state) => state.cardReducer);
+    const today = new Date();
+    const id = today.toISOString();
+    const [form, setForm] = useState({
+        id: id,
+        title: "",
+        content: "",
+    });
 
     const createTitle = (e) => {
-        dispatch(title(e.target.value));
+        setForm({ ...form, title: e.target.value });
     };
     const createContent = (e) => {
-        dispatch(content(e.target.value));
+        setForm({ ...form, content: e.target.value });
     };
     const counterHandler = (e) => {
-        dispatch(counter());
+        dispatch(addCard({ ...form, id }));
+        setForm({
+            id,
+            title: "",
+            content: "",
+        });
     };
+
     return (
         <div>
             <div className="card">
@@ -26,11 +38,19 @@ function Card() {
                 </div>
                 <div className="cardTitle">
                     <span>title</span>
-                    <textarea onChange={createTitle} name="title" />
+                    <textarea
+                        onChange={createTitle}
+                        value={form.title}
+                        name="title"
+                    />
                 </div>
                 <div className="contents">
                     <span>contents</span>
-                    <textarea onChange={createContent} name="contents" />
+                    <textarea
+                        onChange={createContent}
+                        value={form.content}
+                        name="content"
+                    />
                 </div>
 
                 <button onClick={counterHandler} type="button">
