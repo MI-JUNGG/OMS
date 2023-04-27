@@ -1,16 +1,23 @@
-import { useSelector, useDispatch } from "react-redux";
-import { title, content } from "../../../modules/card";
+import { useSelector } from "react-redux";
 import "./CreatedCard.scss";
 
 function CreatedCard() {
     const form = useSelector((state) => state.cardReducer);
-    const { title, content } = form;
+
     return (
-        <div className="createted">
-            <span>{title}</span>
-            <div>{content}</div>
+        <div>
+            {form.map((item) => {
+                const { title, content, id } = item;
+                return (
+                    <div key={id} className="createted">
+                        <div>
+                            <span>제목: {title}</span>
+                            <span>할일: {content}</span>
+                        </div>
+                    </div>
+                );
+            })}
         </div>
     );
 }
-
 export default CreatedCard;

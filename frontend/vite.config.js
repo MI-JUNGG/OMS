@@ -1,10 +1,16 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import reactRefresh from "@vitejs/plugin-react-refresh";
 import sass from "sass";
+import reactRefresh from "vite-plugin-react-refresh";
 
 export default defineConfig({
-    plugins: [react()],
+    plugins: [
+        react(),
+        reactRefresh({
+            parserPlugins: [],
+            transformPlugins: ["babel-plugin-jsx-advanced"],
+        }),
+    ],
 
     css: {
         preprocessorOptions: {
