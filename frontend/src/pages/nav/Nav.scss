@@ -9,7 +9,11 @@
 
     .login {
         margin: 0 35px;
-        cursor: pointer;
         padding: 5px;
+        position: relative;
+
+        .loginText {
+            cursor: pointer;
+        }
     }
 }

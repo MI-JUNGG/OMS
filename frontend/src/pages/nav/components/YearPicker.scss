@@ -7,6 +7,7 @@
     align-items: center;
     padding: 0 5px;
     margin-right: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
     .yearSelect {
         appearance: none;
@@ -16,9 +17,9 @@
         outline-style: none;
         width: 80px;
         text-align: center;
-        padding: 0 22px 0 5px;
-        background: url(/src/assets/images/downArrow.svg) no-repeat right center /
-            16px;
+        // padding: 0 22px 0 5px;
+        background-color: white;
+
         cursor: pointer;
 
         &::-webkit-scrollbar {
