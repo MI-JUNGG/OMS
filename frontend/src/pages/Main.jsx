@@ -81,15 +81,7 @@ function Main() {
     return (
         <div className="calendar">
             <div className="header">
-                <AiOutlineLeft
-                    className="prevBtn"
-                    onClick={handlePrevMonth}
-                    style={{
-                        padding: "20px",
-                        fontSize: "35px",
-                        cursor: "pointer",
-                    }}
-                />
+                <AiOutlineLeft className="prevBtn" onClick={handlePrevMonth} />
 
                 <h1>{monthForm + "월"}</h1>
                 <AiOutlineRight className="nextBtn" onClick={handleNextMonth} />

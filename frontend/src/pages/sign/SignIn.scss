@@ -1,7 +1,22 @@
 .signInContainer {
     width: 400px;
-    height: 400px;
-    background-color: antiquewhite;
+    height: 450px;
+    background-color: white;
     border-radius: 15px;
-    box-shadow: 15px;
+    position: absolute;
+    top: 50px;
+    left: -200px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    flex-direction: column;
+
+    h1 {
+        font-size: 30px;
+        font-weight: bold;
+        font-family: "Nanum";
+        text-align: center;
+    }
+
+    .userInput {
+        justify-content: center;
+    }
 }
