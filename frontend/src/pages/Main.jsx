@@ -7,20 +7,17 @@ import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 
 function Main() {
-    useEffect(
-        () =>
-            fetch("/data/test.json")
-                .then((response) => response.json())
-                .then((data) => {
-                    // console.log(data[0].data.backgroundColor);
-                    const backgroundColor = data[0].data.backgroundColor;
-                    document.documentElement.style.setProperty(
-                        "--background-color",
-                        backgroundColor,
-                    );
-                }),
-        [],
-    );
+    useEffect(() => {
+        fetch("/data/test.json")
+            .then((response) => response.json())
+            .then((data) => {
+                const backgroundColor = data[0].data.backgroundColor;
+                document.documentElement.style.setProperty(
+                    "--background-color",
+                    backgroundColor,
+                );
+            });
+    }, []);
 
     const yearForm = useSelector((state) => state.yearReducer.value);
     const monthForm = useSelector((state) => state.monthReducer.month);
