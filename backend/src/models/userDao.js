@@ -46,13 +46,15 @@ const localCreateUser = async (name, nickname, email, hashedPassword) => {
       nickname,
       email,
       password,
-      social_type_id
+      social_type_id,
+      custom_id
     ) VALUES (
       ?,
       ?,
       ?,
       ?,
-      ${SocialTypeId.LOCAL}
+      ${SocialTypeId.LOCAL},
+      1
     )`,
     [name, nickname, email, hashedPassword]
   );
@@ -81,13 +83,15 @@ const createUser = async (socialId, name, nickname, email, socialTypeId) => {
       name,
       nickname,
       email,
-      social_type_id
+      social_type_id,
+      custom_id
     ) VALUES (
       ?,
       ?,
       ?,
       ?,
-      ?
+      ?,
+      1
     )`,
     [socialId, name, nickname, email, socialTypeId]
   );

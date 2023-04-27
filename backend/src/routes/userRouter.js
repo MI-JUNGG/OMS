@@ -5,7 +5,7 @@ const { validateToken } = require("../utils/auth");
 const userController = require("../controllers/userController");
 
 router.post("/signup", userController.signup);
-router.post("/signin", userController.signin);
+router.get("/signin", userController.signin);
 router.post("/kakao", userController.kakaoLogin);
 
 module.exports = {
