@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import CreatedCardItem from "./CreatedCardItem";
 import "./CreatedCard.scss";
 
 function CreatedCard() {
@@ -6,18 +7,11 @@ function CreatedCard() {
 
     return (
         <div>
-            {form.map((item) => {
-                const { title, content, id } = item;
-                return (
-                    <div key={id} className="createted">
-                        <div>
-                            <span>제목: {title}</span>
-                            <span>할일: {content}</span>
-                        </div>
-                    </div>
-                );
-            })}
+            {form.map((item) => (
+                <CreatedCardItem key={item.id} {...item} />
+            ))}
         </div>
     );
 }
+
 export default CreatedCard;
