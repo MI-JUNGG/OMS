@@ -1,6 +1,22 @@
-import "./selectime.scss";
+import "./Selectime.scss";
+import { useDrop } from "react-dnd";
 
 function Seletime() {
+    const [{ isOver }, drop] = useDrop(() => ({
+        accept: "SELETIME",
+        canDrop: (item) => {
+            // 드랍이 가능한지 확인하는 작업을 수행합니다.
+            return true;
+        },
+        drop: (item, monitor) => {
+            // 드랍이 발생했을 때 수행할 작업을 처리합니다.
+            console.log("item", item);
+            console.log("monitor", monitor);
+        },
+        collect: (monitor) => ({
+            isOver: monitor.isOver(),
+        }),
+    }));
     const hours = [
         "00:00",
         "01:00",
@@ -29,7 +45,7 @@ function Seletime() {
     ];
 
     return (
-        <div className="hourBox">
+        <div ref={drop} className="hourBox">
             <ul>
                 {hours.map((hour, i) => (
                     <li key={i}>
