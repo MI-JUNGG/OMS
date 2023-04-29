@@ -5,6 +5,7 @@ import cardReducer from "./card";
 import monthReducer from "./monthPicker";
 import viewReducer from "./viewSelector";
 import yearReducer from "./year";
+import modalReducer from "./modal";
 
 const store = configureStore({
     reducer: {
@@ -12,6 +13,8 @@ const store = configureStore({
         monthReducer,
         viewReducer,
         yearReducer,
+        yearReducer,
+        modalReducer,
     },
 });
 

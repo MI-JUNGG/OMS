@@ -2,6 +2,7 @@ import "./Card.scss";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addCard } from "../../../modules/card";
+import { hours } from "./Seletime";
 
 function Card() {
     const dispatch = useDispatch();
@@ -11,6 +12,7 @@ function Card() {
         id: id,
         title: "",
         content: "",
+        time: "00:00",
     });
 
     const createTitle = (e) => {
@@ -19,12 +21,16 @@ function Card() {
     const createContent = (e) => {
         setForm({ ...form, content: e.target.value });
     };
+    const selectTime = (e) => {
+        setForm({ ...form, time: e.target.value });
+    };
     const counterHandler = (e) => {
         dispatch(addCard({ ...form, id }));
         setForm({
             id,
             title: "",
             content: "",
+            time: "",
         });
     };
 
@@ -35,6 +41,36 @@ function Card() {
                     <span>color</span>
                     <span>color</span>
                     <span>color</span>
+                </div>
+                <div className="timeSelector">
+                    start
+                    <select
+                        className="timeSelect"
+                        onChange={selectTime}
+                        id="hourSelect"
+                    >
+                        {hours.map((hour) => {
+                            return (
+                                <option key={hour} value={hour}>
+                                    {hour}
+                                </option>
+                            );
+                        })}
+                    </select>
+                    end
+                    <select
+                        className="timeSelect"
+                        onChange={selectTime}
+                        id="hourSelect"
+                    >
+                        {hours.map((hour) => {
+                            return (
+                                <option key={hour} value={hour}>
+                                    {hour}
+                                </option>
+                            );
+                        })}
+                    </select>
                 </div>
                 <div className="cardTitle">
                     <span>title</span>

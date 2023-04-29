@@ -1,21 +1,18 @@
-import { useSelector } from "react-redux";
-import { useDrag } from "react-dnd";
+import { useDispatch, useSelector } from "react-redux";
+
 import "./CreatedCard.scss";
 
-function CreatedCardItem({ title, content, id }) {
-    const [{ isDragging }, drag] = useDrag(() => ({
-        type: "SELETIME",
-        item: { id: "seletime" },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-        }),
-    }));
+function CreatedCardItem() {
+    const dispatch = useDispatch();
+    const form = useSelector((state) => state.cardReducer);
 
+    const { title, content, time } = form;
     return (
-        <div ref={drag} className="createted">
+        <div className="createted">
             <div>
                 <span>제목: {title}</span>
                 <span>할일: {content}</span>
+                <button>삭제</button>
             </div>
         </div>
     );

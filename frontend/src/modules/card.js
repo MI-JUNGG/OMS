@@ -7,9 +7,13 @@ const cardSlice = createSlice({
         addCard: (state, action) => {
             state.push(action.payload);
         },
+        removeCard: (state, action) => {
+            const index = state.findIndex((card) => card.id === action.payload);
+            state.splice(index, 1);
+        },
     },
 });
 
-export const { addCard } = cardSlice.actions;
+export const { addCard, removeCard } = cardSlice.actions;
 
 export default cardSlice.reducer;
