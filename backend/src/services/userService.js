@@ -38,9 +38,10 @@ const signin = async (email, password) => {
   const compare = await bcrypt.compare(password, hashedPassword);
   if (!compare) detectError("PASSWORD_DOES_NOT_MATCH", 400);
 
-  const userData = await userDao.getUserId(email);
+  const [userData] = await userDao.getUserId(email);
 
-  const payLoad = { userData: userData.userId };
+  const payLoad = { userData: userData.id };
+
   const jwtToken = jwt.sign(payLoad, process.env.JWT_SECRET);
 
   return jwtToken;
