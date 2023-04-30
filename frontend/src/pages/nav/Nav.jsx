@@ -39,10 +39,30 @@ function Nav() {
                 >
                     <ViewSwitcher />
                     <div className="login">
-                        <span className="loginText" onClick={HandleModal}>
-                            로그인
-                        </span>
-                        {modal ? <Sign /> : ""}
+                        {localStorage.getItem("token") ? (
+                            <>
+                                <span
+                                    className="loginText"
+                                    onClick={() => {
+                                        localStorage.removeItem("token");
+                                        alert("로그아웃 하셨습니다");
+                                        window.location.replace("/");
+                                    }}
+                                >
+                                    로그아웃
+                                </span>
+                            </>
+                        ) : (
+                            <>
+                                <span
+                                    className="loginText"
+                                    onClick={HandleModal}
+                                >
+                                    로그인
+                                </span>
+                                {modal ? <Sign /> : ""}
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
