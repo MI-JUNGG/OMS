@@ -14,6 +14,8 @@ function Router() {
                 <Route path="/detail" element={<Detail />} />
                 <Route path="/day" element={<Daily />} />
                 <Route path="/weekly" element={<Week />} />
+                <Route path="/auth/kakao/callback" element={<Main />} />
+                <Route path="/auth/naver/callback" element={<Main />} />
             </Routes>
         </BrowserRouter>
     );
