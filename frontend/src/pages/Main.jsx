@@ -60,7 +60,7 @@ function Main() {
 
     const handleDateClick = (event) => {
         const clickedDate = event.target.textContent;
-        const newLocation = `/day/${yearForm}-${monthForm}-${clickedDate}`;
+        const newLocation = `/day?year=${yearForm}&month=${monthForm}&day=${clickedDate}`;
         window.location.href = newLocation;
     };
 

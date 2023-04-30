@@ -70,7 +70,7 @@ function Card() {
                         onClick={selectTime}
                         id="hourSelect"
                     >
-                        <option>시간선택</option>
+                        <option value="시간선택">시간선택</option>
                         {hours.map((hour) => {
                             return (
                                 <option key={hour} value={hour}>

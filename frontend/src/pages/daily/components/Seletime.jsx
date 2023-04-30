@@ -57,9 +57,7 @@ function Seletime() {
                                         <div
                                             className="card"
                                             key={i}
-                                            onClick={(event) =>
-                                                showCard(event.currentTarget)
-                                            }
+                                            onClick={showCard}
                                         >
                                             <span>{title}</span>
                                         </div>
