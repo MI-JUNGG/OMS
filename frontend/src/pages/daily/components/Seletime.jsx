@@ -1,19 +1,52 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cardmodal } from "../../../modules/modal";
 import "./Selectime.scss";
+import CreatedCardItem from "./CreatedCardItem";
 
 function Seletime() {
     const dispatch = useDispatch();
     const form = useSelector((state) => state.cardReducer);
-    const test = useSelector((state) => state.modalReducer);
-
-    const showCard = () => {
+    const openModal = useSelector((state) => state.modalReducer.cardmodal);
+    const [clickedLi, setClickedLi] = useState(null);
+    console.log(form);
+    const showCard = (event) => {
+        const li = event.target.closest("li");
+        setClickedLi(li);
         dispatch(cardmodal());
     };
+
+    const getModalPosition = () => {
+        if (!clickedLi) return null;
+
+        const liRect = clickedLi.getBoundingClientRect();
+        const modalHeight = 200; // adjust this to match the height of the modal
+
+        if (liRect.bottom + modalHeight <= window.innerHeight) {
+            // display below the clicked li
+            return {
+                top: liRect.bottom,
+                left: liRect.left,
+            };
+        } else if (liRect.top >= modalHeight) {
+            // display above the clicked li
+            return {
+                bottom: window.innerHeight - liRect.top,
+                left: liRect.left,
+            };
+        } else {
+            // display at the bottom of the screen
+            return {
+                bottom: 0,
+                left: liRect.left,
+            };
+        }
+    };
+
     return (
         <div className="hourBox">
             <ul>
-                {hours.map((hour) => (
+                {hours.map((hour, i) => (
                     <li key={hour}>
                         <div className="time">{hour}</div>
                         <div className="contents">
@@ -21,7 +54,13 @@ function Seletime() {
                                 const { time, title } = item;
                                 return (
                                     time === hour && (
-                                        <div key={hour} onClick={showCard}>
+                                        <div
+                                            className="card"
+                                            key={i}
+                                            onClick={(event) =>
+                                                showCard(event.currentTarget)
+                                            }
+                                        >
                                             <span>{title}</span>
                                         </div>
                                     )
@@ -31,10 +70,14 @@ function Seletime() {
                     </li>
                 ))}
             </ul>
+            {openModal && (
+                <div className="modalWrapper" style={getModalPosition()}>
+                    <CreatedCardItem />
+                </div>
+            )}
         </div>
     );
 }
-
 export default Seletime;
 export const hours = [
     "00:00",

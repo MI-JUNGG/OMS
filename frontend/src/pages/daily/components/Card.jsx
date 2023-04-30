@@ -1,5 +1,6 @@
 import "./Card.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addCard } from "../../../modules/card";
 import { hours } from "./Seletime";
@@ -13,6 +14,11 @@ function Card() {
         title: "",
         content: "",
         time: "00:00",
+    });
+    const params = new URLSearchParams(window.location.search);
+    const date = params.get("date");
+    useEffect(() => {
+        console.log(date);
     });
 
     const createTitle = (e) => {
@@ -49,6 +55,7 @@ function Card() {
                         onChange={selectTime}
                         id="hourSelect"
                     >
+                        <option>시간선택</option>
                         {hours.map((hour) => {
                             return (
                                 <option key={hour} value={hour}>
@@ -60,9 +67,10 @@ function Card() {
                     end
                     <select
                         className="timeSelect"
-                        onChange={selectTime}
+                        onClick={selectTime}
                         id="hourSelect"
                     >
+                        <option>시간선택</option>
                         {hours.map((hour) => {
                             return (
                                 <option key={hour} value={hour}>

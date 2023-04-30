@@ -12,7 +12,7 @@ function Router() {
             <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/detail" element={<Detail />} />
-                <Route path="/daily" element={<Daily />} />
+                <Route path="/day" element={<Daily />} />
                 <Route path="/weekly" element={<Week />} />
             </Routes>
         </BrowserRouter>
