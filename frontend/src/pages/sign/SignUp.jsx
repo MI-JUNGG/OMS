@@ -25,7 +25,7 @@ function SignUp() {
     const userInfoSub = () => {
         axios
             .post(
-                "http://localhost:5173/auth/signup",
+                "http://192.168.219.21:3001/auth/signup",
                 {
                     name: form.name,
                     nickname: form.nickName,
