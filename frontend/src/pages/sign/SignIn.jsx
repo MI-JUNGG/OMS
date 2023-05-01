@@ -149,8 +149,8 @@ function SignIn() {
                 },
             )
             .then((res) => {
-                alert("로그인 하셨습니다"),
-                    localStorage.setItem("token", res.data.accessToken);
+                alert("로그인 하셨습니다");
+                localStorage.setItem("token", res.data.accessToken);
                 window.location.replace("/");
             })
             .catch((err) => console.log(err));
