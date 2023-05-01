@@ -1,11 +1,29 @@
-import "./Card.scss";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addCard } from "../../../modules/card";
 import { hours } from "./Seletime";
+import axios from "axios";
+import "./Card.scss";
 
 function Card() {
+    //초기 데이터 불러오기
+    const token = localStorage.getItem("token");
+    useEffect(() => {
+        axios
+            .get("http://192.168.219.21:3001/day/card", {
+                headers: {
+                    Authorization: token,
+                },
+            })
+            .then((response) => {
+                console.log(response);
+                setData(response);
+            })
+            .catch((error) => {
+                console.log("error", error);
+            });
+    }, []);
+    const [data, setData] = useState(null);
     const dispatch = useDispatch();
     const today = new Date();
     const id = today.toISOString();
@@ -13,13 +31,11 @@ function Card() {
         id: id,
         title: "",
         content: "",
-        time: "00:00",
+        starTime: "00:00",
+        endTime: "00:00",
     });
     const params = new URLSearchParams(window.location.search);
     const date = params.get("date");
-    useEffect(() => {
-        console.log(date);
-    });
 
     const createTitle = (e) => {
         setForm({ ...form, title: e.target.value });
@@ -27,16 +43,30 @@ function Card() {
     const createContent = (e) => {
         setForm({ ...form, content: e.target.value });
     };
-    const selectTime = (e) => {
-        setForm({ ...form, time: e.target.value });
+    const selectStartTime = (e) => {
+        setForm({ ...form, starTime: e.target.value });
     };
+    const selectEndTime = (e) => {
+        setForm({ ...form, endTime: e.target.value });
+    };
+
+    //데이터 보내는 로직
     const counterHandler = (e) => {
+        axios
+            .post(`http://192.168.219.21:3001/day/card`, form)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((error) => {
+                console.log("error", error);
+            });
         dispatch(addCard({ ...form, id }));
         setForm({
             id,
             title: "",
             content: "",
-            time: "",
+            startTime: "",
+            endTime: "",
         });
     };
 
@@ -52,7 +82,7 @@ function Card() {
                     start
                     <select
                         className="timeSelect"
-                        onChange={selectTime}
+                        onChange={selectStartTime}
                         id="hourSelect"
                     >
                         <option>시간선택</option>
@@ -67,7 +97,7 @@ function Card() {
                     end
                     <select
                         className="timeSelect"
-                        onClick={selectTime}
+                        onChange={selectEndTime}
                         id="hourSelect"
                     >
                         <option value="시간선택">시간선택</option>

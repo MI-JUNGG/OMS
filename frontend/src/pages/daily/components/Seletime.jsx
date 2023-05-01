@@ -51,9 +51,9 @@ function Seletime() {
                         <div className="time">{hour}</div>
                         <div className="contents">
                             {form.map((item) => {
-                                const { time, title } = item;
+                                const { starTime, title } = item;
                                 return (
-                                    time === hour && (
+                                    starTime === hour && (
                                         <div
                                             className="card"
                                             key={i}
@@ -102,4 +102,5 @@ export const hours = [
     "21:00",
     "22:00",
     "23:00",
+    "24:00",
 ];

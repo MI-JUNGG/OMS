@@ -6,7 +6,7 @@ function CreatedCardItem() {
     const dispatch = useDispatch();
     const form = useSelector((state) => state.cardReducer);
 
-    const { title, content, time } = form;
+    const { title, content } = form;
     return (
         <div className="createted">
             <div>
