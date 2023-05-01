@@ -1,0 +1,51 @@
+.signUpContainer {
+    flex-direction: column;
+    text-align: center;
+
+    .signUpTitle {
+        font-size: 30px;
+        font-weight: bold;
+        font-family: "Nanum";
+        text-align: center;
+    }
+
+    .inputZone {
+        border-top: 1px solid gray;
+        margin: 0 15px;
+        div {
+            display: flex;
+            text-align: center;
+            margin: 25px auto;
+            align-items: center;
+
+            span {
+                width: 100px;
+            }
+
+            input {
+                width: 300px;
+                height: 40px;
+                border-radius: 25px;
+                border: 1px solid gray;
+                padding-left: 20px;
+                letter-spacing: 2px;
+                outline: none;
+                font-size: 13px;
+            }
+        }
+    }
+    .signUpSub {
+        width: 150px;
+        height: 40px;
+        border-radius: 15px;
+        outline: none;
+        cursor: pointer;
+        border: none;
+        background-color: lightgray;
+        font-size: 20px;
+        font-weight: bold;
+        font-family: "Nanum";
+        text-align: center;
+        margin-top: 15px;
+    }
+}

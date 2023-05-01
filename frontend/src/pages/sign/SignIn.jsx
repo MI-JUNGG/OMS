@@ -13,6 +13,8 @@ import {
     NAVER_STATE_STRING,
     NAVER_CALLBACK_URI,
     NAVER_AUTH_URL,
+    NAVER_ACCESS_TOKEN_URL,
+    NAVER_CLIENT_SECRET,
 } from "./naver";
 import axios from "axios";
 import { useLocation } from "react-router";
@@ -34,7 +36,7 @@ function SignIn() {
 
     const location = useLocation();
 
-    const state = location.search.split("=")[2];
+    const state = new URL(window.location.href).searchParams.get("state");
 
     const code = new URL(window.location.href).searchParams.get("code");
 
@@ -77,59 +79,48 @@ function SignIn() {
 
     // kakaoGetCode();
 
-    const naverLog = () => {
-        NaverLogin();
-        UserProfile();
-    };
-    useEffect(naverLog, []);
+    // const naverGetToken = () => {
+    //     const { naver } = window;
 
-    const NaverLogin = () => {
-        const { naver } = window;
+    //     const naverLogin = new naver.LoginWithNaverId({
+    //         clientId: NAVER_CLIENT_ID,
+    //         callbackUrl: NAVER_CALLBACK_URI,
+    //         isPopup: false /* 팝업을 통한 연동처리 여부, true 면 팝업 */,
+    //         // loginButton: {
+    //         //     color: "green",
+    //         //     type: 1,
+    //         //     height: 20,
+    //         // } /* 로그인 버튼의 타입을 지정 */,
+    //     });
 
-        const naverLogin = new naver.LoginWithNaverId({
-            clientId: NAVER_CLIENT_ID,
-            callbackUrl: NAVER_CALLBACK_URI,
-            isPopup: false /* 팝업을 통한 연동처리 여부, true 면 팝업 */,
-            // loginButton: {
-            //     color: "green",
-            //     type: 1,
-            //     height: 20,
-            // } /* 로그인 버튼의 타입을 지정 */,
-        });
+    //     naverLogin.init();
 
-        naverLogin.init();
-    };
+    //     axios
+    //         .post(
+    //             `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NAVER_CLIENT_ID}&client_secret=${NAVER_CLIENT_SECRET}&code=${code}&state=${state}`,
+    //             {},
+    //             {
+    //                 headers: {
+    //                     "Content-type":
+    //                         "application/x-www-form-urlencoded;charset=utf-8",
+    //                 },
+    //             },
+    //         )
+    //         .then((res) => {
+    //             console.log(res);
+    //             // 응답 결과를 콘솔에 출력
+    //         })
+    //         .catch((err) => console.log(err));
+    // };
 
-    const UserProfile = () => {
-        window.location.href.includes("access_token") && GetUser();
-        function GetUser() {
-            const location = window.location.href.split("=")[1];
-            const token = location.split("&")[0];
-            console.log("token: ", token);
-            fetch(`${API}/account/sign-in`, {
-                method: "GET",
-                headers: {
-                    "Content-type": "application/json",
-                    Authorization: token,
-                },
-            })
-                .then((res) => res.json())
-                .then((res) => {
-                    localStorage.setItem("access_token", res.token);
-                    setUserData({
-                        nickname: res.nickname,
-                        image: res.image,
-                    });
-                })
-                .catch((err) => console.log("err : ", err));
-        }
-    };
+    // // useEffect(() => {
+    // //     initializeNaverLogin(); // useEffect로 안하고 onclick하면 로그인배너아이콘 안뜸
+    // // }, []);
 
-    // useEffect(() => {
-    //     initializeNaverLogin(); // useEffect로 안하고 onclick하면 로그인배너아이콘 안뜸
-    // }, []);
-
-    NaverLogin();
+    // const naverLog = () => {
+    //     naverLogin();
+    //     naverGetToken();
+    // };
 
     return (
         <>
@@ -149,7 +140,7 @@ function SignIn() {
                     <div className="kakaoLogin" onClick={kakaoLogin}>
                         <img src="/src/assets/images/kakao.svg" />
                     </div>
-                    <div className="naverIdLogin" onClick={naverLog}>
+                    <div className="naverIdLogin" onClick={naverLogin}>
                         <img src="/src/assets/images/naver.png" />
                     </div>
                 </div>
