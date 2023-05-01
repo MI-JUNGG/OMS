@@ -7,6 +7,7 @@ import viewReducer from "./viewSelector";
 import yearReducer from "./year";
 import modalReducer from "./modal";
 import signReducer from "./sign";
+import userReducer from "./user";
 
 const store = configureStore({
     reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
         yearReducer,
         modalReducer,
         signReducer,
+        userReducer,
     },
 });
 
