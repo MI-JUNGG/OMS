@@ -58,6 +58,12 @@ function Main() {
         return new Date(year, month, 1).getDay();
     };
 
+    const handleDateClick = (event) => {
+        const clickedDate = event.target.textContent;
+        const newLocation = `/day/${yearForm}-${monthForm}-${clickedDate}`;
+        window.location.href = newLocation;
+    };
+
     const renderDays = () => {
         const days = [];
         const daysCount = daysInMonth(date.getFullYear(), date.getMonth());
@@ -69,7 +75,7 @@ function Main() {
 
         for (let i = 1; i <= daysCount; i++) {
             days.push(
-                <div key={`day-${i}`} className="day">
+                <div key={`day-${i}`} className="day" onClick={handleDateClick}>
                     {i}
                 </div>,
             );
@@ -81,15 +87,7 @@ function Main() {
     return (
         <div className="calendar">
             <div className="header">
-                <AiOutlineLeft
-                    className="prevBtn"
-                    onClick={handlePrevMonth}
-                    style={{
-                        padding: "20px",
-                        fontSize: "35px",
-                        cursor: "pointer",
-                    }}
-                />
+                <AiOutlineLeft className="prevBtn" onClick={handlePrevMonth} />
 
                 <h1>{monthForm + "월"}</h1>
                 <AiOutlineRight className="nextBtn" onClick={handleNextMonth} />
