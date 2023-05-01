@@ -1,23 +1,28 @@
-import { REDIRECT_URI } from "../pages/sign/kakao";
+import { createSlice } from "@reduxjs/toolkit";
 
-const kakaoLogin = (code) => {
-    return function (dispatch, getState, { history }) {
-        axios({
-            method: "POST",
-            url: `${REDIRECT_URI}?code=${code}`,
-        })
-            .then((res) => {
-                console.log(res); // 토큰이 넘어올 것임
+const UserSlice = createSlice({
+    name: "user",
+    initialState: {
+        name: "",
+        nickName: "",
+        password: "",
+        eMail: "",
+    },
+    reducers: {
+        name: (state, action) => {
+            state.name = action.payload;
+        },
+        nickName: (state, action) => {
+            state.nickName = action.payload;
+        },
+        password: (state, action) => {
+            state.password = action.payload;
+        },
+        eMail: (state, action) => {
+            state.eMail = action.payload;
+        },
+    },
+});
 
-                const ACCESS_TOKEN = res.data.accessToken;
-
-                localStorage.setItem("token", ACCESS_TOKEN); //예시로 로컬에 저장함
-            })
-            .catch((err) => {
-                console.log("소셜로그인 에러", err);
-                window.alert("로그인에 실패하였습니다.");
-            });
-    };
-};
-
-export default kakaoLogin;
+export const { name, nickName, password, eMail } = UserSlice.actions;
+export default UserSlice.reducer;
