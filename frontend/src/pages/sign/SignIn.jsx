@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { sign } from "../../modules/sign";
 import "./SignIn.scss";
@@ -18,6 +18,7 @@ import {
 } from "./naver";
 import axios from "axios";
 import { useLocation } from "react-router";
+import { email, password } from "/src/modules/login";
 
 function SignIn() {
     const dispatch = useDispatch();
@@ -122,16 +123,60 @@ function SignIn() {
     //     naverGetToken();
     // };
 
+    const localLogin = useSelector((state) => state.loginReducer);
+
+    const emailHandler = (e) => {
+        dispatch(email(e.target.value));
+    };
+    const passwordHandler = (e) => {
+        dispatch(password(e.target.value));
+    };
+
+    console.log(localLogin);
+
+    const userLogin = () => {
+        axios
+            .post(
+                "http://192.168.219.21:3001/auth/signin",
+                {
+                    email: localLogin.email,
+                    password: localLogin.password,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                },
+            )
+            .then((res) => {
+                alert("로그인 하셨습니다"),
+                    localStorage.setItem("token", res.data.accessToken);
+                window.location.replace("/");
+            })
+            .catch((err) => console.log(err));
+    };
+
     return (
         <>
             <div className="signInContainer">
                 <h1>로그인</h1>
                 <div className="userInput">
-                    <input className="userId" placeholder="이메일" />
-                    <input className="userPassword" placeholder="비밀번호" />
+                    <input
+                        className="userId"
+                        placeholder="이메일"
+                        onChange={emailHandler}
+                    />
+                    <input
+                        className="userPassword"
+                        placeholder="비밀번호"
+                        onChange={passwordHandler}
+                        type="password"
+                    />
                 </div>
                 <div className="buttonZone">
-                    <button className="loginBtn">로그인</button>
+                    <button className="loginBtn" onClick={userLogin}>
+                        로그인
+                    </button>
                     <button className="signUpBtn" onClick={handleSignBox}>
                         회원가입
                     </button>
