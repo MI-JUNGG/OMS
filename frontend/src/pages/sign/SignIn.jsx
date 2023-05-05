@@ -8,14 +8,8 @@ import {
     KAKAO_REDIRECT_URI,
     KAKAO_AUTH_URL,
 } from "./kakao";
-import {
-    NAVER_CLIENT_ID,
-    NAVER_STATE_STRING,
-    NAVER_CALLBACK_URI,
-    NAVER_AUTH_URL,
-    NAVER_ACCESS_TOKEN_URL,
-    NAVER_CLIENT_SECRET,
-} from "./naver";
+import { NAVER_AUTH_URL } from "./naver";
+import NaverLogin from "./naverLogin";
 import axios from "axios";
 import { useLocation } from "react-router";
 import { email, password } from "/src/modules/login";
@@ -31,7 +25,7 @@ function SignIn() {
         window.location.href = KAKAO_AUTH_URL;
     };
 
-    const naverLogin = () => {
+    const naverLoginMove = () => {
         window.location.href = NAVER_AUTH_URL;
     };
 
@@ -79,49 +73,7 @@ function SignIn() {
     // };
 
     // kakaoGetCode();
-
-    // const naverGetToken = () => {
-    //     const { naver } = window;
-
-    //     const naverLogin = new naver.LoginWithNaverId({
-    //         clientId: NAVER_CLIENT_ID,
-    //         callbackUrl: NAVER_CALLBACK_URI,
-    //         isPopup: false /* 팝업을 통한 연동처리 여부, true 면 팝업 */,
-    //         // loginButton: {
-    //         //     color: "green",
-    //         //     type: 1,
-    //         //     height: 20,
-    //         // } /* 로그인 버튼의 타입을 지정 */,
-    //     });
-
-    //     naverLogin.init();
-
-    //     axios
-    //         .post(
-    //             `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NAVER_CLIENT_ID}&client_secret=${NAVER_CLIENT_SECRET}&code=${code}&state=${state}`,
-    //             {},
-    //             {
-    //                 headers: {
-    //                     "Content-type":
-    //                         "application/x-www-form-urlencoded;charset=utf-8",
-    //                 },
-    //             },
-    //         )
-    //         .then((res) => {
-    //             console.log(res);
-    //             // 응답 결과를 콘솔에 출력
-    //         })
-    //         .catch((err) => console.log(err));
-    // };
-
-    // // useEffect(() => {
-    // //     initializeNaverLogin(); // useEffect로 안하고 onclick하면 로그인배너아이콘 안뜸
-    // // }, []);
-
-    // const naverLog = () => {
-    //     naverLogin();
-    //     naverGetToken();
-    // };
+    console.log(code);
 
     const localLogin = useSelector((state) => state.loginReducer);
 
@@ -131,8 +83,6 @@ function SignIn() {
     const passwordHandler = (e) => {
         dispatch(password(e.target.value));
     };
-
-    console.log(localLogin);
 
     const userLogin = () => {
         axios
@@ -185,9 +135,10 @@ function SignIn() {
                     <div className="kakaoLogin" onClick={kakaoLogin}>
                         <img src="/src/assets/images/kakao.svg" />
                     </div>
-                    <div className="naverIdLogin" onClick={naverLogin}>
+                    {/* <div className="naverIdLogin" onClick={naverLoginMove}>
                         <img src="/src/assets/images/naver.png" />
-                    </div>
+                    </div> */}
+                    <NaverLogin />
                 </div>
             </div>
         </>
