@@ -56,7 +56,6 @@ function Card() {
         } = form;
         const config = {
             headers: {
-                // "Content-Type": "application/x-www-form-urlencoded",
                 Authorization:
                     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6MSwiaWF0IjoxNjgyOTMxMjAyfQ.qbyo8xpoRQV1WbCNFiOzMC3-0pFQOjsHgN8heIc_qhc",
             },
