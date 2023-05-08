@@ -1,57 +1,58 @@
-import React from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { cardmodal } from "../../../modules/modal";
-import { Divider } from "antd";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Selectime.scss";
 
 function Seletime() {
-    const dispatch = useDispatch();
-    const form = useSelector((state) => state.cardReducer);
-    const openModal = useSelector((state) => state.modalReducer.cardmodal);
-    const [clickedLi, setClickedLi] = useState(null);
-    console.log(form);
-    const showCard = (event) => {
-        const li = event.target.closest("li");
-        setClickedLi(li);
-        dispatch(cardmodal());
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const day = searchParams.get("date");
+    const [date, setDate] = useState(day);
+    const navigate = useNavigate();
+
+    const datePlusHandler = () => {
+        const formatDate = new Date(date);
+        formatDate.setDate(formatDate.getDate() + 1);
+        const year = formatDate.getFullYear();
+        const month = String(formatDate.getMonth() + 1).padStart(2, "0");
+        const day = String(formatDate.getDate()).padStart(2, "0");
+        const formattedDate = `${year}-${month}-${day}`;
+        setDate(formattedDate);
+        const newLocation = `/day?date=${year}-${month}-${day}`;
+        navigate(newLocation);
     };
 
-    const getModalPosition = () => {
-        if (!clickedLi) return null;
-
-        const liRect = clickedLi.getBoundingClientRect();
-        const modalHeight = 200; // adjust this to match the height of the modal
-
-        if (liRect.bottom + modalHeight <= window.innerHeight) {
-            // display below the clicked li
-            return {
-                top: liRect.bottom,
-                left: liRect.left,
-            };
-        } else if (liRect.top >= modalHeight) {
-            // display above the clicked li
-            return {
-                bottom: window.innerHeight - liRect.top,
-                left: liRect.left,
-            };
-        } else {
-            // display at the bottom of the screen
-            return {
-                bottom: 0,
-                left: liRect.left,
-            };
-        }
+    const dateMinusHandler = () => {
+        const formatDate = new Date(date);
+        formatDate.setDate(formatDate.getDate() - 1);
+        const year = formatDate.getFullYear();
+        const month = String(formatDate.getMonth() + 1).padStart(2, "0");
+        const day = String(formatDate.getDate()).padStart(2, "0");
+        const formattedDate = `${year}-${month}-${day}`;
+        setDate(formattedDate);
+        const newLocation = `/day?date=${year}-${month}-${day}`;
+        navigate(newLocation);
     };
+
+    useEffect(() => {
+        const formattedDate = searchParams.get("date");
+        setDate(formattedDate);
+    }, [location]);
+
     return (
         <div className="dayTable">
-            <div className="dayChanger"> 2023.04.01 </div>
-            {hours.map((hour, i) => {
+            <div className="dayChanger">
+                <div className="minusDay" onClick={dateMinusHandler}>
+                    -
+                </div>
+                {date}
+                <div className="plusDay" onClick={datePlusHandler}>
+                    +
+                </div>
+            </div>
+            {hours.map((hour) => {
                 return (
-                    <div className="timeContainer">
-                        <div key={hour} className="timeSlot">
-                            {hour}
-                        </div>
+                    <div key={hour} className="timeContainer">
+                        <div className="timeSlot">{hour}</div>
                         <div className="timeBorder"></div>
                         <div className="contents"></div>
                     </div>
@@ -60,7 +61,9 @@ function Seletime() {
         </div>
     );
 }
+
 export default Seletime;
+
 export const hours = [
     "00:00",
     "01:00",
