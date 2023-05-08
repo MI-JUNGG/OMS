@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
-    height: 60vw;
+
     .schedule {
         padding: 10px;
         gap: 10px;
@@ -13,6 +13,5 @@
     .contanier {
         display: flex;
         justify-content: center;
-        height: auto;
     }
 }

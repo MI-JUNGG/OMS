@@ -1,8 +1,9 @@
+import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cardmodal } from "../../../modules/modal";
+import { Divider } from "antd";
 import "./Selectime.scss";
-import CreatedCardItem from "./CreatedCardItem";
 
 function Seletime() {
     const dispatch = useDispatch();
@@ -42,37 +43,20 @@ function Seletime() {
             };
         }
     };
-
     return (
-        <div className="hourBox">
-            <ul>
-                {hours.map((hour, i) => (
-                    <li key={hour}>
-                        <div className="time">{hour}</div>
-                        <div className="contents">
-                            {form.map((item) => {
-                                const { starTime, title } = item;
-                                return (
-                                    starTime === hour && (
-                                        <div
-                                            className="card"
-                                            key={i}
-                                            onClick={showCard}
-                                        >
-                                            <span>{title}</span>
-                                        </div>
-                                    )
-                                );
-                            })}
+        <div className="dayTable">
+            <div className="dayChanger"> 2023.04.01 </div>
+            {hours.map((hour, i) => {
+                return (
+                    <div className="timeContainer">
+                        <div key={hour} className="timeSlot">
+                            {hour}
                         </div>
-                    </li>
-                ))}
-            </ul>
-            {openModal && (
-                <div className="modalWrapper" style={getModalPosition()}>
-                    <CreatedCardItem />
-                </div>
-            )}
+                        <div className="timeBorder"></div>
+                        <div className="contents"></div>
+                    </div>
+                );
+            })}
         </div>
     );
 }
