@@ -1,61 +1,93 @@
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Selectime.scss";
-import { useDrop } from "react-dnd";
 
 function Seletime() {
-    const [{ isOver }, drop] = useDrop(() => ({
-        accept: "SELETIME",
-        canDrop: (item) => {
-            // 드랍이 가능한지 확인하는 작업을 수행합니다.
-            return true;
-        },
-        drop: (item, monitor) => {
-            // 드랍이 발생했을 때 수행할 작업을 처리합니다.
-            console.log("item", item);
-            console.log("monitor", monitor);
-        },
-        collect: (monitor) => ({
-            isOver: monitor.isOver(),
-        }),
-    }));
-    const hours = [
-        "00:00",
-        "01:00",
-        "02:00",
-        "03:00",
-        "04:00",
-        "05:00",
-        "06:00",
-        "07:00",
-        "08:00",
-        "09:00",
-        "10:00",
-        "11:00",
-        "12:00",
-        "13:00",
-        "14:00",
-        "15:00",
-        "16:00",
-        "17:00",
-        "18:00",
-        "19:00",
-        "20:00",
-        "21:00",
-        "22:00",
-        "23:00",
-    ];
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const day = searchParams.get("date");
+    const [date, setDate] = useState(day);
+    const navigate = useNavigate();
+
+    const datePlusHandler = () => {
+        const formatDate = new Date(date);
+        formatDate.setDate(formatDate.getDate() + 1);
+        const year = formatDate.getFullYear();
+        const month = String(formatDate.getMonth() + 1).padStart(2, "0");
+        const day = String(formatDate.getDate()).padStart(2, "0");
+        const formattedDate = `${year}-${month}-${day}`;
+        setDate(formattedDate);
+        const newLocation = `/day?date=${year}-${month}-${day}`;
+        navigate(newLocation);
+    };
+
+    const dateMinusHandler = () => {
+        const formatDate = new Date(date);
+        formatDate.setDate(formatDate.getDate() - 1);
+        const year = formatDate.getFullYear();
+        const month = String(formatDate.getMonth() + 1).padStart(2, "0");
+        const day = String(formatDate.getDate()).padStart(2, "0");
+        const formattedDate = `${year}-${month}-${day}`;
+        setDate(formattedDate);
+        const newLocation = `/day?date=${year}-${month}-${day}`;
+        navigate(newLocation);
+    };
+
+    useEffect(() => {
+        const formattedDate = searchParams.get("date");
+        setDate(formattedDate);
+    }, [location]);
 
     return (
-        <div ref={drop} className="hourBox">
-            <ul>
-                {hours.map((hour, i) => (
-                    <li key={i}>
-                        <span className="time">{hour}</span>
-                        <span className="contents"></span>
-                    </li>
-                ))}
-            </ul>
+        <div className="dayTable">
+            <div className="dayChanger">
+                <div className="minusDay" onClick={dateMinusHandler}>
+                    -
+                </div>
+                {date}
+                <div className="plusDay" onClick={datePlusHandler}>
+                    +
+                </div>
+            </div>
+            {hours.map((hour) => {
+                return (
+                    <div key={hour} className="timeContainer">
+                        <div className="timeSlot">{hour}</div>
+                        <div className="timeBorder"></div>
+                        <div className="contents"></div>
+                    </div>
+                );
+            })}
         </div>
     );
 }
 
 export default Seletime;
+
+export const hours = [
+    "00:00",
+    "01:00",
+    "02:00",
+    "03:00",
+    "04:00",
+    "05:00",
+    "06:00",
+    "07:00",
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00",
+    "17:00",
+    "18:00",
+    "19:00",
+    "20:00",
+    "21:00",
+    "22:00",
+    "23:00",
+    "24:00",
+];
