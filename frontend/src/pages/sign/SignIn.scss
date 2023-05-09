@@ -1,12 +1,12 @@
 .signContainer {
-    width: 400px;
-    height: 450px;
+    width: 579px;
+    height: 791px; //891px
     background-color: white;
     border-radius: 15px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     position: absolute;
-    top: 50px;
-    left: -260px;
+    top: 50%;
+    right: 450%;
 
     .signInContainer {
         display: flex;

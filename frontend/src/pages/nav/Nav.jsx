@@ -41,10 +41,16 @@ function Nav() {
                         </>
                     ) : (
                         <>
-                            <span className="loginText" onClick={HandleModal}>
-                                로그인
-                            </span>
-                            {modal ? <Sign /> : ""}
+                            <div>
+                                <span
+                                    className="loginText"
+                                    onClick={HandleModal}
+                                >
+                                    Login
+                                </span>
+                                <span className="signUp">Sign Up</span>
+                                {modal ? <Sign /> : ""}
+                            </div>
                         </>
                     )}
                 </div>
