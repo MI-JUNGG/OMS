@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const ViewSlice = createSlice({
     name: "view",
     initialState: {
-        select: "month",
-        view: ["month", "week", "day"],
+        select: "Month",
+        view: ["Month", "Week", "Day"],
         element: ["/", "/weekly", "/daily"],
     },
     reducers: {

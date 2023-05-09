@@ -26,10 +26,10 @@ function ViewSwitcher() {
                             <Link
                                 to={form.element[i]}
                                 style={{
-                                    backgroundColor: "white",
+                                    textDecoration: "none",
                                 }}
                             >
-                                {value}
+                                <div>{value}</div>
                             </Link>
                         </div>
                     );
