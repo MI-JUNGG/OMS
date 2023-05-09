@@ -23,47 +23,30 @@ function Nav() {
     return (
         <>
             <div className="navWrapper">
-                <div
-                    style={{
-                        display: "flex",
-                    }}
-                >
-                    <YearPicker />
-                    <MonthPicker />
-                </div>
-                <div
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                    }}
-                >
-                    <ViewSwitcher />
-                    <div className="login">
-                        {localStorage.getItem("token") ? (
-                            <>
-                                <span
-                                    className="loginText"
-                                    onClick={() => {
-                                        localStorage.removeItem("token");
-                                        alert("로그아웃 하셨습니다");
-                                        window.location.replace("/");
-                                    }}
-                                >
-                                    로그아웃
-                                </span>
-                            </>
-                        ) : (
-                            <>
-                                <span
-                                    className="loginText"
-                                    onClick={HandleModal}
-                                >
-                                    로그인
-                                </span>
-                                {modal ? <Sign /> : ""}
-                            </>
-                        )}
-                    </div>
+                <div>로고</div>
+                <ViewSwitcher />
+                <div className="login">
+                    {localStorage.getItem("token") ? (
+                        <>
+                            <span
+                                className="loginText"
+                                onClick={() => {
+                                    localStorage.removeItem("token");
+                                    alert("로그아웃 하셨습니다");
+                                    window.location.replace("/");
+                                }}
+                            >
+                                로그아웃
+                            </span>
+                        </>
+                    ) : (
+                        <>
+                            <span className="loginText" onClick={HandleModal}>
+                                로그인
+                            </span>
+                            {modal ? <Sign /> : ""}
+                        </>
+                    )}
                 </div>
             </div>
         </>
