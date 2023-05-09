@@ -106,38 +106,7 @@ function Card() {
                     <span>color</span>
                     <span>color</span>
                 </div>
-                <div className="timeSelector">
-                    start
-                    <select
-                        className="timeSelect"
-                        onChange={selectStartTime}
-                        id="hourSelect"
-                    >
-                        <option>시간선택</option>
-                        {hours.map((hour) => {
-                            return (
-                                <option key={hour} value={hour}>
-                                    {hour}
-                                </option>
-                            );
-                        })}
-                    </select>
-                    end
-                    <select
-                        className="timeSelect"
-                        onChange={selectEndTime}
-                        id="hourSelect"
-                    >
-                        <option value="시간선택">시간선택</option>
-                        {hours.map((hour) => {
-                            return (
-                                <option key={hour} value={hour}>
-                                    {hour}
-                                </option>
-                            );
-                        })}
-                    </select>
-                </div>
+
                 <div className="cardTitle">
                     <span>title</span>
                     <textarea
@@ -164,3 +133,36 @@ function Card() {
 }
 
 export default Card;
+
+// <div className="timeSelector">
+// start
+// <select
+//     className="timeSelect"
+//     onChange={selectStartTime}
+//     id="hourSelect"
+// >
+//     <option>시간선택</option>
+//     {hours.map((hour) => {
+//         return (
+//             <option key={hour} value={hour}>
+//                 {hour}
+//             </option>
+//         );
+//     })}
+// </select>
+// end
+// <select
+//     className="timeSelect"
+//     onChange={selectEndTime}
+//     id="hourSelect"
+// >
+//     <option value="시간선택">시간선택</option>
+//     {hours.map((hour) => {
+//         return (
+//             <option key={hour} value={hour}>
+//                 {hour}
+//             </option>
+//         );
+//     })}
+// </select>
+// </div>

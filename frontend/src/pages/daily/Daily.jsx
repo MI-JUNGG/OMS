@@ -6,6 +6,8 @@ import axios from "axios";
 import { useEffect } from "react";
 
 import "./Daily.scss";
+import Card from "./components/Card";
+import Button from "../button/Button";
 
 function Daily() {
     const ref = useRef();
@@ -33,6 +35,8 @@ function Daily() {
         <div className="topContanier">
             <DndProvider backend={HTML5Backend}>
                 <Seletime />
+
+                <Button />
             </DndProvider>
         </div>
     );
