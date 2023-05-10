@@ -1,0 +1,16 @@
+.carousel {
+    overflow-y: auto;
+    height: 100vh;
+}
+
+.carousel-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 24px;
+
+    input {
+        width: 100%;
+    }
+}

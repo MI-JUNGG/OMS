@@ -4,19 +4,17 @@ import { addCard } from "../../../modules/card";
 import { hours } from "./Seletime";
 import axios from "axios";
 import "./Card.scss";
+import AlldayTime from "./CardCompo/AlldayTime";
+import ModalLink from "../../../assets/images/modal/ModalLink";
+import ModalNote from "../../../assets/images/modal/modalNote";
+import ModalX from "../../../assets/images/modal/ModalX";
 
 function Card() {
     const [data, setData] = useState(null);
     const dispatch = useDispatch();
     const today = new Date();
     const id = today.toISOString();
-    // id: id,
-    // title: "",
-    // content: "",
-    // starTime: "00:00",
-    // endTime: "00:00",
-    // fontColorid: "#0000",
-    // color: "#0000",
+
     const [form, setForm] = useState({
         title: "",
         contents: "",
@@ -82,11 +80,6 @@ function Card() {
                 console.log("error", error);
             });
         dispatch(addCard({ ...form, id }));
-        // id,
-        // title: "",
-        // content: "",
-        // startTime: "",
-        // endTime: "",
         setForm({
             title: "",
             contents: "",
@@ -99,70 +92,34 @@ function Card() {
     };
 
     return (
-        <div>
+        <div className="modalBackGround">
             <div className="card">
-                <div className="selectColor">
-                    <span>color</span>
-                    <span>color</span>
-                    <span>color</span>
-                </div>
-
                 <div className="cardTitle">
-                    <span>title</span>
-                    <textarea
+                    <input
+                        type="search"
                         onChange={createTitle}
                         value={form.title}
                         name="title"
+                        placeholder="제목"
                     />
                 </div>
+                <AlldayTime />
+                <div>
+                    <ModalLink />
+                    <input type="url" />
+                </div>
                 <div className="contents">
-                    <span>contents</span>
+                    <ModalNote />
                     <textarea
                         onChange={createContent}
                         value={form.content}
                         name="content"
                     />
                 </div>
-
-                <button onClick={counterHandler} type="button">
-                    완료
-                </button>
+                <div className="selectColor"></div>
             </div>
         </div>
     );
 }
 
 export default Card;
-
-// <div className="timeSelector">
-// start
-// <select
-//     className="timeSelect"
-//     onChange={selectStartTime}
-//     id="hourSelect"
-// >
-//     <option>시간선택</option>
-//     {hours.map((hour) => {
-//         return (
-//             <option key={hour} value={hour}>
-//                 {hour}
-//             </option>
-//         );
-//     })}
-// </select>
-// end
-// <select
-//     className="timeSelect"
-//     onChange={selectEndTime}
-//     id="hourSelect"
-// >
-//     <option value="시간선택">시간선택</option>
-//     {hours.map((hour) => {
-//         return (
-//             <option key={hour} value={hour}>
-//                 {hour}
-//             </option>
-//         );
-//     })}
-// </select>
-// </div>
