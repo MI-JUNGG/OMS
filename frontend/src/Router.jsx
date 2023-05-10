@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./pages/Main";
 import Detail from "./pages/Detail";
@@ -6,6 +7,10 @@ import Nav from "./pages/nav/Nav";
 import Week from "./pages/weekly/weekly";
 
 function Router() {
+    const loginModal = useSelector(
+        (state) => state.loginModalReducer.loginModal,
+    );
+
     return (
         <BrowserRouter>
             <Nav />

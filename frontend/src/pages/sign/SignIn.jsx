@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { sign } from "../../modules/sign";
 import "./SignIn.scss";
 import {
@@ -73,7 +72,6 @@ function SignIn() {
     // };
 
     // kakaoGetCode();
-    console.log(code);
 
     const localLogin = useSelector((state) => state.loginReducer);
 
@@ -123,21 +121,36 @@ function SignIn() {
                         type="password"
                     />
                 </div>
+                <div className="stayLogged">
+                    <input type="checkbox" />
+                    <span>로그인 상태 유지</span>
+                </div>
                 <div className="buttonZone">
                     <button className="loginBtn" onClick={userLogin}>
                         로그인
                     </button>
-                    <button className="signUpBtn" onClick={handleSignBox}>
-                        회원가입
-                    </button>
+                    <div>
+                        <span>아직 계정이 없으신가요?</span>
+                        <a onClick={handleSignBox}>회원가입하기</a>
+                    </div>
                 </div>
                 <div className="socialLogin">
                     <div className="kakaoLogin" onClick={kakaoLogin}>
-                        <img src="/src/assets/images/kakao.svg" />
+                        <img src="/src/assets/images/social_logo/kakao.svg" />
+                        <span>
+                            Kakao
+                            <br />
+                            로그인
+                        </span>
                     </div>
-                    {/* <div className="naverIdLogin" onClick={naverLoginMove}>
-                        <img src="/src/assets/images/naver.png" />
-                    </div> */}
+                    <div className="naverIdLogin" onClick={naverLoginMove}>
+                        <img src="/src/assets/images/social_logo/naver.svg" />
+                        <span>
+                            Naver
+                            <br />
+                            로그인
+                        </span>
+                    </div>
                     <NaverLogin />
                 </div>
             </div>

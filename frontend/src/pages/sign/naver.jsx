@@ -14,7 +14,6 @@ export function LoginNaver() {
             clientId: NAVER_CLIENT_ID,
             callbackUrl: NAVER_CALLBACK_URI,
             isPopup: false,
-            loginButton: { color: "white", type: 1, height: "45" },
         });
         naverLogin.init();
     };
