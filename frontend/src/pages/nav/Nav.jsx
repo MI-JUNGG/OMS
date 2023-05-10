@@ -1,23 +1,20 @@
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./Nav.scss";
 import MonthPicker from "./components/MonthPicker";
 import ViewSwitcher from "./components/ViewSwitcher";
 import YearPicker from "./components/YearPicker";
 import Sign from "../sign/Sign";
-import { sign } from "../../modules/sign";
+import LoginModalBackground from "../sign/LoginModalBackground";
+import { loginModal } from "../../modules/loginModal";
 
 function Nav() {
-    const isSign = useSelector((state) => state.signReducer);
+    const isLoginModal = useSelector(
+        (state) => state.loginModalReducer.loginModal,
+    );
     const dispatch = useDispatch();
 
-    const [modal, setModal] = useState(false);
-
     const HandleModal = () => {
-        setModal((prev) => !prev);
-        if (isSign.sign === 1) {
-            dispatch(sign(0));
-        }
+        dispatch(loginModal());
     };
 
     return (
@@ -42,9 +39,19 @@ function Nav() {
                     ) : (
                         <>
                             <span className="loginText" onClick={HandleModal}>
-                                로그인
+                                Login
                             </span>
-                            {modal ? <Sign /> : ""}
+
+                            {isLoginModal ? (
+                                <>
+                                    <LoginModalBackground
+                                        onClick={HandleModal}
+                                    />
+                                    <Sign />
+                                </>
+                            ) : (
+                                ""
+                            )}
                         </>
                     )}
                 </div>
