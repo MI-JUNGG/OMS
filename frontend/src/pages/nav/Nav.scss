@@ -1,5 +1,4 @@
 .navWrapper {
-    // width: 100vw;
     height: 96px;
     padding: 30px 50px;
     background-color: transparent;
@@ -7,14 +6,20 @@
     justify-content: space-between;
     align-items: center;
     background-color: #547aff;
+    position: relative;
 
     .login {
-        margin: 0 35px;
-        padding: 5px;
-        position: relative;
+        // margin: 0 35px;
+        // padding: 5px;
 
         .loginText {
             cursor: pointer;
+            color: white;
+        }
+
+        .signUp {
+            cursor: pointer;
+            color: white;
         }
     }
 }

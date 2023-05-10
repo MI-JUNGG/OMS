@@ -9,6 +9,7 @@ import modalReducer from "./modal";
 import signReducer from "./sign";
 import userReducer from "./user";
 import loginReducer from "./login";
+import loginModalReducer from "./loginModal";
 
 const store = configureStore({
     reducer: {
@@ -21,6 +22,7 @@ const store = configureStore({
         signReducer,
         userReducer,
         loginReducer,
+        loginModalReducer,
     },
 });
 

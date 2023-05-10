@@ -2,12 +2,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { name, nickName, password, eMail } from "../../modules/user";
 import axios from "axios";
 import "./SignUp.scss";
+import { sign } from "../../modules/sign";
 
 function SignUp() {
     const dispatch = useDispatch();
-    const form = useSelector((state) => state.userReducer);
-
-    console.log(form);
+    const userInputForm = useSelector((state) => state.userReducer);
+    const backToLogin = () => {
+        dispatch(sign(0));
+    };
 
     const nameHandler = (e) => {
         dispatch(name(e.target.value));
@@ -27,10 +29,10 @@ function SignUp() {
             .post(
                 "http://192.168.219.21:3001/auth/signup",
                 {
-                    name: form.name,
-                    nickname: form.nickName,
-                    password: form.password,
-                    email: form.eMail,
+                    name: userInputForm.name,
+                    nickname: userInputForm.nickName,
+                    password: userInputForm.password,
+                    email: userInputForm.eMail,
                 },
                 {
                     headers: {
@@ -48,48 +50,44 @@ function SignUp() {
                 <h1 className="signUpTitle">회원가입</h1>
                 <div className="inputZone">
                     <div>
-                        <span>이름</span>
                         <input
                             type="text"
                             name="name"
                             placeholder="이름"
-                            value={form.name}
+                            value={userInputForm.name}
                             onChange={(e) => {
                                 nameHandler(e);
                             }}
                         />
                     </div>
                     <div>
-                        <span>닉네임</span>
                         <input
                             type="text"
                             name="nickname"
                             placeholder="닉네임"
-                            value={form.nickName}
+                            value={userInputForm.nickName}
                             onChange={(e) => {
                                 nickNameHandler(e);
                             }}
                         />
                     </div>
                     <div>
-                        <span>비밀번호</span>
                         <input
                             type="password"
                             name="password"
                             placeholder="비밀번호"
-                            value={form.password}
+                            value={userInputForm.password}
                             onChange={(e) => {
                                 passwordHandler(e);
                             }}
                         />
                     </div>
                     <div>
-                        <span>이메일</span>
                         <input
                             type="text"
                             name="email"
                             placeholder="이메일"
-                            value={form.eMail}
+                            value={userInputForm.eMail}
                             onChange={(e) => {
                                 eMailHandler(e);
                             }}
@@ -103,6 +101,28 @@ function SignUp() {
                 >
                     회원가입
                 </button>
+                <div className="backToLogin">
+                    <span>이미 계정이 있으신가요?</span>
+                    <a onClick={backToLogin}>로그인하기</a>
+                </div>
+                <div className="socialSignUp">
+                    <div className="kakaoSignUp">
+                        <img src="/src/assets/images/social_logo/kakao.svg" />
+                        <span>
+                            Kakao
+                            <br />
+                            회원가입
+                        </span>
+                    </div>
+                    <div className="naverSignUp">
+                        <img src="/src/assets/images/social_logo/naver.svg" />
+                        <span>
+                            Naver
+                            <br />
+                            회원가입
+                        </span>
+                    </div>
+                </div>
             </div>
         </>
     );
