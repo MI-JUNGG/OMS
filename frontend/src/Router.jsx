@@ -7,10 +7,6 @@ import Nav from "./pages/nav/Nav";
 import Week from "./pages/weekly/weekly";
 
 function Router() {
-    const loginModal = useSelector(
-        (state) => state.loginModalReducer.loginModal,
-    );
-
     return (
         <BrowserRouter>
             <Nav />
