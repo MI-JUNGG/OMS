@@ -6,6 +6,7 @@ import YearPicker from "./components/YearPicker";
 import Sign from "../sign/Sign";
 import LoginModalBackground from "../sign/LoginModalBackground";
 import { loginModal } from "../../modules/loginModal";
+import { sign } from "../../modules/sign";
 
 function Nav() {
     const isLoginModal = useSelector(
@@ -45,7 +46,10 @@ function Nav() {
                             {isLoginModal ? (
                                 <>
                                     <LoginModalBackground
-                                        onClick={HandleModal}
+                                        onClick={() => {
+                                            HandleModal();
+                                            dispatch(sign(0));
+                                        }}
                                     />
                                     <Sign />
                                 </>

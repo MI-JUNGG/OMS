@@ -1,6 +1,9 @@
+$loginModalTextColor: #abaeb5;
+
 .signUpContainer {
     flex-direction: column;
     text-align: center;
+    padding: 0 80px;
 
     .signUpTitle {
         font-size: 30px;
@@ -10,13 +13,13 @@
     }
 
     .inputZone {
-        border-top: 1px solid gray;
-        margin: 0 15px;
+        padding-top: 40px;
+        border-top: 1px solid $loginModalTextColor;
 
         div {
             display: flex;
             text-align: center;
-            margin: 25px auto;
+            margin: 20px auto;
             align-items: center;
 
             span {
@@ -24,30 +27,97 @@
             }
 
             input {
-                width: 300px;
-                height: 40px;
-                border-radius: 25px;
-                border: 1px solid gray;
-                padding-left: 20px;
+                width: 422px;
+                height: 60px;
+                border-radius: 7px;
+                border: 1px solid $loginModalTextColor;
+                padding-left: 35px;
                 letter-spacing: 2px;
                 outline: none;
-                font-size: 13px;
+                font-size: 18px;
+            }
+            input::placeholder {
+                color: $loginModalTextColor;
             }
         }
     }
 
     .signUpSub {
-        width: 150px;
-        height: 40px;
-        border-radius: 15px;
+        width: 422px;
+        height: 60px;
+        border-radius: 7px;
+        background-color: #547aff;
         outline: none;
         cursor: pointer;
         border: none;
-        background-color: lightgray;
-        font-size: 20px;
-        font-weight: bold;
-        font-family: "Nanum";
-        text-align: center;
-        margin-top: 15px;
+        font-size: 24px;
+        color: #ffffff;
+        border-style: none;
+    }
+
+    .backToLogin {
+        display: flex;
+        justify-content: center;
+        margin-top: 29px;
+        padding-bottom: 23px;
+        border-bottom: 1px solid $loginModalTextColor;
+
+        span {
+            font-size: 15px;
+            color: $loginModalTextColor;
+            font-weight: 100;
+            margin-right: 17px;
+        }
+
+        a {
+            font-size: 15px;
+            color: $loginModalTextColor;
+            font-weight: bold;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+    .socialSignUp {
+        display: flex;
+        justify-content: center;
+        margin-top: 25px;
+        margin-bottom: 80px;
+
+        .kakaoSignUp {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-right: 82px;
+            cursor: pointer;
+
+            img {
+                width: 65px;
+            }
+
+            span {
+                color: $loginModalTextColor;
+                font-size: 16px;
+                margin-top: 5px;
+            }
+        }
+
+        .naverSignUp {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            img {
+                width: 65px;
+            }
+
+            span {
+                color: $loginModalTextColor;
+                font-size: 16px;
+                margin-top: 5px;
+            }
+        }
     }
 }

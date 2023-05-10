@@ -84,15 +84,6 @@ $loginModalTextColor: #abaeb5;
             border-bottom: 1px solid lightgray;
             padding-bottom: 26px;
 
-            button {
-                background-color: rgb(233, 233, 233);
-                width: 70px;
-                height: 30px;
-                border-style: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
             .loginBtn {
                 width: 422px;
                 height: 60px;
@@ -100,6 +91,8 @@ $loginModalTextColor: #abaeb5;
                 background-color: #547aff;
                 font-size: 24px;
                 color: #ffffff;
+                border-style: none;
+                cursor: pointer;
             }
 
             div {
