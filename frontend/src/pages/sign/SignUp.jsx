@@ -9,26 +9,14 @@ import {
 import axios from "axios";
 import "./SignUp.scss";
 import { sign } from "../../modules/sign";
-import loginModal from "../../modules/loginModal";
-import { useEffect } from "react";
 
 function SignUp() {
     const dispatch = useDispatch();
     const userInputForm = useSelector((state) => state.userReducer);
-    const isOnLoginModal = useSelector((state) => state.loginModalReducer);
+
     const backToLogin = () => {
         dispatch(sign(0));
     };
-    console.log(isOnLoginModal.loginModal);
-    useEffect(() => {
-        if (!isOnLoginModal.loginModal) {
-            dispatch(name(""));
-            dispatch(nickName(""));
-            dispatch(eMail(""));
-            dispatch(password(null));
-            dispatch(confirmPassword(null));
-        }
-    }, [isOnLoginModal.loginModal]);
 
     const nameHandler = (e) => {
         dispatch(name(e.target.value));
