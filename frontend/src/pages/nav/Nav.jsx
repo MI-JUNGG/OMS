@@ -13,6 +13,7 @@ function Nav() {
         (state) => state.loginModalReducer.loginModal,
     );
     const dispatch = useDispatch();
+    console.log(isLoginModal);
 
     const HandleModal = () => {
         dispatch(loginModal());

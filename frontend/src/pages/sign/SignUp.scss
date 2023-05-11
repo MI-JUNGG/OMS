@@ -2,28 +2,31 @@ $loginModalTextColor: #abaeb5;
 
 .signUpContainer {
     flex-direction: column;
-    text-align: center;
     padding: 0 80px;
+    text-align: center;
 
     .signUpTitle {
         font-size: 30px;
         font-weight: bold;
         font-family: "Nanum";
-        text-align: center;
+        margin-top: 30px;
     }
 
     .inputZone {
-        padding-top: 40px;
+        padding-top: 20px;
         border-top: 1px solid $loginModalTextColor;
 
         div {
             display: flex;
-            text-align: center;
-            margin: 20px auto;
-            align-items: center;
+            margin-bottom: 5px;
+            flex-direction: column;
+            height: 75px;
 
             span {
-                width: 100px;
+                font-size: 12px;
+                color: #ee3f3f;
+                margin: 3px 0 0 16px;
+                text-align: left;
             }
 
             input {
@@ -35,9 +38,15 @@ $loginModalTextColor: #abaeb5;
                 letter-spacing: 2px;
                 outline: none;
                 font-size: 18px;
+                &:focus:not(.error-input) {
+                    border: 2px solid #547aff;
+                }
             }
             input::placeholder {
                 color: $loginModalTextColor;
+            }
+            .error-input {
+                border: 2px solid #ee3f3f;
             }
         }
     }
