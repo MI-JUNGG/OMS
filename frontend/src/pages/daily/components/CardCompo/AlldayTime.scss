@@ -1,16 +1,8 @@
-.carousel {
-    overflow-y: auto;
-    height: 100vh;
-}
-
-.carousel-content {
+.yearPicker {
+    width: 80%;
+    border-bottom: 1px solid black;
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100%;
-    font-size: 24px;
-
-    input {
-        width: 100%;
-    }
+    justify-content: center;
+    padding: 10px;
 }
