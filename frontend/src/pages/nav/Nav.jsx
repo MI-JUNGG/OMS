@@ -35,7 +35,12 @@ function Nav() {
     return (
         <>
             <div className="navWrapper">
-                <div>로고</div>
+                <div className="logo">
+                    <img
+                        src="/src/assets/images/logo/logo.svg"
+                        alt="Oh My Calendar"
+                    />
+                </div>
                 <ViewSwitcher />
                 <div className="login">
                     {localStorage.getItem("token") ? (

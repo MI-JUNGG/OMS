@@ -9,13 +9,25 @@ $loginModalTextColor: #abaeb5;
         font-size: 30px;
         font-weight: bold;
         font-family: "Nanum";
-        margin-top: 30px;
+        margin: 30px auto 0;
+        padding-bottom: 20px;
+        border-bottom: 1px solid $loginModalTextColor;
+    }
+    .guidWordWrapper {
+        display: flex;
+        justify-content: center;
+        height: 14px;
+        margin: 5px auto 8px;
+
+        .guideWord {
+            display: flex;
+            text-align: center;
+            color: #ee3f3f;
+            font-size: 13px;
+        }
     }
 
     .inputZone {
-        padding-top: 20px;
-        border-top: 1px solid $loginModalTextColor;
-
         div {
             display: flex;
             margin-bottom: 5px;
@@ -67,8 +79,8 @@ $loginModalTextColor: #abaeb5;
     .backToLogin {
         display: flex;
         justify-content: center;
-        margin-top: 29px;
-        padding-bottom: 23px;
+        margin-top: 25px;
+        padding-bottom: 20px;
         border-bottom: 1px solid $loginModalTextColor;
 
         span {
@@ -90,7 +102,7 @@ $loginModalTextColor: #abaeb5;
         display: flex;
         justify-content: center;
         margin-top: 25px;
-        margin-bottom: 80px;
+        margin-bottom: 50px;
 
         .kakaoSignUp {
             display: flex;
