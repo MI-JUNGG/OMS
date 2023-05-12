@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
     name,
@@ -9,26 +10,16 @@ import {
 import axios from "axios";
 import "./SignUp.scss";
 import { sign } from "../../modules/sign";
-import loginModal from "../../modules/loginModal";
-import { useEffect } from "react";
 
 function SignUp() {
+    const [isComplete, setIsComplete] = useState(false);
+
     const dispatch = useDispatch();
     const userInputForm = useSelector((state) => state.userReducer);
-    const isOnLoginModal = useSelector((state) => state.loginModalReducer);
+
     const backToLogin = () => {
         dispatch(sign(0));
     };
-    console.log(isOnLoginModal.loginModal);
-    useEffect(() => {
-        if (!isOnLoginModal.loginModal) {
-            dispatch(name(""));
-            dispatch(nickName(""));
-            dispatch(eMail(""));
-            dispatch(password(null));
-            dispatch(confirmPassword(null));
-        }
-    }, [isOnLoginModal.loginModal]);
 
     const nameHandler = (e) => {
         dispatch(name(e.target.value));
@@ -95,6 +86,16 @@ function SignUp() {
         <>
             <div className="signUpContainer">
                 <h1 className="signUpTitle">회원가입</h1>
+                <div className="guidWordWrapper">
+                    <span
+                        className="guideWord"
+                        style={{
+                            display: `${isComplete ? "flex" : "none"}`,
+                        }}
+                    >
+                        입력하신 정보를 다시 확인해주세요.
+                    </span>
+                </div>
                 <div className="inputZone">
                     <div>
                         <input
@@ -102,6 +103,7 @@ function SignUp() {
                             name="name"
                             placeholder="이름"
                             value={userInputForm.name}
+                            autoComplete="off"
                             onChange={(e) => {
                                 nameHandler(e);
                             }}
@@ -113,6 +115,7 @@ function SignUp() {
                             name="nickname"
                             placeholder="닉네임"
                             value={userInputForm.nickName}
+                            autoComplete="off"
                             onChange={(e) => {
                                 nickNameHandler(e);
                             }}
@@ -124,6 +127,7 @@ function SignUp() {
                             name="email"
                             placeholder="이메일"
                             value={userInputForm.eMail}
+                            autoComplete="off"
                             onChange={(e) => {
                                 eMailHandler(e);
                             }}
@@ -150,6 +154,7 @@ function SignUp() {
                             name="password"
                             placeholder="비밀번호"
                             value={userInputForm.password}
+                            autoComplete="off"
                             onChange={(e) => {
                                 passwordHandler(e);
                             }}
@@ -178,6 +183,7 @@ function SignUp() {
                             name="confirmPassword"
                             placeholder="비밀번호 확인"
                             value={userInputForm.confirmPassword}
+                            autoComplete="off"
                             onChange={(e) => {
                                 confirmPasswordHandler(e);
                             }}
@@ -205,6 +211,9 @@ function SignUp() {
                     onClick={() => {
                         if (validateInputs()) {
                             userInfoSub();
+                            window.location.replace("/");
+                        } else {
+                            setIsComplete(true);
                         }
                     }}
                 >

@@ -8,10 +8,18 @@
     background-color: #547aff;
     position: relative;
 
-    .login {
-        // margin: 0 35px;
-        // padding: 5px;
+    .logo {
+        white-space: pre-line;
 
+        img {
+            width: 118px;
+            height: 49px;
+        }
+    }
+
+    .login {
+        width: 120px;
+        text-align: center;
         .loginText {
             cursor: pointer;
             color: white;

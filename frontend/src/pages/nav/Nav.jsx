@@ -7,22 +7,40 @@ import Sign from "../sign/Sign";
 import LoginModalBackground from "../sign/LoginModalBackground";
 import { loginModal } from "../../modules/loginModal";
 import { sign } from "../../modules/sign";
+import {
+    name,
+    nickName,
+    eMail,
+    password,
+    confirmPassword,
+} from "../../modules/user";
 
 function Nav() {
     const isLoginModal = useSelector(
         (state) => state.loginModalReducer.loginModal,
     );
     const dispatch = useDispatch();
-    console.log(isLoginModal);
 
     const HandleModal = () => {
         dispatch(loginModal());
+        dispatch(sign(0));
+
+        dispatch(name(""));
+        dispatch(nickName(""));
+        dispatch(eMail(""));
+        dispatch(password(""));
+        dispatch(confirmPassword(""));
     };
 
     return (
         <>
             <div className="navWrapper">
-                <div>로고</div>
+                <div className="logo">
+                    <img
+                        src="/src/assets/images/logo/logo.svg"
+                        alt="Oh My Calendar"
+                    />
+                </div>
                 <ViewSwitcher />
                 <div className="login">
                     {localStorage.getItem("token") ? (
@@ -47,10 +65,7 @@ function Nav() {
                             {isLoginModal ? (
                                 <>
                                     <LoginModalBackground
-                                        onClick={() => {
-                                            HandleModal();
-                                            dispatch(sign(0));
-                                        }}
+                                        onClick={HandleModal}
                                     />
                                     <Sign />
                                 </>
