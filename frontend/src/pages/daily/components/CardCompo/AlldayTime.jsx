@@ -11,26 +11,29 @@ function AlldayTime() {
     const [year, setYear] = useState(Newyear);
     const outerRef = useRef(null);
 
-    const repeatArray = Array.from({ length: 50 }, (_, index) => index + 1);
     const increase = () => {
         setYear(year + 1);
     };
 
     useEffect(() => {
-        document.body.style.cssText = `
-          position: fixed; 
-          top: -${window.scrollY}px;
-          overflow-y: scroll;
-          width: 100%;`;
+        const handleScroll = (event) => {
+            const { deltaY } = event;
+            if (deltaY < 0) {
+                setYear((prev) => prev - 1);
+            } else if (deltaY > 0) {
+                setYear((prev) => prev + 1);
+            }
+        };
+
+        outerRef.current.addEventListener("wheel", handleScroll);
+
         return () => {
-            const scrollY = document.body.style.top;
-            document.body.style.cssText = "";
-            window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+            outerRef.current.removeEventListener("wheel", handleScroll);
         };
     }, []);
 
     return (
-        <div className="yearPicker">
+        <div className="yearPicker" ref={outerRef}>
             <button onClick={increase}>up</button>
             <span>{year - 1}년</span>
             <span>{year}년</span>
