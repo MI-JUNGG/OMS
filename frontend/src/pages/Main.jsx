@@ -74,8 +74,15 @@ function Main() {
         }
 
         for (let i = 1; i <= daysCount; i++) {
+            const col = ((firstDay + i - 1) % 7) + 1;
+            const row = Math.floor((firstDay + i - 1) / 7) + 1;
             days.push(
-                <div key={`day-${i}`} className="day" onClick={handleDateClick}>
+                <div
+                    key={`day-${i}`}
+                    className="day"
+                    onClick={handleDateClick}
+                    style={{ "--col": col, "--row": row }}
+                >
                     {i}
                 </div>,
             );
@@ -84,22 +91,35 @@ function Main() {
         return days;
     };
 
-    return (
-        <div className="calendar">
-            <div className="header">
-                <AiOutlineLeft className="prevBtn" onClick={handlePrevMonth} />
+    console.log(new Date().getDate());
 
-                <h1>{monthForm + "월"}</h1>
-                <AiOutlineRight className="nextBtn" onClick={handleNextMonth} />
+    return (
+        <div className="mainContainer">
+            <div className="calendar">
+                <div className="header">
+                    <AiOutlineLeft
+                        className="prevBtn"
+                        onClick={handlePrevMonth}
+                    />
+
+                    <h1>
+                        {yearForm + " . "}
+                        {monthForm}
+                    </h1>
+                    <AiOutlineRight
+                        className="nextBtn"
+                        onClick={handleNextMonth}
+                    />
+                </div>
+                <div className="weekdays">
+                    {weekdays.map((weekday) => (
+                        <div key={weekday} className="weekday">
+                            {weekday}
+                        </div>
+                    ))}
+                </div>
+                <div className="days">{renderDays()}</div>
             </div>
-            <div className="weekdays">
-                {weekdays.map((weekday) => (
-                    <div key={weekday} className="weekday">
-                        {weekday}
-                    </div>
-                ))}
-            </div>
-            <div className="days">{renderDays()}</div>
         </div>
     );
 }
