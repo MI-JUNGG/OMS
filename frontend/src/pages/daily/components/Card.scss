@@ -1,78 +1,106 @@
-.card {
-    color: blueviolet;
-    border: 1px solid black;
-    border-radius: 8px;
-    width: 21vw;
-    height: 70vh;
-    padding: 10px;
-    gap: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 0 auto;
-    .timeSelector {
-        display: flex;
-        justify-content: space-evenly;
+.modalBackGround {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.1);
 
-        select {
-            width: 30%;
-            height: 100%;
-            text-align: center;
-            border-radius: 8px;
-        }
-    }
-
-    .selectColor {
+    .card {
+        color: blueviolet;
+        background: white;
         border-radius: 8px;
-        border: 1px solid black;
-        width: calc(100% - 10px);
-        height: 10vh;
-        padding: 5px;
-    }
-
-    .cardTitle {
-        height: 15vh;
+        width: 30vw;
+        padding: 40px 10px 10px 10px;
+        gap: 10px;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-
-        span {
-            margin-bottom: 5px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        .modalx {
+            width: 80%;
+            height: 10px;
+            padding-right: 10px;
+            display: flex;
+            justify-content: end;
+            cursor: pointer;
         }
-
-        textarea {
-            border-radius: 8px;
+        .link {
+            display: flex;
+            justify-content: center;
+            height: 4vw;
             width: 100%;
-            height: 90%;
-            border: 1px solid black;
+
+            .linkIcon {
+                margin-top: -10px;
+            }
+            input {
+                border-radius: 8px;
+                outline: none;
+                height: 100%;
+                width: 70%;
+                border: 1px solid black;
+            }
+        }
+        .timeSelector {
+            display: flex;
+            justify-content: space-evenly;
+
+            select {
+                width: 30%;
+                height: 100%;
+                text-align: center;
+                border-radius: 8px;
+            }
+        }
+
+        .selectColor {
+            border-top: 1px solid black;
+            width: 80%;
+            height: 5vh;
             padding: 5px;
-            resize: none;
-        }
-    }
-
-    .contents {
-        height: 35vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        span {
-            margin-bottom: 5px;
         }
 
-        textarea {
-            border-radius: 8px;
+        .cardTitle {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            span {
+                margin-bottom: 5px;
+            }
+
+            input {
+                width: 100%;
+                height: 50%;
+                border: none;
+                border-bottom: 1px solid black;
+                outline: none;
+                background: none;
+                padding: 5px;
+                font-size: 24px;
+            }
+        }
+
+        .contents {
+            height: 15vh;
             width: 100%;
-            height: 90%;
-            border: 1px solid black;
-            padding: 5px;
-            resize: none;
+            display: flex;
+            display: flex;
+            justify-content: center;
+            textarea {
+                border-radius: 8px;
+                width: 70%;
+                height: 90%;
+                border: 1px solid black;
+                padding: 5px;
+                resize: none;
+            }
         }
-    }
-
-    button {
-        align-self: flex-end;
-        border-radius: 8px;
     }
 }
