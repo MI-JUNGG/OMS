@@ -76,6 +76,7 @@ function Main() {
         for (let i = 1; i <= daysCount; i++) {
             const col = ((firstDay + i - 1) % 7) + 1;
             const row = Math.floor((firstDay + i - 1) / 7) + 1;
+
             days.push(
                 <div
                     key={`day-${i}`}
@@ -90,8 +91,6 @@ function Main() {
 
         return days;
     };
-
-    console.log(new Date().getDate());
 
     return (
         <div className="mainContainer">

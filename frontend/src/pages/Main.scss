@@ -66,6 +66,14 @@ $textColor: #abaeb5;
                 border-right: 1px solid #ccc;
 
                 transition: all 0.3s ease-in-out;
+
+                --col: 1;
+                --row: 1;
+
+                &[style*="--col"],
+                &[style*="--row"] {
+                    --row-border-bottom: 1px solid black; /* 인라인 스타일에서 전달된 값 대신 --col-color 변수를 참조 */
+                }
             }
         }
     }
