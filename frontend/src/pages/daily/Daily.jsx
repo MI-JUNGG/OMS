@@ -1,17 +1,24 @@
 import Seletime from "./components/Seletime";
+import { useSelector, useDispatch } from "react-redux";
 import { useRef } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import axios from "axios";
 import { useEffect } from "react";
-
 import "./Daily.scss";
 import Card from "./components/Card";
 import Button from "../button/Button";
+import LoginModalBackground from "../sign/LoginModalBackground";
+import { cardmodal } from "../../modules/modal";
 
 function Daily() {
+    const dispatch = useDispatch();
     const ref = useRef();
     const token = localStorage.getItem("token");
+    const openCard = useSelector((state) => state.modalReducer.cardmodal);
+    const handleOutClick = () => {
+        dispatch(cardmodal());
+    };
     useEffect(() => {
         axios
             .get("http://192.168.219.21:3001/card/day", {
@@ -35,8 +42,15 @@ function Daily() {
         <div className="topContanier">
             <DndProvider backend={HTML5Backend}>
                 <Seletime />
-
-                <Button />
+                {openCard === true && (
+                    <>
+                        <LoginModalBackground onClick={handleOutClick} />
+                        <Card />
+                    </>
+                )}
+                <div className="btnHeight">
+                    <Button />
+                </div>
             </DndProvider>
         </div>
     );

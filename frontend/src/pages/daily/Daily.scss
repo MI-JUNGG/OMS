@@ -1,6 +1,6 @@
 .topContanier {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     margin-top: 20px;
 
     .schedule {
@@ -8,6 +8,14 @@
         gap: 10px;
         margin-left: auto;
         overflow: auto;
+        padding-right: 30px;
+    }
+
+    .btnHeight {
+        margin-top: auto;
+        position: sticky;
+        bottom: 0;
+        padding-left: 30px;
     }
 
     .contanier {
