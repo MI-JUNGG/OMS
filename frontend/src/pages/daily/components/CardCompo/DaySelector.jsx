@@ -61,7 +61,7 @@ function DaySelector() {
 
     return (
         <div className="monthControll" ref={outerRef}>
-            {parseInt(day) - 1 === 0 ? (
+            {parseInt(day) === 1 ? (
                 <span>{Number(day)}일</span>
             ) : (
                 <span>{parseInt(day) - 1}일</span>
