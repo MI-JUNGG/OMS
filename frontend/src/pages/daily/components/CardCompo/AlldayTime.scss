@@ -2,8 +2,11 @@
     width: 80%;
     border-bottom: 1px solid black;
     display: flex;
-    align-items: center;
     justify-content: center;
-    flex-direction: column;
     padding: 10px;
+
+    div {
+        width: 20%;
+        text-align: center;
+    }
 }

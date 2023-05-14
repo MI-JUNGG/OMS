@@ -1,22 +1,32 @@
 import { useState, useEffect, useRef } from "react";
-import "./MonthSelector.scss";
 
-function MonthSelector() {
+function YearSelector({ yearHandler }) {
     const formatDate = new Date();
-    const mon = formatDate.getMonth() + 2;
-    const [month, setMonth] = useState(mon);
+    const newYear = formatDate.getFullYear();
+    const mon = formatDate.getMonth() + 1;
+    const day = formatDate.getDate() + 1;
+
+    const [date, setDateTime] = useState({
+        year: newYear,
+        month: mon,
+        date: day,
+    });
+    const { year, month, date } = dateTime;
     const outerRef = useRef(null);
 
-    const increaseMon = () => {
-        formatDate.setMonth(formatDate.getMonth() + 1);
-        const newMon = String(formatDate.getMonth() + 1).padStart(2, "0");
-        setMonth(newMon);
+    const increaseYear = () => {
+        setDateTime((prevDateTime) => ({
+            ...prevDateTime,
+            year: prevDateTime.year + 1,
+        }));
     };
 
-    const decreaseMon = () => {
-        formatDate.setMonth(formatDate.getMonth() - 1);
-        const newMon = String(formatDate.getMonth() + 1).padStart(2, "0");
-        setMonth(newMon);
+    const decreaseYear = () => {
+        setDateTime((prevDateTime) => ({
+            ...prevDateTime,
+            year: prevDateTime.year - 1,
+        }));
+        console.log("1 minus");
     };
 
     useEffect(() => {
@@ -28,12 +38,12 @@ function MonthSelector() {
                     target.contains(outerRef.current));
 
             if (event.deltaY < 0 && outerRef.current.contains(event.target)) {
-                decreaseMon();
+                decreaseYear();
             } else if (
                 event.deltaY > 0 &&
                 outerRef.current.contains(event.target)
             ) {
-                increaseMon();
+                increaseYear();
             }
 
             if (!isScrollable || !outerRef.current.contains(event.target)) {
@@ -47,14 +57,15 @@ function MonthSelector() {
             window.removeEventListener("wheel", handleScroll);
         };
     }, []);
-
     return (
-        <div className="monthControll" ref={outerRef}>
-            {Number(month) - 1 === 0 ? <p>12</p> : <p>{Number(month) - 1}</p>}
-            <p>{Number(month)}</p>
-            {Number(month) + 1 === 13 ? <p>1</p> : <p>{Number(month) + 1}</p>}
+        <div>
+            <div ref={outerRef} className="yearControll">
+                <p>{year - 1}</p>
+                <p>{year}</p>
+                <p>{year + 1}</p>
+            </div>
         </div>
     );
 }
 
-export default MonthSelector;
+export default YearSelector;
