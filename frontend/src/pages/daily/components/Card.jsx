@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addCard } from "../../../modules/card";
+import { addCard } from "../../../modules/module/card";
 import axios from "axios";
 import AlldayTime from "./CardCompo/AlldayTime";
 import ModalLink from "../../../assets/images/modal/ModalLink";

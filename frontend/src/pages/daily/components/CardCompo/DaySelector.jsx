@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { addDay } from "../../../../modules/module/date";
 
 function DaySelector() {
+    const dispatch = useDispatch();
     const formatDate = new Date();
     const date = formatDate.getDate() + 1;
     const [day, setDay] = useState(date);
@@ -58,6 +61,10 @@ function DaySelector() {
             window.removeEventListener("wheel", handleScroll);
         };
     }, []);
+
+    useEffect(() => {
+        dispatch(addDay(Number(day)));
+    }, [day]);
 
     return (
         <div className="monthControll" ref={outerRef}>
