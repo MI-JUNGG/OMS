@@ -1,7 +1,7 @@
 // store.js
 
 import { configureStore } from "@reduxjs/toolkit";
-import cardReducer from "./card";
+import cardReducer from "./module/card";
 import monthReducer from "./monthPicker";
 import viewReducer from "./viewSelector";
 import yearReducer from "./year";
@@ -10,6 +10,7 @@ import signReducer from "./sign";
 import userReducer from "./user";
 import loginReducer from "./login";
 import loginModalReducer from "./loginModal";
+import dateReducer from "./module/date";
 
 const store = configureStore({
     reducer: {
@@ -23,6 +24,7 @@ const store = configureStore({
         userReducer,
         loginReducer,
         loginModalReducer,
+        dateReducer,
     },
 });
 
