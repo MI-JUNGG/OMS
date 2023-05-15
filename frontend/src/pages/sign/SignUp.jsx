@@ -6,10 +6,10 @@ import {
     password,
     eMail,
     confirmPassword,
-} from "../../modules/user";
+} from "../../modules/module/user";
 import axios from "axios";
 import "./SignUp.scss";
-import { sign } from "../../modules/sign";
+import { sign } from "../../modules/module/sign";
 
 function SignUp() {
     const [isComplete, setIsComplete] = useState(false);

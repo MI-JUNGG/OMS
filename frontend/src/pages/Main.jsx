@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import "./Main.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { month } from "../modules/monthPicker";
-import { year } from "../modules/year";
+import { month } from "../modules/module/monthPicker";
+import { year } from "../modules/module/year";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 

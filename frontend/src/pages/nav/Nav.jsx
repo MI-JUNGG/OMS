@@ -5,15 +5,15 @@ import ViewSwitcher from "./components/ViewSwitcher";
 import YearPicker from "./components/YearPicker";
 import Sign from "../sign/Sign";
 import LoginModalBackground from "../sign/LoginModalBackground";
-import { loginModal } from "../../modules/loginModal";
-import { sign } from "../../modules/sign";
+import { loginModal } from "../../modules/module/loginModal";
+import { sign } from "../../modules/module/sign";
 import {
     name,
     nickName,
     eMail,
     password,
     confirmPassword,
-} from "../../modules/user";
+} from "../../modules/module/user";
 
 function Nav() {
     const isLoginModal = useSelector(

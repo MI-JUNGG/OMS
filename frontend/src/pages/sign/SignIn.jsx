@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { sign } from "../../modules/sign";
+import { sign } from "../../modules/module/sign";
 import "./SignIn.scss";
 import {
     KAKAO_CLIENT_ID,
@@ -11,7 +11,7 @@ import { NAVER_AUTH_URL } from "./naver";
 import NaverLogin from "./naverLogin";
 import axios from "axios";
 import { useLocation } from "react-router";
-import { email, password } from "/src/modules/login";
+import { email, password } from "/src/modules/module/login";
 
 function SignIn() {
     const dispatch = useDispatch();

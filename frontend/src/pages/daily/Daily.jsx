@@ -9,7 +9,7 @@ import "./Daily.scss";
 import Card from "./components/Card";
 import Button from "../button/Button";
 import LoginModalBackground from "../sign/LoginModalBackground";
-import { cardmodal } from "../../modules/modal";
+import { cardmodal } from "../../modules/module/modal";
 
 function Daily() {
     const dispatch = useDispatch();
