@@ -24,8 +24,6 @@ function Main() {
     const monthList = useSelector((state) => state.monthReducer.monthList);
     const dispatch = useDispatch();
 
-    // console.log("year:", yearForm, "month:", monthForm);
-
     const date = new Date(yearForm, monthForm - 1);
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -58,6 +56,10 @@ function Main() {
         return new Date(year, month, 1).getDay();
     };
 
+    const dateToday = () => {
+        return new Date().getDate();
+    };
+
     const handleDateClick = (event) => {
         const clickedDate = event.target.textContent;
         const newLocation = `/day?date=${yearForm}-${monthForm}-${clickedDate}`;
@@ -68,28 +70,61 @@ function Main() {
         const days = [];
         const daysCount = daysInMonth(date.getFullYear(), date.getMonth());
         const firstDay = firstDayOfMonth(date.getFullYear(), date.getMonth());
+        const today = dateToday();
 
-        for (let i = 0; i < firstDay; i++) {
-            days.push(<div key={`empty-${i}`} className="empty"></div>);
-        }
-
-        for (let i = 1; i <= daysCount; i++) {
-            const col = ((firstDay + i - 1) % 7) + 1;
-            const row = Math.floor((firstDay + i - 1) / 7) + 1;
-
+        let day = 1;
+        for (let r = 0; r < 5; r++) {
+            const rowDays = [];
+            for (let c = 0; c < 7; c++) {
+                if (r === 0 && c < firstDay) {
+                    const prevMonthDaysCount = daysInMonth(
+                        date.getFullYear(),
+                        date.getMonth() - 1,
+                    );
+                    const prevMonthDay =
+                        prevMonthDaysCount - (firstDay - c) + 1;
+                    rowDays.push(
+                        <div
+                            key={`prev-${c}`}
+                            className="day prev-month-day"
+                            onClick={handleDateClick}
+                        >
+                            {prevMonthDay}
+                        </div>,
+                    );
+                } else if (day > daysCount) {
+                    const nextMonthDay = day - daysCount;
+                    rowDays.push(
+                        <div
+                            key={`next-${c}`}
+                            className="day next-month-day"
+                            onClick={handleDateClick}
+                        >
+                            {nextMonthDay}
+                        </div>,
+                    );
+                    day++;
+                } else {
+                    rowDays.push(
+                        <div
+                            key={`day-${day}`}
+                            className={`${today === day ? "today" : "day"}`}
+                            onClick={handleDateClick}
+                        >
+                            {day}
+                        </div>,
+                    );
+                    day++;
+                }
+            }
             days.push(
-                <div
-                    key={`day-${i}`}
-                    className="day"
-                    onClick={handleDateClick}
-                    style={{ "--col": col, "--row": row }}
-                >
-                    {i}
+                <div key={`row-${r}`} className="row">
+                    {rowDays}
                 </div>,
             );
         }
 
-        return days;
+        return <div className="calendar-grid">{days}</div>;
     };
 
     return (
@@ -103,7 +138,8 @@ function Main() {
 
                     <h1>
                         {yearForm + " . "}
-                        {monthForm}
+                        {monthForm + " . "}
+                        {dateToday()}
                     </h1>
                     <AiOutlineRight
                         className="nextBtn"
