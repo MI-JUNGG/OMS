@@ -1,5 +1,5 @@
 import "./YearPicker.scss";
-import { year } from "../../../modules/year";
+import { year } from "../../../modules/module/year";
 import { useSelector, useDispatch } from "react-redux";
 
 function YearPicker() {
