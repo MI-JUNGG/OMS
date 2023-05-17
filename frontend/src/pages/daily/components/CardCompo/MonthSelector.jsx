@@ -6,7 +6,7 @@ import { addMonth } from "../../../../modules/module/date";
 function MonthSelector({ monHandler }) {
     const dispatch = useDispatch();
     const formatDate = new Date();
-    const mon = formatDate.getMonth() + 2;
+    const mon = formatDate.getMonth() + 1;
     const [month, setMonth] = useState(mon);
     const outerRef = useRef(null);
 

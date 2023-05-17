@@ -6,8 +6,6 @@ function YearSelector({ yearHandler }) {
     const dispatch = useDispatch();
     const formatDate = new Date();
     const newYear = formatDate.getFullYear();
-    const mon = formatDate.getMonth() + 1;
-    const day = formatDate.getDate() + 1;
 
     const [year, setYear] = useState(newYear);
     const outerRef = useRef(null);
