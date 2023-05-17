@@ -1,12 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Main.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { month } from "../modules/module/monthPicker";
 import { year } from "../modules/module/year";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
+import { isClassName } from "react-calendar/dist/cjs/shared/propTypes";
 
 function Main() {
+    const [schedule, setSchedule] = useState([]);
     useEffect(() => {
         fetch("/data/test.json")
             .then((response) => response.json())
@@ -17,6 +19,12 @@ function Main() {
                     backgroundColor,
                 );
             });
+    }, []);
+
+    useEffect(() => {
+        fetch("/data/date.json")
+            .then((data) => data.json())
+            .then((res) => setSchedule(res));
     }, []);
 
     const yearForm = useSelector((state) => state.yearReducer.value);
@@ -105,15 +113,42 @@ function Main() {
                     );
                     day++;
                 } else {
+                    const dayHasSchedule = schedule.find((item) => {
+                        const itemDate = new Date(item.date);
+                        return (
+                            itemDate.getFullYear() === date.getFullYear() &&
+                            itemDate.getMonth() === date.getMonth() &&
+                            itemDate.getDate() === day &&
+                            item.state_Id === 1
+                        );
+                    });
+
+                    const shortSchedule = schedule.find((item) => {
+                        const itemDate = new Date(item.date);
+                        return (
+                            itemDate.getFullYear() === date.getFullYear() &&
+                            itemDate.getMonth() === date.getMonth() &&
+                            itemDate.getDate() === day &&
+                            item.state_Id === 2
+                        );
+                    });
+
                     rowDays.push(
                         <div
                             key={`day-${day}`}
-                            className={`${today === day ? "today" : "day"}`}
+                            className={`${today === day ? "today" : "day"} ${
+                                dayHasSchedule ? "dayHasSchedule" : ""
+                            } ${shortSchedule ? "shortSchedule" : ""}`}
                             onClick={handleDateClick}
                         >
-                            {day}
+                            <span>{day}</span>
+                            {dayHasSchedule && (
+                                <div>{dayHasSchedule.title}</div>
+                            )}
+                            {shortSchedule && <div>{shortSchedule.title}</div>}
                         </div>,
                     );
+
                     day++;
                 }
             }
@@ -127,6 +162,8 @@ function Main() {
         return <div className="calendar-grid">{days}</div>;
     };
 
+    console.log(schedule);
+
     return (
         <div className="mainContainer">
             <div className="calendar">
@@ -135,7 +172,6 @@ function Main() {
                         className="prevBtn"
                         onClick={handlePrevMonth}
                     />
-
                     <h1>
                         {yearForm + " . "}
                         {monthForm + " . "}
@@ -153,7 +189,9 @@ function Main() {
                         </div>
                     ))}
                 </div>
-                <div className="days">{renderDays()}</div>
+                {schedule.length > 0 && (
+                    <div className="days">{renderDays()}</div>
+                )}
             </div>
         </div>
     );
