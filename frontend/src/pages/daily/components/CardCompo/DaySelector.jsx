@@ -5,7 +5,7 @@ import { addDay } from "../../../../modules/module/date";
 function DaySelector() {
     const dispatch = useDispatch();
     const formatDate = new Date();
-    const date = formatDate.getDate() + 1;
+    const date = formatDate.getDate();
     const [day, setDay] = useState(date);
     const outerRef = useRef(null);
 
