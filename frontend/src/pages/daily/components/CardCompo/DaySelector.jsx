@@ -1,36 +1,18 @@
 import { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { addDay } from "../../../../modules/module/date";
+import { useDispatch, useSelector } from "react-redux";
+import { PlusD, minusD } from "../../../../modules/module/date";
 
 function DaySelector() {
     const dispatch = useDispatch();
-    const formatDate = new Date();
-    const date = formatDate.getDate();
-    const [day, setDay] = useState(date);
+    const day = useSelector((state) => state.dateReducer.day);
     const outerRef = useRef(null);
 
     const increaseday = () => {
-        const lastDay = new Date(
-            formatDate.getFullYear(),
-            formatDate.getMonth() + 1,
-            0,
-        ).getDate();
-        formatDate.setDate(formatDate.getDate() + 1);
-        const newDay =
-            formatDate.getDate() <= lastDay ? formatDate.getDate() : 1;
-        setDay(String(newDay).padStart(2, "0"));
+        dispatch(PlusD());
     };
 
     const decreaseday = () => {
-        const lastDay = new Date(
-            formatDate.getFullYear(),
-            formatDate.getMonth(),
-            0,
-        ).getDate();
-        formatDate.setDate(formatDate.getDate() - 1);
-        const newDay =
-            formatDate.getDate() >= 1 ? formatDate.getDate() : lastDay;
-        setDay(String(newDay).padStart(2, "0"));
+        dispatch(minusD());
     };
 
     useEffect(() => {
@@ -61,10 +43,6 @@ function DaySelector() {
             window.removeEventListener("wheel", handleScroll);
         };
     }, []);
-
-    useEffect(() => {
-        dispatch(addDay(Number(day)));
-    }, [day]);
 
     return (
         <div className="monthControll" ref={outerRef}>

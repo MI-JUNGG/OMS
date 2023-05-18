@@ -1,25 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import "./MonthSelector.scss";
-import { useDispatch } from "react-redux";
-import { addMonth } from "../../../../modules/module/date";
+import { useDispatch, useSelector } from "react-redux";
+import { minusM, PlusM } from "../../../../modules/module/date";
 
 function MonthSelector({ monHandler }) {
     const dispatch = useDispatch();
-    const formatDate = new Date();
-    const mon = formatDate.getMonth() + 1;
-    const [month, setMonth] = useState(mon);
     const outerRef = useRef(null);
+    const month = useSelector((state) => state.dateReducer.month);
 
     const increaseMon = () => {
-        formatDate.setMonth(formatDate.getMonth() + 1);
-        const newMon = String(formatDate.getMonth() + 1).padStart(2, "0");
-        setMonth(Number(newMon));
+        dispatch(PlusM());
     };
 
     const decreaseMon = () => {
-        formatDate.setMonth(formatDate.getMonth() - 1);
-        const newMon = String(formatDate.getMonth() + 1).padStart(2, "0");
-        setMonth(Number(newMon));
+        dispatch(minusM());
     };
 
     useEffect(() => {
@@ -50,9 +44,7 @@ function MonthSelector({ monHandler }) {
             window.removeEventListener("wheel", handleScroll);
         };
     }, []);
-    useEffect(() => {
-        dispatch(addMonth(Number(month)));
-    }, [month]);
+
     return (
         <div className="monthControll" ref={outerRef}>
             {Number(month) - 1 === 0 ? <p>12</p> : <p>{Number(month) - 1}</p>}
