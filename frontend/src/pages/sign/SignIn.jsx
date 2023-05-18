@@ -1,6 +1,5 @@
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { sign } from "../../modules/sign";
+import { useDispatch, useSelector } from "react-redux";
+import { sign } from "../../modules/module/sign";
 import "./SignIn.scss";
 import {
     KAKAO_CLIENT_ID,
@@ -8,16 +7,11 @@ import {
     KAKAO_REDIRECT_URI,
     KAKAO_AUTH_URL,
 } from "./kakao";
-import {
-    NAVER_CLIENT_ID,
-    NAVER_STATE_STRING,
-    NAVER_CALLBACK_URI,
-    NAVER_AUTH_URL,
-    NAVER_ACCESS_TOKEN_URL,
-    NAVER_CLIENT_SECRET,
-} from "./naver";
+import { NAVER_AUTH_URL } from "./naver";
+import NaverLogin from "./naverLogin";
 import axios from "axios";
 import { useLocation } from "react-router";
+import { email, password } from "/src/modules/module/login";
 
 function SignIn() {
     const dispatch = useDispatch();
@@ -30,7 +24,7 @@ function SignIn() {
         window.location.href = KAKAO_AUTH_URL;
     };
 
-    const naverLogin = () => {
+    const naverLoginMove = () => {
         window.location.href = NAVER_AUTH_URL;
     };
 
@@ -79,70 +73,85 @@ function SignIn() {
 
     // kakaoGetCode();
 
-    // const naverGetToken = () => {
-    //     const { naver } = window;
+    const localLogin = useSelector((state) => state.loginReducer);
 
-    //     const naverLogin = new naver.LoginWithNaverId({
-    //         clientId: NAVER_CLIENT_ID,
-    //         callbackUrl: NAVER_CALLBACK_URI,
-    //         isPopup: false /* 팝업을 통한 연동처리 여부, true 면 팝업 */,
-    //         // loginButton: {
-    //         //     color: "green",
-    //         //     type: 1,
-    //         //     height: 20,
-    //         // } /* 로그인 버튼의 타입을 지정 */,
-    //     });
+    const emailHandler = (e) => {
+        dispatch(email(e.target.value));
+    };
+    const passwordHandler = (e) => {
+        dispatch(password(e.target.value));
+    };
 
-    //     naverLogin.init();
-
-    //     axios
-    //         .post(
-    //             `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NAVER_CLIENT_ID}&client_secret=${NAVER_CLIENT_SECRET}&code=${code}&state=${state}`,
-    //             {},
-    //             {
-    //                 headers: {
-    //                     "Content-type":
-    //                         "application/x-www-form-urlencoded;charset=utf-8",
-    //                 },
-    //             },
-    //         )
-    //         .then((res) => {
-    //             console.log(res);
-    //             // 응답 결과를 콘솔에 출력
-    //         })
-    //         .catch((err) => console.log(err));
-    // };
-
-    // // useEffect(() => {
-    // //     initializeNaverLogin(); // useEffect로 안하고 onclick하면 로그인배너아이콘 안뜸
-    // // }, []);
-
-    // const naverLog = () => {
-    //     naverLogin();
-    //     naverGetToken();
-    // };
+    const userLogin = () => {
+        axios
+            .post(
+                "http://192.168.219.21:3001/auth/signin",
+                {
+                    email: localLogin.email,
+                    password: localLogin.password,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                },
+            )
+            .then((res) => {
+                alert("로그인 하셨습니다");
+                localStorage.setItem("token", res.data.accessToken);
+                window.location.replace("/");
+            })
+            .catch((err) => console.log(err));
+    };
 
     return (
         <>
             <div className="signInContainer">
                 <h1>로그인</h1>
                 <div className="userInput">
-                    <input className="userId" placeholder="이메일" />
-                    <input className="userPassword" placeholder="비밀번호" />
+                    <input
+                        className="userId"
+                        placeholder="이메일"
+                        onChange={emailHandler}
+                    />
+                    <input
+                        className="userPassword"
+                        placeholder="비밀번호"
+                        onChange={passwordHandler}
+                        type="password"
+                    />
+                </div>
+                <div className="stayLogged">
+                    <input type="checkbox" />
+                    <span>로그인 상태 유지</span>
                 </div>
                 <div className="buttonZone">
-                    <button className="loginBtn">로그인</button>
-                    <button className="signUpBtn" onClick={handleSignBox}>
-                        회원가입
+                    <button className="loginBtn" onClick={userLogin}>
+                        로그인
                     </button>
+                    <div>
+                        <span>아직 계정이 없으신가요?</span>
+                        <a onClick={handleSignBox}>회원가입하기</a>
+                    </div>
                 </div>
                 <div className="socialLogin">
                     <div className="kakaoLogin" onClick={kakaoLogin}>
-                        <img src="/src/assets/images/kakao.svg" />
+                        <img src="/src/assets/images/social_logo/kakao.svg" />
+                        <span>
+                            Kakao
+                            <br />
+                            로그인
+                        </span>
                     </div>
-                    <div className="naverIdLogin" onClick={naverLogin}>
-                        <img src="/src/assets/images/naver.png" />
+                    <div className="naverIdLogin" onClick={naverLoginMove}>
+                        <img src="/src/assets/images/social_logo/naver.svg" />
+                        <span>
+                            Naver
+                            <br />
+                            로그인
+                        </span>
                     </div>
+                    <NaverLogin />
                 </div>
             </div>
         </>

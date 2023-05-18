@@ -1,12 +1,16 @@
 // store.js
 
 import { configureStore } from "@reduxjs/toolkit";
-import cardReducer from "./card";
-import monthReducer from "./monthPicker";
-import viewReducer from "./viewSelector";
-import yearReducer from "./year";
-import signReducer from "./sign";
-import userReducer from "./user";
+import cardReducer from "./module/card";
+import monthReducer from "./module/monthPicker";
+import viewReducer from "./module/viewSelector";
+import yearReducer from "./module/year";
+import modalReducer from "./module/modal";
+import signReducer from "./module/sign";
+import userReducer from "./module/user";
+import loginReducer from "./module/login";
+import loginModalReducer from "./module/loginModal";
+import dateReducer from "./module/date";
 
 const store = configureStore({
     reducer: {
@@ -14,8 +18,13 @@ const store = configureStore({
         monthReducer,
         viewReducer,
         yearReducer,
+        yearReducer,
+        modalReducer,
         signReducer,
         userReducer,
+        loginReducer,
+        loginModalReducer,
+        dateReducer,
     },
 });
 

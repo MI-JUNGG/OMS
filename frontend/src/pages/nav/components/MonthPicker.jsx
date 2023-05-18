@@ -1,5 +1,5 @@
 import React from "react";
-import { month } from "../../../modules/monthPicker";
+import { month } from "../../../modules/module/monthPicker";
 import { useDispatch, useSelector } from "react-redux";
 import "./MonthPicker.scss";
 

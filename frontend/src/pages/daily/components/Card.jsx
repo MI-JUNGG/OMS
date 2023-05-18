@@ -1,64 +1,140 @@
-import "./Card.scss";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addCard } from "../../../modules/card";
+import { useDispatch } from "react-redux";
+import { addCard } from "../../../modules/module/card";
+import axios from "axios";
+import AlldayTime from "./CardCompo/AlldayTime";
+import ModalLink from "../../../assets/images/modal/ModalLink";
+import ModalNote from "../../../assets/images/modal/modalNote";
+import ModalX from "../../../assets/images/modal/ModalX";
+import "./Card.scss";
 
 function Card() {
+    const [data, setData] = useState(null);
     const dispatch = useDispatch();
     const today = new Date();
     const id = today.toISOString();
+
     const [form, setForm] = useState({
-        id: id,
         title: "",
-        content: "",
+        contents: "",
+        url: "",
+        starDate: "00:00",
+        endDate: "00:00",
+        fontColorId: 1,
+        color: "#0000",
+        date: "2023-03-04",
     });
+
+    const params = new URLSearchParams(window.location.search);
+    const date = params.get("date");
 
     const createTitle = (e) => {
         setForm({ ...form, title: e.target.value });
     };
     const createContent = (e) => {
-        setForm({ ...form, content: e.target.value });
+        setForm({ ...form, contents: e.target.value });
     };
-    const counterHandler = (e) => {
-        dispatch(addCard({ ...form, id }));
-        setForm({
-            id,
-            title: "",
-            content: "",
-        });
+    const selectStartTime = (e) => {
+        setForm({ ...form, startDate: e.target.value });
     };
-
+    const selectEndTime = (e) => {
+        setForm({ ...form, endDate: e.target.value });
+    };
+    const urlHandler = (e) => {
+        setForm({ ...form, url: e.target.value });
+    };
+    const clearContents = () => {
+        setForm({ ...form, contents: "" });
+    };
+    const clearUrl = () => {
+        setForm({ ...form, url: "" });
+    };
     return (
-        <div>
+        <div className="modalBackGround">
             <div className="card">
-                <div className="selectColor">
-                    <span>color</span>
-                    <span>color</span>
-                    <span>color</span>
-                </div>
                 <div className="cardTitle">
-                    <span>title</span>
-                    <textarea
+                    <input
+                        type="search"
                         onChange={createTitle}
                         value={form.title}
                         name="title"
+                        placeholder="제목"
                     />
                 </div>
+                <AlldayTime />
+                <div className="modalx" onClick={clearUrl}>
+                    <ModalX />
+                </div>
+                <div className="link">
+                    <div className="linkIcon">
+                        <ModalLink />
+                    </div>
+                    <input value={form.url} onChange={urlHandler} type="url" />
+                </div>
+                <div className="modalx" onClick={clearContents}>
+                    <ModalX />
+                </div>
                 <div className="contents">
-                    <span>contents</span>
+                    <ModalNote />
                     <textarea
                         onChange={createContent}
-                        value={form.content}
+                        value={form.contents}
                         name="content"
                     />
                 </div>
-
-                <button onClick={counterHandler} type="button">
-                    완료
-                </button>
+                <div className="selectColor"></div>
             </div>
         </div>
     );
 }
 
 export default Card;
+
+// const counterHandler = (e) => {
+//     const {
+//         title,
+//         contents,
+//         startDate,
+//         endDate,
+//         fontColorId,
+//         date,
+//         color,
+//     } = form;
+//     const config = {
+//         headers: {
+//             Authorization:
+//                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6MSwiaWF0IjoxNjgyOTMxMjAyfQ.qbyo8xpoRQV1WbCNFiOzMC3-0pFQOjsHgN8heIc_qhc",
+//         },
+//     };
+//     console.log(form);
+//     axios
+//         .post(
+//             "http://192.168.219.21:3001/card/day",
+//             {
+//                 title,
+//                 contents,
+//                 startDate,
+//                 endDate,
+//                 fontColorId,
+//                 color,
+//                 date,
+//             },
+//             config,
+//         )
+//         .then((res) => {
+//             console.log(res);
+//         })
+//         .catch((error) => {
+//             console.log("error", error);
+//         });
+//     dispatch(addCard({ ...form, id }));
+//     setForm({
+//         title: "",
+//         contents: "",
+//         starDate: "00:00",
+//         endDate: "00:00",
+//         fontColorId: 1,
+//         color: "#0000",
+//         date: "2023-03-04",
+//     });
+// };

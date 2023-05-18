@@ -1,85 +1,80 @@
-.calendar {
-    max-width: 80vw;
-    height: 800px;
-    margin: 0 auto;
-    border-collapse: collapse; // border-collapse 속성 추가
-    user-select: none;
+$mainBackgroundColor: #f3f6ff;
+$textColor: #abaeb5;
 
-    .header {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        margin-bottom: 20px;
+.mainContainer {
+    width: 100vw;
+    background-color: $mainBackgroundColor;
+    .calendar {
+        margin: 32px auto;
+        padding-top: 27px;
+        font-size: 1.2rem;
+        max-width: 80vw;
+        width: 1280px;
+        height: 851px;
+        background-color: yellow;
 
-        h1 {
-            width: 300px;
-            text-align: center;
-        }
-
-        .nextBtn {
-            padding: 3px;
-            font-size: 35px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            &:hover {
-                transform: translateX(8px);
-            }
-        }
-
-        .prevBtn {
-            padding: 3px;
-            font-size: 35px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            &:hover {
-                transform: translateX(-8px);
-            }
-        }
-    }
-
-    .weekdays {
-        display: flex;
-        margin-bottom: 10px;
-
-        .weekday {
-            flex: 1;
-            text-align: center;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-    }
-
-    .days {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        // gap: 10px;
-        border: 1px solid black;
-
-        .empty {
-            height: 50px;
-        }
-
-        .day {
+        .header {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 50px;
+            margin-bottom: 1.5rem;
 
-            cursor: pointer;
+            .prevBtn,
+            .nextBtn {
+                font-size: 2rem;
+                cursor: pointer;
+                color: $textColor;
+                transition: all 0.3s ease-in-out;
+                margin: 0 60px;
 
-            &:hover {
-                background-color: #f2f2f2;
+                &:hover {
+                    transform: translateY(-2px);
+                }
+            }
+
+            h1 {
+                font-size: 2rem;
+                font-weight: bold;
+                color: $textColor;
+                margin: 0;
             }
         }
 
-        .today {
-            background-color: #007bff;
-            color: #fff;
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            font-weight: bold;
+            // border-top: 1px solid #ccc;
+            // border-left: 1px solid #ccc;
+            // border-right: 1px solid #ccc;
+
+            .weekday {
+                text-align: center;
+                color: $textColor;
+            }
         }
 
-        .selected {
-            background-color: #007bff;
-            color: #fff;
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+
+            .day {
+                text-align: center;
+                padding: 0.5rem;
+                cursor: pointer;
+                color: $textColor;
+                border-right: 1px solid #ccc;
+
+                transition: all 0.3s ease-in-out;
+
+                --col: 1;
+                --row: 1;
+
+                &[style*="--col"],
+                &[style*="--row"] {
+                    --row-border-bottom: 1px solid black; /* 인라인 스타일에서 전달된 값 대신 --col-color 변수를 참조 */
+                }
+            }
         }
     }
 }
