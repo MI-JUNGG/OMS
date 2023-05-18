@@ -18,12 +18,17 @@
 CREATE TABLE `card` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
+  `repeat_id` int NOT NULL,
   `color_palette_id` int NOT NULL DEFAULT '1',
   `main_color` varchar(30) NOT NULL DEFAULT '#547AFF',
   `background_color` varchar(30) NOT NULL DEFAULT '#F3F6FF',
   `text_style` varchar(10) NOT NULL,
   `text_style_color` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `repeat_id` (`repeat_id`),
+  CONSTRAINT `card_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `card_ibfk_2` FOREIGN KEY (`repeat_id`) REFERENCES `repeat_type` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,7 +64,11 @@ CREATE TABLE `mypage` (
   `background_color` varchar(30) NOT NULL DEFAULT '#F3F6FF',
   `text_style` varchar(10) NOT NULL,
   `text_style_color` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `color_palette_id` (`color_palette_id`),
+  CONSTRAINT `mypage_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `mypage_ibfk_2` FOREIGN KEY (`color_palette_id`) REFERENCES `color_palette` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -116,7 +125,9 @@ CREATE TABLE `users` (
   `password` varchar(20) NOT NULL,
   `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `social_type_id` (`social_type_id`),
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`social_type_id`) REFERENCES `social_type` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -146,5 +157,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20230518120500'),
   ('20230518121645'),
   ('20230518122437'),
-  ('20230518133416');
+  ('20230518133416'),
+  ('20230518135145');
 UNLOCK TABLES;
