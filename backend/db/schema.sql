@@ -10,6 +10,24 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `card`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `card` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `color_palette_id` int NOT NULL DEFAULT '1',
+  `main_color` varchar(30) NOT NULL DEFAULT '#547AFF',
+  `background_color` varchar(30) NOT NULL DEFAULT '#F3F6FF',
+  `text_style` varchar(10) NOT NULL,
+  `text_style_color` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `color_palette`
 --
 
@@ -17,12 +35,30 @@
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `color_palette` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `color1` varchar(10) DEFAULT '#FF96A8',
-  `color2` varchar(10) DEFAULT '#FDB844',
-  `color3` varchar(10) DEFAULT '#2DD4BF',
-  `color4` varchar(10) DEFAULT '#547AFF',
-  `color5` varchar(10) DEFAULT '#AF71FF',
-  `color6` varchar(10) DEFAULT '#787676',
+  `color1` varchar(10) NOT NULL,
+  `color2` varchar(10) NOT NULL,
+  `color3` varchar(10) NOT NULL,
+  `color4` varchar(10) NOT NULL,
+  `color5` varchar(10) NOT NULL,
+  `color6` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `mypage`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `mypage` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `color_palette_id` int NOT NULL DEFAULT '1',
+  `main_color` varchar(30) NOT NULL DEFAULT '#547AFF',
+  `background_color` varchar(30) NOT NULL DEFAULT '#F3F6FF',
+  `text_style` varchar(10) NOT NULL,
+  `text_style_color` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -66,6 +102,25 @@ CREATE TABLE `social_type` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `users`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `social_type_id` int NOT NULL,
+  `social_id` varchar(30) DEFAULT NULL,
+  `nickname` varchar(15) NOT NULL,
+  `email` varchar(40) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping routines for database 'OMS'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -88,5 +143,8 @@ LOCK TABLES `schema_migrations` WRITE;
 INSERT INTO `schema_migrations` (version) VALUES
   ('20230518115458'),
   ('20230518120357'),
-  ('20230518120500');
+  ('20230518120500'),
+  ('20230518121645'),
+  ('20230518122437'),
+  ('20230518133416');
 UNLOCK TABLES;
