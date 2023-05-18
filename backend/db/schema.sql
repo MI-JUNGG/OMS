@@ -107,7 +107,7 @@ CREATE TABLE `social_type` (
   `id` int NOT NULL AUTO_INCREMENT,
   `type` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,5 +158,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20230518121645'),
   ('20230518122437'),
   ('20230518133416'),
-  ('20230518135145');
+  ('20230518135145'),
+  ('20230518143734');
 UNLOCK TABLES;
