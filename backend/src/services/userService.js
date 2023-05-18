@@ -11,7 +11,7 @@ const SocialTypeId = Object.freeze({
 });
 
 // LOCAL 회원가입
-const signup = async (name, nickname, email, password) => {
+const signup = async (nickname, email, password) => {
   const pwValidation = new RegExp(
     "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,20})"
   );
@@ -22,7 +22,6 @@ const signup = async (name, nickname, email, password) => {
   const hashedPassword = await bcrypt.hash(password, saltRounds);
 
   const createUser = await userDao.localCreateUser(
-    name,
     nickname,
     email,
     hashedPassword
@@ -59,7 +58,6 @@ const kakaoLogin = async (kakaoToken) => {
 
   const { data } = result;
   const socialId = data.id;
-  const name = data.properties.name;
   const nickname = data.properties.nickname;
   const email = data.kakao_account.email;
   const socialTypeId = SocialTypeId.KAKAO;
@@ -69,7 +67,6 @@ const kakaoLogin = async (kakaoToken) => {
   if (!userId) {
     const newUser = await userDao.createUser(
       socialId,
-      name,
       nickname,
       email,
       socialTypeId
@@ -98,10 +95,9 @@ const naverLogin = async (naverToken) => {
 
     throw error;
   }
-  console.log("servcie", result);
+
   const { data } = result;
   const socialId = data.response.id;
-  const name = data.response.name;
   const nickname = data.response.nickname;
   const email = data.response.email;
   const socialTypeId = SocialTypeId.NAVER;
@@ -111,7 +107,6 @@ const naverLogin = async (naverToken) => {
   if (!userId) {
     const newUser = await userDao.createUser(
       socialId,
-      name,
       nickname,
       email,
       socialTypeId

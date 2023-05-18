@@ -3,11 +3,11 @@ const { catchAsync, detectError } = require("../utils/detectError");
 
 // local - 회원가입
 const signup = catchAsync(async (req, res) => {
-  const { name, nickname, email, password } = req.body;
+  const { nickname, email, password } = req.body;
 
-  if (!name || !nickname || !email || !password) detectError("KEY_ERROR", 400);
+  if (!nickname || !email || !password) detectError("KEY_ERROR", 400);
 
-  await userService.signup(name, nickname, email, password);
+  await userService.signup(nickname, email, password);
 
   return res.status(201).json({ message: "USER_CREATED!" });
 });
@@ -34,8 +34,23 @@ const kakaoLogin = catchAsync(async (req, res) => {
   return res.status(200).json({ accessToken: kakao_accessToken });
 });
 
+// 네이버 로그인
+const naverLogin = catchAsync(async (req, res) => {
+  const naverToken = req.headers.authorization;
+  if (!naverToken) {
+    const error = new Error("NEED_NEVER_TOKEN");
+    error.statusCode = 400;
+
+    throw error;
+  }
+  const naver_accessToken = await userService.naverLogin(naverToken);
+
+  return res.status(200).json({ accessToken: naver_accessToken });
+});
+
 module.exports = {
   signup,
   signin,
   kakaoLogin,
+  naverLogin,
 };
