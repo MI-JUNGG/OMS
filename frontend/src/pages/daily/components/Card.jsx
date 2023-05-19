@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCard } from "../../../modules/module/card";
 import axios from "axios";
 import AlldayTime from "./CardCompo/AlldayTime";
@@ -13,7 +13,8 @@ function Card() {
     const dispatch = useDispatch();
     const today = new Date();
     const id = today.toISOString();
-
+    const year = useSelector((state) => state.dateReducer);
+    console.log(year);
     const [form, setForm] = useState({
         title: "",
         contents: "",
