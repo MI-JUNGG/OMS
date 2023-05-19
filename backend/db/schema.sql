@@ -22,8 +22,11 @@ CREATE TABLE `card` (
   `color_palette_id` int NOT NULL DEFAULT '1',
   `main_color` varchar(30) NOT NULL DEFAULT '#547AFF',
   `background_color` varchar(30) NOT NULL DEFAULT '#F3F6FF',
-  `text_style` varchar(10) NOT NULL,
-  `text_style_color` varchar(30) NOT NULL,
+  `text_style` varchar(10) NOT NULL DEFAULT 'regular',
+  `text_style_color` varchar(30) NOT NULL DEFAULT 'dark',
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  `deadline` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `repeat_id` (`repeat_id`),
@@ -159,5 +162,7 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20230518122437'),
   ('20230518133416'),
   ('20230518135145'),
-  ('20230518143734');
+  ('20230518143734'),
+  ('20230519060545'),
+  ('20230519061721');
 UNLOCK TABLES;
