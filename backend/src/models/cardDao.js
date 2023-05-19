@@ -40,6 +40,4 @@ const postCard = async (
 
 module.exports = {
   postCard,
-  patchCard,
-  deleteCard,
 };

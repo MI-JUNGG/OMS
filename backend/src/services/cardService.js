@@ -1,9 +1,6 @@
 const cardDao = require("../models/cardDao");
-const { detectError } = require("../utils/detectError");
-
+// const { detectError } = require("../utils/detectError");
 const postCard = async (
-  userId,
-  repeatId,
   title,
   color,
   link,
@@ -13,8 +10,6 @@ const postCard = async (
   deadline
 ) => {
   const postCard = await cardDao.postCard(
-    userId,
-    repeatId,
     title,
     color,
     link,
@@ -29,6 +24,4 @@ const postCard = async (
 
 module.exports = {
   postCard,
-  patchCard,
-  deleteCard,
 };

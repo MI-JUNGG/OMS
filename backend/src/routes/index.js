@@ -5,6 +5,6 @@ const userRouter = require("./userRouter");
 const cardRouter = require("./cardRouter");
 
 router.use("/auth", userRouter.router);
-router.user("/card", cardRouter.router);
+router.use("/card", cardRouter.router);
 
 module.exports = router;
