@@ -3,11 +3,13 @@ CREATE TABLE card (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
   repeat_id INT NOT NULL,
-  color_palette_id INT NOT NULL DEFAULT 1,
-  main_color VARCHAR(30) NOT NULL DEFAULT '#547AFF',
-  background_color VARCHAR(30) NOT NULL DEFAULT '#F3F6FF',
-  text_style VARCHAR(10) NOT NULL,
-  text_style_color VARCHAR(30) NOT NULL
+  title VARCHAR(30) NOT NULL,
+  color VARCHAR(30) NOT NULL,
+  start_date datetime NOT NULL,
+  end_date datetime NOT NULL,
+  deadline datetime NULL,
+  memo VARCHAR(255) NULL,
+  link VARCHAR(255) NULL
   );
 
 -- migrate:down
