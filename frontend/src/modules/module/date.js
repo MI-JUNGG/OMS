@@ -32,21 +32,45 @@ const dateSlice = createSlice({
             };
         },
         PlusM: (state) => {
-            return {
-                ...state,
-                month: state.month + 1,
-            };
-        },
-        PlusD: (state) => {
-            const daysInMonth = getDaysInMonth(state.year, state.month);
-            const day = state.day + 1;
-            const adjustedDay = day > daysInMonth ? 1 : day;
+            let newMonth = state.month + 1;
+            let newYear = state.year;
+
+            if (newMonth > 12) {
+                newMonth = 1;
+                newYear = state.year + 1;
+            }
 
             return {
                 ...state,
-                day: adjustedDay,
+                month: newMonth,
+                year: newYear,
             };
         },
+
+        PlusD: (state) => {
+            const daysInMonth = getDaysInMonth(state.year, state.month);
+            const day = state.day + 1;
+            let newDay = day;
+            let newMonth = state.month;
+            let newYear = state.year;
+
+            if (newDay > daysInMonth) {
+                newDay = 1;
+                newMonth = state.month + 1;
+                if (newMonth > 12) {
+                    newMonth = 1;
+                    newYear = state.year + 1;
+                }
+            }
+
+            return {
+                ...state,
+                day: newDay,
+                month: newMonth,
+                year: newYear,
+            };
+        },
+
         minusY: (state) => {
             return {
                 ...state,
@@ -54,9 +78,18 @@ const dateSlice = createSlice({
             };
         },
         minusM: (state) => {
+            let newMonth = state.month - 1;
+            let newYear = state.year;
+
+            if (newMonth < 1) {
+                newMonth = 12;
+                newYear = state.year - 1;
+            }
+
             return {
                 ...state,
-                month: state.month - 1,
+                month: newMonth,
+                year: newYear,
             };
         },
         minusD: (state) => {
@@ -65,11 +98,24 @@ const dateSlice = createSlice({
                 state.month - 1,
             );
             const day = state.day - 1;
-            const adjustedDay = day < 1 ? daysInPreviousMonth : day;
+            let newDay = day;
+            let newMonth = state.month;
+            let newYear = state.year;
+
+            if (newDay < 1) {
+                newDay = daysInPreviousMonth;
+                newMonth = state.month - 1;
+                if (newMonth < 1) {
+                    newMonth = 12;
+                    newYear = state.year - 1;
+                }
+            }
 
             return {
                 ...state,
-                day: adjustedDay,
+                day: newDay,
+                month: newMonth,
+                year: newYear,
             };
         },
     },

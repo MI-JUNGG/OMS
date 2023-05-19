@@ -4,7 +4,7 @@ import { PlusD, minusD } from "../../../../modules/module/date";
 
 function DaySelector() {
     const dispatch = useDispatch();
-    const day = useSelector((state) => state.dateReducer.day);
+    const { year, month, day } = useSelector((state) => state.dateReducer);
     const outerRef = useRef(null);
 
     const increaseday = () => {
@@ -14,6 +14,11 @@ function DaySelector() {
     const decreaseday = () => {
         dispatch(minusD());
     };
+
+    function getLastDayOfMonth(year, month) {
+        const lastDay = new Date(year, month, 0).getDate();
+        return lastDay;
+    }
 
     useEffect(() => {
         const handleScroll = (event) => {
@@ -44,15 +49,21 @@ function DaySelector() {
         };
     }, []);
 
+    const lastDayOfMonth = getLastDayOfMonth(year, month);
+
     return (
         <div className="monthControll" ref={outerRef}>
             {parseInt(day) === 1 ? (
-                <p>{Number(day)}</p>
+                <p>{lastDayOfMonth}</p>
             ) : (
                 <p>{parseInt(day) - 1}</p>
             )}
             <p>{Number(day)}</p>
-            <p>{parseInt(day) + 1}</p>
+            {parseInt(day) === lastDayOfMonth ? (
+                <p>1</p>
+            ) : (
+                <p>{parseInt(day) + 1}</p>
+            )}
         </div>
     );
 }

@@ -8,9 +8,7 @@ function AlldayTime() {
         <>
             <div className="yearPicker">
                 <YearSelector />
-
                 <MonthSelector />
-
                 <DaySelector />
             </div>
             <button>com</button>
