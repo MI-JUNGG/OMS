@@ -1,12 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Main.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { month } from "../modules/module/monthPicker";
 import { year } from "../modules/module/year";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
+import { isClassName } from "react-calendar/dist/cjs/shared/propTypes";
 
 function Main() {
+    const [schedule, setSchedule] = useState([]);
     useEffect(() => {
         fetch("/data/test.json")
             .then((response) => response.json())
@@ -19,12 +21,16 @@ function Main() {
             });
     }, []);
 
+    useEffect(() => {
+        fetch("/data/date.json")
+            .then((data) => data.json())
+            .then((res) => setSchedule(res));
+    }, []);
+
     const yearForm = useSelector((state) => state.yearReducer.value);
     const monthForm = useSelector((state) => state.monthReducer.month);
     const monthList = useSelector((state) => state.monthReducer.monthList);
     const dispatch = useDispatch();
-
-    // console.log("year:", yearForm, "month:", monthForm);
 
     const date = new Date(yearForm, monthForm - 1);
 
@@ -58,6 +64,10 @@ function Main() {
         return new Date(year, month, 1).getDay();
     };
 
+    const dateToday = () => {
+        return new Date().getDate();
+    };
+
     const handleDateClick = (event) => {
         const clickedDate = event.target.textContent;
         const newLocation = `/day?date=${yearForm}-${monthForm}-${clickedDate}`;
@@ -68,29 +78,91 @@ function Main() {
         const days = [];
         const daysCount = daysInMonth(date.getFullYear(), date.getMonth());
         const firstDay = firstDayOfMonth(date.getFullYear(), date.getMonth());
+        const today = dateToday();
 
-        for (let i = 0; i < firstDay; i++) {
-            days.push(<div key={`empty-${i}`} className="empty"></div>);
-        }
+        let day = 1;
+        for (let r = 0; r < 5; r++) {
+            const rowDays = [];
+            for (let c = 0; c < 7; c++) {
+                if (r === 0 && c < firstDay) {
+                    const prevMonthDaysCount = daysInMonth(
+                        date.getFullYear(),
+                        date.getMonth() - 1,
+                    );
+                    const prevMonthDay =
+                        prevMonthDaysCount - (firstDay - c) + 1;
+                    rowDays.push(
+                        <div
+                            key={`prev-${c}`}
+                            className="day prev-month-day"
+                            onClick={handleDateClick}
+                        >
+                            {prevMonthDay}
+                        </div>,
+                    );
+                } else if (day > daysCount) {
+                    const nextMonthDay = day - daysCount;
+                    rowDays.push(
+                        <div
+                            key={`next-${c}`}
+                            className="day next-month-day"
+                            onClick={handleDateClick}
+                        >
+                            {nextMonthDay}
+                        </div>,
+                    );
+                    day++;
+                } else {
+                    const dayHasSchedule = schedule.find((item) => {
+                        const itemDate = new Date(item.date);
+                        return (
+                            itemDate.getFullYear() === date.getFullYear() &&
+                            itemDate.getMonth() === date.getMonth() &&
+                            itemDate.getDate() === day &&
+                            item.state_Id === 1
+                        );
+                    });
 
-        for (let i = 1; i <= daysCount; i++) {
-            const col = ((firstDay + i - 1) % 7) + 1;
-            const row = Math.floor((firstDay + i - 1) / 7) + 1;
+                    const shortSchedule = schedule.find((item) => {
+                        const itemDate = new Date(item.date);
+                        return (
+                            itemDate.getFullYear() === date.getFullYear() &&
+                            itemDate.getMonth() === date.getMonth() &&
+                            itemDate.getDate() === day &&
+                            item.state_Id === 2
+                        );
+                    });
 
+                    rowDays.push(
+                        <div
+                            key={`day-${day}`}
+                            className={`${today === day ? "today" : "day"} ${
+                                dayHasSchedule ? "dayHasSchedule" : ""
+                            } ${shortSchedule ? "shortSchedule" : ""}`}
+                            onClick={handleDateClick}
+                        >
+                            <span>{day}</span>
+                            {dayHasSchedule && (
+                                <div>{dayHasSchedule.title}</div>
+                            )}
+                            {shortSchedule && <div>{shortSchedule.title}</div>}
+                        </div>,
+                    );
+
+                    day++;
+                }
+            }
             days.push(
-                <div
-                    key={`day-${i}`}
-                    className="day"
-                    onClick={handleDateClick}
-                    style={{ "--col": col, "--row": row }}
-                >
-                    {i}
+                <div key={`row-${r}`} className="row">
+                    {rowDays}
                 </div>,
             );
         }
 
-        return days;
+        return <div className="calendar-grid">{days}</div>;
     };
+
+    console.log(schedule);
 
     return (
         <div className="mainContainer">
@@ -100,10 +172,10 @@ function Main() {
                         className="prevBtn"
                         onClick={handlePrevMonth}
                     />
-
                     <h1>
                         {yearForm + " . "}
-                        {monthForm}
+                        {monthForm + " . "}
+                        {dateToday()}
                     </h1>
                     <AiOutlineRight
                         className="nextBtn"
@@ -117,7 +189,9 @@ function Main() {
                         </div>
                     ))}
                 </div>
-                <div className="days">{renderDays()}</div>
+                {schedule.length > 0 && (
+                    <div className="days">{renderDays()}</div>
+                )}
             </div>
         </div>
     );
