@@ -1,21 +1,18 @@
 import { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { addDate } from "../../../../modules/module/date";
+import { useDispatch, useSelector } from "react-redux";
+import { minusY, PlusY } from "../../../../modules/module/date";
 
-function YearSelector({ yearHandler }) {
-    const dispatch = useDispatch();
-    const formatDate = new Date();
-    const newYear = formatDate.getFullYear();
-
-    const [year, setYear] = useState(newYear);
+function YearSelector() {
     const outerRef = useRef(null);
+    const dispatch = useDispatch();
+    const year = useSelector((state) => state.dateReducer.year);
 
     const increaseYear = () => {
-        setYear((prevYear) => prevYear + 1);
+        return dispatch(PlusY());
     };
 
     const decreaseYear = () => {
-        setYear((prevYear) => prevYear - 1);
+        return dispatch(minusY());
     };
 
     useEffect(() => {
@@ -46,11 +43,6 @@ function YearSelector({ yearHandler }) {
             window.removeEventListener("wheel", handleScroll);
         };
     }, []);
-
-    useEffect(() => {
-        yearHandler(year);
-        dispatch(addDate(Number(year)));
-    }, [year]);
 
     return (
         <div>

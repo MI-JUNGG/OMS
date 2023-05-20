@@ -10,16 +10,35 @@ import Card from "./components/Card";
 import Button from "../button/Button";
 import LoginModalBackground from "../sign/LoginModalBackground";
 import { cardmodal } from "../../modules/module/modal";
+import { addDate, addMonth, addDay } from "../../modules/module/date";
 
 function Daily() {
     const dispatch = useDispatch();
     const ref = useRef();
     const token = localStorage.getItem("token");
     const openCard = useSelector((state) => state.modalReducer.cardmodal);
+    const form = useSelector((state) => state.dateReducer);
     const handleOutClick = () => {
         dispatch(cardmodal());
     };
+
+    const initialState = () => {
+        const currentURL = window.location.href;
+        const url = new URL(currentURL);
+        const dateString = url.searchParams.get("date");
+        const [year, month, day] = dateString.split("-");
+
+        const dateAction = addDate(Number(year));
+        const monthAction = addMonth(Number(month));
+        const dayAction = addDay(Number(day));
+
+        dispatch(dateAction);
+        dispatch(monthAction);
+        dispatch(dayAction);
+    };
+
     useEffect(() => {
+        initialState();
         axios
             .get("http://192.168.219.21:3001/card/day", {
                 params: {
