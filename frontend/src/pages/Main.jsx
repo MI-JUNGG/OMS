@@ -162,8 +162,6 @@ function Main() {
         return <div className="calendar-grid">{days}</div>;
     };
 
-    console.log(schedule);
-
     return (
         <div className="mainContainer">
             <div className="calendar">
