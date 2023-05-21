@@ -2,12 +2,24 @@ const cardService = require("../services/cardService");
 const { catchAsync, detectError } = require("../utils/detectError");
 
 const postCard = catchAsync(async (req, res) => {
-  const { title, color, link, memo, start_date, end_date, deadline } = req.body;
+  const {
+    userId,
+    repeatId,
+    title,
+    color,
+    link,
+    memo,
+    start_date,
+    end_date,
+    deadline,
+  } = req.body;
 
-  if (!title || !color || !start_date || !end_date)
+  if (!userId || !repeatId || !title || !color || !start_date || !end_date)
     detectError("KEY_ERROR", 400);
 
   await cardService.postCard(
+    userId,
+    repeatId,
     title,
     color,
     link,

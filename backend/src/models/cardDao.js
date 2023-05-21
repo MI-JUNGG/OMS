@@ -13,7 +13,7 @@ const postCard = async (
 ) => {
   return await appDataSource.query(
     `
-    INSERT INTO users (
+    INSERT INTO card (
       user_id,
       repeat_id,
       title,

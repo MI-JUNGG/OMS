@@ -1,6 +1,8 @@
 const cardDao = require("../models/cardDao");
-// const { detectError } = require("../utils/detectError");
+
 const postCard = async (
+  userId,
+  repeat_id,
   title,
   color,
   link,
@@ -10,6 +12,8 @@ const postCard = async (
   deadline
 ) => {
   const postCard = await cardDao.postCard(
+    userId,
+    repeat_id,
     title,
     color,
     link,
