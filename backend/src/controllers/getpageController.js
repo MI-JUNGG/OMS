@@ -2,7 +2,8 @@ const getpageService = require("../services/getpageService");
 const { catchAsync, detectError } = require("../utils/detectError");
 
 const monthPage = catchAsync(async (req, res) => {
-  const { userId, startDate, endDate } = req.query;
+  const { startDate, endDate } = req.query;
+  const userId = req.userId;
 
   if (!userId || !startDate || !endDate)
     detectError("NEED_USER_ID OR NEED_DATE_INFO", 400);
