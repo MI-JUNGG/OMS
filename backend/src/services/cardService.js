@@ -2,24 +2,24 @@ const cardDao = require("../models/cardDao");
 
 const postCard = async (
   userId,
-  repeat_id,
+  repeatId,
   title,
   color,
   link,
   memo,
-  start_date,
-  end_date,
+  startDate,
+  endDate,
   deadline
 ) => {
   const postCard = await cardDao.postCard(
     userId,
-    repeat_id,
+    repeatId,
     title,
     color,
     link,
     memo,
-    start_date,
-    end_date,
+    startDate,
+    endDate,
     deadline
   );
 

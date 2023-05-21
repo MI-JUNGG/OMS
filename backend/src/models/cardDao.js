@@ -7,10 +7,19 @@ const postCard = async (
   color,
   link,
   memo,
-  start_date,
-  end_date,
+  startDate,
+  endDate,
   deadline
 ) => {
+  const formattedStartDate = new Date(startDate.replace(/%20/g, " "))
+    .toISOString()
+    .slice(0, 19)
+    .replace("T", " ");
+  const formattedEndDate = new Date(endDate.replace(/%20/g, " "))
+    .toISOString()
+    .slice(0, 19)
+    .replace("T", " ");
+
   return await appDataSource.query(
     `
     INSERT INTO card (
@@ -34,7 +43,17 @@ const postCard = async (
       ?,
       ?
     )`,
-    [userId, repeatId, title, color, link, memo, start_date, end_date, deadline]
+    [
+      userId,
+      repeatId,
+      title,
+      color,
+      link,
+      memo,
+      formattedStartDate,
+      formattedEndDate,
+      deadline,
+    ]
   );
 };
 

@@ -9,12 +9,12 @@ const postCard = catchAsync(async (req, res) => {
     color,
     link,
     memo,
-    start_date,
-    end_date,
+    startDate,
+    endDate,
     deadline,
   } = req.body;
 
-  if (!userId || !repeatId || !title || !color || !start_date || !end_date)
+  if (!userId || !repeatId || !title || !color || !startDate || !endDate)
     detectError("KEY_ERROR", 400);
 
   await cardService.postCard(
@@ -24,8 +24,8 @@ const postCard = catchAsync(async (req, res) => {
     color,
     link,
     memo,
-    start_date,
-    end_date,
+    startDate,
+    endDate,
     deadline
   );
   return res.status(201).json({ message: "CARD_CREATED!" });
