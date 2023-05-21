@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCard } from "../../../modules/module/card";
+import { dateControl } from "../../../modules/module/modal";
 import axios from "axios";
 import AlldayTime from "./CardCompo/AlldayTime";
 import ModalLink from "../../../assets/images/modal/ModalLink";
 import ModalNote from "../../../assets/images/modal/modalNote";
 import ModalX from "../../../assets/images/modal/ModalX";
+import AllDaySelectedTime from "./CardCompo/AllDaySelectedTime";
 import "./Card.scss";
 
 function Card() {
@@ -13,8 +14,14 @@ function Card() {
     const dispatch = useDispatch();
     const today = new Date();
     const id = today.toISOString();
-    const year = useSelector((state) => state.dateReducer);
-    console.log(year);
+    const openModal = useSelector((state) => state.modalReducer.dateControl);
+    const outerRef = useRef(null);
+
+    const modalHandler = () => {
+        dispatch(dateControl());
+        console.log(openModal);
+    };
+
     const [form, setForm] = useState({
         title: "",
         contents: "",
@@ -25,6 +32,26 @@ function Card() {
         color: "#0000",
         date: "2023-03-04",
     });
+
+    useEffect(() => {
+        const handleScroll = (event) => {
+            const { target } = event;
+            const isScrollable =
+                target.scrollHeight > target.clientHeight &&
+                (target === outerRef.current ||
+                    target.contains(outerRef.current));
+
+            if (!isScrollable || !outerRef.current.contains(event.target)) {
+                event.preventDefault();
+            }
+        };
+
+        window.addEventListener("wheel", handleScroll, { passive: false });
+
+        return () => {
+            window.removeEventListener("wheel", handleScroll);
+        };
+    }, []);
 
     const params = new URLSearchParams(window.location.search);
     const date = params.get("date");
@@ -52,7 +79,7 @@ function Card() {
     };
     return (
         <div className="modalBackGround">
-            <div className="card">
+            <div className="card" ref={outerRef}>
                 <div className="cardTitle">
                     <input
                         type="search"
@@ -62,7 +89,17 @@ function Card() {
                         placeholder="제목"
                     />
                 </div>
-                <AlldayTime />
+                {openModal === false && (
+                    <div className="timeControll">
+                        <AllDaySelectedTime />
+                        <div className="btn">
+                            <button onClick={modalHandler}>종일</button>
+                            <button>반복</button>
+                        </div>
+                    </div>
+                )}
+
+                {openModal && <AlldayTime />}
                 <div className="modalx" onClick={clearUrl}>
                     <ModalX />
                 </div>

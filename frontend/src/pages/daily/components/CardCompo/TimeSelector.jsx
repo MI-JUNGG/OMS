@@ -1,19 +1,14 @@
-import { useState, useEffect, useRef } from "react";
-import "./MonthSelector.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { minusM, PlusM } from "../../../../modules/module/date";
+import { useEffect } from "react";
 
-function MonthSelector({ monHandler }) {
-    const dispatch = useDispatch();
+function TimeSelector() {
     const outerRef = useRef(null);
-    const month = useSelector((state) => state.dateReducer.month);
 
-    const increaseMon = () => {
-        dispatch(PlusM());
+    const increaseday = () => {
+        dispatch(PlusD());
     };
 
-    const decreaseMon = () => {
-        dispatch(minusM());
+    const decreaseday = () => {
+        dispatch(minusD());
     };
 
     useEffect(() => {
@@ -25,12 +20,12 @@ function MonthSelector({ monHandler }) {
                     target.contains(outerRef.current));
 
             if (event.deltaY < 0 && outerRef.current.contains(event.target)) {
-                decreaseMon();
+                decreaseday();
             } else if (
                 event.deltaY > 0 &&
                 outerRef.current.contains(event.target)
             ) {
-                increaseMon();
+                increaseday();
             }
 
             if (!isScrollable || !outerRef.current.contains(event.target)) {
@@ -45,13 +40,7 @@ function MonthSelector({ monHandler }) {
         };
     }, []);
 
-    return (
-        <div className="monthControll" ref={outerRef}>
-            {Number(month) - 1 === 0 ? <p>12</p> : <p>{Number(month) - 1}</p>}
-            <p className="now">{Number(month)}</p>
-            {Number(month) + 1 === 13 ? <p>1</p> : <p>{Number(month) + 1}</p>}
-        </div>
-    );
+    return <div></div>;
 }
 
-export default MonthSelector;
+export default TimeSelector;

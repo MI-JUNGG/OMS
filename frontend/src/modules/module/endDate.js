@@ -3,11 +3,14 @@ function getDaysInMonth(year, month) {
     return new Date(year, month, 0).getDate();
 }
 
-const dateSlice = createSlice({
+const enddateSlice = createSlice({
     name: "counter",
     initialState: {
-        start: { year: null, month: null, day: null, time: "00", minute: "00" },
-        end: { year: null, month: null, day: null, time: "00", minute: "00" },
+        year: null,
+        month: null,
+        day: null,
+        time: "00",
+        minute: "00",
     },
     reducers: {
         addDate: (state, action) => {
@@ -134,6 +137,6 @@ export const {
     minusY,
     minusM,
     minusD,
-} = dateSlice.actions;
+} = enddateSlice.actions;
 
-export default dateSlice.reducer;
+export default enddateSlice.reducer;
