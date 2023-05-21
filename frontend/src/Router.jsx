@@ -8,7 +8,7 @@ import MyPage from "./pages/myPage/myPage";
 function Router() {
     return (
         <BrowserRouter>
-            {location.pathname !== "/myPage" && <Nav />}
+            <Nav />
             <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/day" element={<Daily />} />

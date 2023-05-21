@@ -7,10 +7,6 @@ import { useState } from "react";
 function MyPage() {
     const navigate = useNavigate();
 
-    const homePageChange = () => {
-        navigate("/");
-    };
-
     const PAGE_STATE = [
         {
             id: 0,
@@ -36,9 +32,8 @@ function MyPage() {
 
     const pageStateChanger = (data) => {
         setPageState(data);
+        data === 0 && navigate("/");
     };
-
-    console.log(pageState);
 
     return (
         <>
@@ -74,7 +69,6 @@ function MyPage() {
                     </div>
                 </div>
                 <div>
-                    {pageState === PAGE_STATE[0].id && homePageChange()}
                     {pageState === PAGE_STATE[1].id && PAGE_STATE[1].content}
                     {pageState === PAGE_STATE[2].id && PAGE_STATE[2].content}
                 </div>
