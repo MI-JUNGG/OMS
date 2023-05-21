@@ -11,14 +11,8 @@ const postCard = async (
   endDate,
   deadline
 ) => {
-  const formattedStartDate = new Date(startDate.replace(/%20/g, " "))
-    .toISOString()
-    .slice(0, 19)
-    .replace("T", " ");
-  const formattedEndDate = new Date(endDate.replace(/%20/g, " "))
-    .toISOString()
-    .slice(0, 19)
-    .replace("T", " ");
+  const formattedStartDate = new Date(startDate.replace(/%20/g, " "));
+  const formattedEndDate = new Date(endDate.replace(/%20/g, " "));
 
   return await appDataSource.query(
     `
