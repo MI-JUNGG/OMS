@@ -2,17 +2,9 @@ const cardService = require("../services/cardService");
 const { catchAsync, detectError } = require("../utils/detectError");
 
 const postCard = catchAsync(async (req, res) => {
-  const {
-    userId,
-    repeatId,
-    title,
-    color,
-    link,
-    memo,
-    startDate,
-    endDate,
-    deadline,
-  } = req.body;
+  const userId = req.userId;
+  const { repeatId, title, color, link, memo, startDate, endDate, deadline } =
+    req.body;
 
   if (!userId || !repeatId || !title || !color || !startDate || !endDate)
     detectError("KEY_ERROR", 400);
@@ -32,6 +24,7 @@ const postCard = catchAsync(async (req, res) => {
 });
 
 const patchCard = catchAsync(async (req, res) => {
+  const userId = req.userId;
   const {
     repeatId,
     title,
@@ -42,7 +35,6 @@ const patchCard = catchAsync(async (req, res) => {
     end_date,
     deadline,
     cardId,
-    userId,
   } = req.body;
 
   if (!cardId || !userId) detectError("NEED_USER_ID OR NEED_CARD_ID)", 400);
@@ -63,7 +55,8 @@ const patchCard = catchAsync(async (req, res) => {
 });
 
 const deleteCard = catchAsync(async (req, res) => {
-  const { cardId, userId } = req.body;
+  const userId = req.userId;
+  const { cardId } = req.body;
 
   if (!cardId || !userId) detectError("NEED_CARD_ID OR NEED_USER_ID", 400);
 
