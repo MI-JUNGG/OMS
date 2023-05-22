@@ -8,16 +8,20 @@ import { AiOutlineRight } from "react-icons/ai";
 import axios from "axios";
 
 function Main() {
+    const yearForm = useSelector((state) => state.yearReducer.value);
+    const monthForm = useSelector((state) => state.monthReducer.month);
+    const monthList = useSelector((state) => state.monthReducer.monthList);
+    const dispatch = useDispatch();
+
+    const date = new Date(yearForm, monthForm - 1);
     const [schedule, setSchedule] = useState([]);
+
     useEffect(() => {
-        const startDate = `${yearForm}-${monthForm}-01`;
+        const startDate = `${yearForm}-${monthForm}-01_00:00:00`;
         const endDate = `${yearForm}-${monthForm}-${daysInMonth(
             yearForm,
             monthForm - 1,
-        )}`;
-
-        console.log(startDate);
-        console.log(endDate);
+        )}_23:59:59`;
 
         fetch("/data/test.json")
             .then((response) => response.json())
@@ -40,10 +44,14 @@ function Main() {
         // }, []);
 
         axios
-            .get("/your-api-endpoint", {
+            .get("http://192.168.219.152:3001/month", {
                 params: {
                     startDate: startDate,
                     endDate: endDate,
+                },
+                headers: {
+                    Authorization:
+                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4NDczODIxMX0.c3cAulP8LPTniybxK1fayeUOccSLvLSdNozJj6ghWzI",
                 },
             })
             .then((response) => {
@@ -54,13 +62,6 @@ function Main() {
                 console.error(error);
             });
     }, [yearForm, monthForm]);
-
-    const yearForm = useSelector((state) => state.yearReducer.value);
-    const monthForm = useSelector((state) => state.monthReducer.month);
-    const monthList = useSelector((state) => state.monthReducer.monthList);
-    const dispatch = useDispatch();
-
-    const date = new Date(yearForm, monthForm - 1);
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const monthNames = [];
@@ -217,9 +218,8 @@ function Main() {
                         </div>
                     ))}
                 </div>
-                {schedule.length > 0 && (
-                    <div className="days">{renderDays()}</div>
-                )}
+
+                <div className="days">{renderDays()}</div>
             </div>
         </div>
     );
