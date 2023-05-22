@@ -10,6 +10,15 @@ import axios from "axios";
 function Main() {
     const [schedule, setSchedule] = useState([]);
     useEffect(() => {
+        const startDate = `${yearForm}-${monthForm}-01`;
+        const endDate = `${yearForm}-${monthForm}-${daysInMonth(
+            yearForm,
+            monthForm - 1,
+        )}`;
+
+        console.log(startDate);
+        console.log(endDate);
+
         fetch("/data/test.json")
             .then((response) => response.json())
             .then((data) => {
@@ -20,15 +29,31 @@ function Main() {
                 );
             });
 
+        //     axios
+        //         .get("/data/date.json")
+        //         .then((response) => {
+        //             setSchedule(response.data);
+        //         })
+        //         .catch((error) => {
+        //             console.error(error);
+        //         });
+        // }, []);
+
         axios
-            .get("/data/date.json")
+            .get("/your-api-endpoint", {
+                params: {
+                    startDate: startDate,
+                    endDate: endDate,
+                },
+            })
             .then((response) => {
+                console.log(response);
                 setSchedule(response.data);
             })
             .catch((error) => {
                 console.error(error);
             });
-    }, []);
+    }, [yearForm, monthForm]);
 
     const yearForm = useSelector((state) => state.yearReducer.value);
     const monthForm = useSelector((state) => state.monthReducer.month);
