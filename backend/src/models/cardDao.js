@@ -11,8 +11,8 @@ const postCard = async (
   endDate,
   deadline
 ) => {
-  const formattedStartDate = new Date(startDate.replace(/%20/g, " "));
-  const formattedEndDate = new Date(endDate.replace(/%20/g, " "));
+  // const formattedStartDate = new Date(startDate.replace(/%20/g, " "));
+  // const formattedEndDate = new Date(endDate.replace(/%20/g, " "));
 
   return await appDataSource.query(
     `
@@ -37,17 +37,7 @@ const postCard = async (
       ?,
       ?
     )`,
-    [
-      userId,
-      repeatId,
-      title,
-      color,
-      link,
-      memo,
-      formattedStartDate,
-      formattedEndDate,
-      deadline,
-    ]
+    [userId, repeatId, title, color, link, memo, startDate, endDate, deadline]
   );
 };
 
