@@ -5,14 +5,18 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 2px;
+        padding-bottom: 5px;
         button {
             width: 60%;
             height: 30px;
+            border: none;
             border-radius: 12px;
             display: flex;
-
             align-items: center;
             justify-content: center;
+            background-color: #547aff;
+            color: white;
         }
     }
     .yearPicker {

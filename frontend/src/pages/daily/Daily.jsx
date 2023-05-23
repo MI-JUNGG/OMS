@@ -10,7 +10,13 @@ import Card from "./components/Card";
 import Button from "../button/Button";
 import LoginModalBackground from "../sign/LoginModalBackground";
 import { cardmodal } from "../../modules/module/modal";
-import { addDate, addMonth, addDay } from "../../modules/module/date";
+import {
+    addDate,
+    addMonth,
+    addDay,
+    addTime,
+    addMin,
+} from "../../modules/module/date";
 
 function Daily() {
     const dispatch = useDispatch();
@@ -40,7 +46,7 @@ function Daily() {
     useEffect(() => {
         initialState();
         axios
-            .get("http://192.168.219.21:3001/card/day", {
+            .get("http://192.168.219.152/3001/card/day", {
                 params: {
                     date: "2023-03-04",
                 },

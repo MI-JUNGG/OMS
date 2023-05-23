@@ -11,7 +11,6 @@ function AllDaySelectedTime() {
     const isBoolean = useSelector((state) => {
         return state.modalReducer.dateControl;
     });
-    console.log(isBoolean);
 
     const modalhandler = () => {
         dispatch(dateControl());

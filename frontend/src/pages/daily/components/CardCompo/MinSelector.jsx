@@ -1,25 +1,19 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    addTime,
-    minusTime,
-    addMin,
-    minusMin,
-} from "../../../../modules/module/date";
-import MinSelector from "./MinSelector";
-import "./TimeSelector.scss";
+import { addMin, minusMin } from "../../../../modules/module/date";
+import "./Minselector.scss";
 
-function TimeSelector() {
+function MinSelector() {
     const outerRef = useRef(null);
     const dispatch = useDispatch();
-    const { time } = useSelector((state) => state.dateReducer);
+    const { minute } = useSelector((state) => state.dateReducer);
 
     const increaseday = () => {
-        dispatch(addTime());
+        dispatch(addMin());
     };
 
     const decreaseday = () => {
-        dispatch(minusTime());
+        dispatch(minusMin());
     };
 
     useEffect(() => {
@@ -52,16 +46,12 @@ function TimeSelector() {
     }, []);
 
     return (
-        <div className="timeWapper">
-            <div className="hour" ref={outerRef}>
-                <span>{time === 1 ? 24 : time - 1}:</span>
-                <span>{time}:</span>
-                <span>{time === 24 ? 1 : time + 1}:</span>
-            </div>
-
-            <MinSelector />
+        <div className="minutes" ref={outerRef}>
+            <span>{minute === 0 ? 59 : minute - 1}</span>
+            <span>{minute}</span>
+            <span>{minute === 59 ? 0 : minute + 1}</span>
         </div>
     );
 }
 
-export default TimeSelector;
+export default MinSelector;
