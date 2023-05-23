@@ -50,8 +50,7 @@ function Main() {
                     endDate: endDate,
                 },
                 headers: {
-                    Authorization:
-                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4NDczODIxMX0.c3cAulP8LPTniybxK1fayeUOccSLvLSdNozJj6ghWzI",
+                    Authorization: localStorage.getItem("token"),
                 },
             })
             .then((response) => {
@@ -190,8 +189,6 @@ function Main() {
 
         return <div className="calendar-grid">{days}</div>;
     };
-
-    console.log(schedule);
 
     return (
         <div className="mainContainer">
