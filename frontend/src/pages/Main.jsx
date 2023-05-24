@@ -5,7 +5,6 @@ import { month } from "../modules/module/monthPicker";
 import { year } from "../modules/module/year";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
-import { isClassName } from "react-calendar/dist/cjs/shared/propTypes";
 
 function Main() {
     const [schedule, setSchedule] = useState([]);

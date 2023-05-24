@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Main from "./pages/Main";
+import Main from "./pages/main";
 import Daily from "./pages/daily/Daily";
 import Nav from "./pages/nav/Nav";
 import Week from "./pages/weekly/weekly";
