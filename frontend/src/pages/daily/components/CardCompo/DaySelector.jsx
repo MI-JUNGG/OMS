@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PlusD, minusD } from "../../../../modules/module/date";
+import "./DaySelector.scss";
 
 function DaySelector() {
     const dispatch = useDispatch();
@@ -58,7 +59,7 @@ function DaySelector() {
             ) : (
                 <p>{parseInt(day) - 1}</p>
             )}
-            <p>{Number(day)}</p>
+            <p className="now">{Number(day)}</p>
             {parseInt(day) === lastDayOfMonth ? (
                 <p>1</p>
             ) : (

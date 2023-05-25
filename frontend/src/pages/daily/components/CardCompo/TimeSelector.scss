@@ -1,0 +1,11 @@
+.timeWapper {
+    display: flex;
+    gap: 15px;
+    .hour {
+        display: flex;
+        flex-direction: column;
+        span {
+            border: 1px solid black;
+        }
+    }
+}
