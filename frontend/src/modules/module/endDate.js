@@ -13,31 +13,31 @@ const enddateSlice = createSlice({
         minute: "00",
     },
     reducers: {
-        addDate: (state, action) => {
+        eaddDate: (state, action) => {
             return {
                 ...state,
                 year: action.payload,
             };
         },
-        addMonth: (state, action) => {
+        eaddMonth: (state, action) => {
             return {
                 ...state,
                 month: action.payload,
             };
         },
-        addDay: (state, action) => {
+        eaddDay: (state, action) => {
             return {
                 ...state,
                 day: action.payload,
             };
         },
-        PlusY: (state) => {
+        ePlusY: (state) => {
             return {
                 ...state,
                 year: state.year + 1,
             };
         },
-        PlusM: (state) => {
+        ePlusM: (state) => {
             let newMonth = state.month + 1;
             let newYear = state.year;
 
@@ -53,7 +53,7 @@ const enddateSlice = createSlice({
             };
         },
 
-        PlusD: (state) => {
+        ePlusD: (state) => {
             const daysInMonth = getDaysInMonth(state.year, state.month);
             const day = state.day + 1;
             let newDay = day;
@@ -77,13 +77,13 @@ const enddateSlice = createSlice({
             };
         },
 
-        minusY: (state) => {
+        eminusY: (state) => {
             return {
                 ...state,
                 year: state.year - 1,
             };
         },
-        minusM: (state) => {
+        eminusM: (state) => {
             let newMonth = state.month - 1;
             let newYear = state.year;
 
@@ -98,7 +98,7 @@ const enddateSlice = createSlice({
                 year: newYear,
             };
         },
-        minusD: (state) => {
+        eminusD: (state) => {
             const daysInPreviousMonth = getDaysInMonth(
                 state.year,
                 state.month - 1,
@@ -128,15 +128,15 @@ const enddateSlice = createSlice({
 });
 
 export const {
-    addDate,
-    addDay,
-    addMonth,
-    PlusD,
-    PlusM,
-    PlusY,
-    minusY,
-    minusM,
-    minusD,
+    eaddDate,
+    eaddDay,
+    eaddMonth,
+    ePlusD,
+    ePlusM,
+    ePlusY,
+    eeminusY,
+    eminusM,
+    eminusD,
 } = enddateSlice.actions;
 
 export default enddateSlice.reducer;

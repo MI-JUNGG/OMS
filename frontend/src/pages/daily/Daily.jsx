@@ -10,13 +10,8 @@ import Card from "./components/Card";
 import Button from "../button/Button";
 import LoginModalBackground from "../sign/LoginModalBackground";
 import { cardmodal } from "../../modules/module/modal";
-import {
-    addDate,
-    addMonth,
-    addDay,
-    addTime,
-    addMin,
-} from "../../modules/module/date";
+import { addDate, addMonth, addDay } from "../../modules/module/date";
+import { eaddDate, eaddMonth, eaddDay } from "../../modules/module/endDate";
 
 function Daily() {
     const dispatch = useDispatch();
@@ -37,6 +32,14 @@ function Daily() {
         const dateAction = addDate(Number(year));
         const monthAction = addMonth(Number(month));
         const dayAction = addDay(Number(day));
+
+        const enddateAction = eaddDate(Number(year));
+        const endmonthAction = eaddMonth(Number(month));
+        const enddayAction = eaddDay(Number(day));
+
+        dispatch(enddateAction);
+        dispatch(endmonthAction);
+        dispatch(enddayAction);
 
         dispatch(dateAction);
         dispatch(monthAction);

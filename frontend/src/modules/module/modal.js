@@ -5,6 +5,7 @@ const modalSlice = createSlice({
     initialState: {
         cardmodal: false,
         dateControl: false,
+        endDateControl: false,
     },
     reducers: {
         cardmodal: (state) => {
@@ -13,8 +14,11 @@ const modalSlice = createSlice({
         dateControl: (state) => {
             return { ...state, dateControl: !state.dateControl };
         },
+        endDateControl: (state) => {
+            return { ...state, endDateControl: !state.endDateControl };
+        },
     },
 });
 
-export const { cardmodal, dateControl } = modalSlice.actions;
+export const { cardmodal, dateControl, endDateControl } = modalSlice.actions;
 export default modalSlice.reducer;

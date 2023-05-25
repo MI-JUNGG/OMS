@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { dateControl } from "../../../../modules/module/modal";
+import { dateControl, endDateControl } from "../../../../modules/module/modal";
 import DateRight from "../../../../assets/images/date_picker/DateRight";
+
 import "./AllDaySelectedTime.scss";
 
 function AllDaySelectedTime() {
@@ -8,12 +9,26 @@ function AllDaySelectedTime() {
     const { year, month, day } = useSelector((state) => {
         return state.dateReducer;
     });
+    const d = useSelector((state) => {
+        return state.endDateReducer.day;
+    });
+    const m = useSelector((state) => {
+        return state.endDateReducer.month;
+    });
+    const y = useSelector((state) => {
+        return state.endDateReducer.year;
+    });
+    console.log(d);
     const isBoolean = useSelector((state) => {
         return state.modalReducer.dateControl;
     });
 
     const modalhandler = () => {
         dispatch(dateControl());
+    };
+
+    const endModalHandler = () => {
+        dispatch(endDateControl());
     };
 
     const getDayOfWeek = (year, month, day) => {
@@ -35,11 +50,11 @@ function AllDaySelectedTime() {
 
             <DateRight />
 
-            <div onClick={modalhandler}>
-                <span>{month}월</span>
-                <span>{day}일</span>
-                <span>({getDayOfWeek(year, month, day)})</span>
-                {/* <span>PM</span> */}
+            <div onClick={endModalHandler}>
+                <span>{m}월</span>
+                <span>{d}일</span>
+                <span>({getDayOfWeek(y, m, d)})</span>
+                <span>PM</span>
             </div>
         </div>
     );

@@ -8,6 +8,7 @@ import ModalNote from "../../../assets/images/modal/modalNote";
 import ModalX from "../../../assets/images/modal/ModalX";
 import ModalCheck from "../../../assets/images/modal/ModalCheck";
 import AllDaySelectedTime from "./CardCompo/AllDaySelectedTime";
+import EndDate from "../components/CardCompo/endDate/EndDate";
 import "./Card.scss";
 
 function Card() {
@@ -16,6 +17,9 @@ function Card() {
     const today = new Date();
     const id = today.toISOString();
     const openModal = useSelector((state) => state.modalReducer.dateControl);
+    const endDateModal = useSelector(
+        (state) => state.modalReducer.endDateControl,
+    );
     const outerRef = useRef(null);
 
     const modalHandler = () => {
@@ -24,13 +28,13 @@ function Card() {
     };
 
     const [form, setForm] = useState({
-        title: "1",
-        contents: "1",
-        url: "www.example.com",
+        title: "",
+        contents: "",
+        url: "",
         repeatId: 1,
-        startDate: "2023-05-01 23:00:00",
-        endDate: "2023-05-01 23:10:00",
-        color: "#0000",
+        startDate: "",
+        endDate: "",
+        color: "",
     });
     const { title, contents, startDate, endDate, color, url, repeatId } = form;
     useEffect(() => {
@@ -84,7 +88,6 @@ function Card() {
             },
         };
 
-        console.log(form);
         axios
             .post(
                 "http://192.168.219.152:3001/card",
@@ -106,17 +109,16 @@ function Card() {
             .catch((error) => {
                 console.log("error", error);
             });
-
+        setForm({
+            title: "",
+            contents: "",
+            url: "",
+            repeatId: 1,
+            startDate: "",
+            endDate: "",
+            color: "",
+        });
         // dispatch(addCard({ ...form, id }));
-        // setForm({
-        //     title: "",
-        //     contents: "",
-        //     starDate: "00:00",
-        //     endDate: "00:00",
-        //     fontColorId: 1,
-        //     color: "#0000",
-        //     date: "2023-03-04",
-        // });
     };
 
     return (
@@ -129,12 +131,12 @@ function Card() {
                     <input
                         type="search"
                         onChange={createTitle}
-                        value={form.title}
+                        value={title}
                         name="title"
                         placeholder="제목"
                     />
                 </div>
-                {openModal === false && (
+                {openModal === false && endDateModal === false && (
                     <div className="timeControll">
                         <AllDaySelectedTime />
                         <div className="btn">
@@ -144,6 +146,7 @@ function Card() {
                     </div>
                 )}
                 {openModal && <AlldayTime />}
+                {endDateModal && <EndDate />}
                 <div className="modalx" onClick={clearUrl}>
                     <ModalX />
                 </div>
@@ -151,7 +154,7 @@ function Card() {
                     <div className="linkIcon">
                         <ModalLink />
                     </div>
-                    <input value={form.url} onChange={urlHandler} type="url" />
+                    <input value={url} onChange={urlHandler} type="url" />
                 </div>
                 <div className="modalx" onClick={clearContents}>
                     <ModalX />
@@ -160,7 +163,7 @@ function Card() {
                     <ModalNote />
                     <textarea
                         onChange={createContent}
-                        value={form.contents}
+                        value={contents}
                         name="content"
                     />
                 </div>
