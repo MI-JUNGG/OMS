@@ -9,8 +9,8 @@ const enddateSlice = createSlice({
         year: null,
         month: null,
         day: null,
-        time: "00",
-        minute: "00",
+        time: 23,
+        minute: 59,
     },
     reducers: {
         eaddDate: (state, action) => {

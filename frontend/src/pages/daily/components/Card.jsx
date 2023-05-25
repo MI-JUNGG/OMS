@@ -7,9 +7,10 @@ import ModalLink from "../../../assets/images/modal/ModalLink";
 import ModalNote from "../../../assets/images/modal/modalNote";
 import ModalX from "../../../assets/images/modal/ModalX";
 import ModalCheck from "../../../assets/images/modal/ModalCheck";
-import AllDaySelectedTime from "./CardCompo/AllDaySelectedTime";
 import EndDate from "../components/CardCompo/endDate/EndDate";
 import "./Card.scss";
+import All from "./All";
+import Repeat from "./repeat/Repeat";
 
 function Card() {
     const [data, setData] = useState(null);
@@ -21,11 +22,6 @@ function Card() {
         (state) => state.modalReducer.endDateControl,
     );
     const outerRef = useRef(null);
-
-    const modalHandler = () => {
-        dispatch(dateControl());
-        console.log(openModal);
-    };
 
     const [form, setForm] = useState({
         title: "",
@@ -136,15 +132,8 @@ function Card() {
                         placeholder="제목"
                     />
                 </div>
-                {openModal === false && endDateModal === false && (
-                    <div className="timeControll">
-                        <AllDaySelectedTime />
-                        <div className="btn">
-                            <button>종일</button>
-                            <button onClick={modalHandler}>반복</button>
-                        </div>
-                    </div>
-                )}
+                <All />
+                {openModal === false && endDateModal === false && <Repeat />}
                 {openModal && <AlldayTime />}
                 {endDateModal && <EndDate />}
                 <div className="modalx" onClick={clearUrl}>

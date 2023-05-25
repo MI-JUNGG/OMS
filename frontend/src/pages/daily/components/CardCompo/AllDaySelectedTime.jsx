@@ -2,8 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { dateControl, endDateControl } from "../../../../modules/module/modal";
 import DateRight from "../../../../assets/images/date_picker/DateRight";
 
-import "./AllDaySelectedTime.scss";
-
 function AllDaySelectedTime() {
     const dispatch = useDispatch();
     const { year, month, day } = useSelector((state) => {
@@ -40,12 +38,11 @@ function AllDaySelectedTime() {
     };
 
     return (
-        <div className="selectedDate">
+        <div className="flex">
             <div onClick={modalhandler}>
                 <span>{month}월</span>
                 <span>{day}일</span>
                 <span>({getDayOfWeek(year, month, day)})</span>
-                {/* <span>PM</span> */}
             </div>
 
             <DateRight />
@@ -54,7 +51,6 @@ function AllDaySelectedTime() {
                 <span>{m}월</span>
                 <span>{d}일</span>
                 <span>({getDayOfWeek(y, m, d)})</span>
-                <span>PM</span>
             </div>
         </div>
     );
