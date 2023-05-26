@@ -5,6 +5,7 @@ import { month } from "../modules/module/monthPicker";
 import { year } from "../modules/module/year";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
+import axios from "axios";
 
 function Main() {
     const [schedule, setSchedule] = useState([]);
@@ -18,12 +19,15 @@ function Main() {
                     backgroundColor,
                 );
             });
-    }, []);
 
-    useEffect(() => {
-        fetch("/data/date.json")
-            .then((data) => data.json())
-            .then((res) => setSchedule(res));
+        axios
+            .get("/data/date.json")
+            .then((response) => {
+                setSchedule(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }, []);
 
     const yearForm = useSelector((state) => state.yearReducer.value);
