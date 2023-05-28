@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./UserInfo.scss";
-import NicknameChage from "./NicknameChage";
-import PasswordChage from "./PasswordChage";
+import NicknameChage from "./userInfoComponents/NicknameChage";
+import PasswordChage from "./userInfoComponents/PasswordChage";
 
 function UserInfo() {
     const [contentSelector, setContentSelector] = useState(0);

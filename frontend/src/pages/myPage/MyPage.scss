@@ -16,7 +16,8 @@ $FontColor: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 34px auto;
+            border-bottom: 1px solid #ffffff;
+            height: 107px;
 
             .logZone {
                 flex-direction: column;
@@ -37,7 +38,6 @@ $FontColor: #ffffff;
 
         .pageState {
             padding: 17px 0 0 34px;
-            border-top: 1px solid #ffffff;
 
             div {
                 margin-bottom: 30px;
