@@ -1,6 +1,6 @@
 .timeTable {
     width: 80%;
-    border-bottom: 1px solid black;
+    margin: 0 auto;
     .btnColor {
         display: flex;
         flex-direction: column;
@@ -22,8 +22,10 @@
     .yearPicker {
         display: flex;
         justify-content: center;
+        align-items: center;
         padding: 10px;
         gap: 5px;
+
         div {
             width: 20%;
             text-align: center;

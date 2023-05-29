@@ -1,6 +1,5 @@
 .btnstyle {
-    gap: 20px;
-    button {
+    .select {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -9,6 +8,19 @@
         border: none;
         background-color: skyblue;
         width: 60px;
-        height: 25px;
+        height: 23px;
+        margin-bottom: 3px;
+    }
+    .unselect {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        border: none;
+        background-color: white;
+        width: 60px;
+        height: 23px;
+        margin-bottom: 3px;
     }
 }

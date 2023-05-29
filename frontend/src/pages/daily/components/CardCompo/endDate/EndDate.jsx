@@ -4,6 +4,8 @@ import YearSelector from "./YearSelector";
 import { useSelector, useDispatch } from "react-redux";
 import { endDateControl } from "../../../../../modules/module/modal";
 import "../AlldayTime.scss";
+import TimeSelector from "../TimeSelector";
+import MinSelector from "../MinSelector";
 
 function AlldayTime() {
     const dispatch = useDispatch();
@@ -16,6 +18,9 @@ function AlldayTime() {
                 <YearSelector />
                 <Mselector />
                 <DaySelector />
+                <TimeSelector />
+                <p>:</p>
+                <MinSelector />
             </div>
             <div className="btnColor">
                 <button>반복 종료 안함</button>

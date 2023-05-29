@@ -1,12 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    addTime,
-    minusTime,
-    addMin,
-    minusMin,
-} from "../../../../modules/module/date";
-import MinSelector from "./MinSelector";
+import { addTime, minusTime } from "../../../../modules/module/date";
 import "./TimeSelector.scss";
 
 function TimeSelector() {
@@ -52,14 +46,10 @@ function TimeSelector() {
     }, []);
 
     return (
-        <div className="timeWapper">
-            <div className="hour" ref={outerRef}>
-                <span>{time === 1 ? 24 : time - 1}:</span>
-                <span>{time}:</span>
-                <span>{time === 24 ? 1 : time + 1}:</span>
-            </div>
-
-            <MinSelector />
+        <div className="hour" ref={outerRef}>
+            <p>{time === 1 || time - 1 === -1 ? 24 : time - 1}</p>
+            <p className="now">{time}</p>
+            <p>{time === 24 ? 1 : time + 1}</p>
         </div>
     );
 }

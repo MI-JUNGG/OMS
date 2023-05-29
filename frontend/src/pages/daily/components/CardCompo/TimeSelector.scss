@@ -1,11 +1,8 @@
-.timeWapper {
-    display: flex;
-    gap: 15px;
-    .hour {
-        display: flex;
-        flex-direction: column;
-        span {
-            border: 1px solid black;
-        }
+.hour {
+    margin-left: 8%;
+    .now {
+        padding: 10px 0;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
     }
 }

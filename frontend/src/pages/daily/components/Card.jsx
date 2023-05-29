@@ -14,14 +14,15 @@ import Repeat from "./repeat/Repeat";
 
 function Card() {
     const [data, setData] = useState(null);
-    const dispatch = useDispatch();
-    const today = new Date();
-    const id = today.toISOString();
+
     const openModal = useSelector((state) => state.modalReducer.dateControl);
     const endDateModal = useSelector(
         (state) => state.modalReducer.endDateControl,
     );
+    const datetype = useSelector((state) => state.modalReducer.dateType);
     const outerRef = useRef(null);
+
+    console.log(datetype);
 
     const [form, setForm] = useState({
         title: "",
@@ -132,10 +133,17 @@ function Card() {
                         placeholder="제목"
                     />
                 </div>
-                <All />
-                {openModal === false && endDateModal === false && <Repeat />}
-                {openModal && <AlldayTime />}
-                {endDateModal && <EndDate />}
+                <div className="timeSelect">
+                    {openModal === false &&
+                    endDateModal === false &&
+                    datetype ? (
+                        <All />
+                    ) : (
+                        <Repeat />
+                    )}
+                    {openModal && <AlldayTime />}
+                    {endDateModal && <EndDate />}
+                </div>
                 <div className="modalx" onClick={clearUrl}>
                     <ModalX />
                 </div>

@@ -1,4 +1,7 @@
 .minutes {
-    display: flex;
-    flex-direction: column;
+    .now {
+        padding: 10px 0;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
 }
