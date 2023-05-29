@@ -18,10 +18,12 @@ function Repeat() {
     const endTime = useSelector((state) => state.endDateReducer.time);
 
     const modalhandler = () => {
-        dispatch(dateControl());
+        dispatch(dateControl(true));
+        dispatch(endDateControl());
     };
 
     const endModalHandler = () => {
+        dispatch(dateControl(false));
         dispatch(endDateControl());
     };
     return (

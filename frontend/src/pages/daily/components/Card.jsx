@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { dateControl } from "../../../modules/module/modal";
 import axios from "axios";
 import AlldayTime from "./CardCompo/AlldayTime";
@@ -8,6 +8,8 @@ import ModalNote from "../../../assets/images/modal/modalNote";
 import ModalX from "../../../assets/images/modal/ModalX";
 import ModalCheck from "../../../assets/images/modal/ModalCheck";
 import EndDate from "../components/CardCompo/endDate/EndDate";
+import RepeatEnd from "./repeat/RepeatEnd";
+import RepeatStart from "./repeat/RepeatStart";
 import "./Card.scss";
 import All from "./All";
 import Repeat from "./repeat/Repeat";
@@ -19,6 +21,13 @@ function Card() {
     const endDateModal = useSelector(
         (state) => state.modalReducer.endDateControl,
     );
+    const repeatStart = useSelector(
+        (state) => state.modalReducer.repeatControl,
+    );
+    const repeatEnd = useSelector(
+        (state) => state.modalReducer.repeatEndControl,
+    );
+    console.log(repeatEnd);
     const datetype = useSelector((state) => state.modalReducer.dateType);
     const outerRef = useRef(null);
 
@@ -134,15 +143,15 @@ function Card() {
                     />
                 </div>
                 <div className="timeSelect">
-                    {openModal === false &&
-                    endDateModal === false &&
-                    datetype ? (
+                    {!openModal && !endDateModal && datetype ? (
                         <All />
                     ) : (
-                        <Repeat />
+                        !openModal && !endDateModal && <Repeat />
                     )}
                     {openModal && <AlldayTime />}
                     {endDateModal && <EndDate />}
+                    {repeatEnd &&
+                        (repeatStart ? <RepeatStart /> : <RepeatEnd />)}
                 </div>
                 <div className="modalx" onClick={clearUrl}>
                     <ModalX />

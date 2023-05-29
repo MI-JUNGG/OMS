@@ -1,5 +1,10 @@
+/* 이게 종일 컴포넌트*/
+
 import { useDispatch, useSelector } from "react-redux";
-import { dateControl, endDateControl } from "../../../../modules/module/modal";
+import {
+    repeatControl,
+    repeatEndControl,
+} from "../../../../modules/module/modal";
 import DateRight from "../../../../assets/images/date_picker/DateRight";
 import "./AllDaySelectedTime.scss";
 
@@ -8,6 +13,13 @@ function AllDaySelectedTime() {
     const { year, month, day } = useSelector((state) => {
         return state.dateReducer;
     });
+
+    const repeatStart = useSelector(
+        (state) => state.modalReducer.repeatControl,
+    );
+    const repeatEndS = useSelector(
+        (state) => state.modalReducer.repeatEndControl,
+    );
     const d = useSelector((state) => {
         return state.endDateReducer.day;
     });
@@ -23,11 +35,11 @@ function AllDaySelectedTime() {
     });
 
     const modalhandler = () => {
-        dispatch(dateControl());
+        dispatch(repeatControl());
     };
 
     const endModalHandler = () => {
-        dispatch(endDateControl());
+        dispatch(repeatEndControl());
     };
 
     const getDayOfWeek = (year, month, day) => {
@@ -40,7 +52,7 @@ function AllDaySelectedTime() {
 
     return (
         <div className="selectedDate">
-            <div>
+            <div onClick={modalhandler}>
                 <span>{month}월</span>
                 <span>{day}일</span>
                 <span>({getDayOfWeek(year, month, day)})</span>
@@ -48,7 +60,7 @@ function AllDaySelectedTime() {
 
             <DateRight />
 
-            <div>
+            <div onClick={endModalHandler}>
                 <span>{m}월</span>
                 <span>{d}일</span>
                 <span>({getDayOfWeek(y, m, d)})</span>
