@@ -1,6 +1,11 @@
+// Repeat.js
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { dateControl, endDateControl } from "../../../../modules/module/modal";
+import {
+    dateControl,
+    endDateControl,
+    repeatControl,
+} from "../../../../modules/module/modal";
 import DateRight from "../../../../assets/images/date_picker/DateRight";
 import DateType from "../CardCompo/DateType";
 import "../All.scss";
@@ -17,18 +22,17 @@ function Repeat() {
     const endMinute = useSelector((state) => state.endDateReducer.minute);
     const endTime = useSelector((state) => state.endDateReducer.time);
 
-    const modalhandler = () => {
-        dispatch(dateControl(true));
-        dispatch(endDateControl());
+    const modalHandler = () => {
+        dispatch(dateControl());
     };
 
     const endModalHandler = () => {
-        dispatch(dateControl(false));
         dispatch(endDateControl());
     };
+
     return (
         <div className="flex">
-            <div onClick={modalhandler}>
+            <div onClick={modalHandler}>
                 <div>
                     <span>{month}월</span>
                     <span>{day}일</span>

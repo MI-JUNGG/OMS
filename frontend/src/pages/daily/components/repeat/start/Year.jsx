@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { minusY, PlusY } from "../../../../../modules/module/repeatStart";
-// import "./YearSelector.scss";
+import "../../CardCompo/YearSelector.scss";
 
 function Year() {
     const outerRef = useRef(null);

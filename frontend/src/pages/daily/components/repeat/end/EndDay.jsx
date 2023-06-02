@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ePlusD, eminusD } from "../../../../../modules/module/repeatEnd";
-// import "../DaySelector.scss";
+
+import "../../CardCompo/DaySelector.scss";
 
 function EndDay() {
     const dispatch = useDispatch();

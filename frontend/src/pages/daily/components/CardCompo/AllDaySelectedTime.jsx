@@ -17,7 +17,7 @@ function AllDaySelectedTime() {
     const repeatStart = useSelector(
         (state) => state.modalReducer.repeatControl,
     );
-    const repeatEndS = useSelector(
+    const repeatEnd = useSelector(
         (state) => state.modalReducer.repeatEndControl,
     );
     const d = useSelector((state) => {
@@ -29,7 +29,7 @@ function AllDaySelectedTime() {
     const y = useSelector((state) => {
         return state.endDateReducer.year;
     });
-    console.log(d);
+
     const isBoolean = useSelector((state) => {
         return state.modalReducer.dateControl;
     });
@@ -45,7 +45,7 @@ function AllDaySelectedTime() {
     const getDayOfWeek = (year, month, day) => {
         const today = new Date(year, month, day);
         const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
-        const dayIndex = today.getDay(); // 0 (일요일)부터 6 (토요일)까지의 값
+        const dayIndex = today.getDay();
         const dayOfWeek = daysOfWeek[dayIndex];
         return dayOfWeek;
     };

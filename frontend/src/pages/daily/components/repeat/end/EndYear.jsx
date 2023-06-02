@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ePlusY, eeminusY } from "../../../../../modules/module/repeatEnd";
-// import "../YearSelector.scss";
+import "../../CardCompo/YearSelector.scss";
 
 function EndYear() {
     const outerRef = useRef(null);

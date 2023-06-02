@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { minusM, PlusM } from "../../../../../modules/module/repeatStart";
-// import "./MonthSelector.scss";
+import "../../CardCompo/MonthSelector.scss";
 
 function Month({ monHandler }) {
     const dispatch = useDispatch();

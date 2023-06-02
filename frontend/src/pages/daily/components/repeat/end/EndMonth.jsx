@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ePlusM, eminusM } from "../../../../../modules/module/repeatEnd";
-// import "../MonthSelector.scss";
+import "../../CardCompo/MonthSelector.scss";
+
 function EndMonth() {
     const dispatch = useDispatch();
     const outerRef = useRef(null);

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PlusD, minusD } from "../../../../../modules/module/repeatStart";
-// import "./DaySelector.scss";
+import "../../CardCompo/DaySelector.scss";
 
 function Day() {
     const dispatch = useDispatch();

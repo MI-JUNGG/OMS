@@ -1,3 +1,4 @@
+// modalSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const modalSlice = createSlice({
@@ -23,11 +24,11 @@ const modalSlice = createSlice({
         dateType: (state, actions) => {
             return { ...state, dateType: actions.payload };
         },
-        repeatControl: (state, actions) => {
-            return { ...state, repeatControl: actions.payload };
+        repeatControl: (state) => {
+            return { ...state, repeatControl: !state.repeatControl };
         },
         repeatEndControl: (state) => {
-            return { ...state, repeatEndControl: !state.endDateControl };
+            return { ...state, repeatEndControl: !state.repeatEndControl };
         },
     },
 });
@@ -37,7 +38,7 @@ export const {
     dateControl,
     endDateControl,
     dateType,
-    repeatEndControl,
     repeatControl,
+    repeatEndControl,
 } = modalSlice.actions;
 export default modalSlice.reducer;

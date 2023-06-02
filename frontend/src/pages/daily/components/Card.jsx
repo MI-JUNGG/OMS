@@ -150,8 +150,8 @@ function Card() {
                     )}
                     {openModal && <AlldayTime />}
                     {endDateModal && <EndDate />}
-                    {repeatEnd &&
-                        (repeatStart ? <RepeatStart /> : <RepeatEnd />)}
+                    {repeatEnd && <RepeatEnd />}
+                    {repeatStart && <RepeatStart />}
                 </div>
                 <div className="modalx" onClick={clearUrl}>
                     <ModalX />
