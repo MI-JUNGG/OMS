@@ -1,37 +1,25 @@
 import { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { addDay } from "../../../../modules/module/date";
+import { useDispatch, useSelector } from "react-redux";
+import { PlusD, minusD } from "../../../../modules/module/date";
+import "./DaySelector.scss";
 
 function DaySelector() {
     const dispatch = useDispatch();
-    const formatDate = new Date();
-    const date = formatDate.getDate();
-    const [day, setDay] = useState(date);
+    const { year, month, day } = useSelector((state) => state.dateReducer);
     const outerRef = useRef(null);
 
     const increaseday = () => {
-        const lastDay = new Date(
-            formatDate.getFullYear(),
-            formatDate.getMonth() + 1,
-            0,
-        ).getDate();
-        formatDate.setDate(formatDate.getDate() + 1);
-        const newDay =
-            formatDate.getDate() <= lastDay ? formatDate.getDate() : 1;
-        setDay(String(newDay).padStart(2, "0"));
+        dispatch(PlusD());
     };
 
     const decreaseday = () => {
-        const lastDay = new Date(
-            formatDate.getFullYear(),
-            formatDate.getMonth(),
-            0,
-        ).getDate();
-        formatDate.setDate(formatDate.getDate() - 1);
-        const newDay =
-            formatDate.getDate() >= 1 ? formatDate.getDate() : lastDay;
-        setDay(String(newDay).padStart(2, "0"));
+        dispatch(minusD());
     };
+
+    function getLastDayOfMonth(year, month) {
+        const lastDay = new Date(year, month, 0).getDate();
+        return lastDay;
+    }
 
     useEffect(() => {
         const handleScroll = (event) => {
@@ -62,19 +50,21 @@ function DaySelector() {
         };
     }, []);
 
-    useEffect(() => {
-        dispatch(addDay(Number(day)));
-    }, [day]);
+    const lastDayOfMonth = getLastDayOfMonth(year, month);
 
     return (
         <div className="monthControll" ref={outerRef}>
             {parseInt(day) === 1 ? (
-                <p>{Number(day)}</p>
+                <p>{lastDayOfMonth}</p>
             ) : (
                 <p>{parseInt(day) - 1}</p>
             )}
-            <p>{Number(day)}</p>
-            <p>{parseInt(day) + 1}</p>
+            <p className="now">{Number(day)}</p>
+            {parseInt(day) === lastDayOfMonth ? (
+                <p>1</p>
+            ) : (
+                <p>{parseInt(day) + 1}</p>
+            )}
         </div>
     );
 }

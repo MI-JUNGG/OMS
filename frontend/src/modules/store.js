@@ -11,6 +11,7 @@ import userReducer from "./module/user";
 import loginReducer from "./module/login";
 import loginModalReducer from "./module/loginModal";
 import dateReducer from "./module/date";
+import endDateReducer from "./module/endDate";
 
 const store = configureStore({
     reducer: {
@@ -25,6 +26,7 @@ const store = configureStore({
         loginReducer,
         loginModalReducer,
         dateReducer,
+        endDateReducer,
     },
 });
 

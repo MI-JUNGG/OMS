@@ -1,80 +1,133 @@
-$mainBackgroundColor: #f3f6ff;
-$textColor: #abaeb5;
+$backgroundColor: #f3f6ff;
+$systemColor: #abaeb5;
+$mainColor: #547aff;
+$fontColor: #000000;
+$blockColor: rgba(14, 165, 233, 0.1);
+$allDaySchedule: rgba(245, 158, 11, 0.1);
 
 .mainContainer {
-    width: 100vw;
-    background-color: $mainBackgroundColor;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: $backgroundColor;
+
     .calendar {
-        margin: 32px auto;
-        padding-top: 27px;
-        font-size: 1.2rem;
-        max-width: 80vw;
         width: 1280px;
         height: 851px;
-        background-color: yellow;
+        border: 1px solid #ccc;
+        border-radius: 30px;
+        padding: 25px 45px 45px 45px;
+        background-color: #ffffff;
 
         .header {
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin-bottom: 1.5rem;
+            justify-content: center;
+            margin-bottom: 10px;
+
+            h1 {
+                width: 220px;
+                text-align: center;
+            }
 
             .prevBtn,
             .nextBtn {
-                font-size: 2rem;
                 cursor: pointer;
-                color: $textColor;
-                transition: all 0.3s ease-in-out;
                 margin: 0 60px;
-
-                &:hover {
-                    transform: translateY(-2px);
-                }
-            }
-
-            h1 {
-                font-size: 2rem;
-                font-weight: bold;
-                color: $textColor;
-                margin: 0;
+                width: 30px;
+                height: 30px;
+                color: #abaeb5;
             }
         }
 
         .weekdays {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            font-weight: bold;
-            // border-top: 1px solid #ccc;
-            // border-left: 1px solid #ccc;
-            // border-right: 1px solid #ccc;
+            text-align: center;
+            border: 1px solid $systemColor;
+
+            font-size: 24px;
+            color: $systemColor;
 
             .weekday {
-                text-align: center;
-                color: $textColor;
+                display: flex;
+                border-right: 1px solid $systemColor;
+                height: 40px;
+                align-items: center;
+                justify-content: center;
+
+                &:first-child {
+                    color: #fc9690;
+                }
+                &:last-child {
+                    border: none;
+                    color: #fc9690;
+                }
             }
+        }
+
+        .day,
+        .today {
+            height: 131px;
+            cursor: pointer;
+            border-right: 1px solid $systemColor;
+            font-size: 18px;
+
+            &:first-child {
+                border-left: 1px solid $systemColor;
+                background-color: #f9f9f9;
+            }
+
+            &:last-child {
+                background-color: #f9f9f9;
+            }
+            span {
+                display: flex;
+                align-items: start;
+                justify-content: right;
+                padding: 5px 16px;
+            }
+            div {
+                flex-direction: column;
+                color: $fontColor;
+                padding: 5px;
+                font-size: 13px;
+                // background-color: $blockColor;
+            }
+        }
+
+        .dayHasSchedule {
+            background-color: $allDaySchedule;
+        }
+
+        .shortSchedule {
+            div {
+                background-color: #fc9690;
+            }
+        }
+
+        .day {
+            color: $systemColor;
+        }
+
+        .today {
+            color: #547aff;
+        }
+
+        .prev-month-day,
+        .next-month-day {
+            color: transparent;
         }
 
         .days {
             display: grid;
+        }
+
+        .row {
+            display: grid;
             grid-template-columns: repeat(7, 1fr);
-
-            .day {
-                text-align: center;
-                padding: 0.5rem;
-                cursor: pointer;
-                color: $textColor;
-                border-right: 1px solid #ccc;
-
-                transition: all 0.3s ease-in-out;
-
-                --col: 1;
-                --row: 1;
-
-                &[style*="--col"],
-                &[style*="--row"] {
-                    --row-border-bottom: 1px solid black; /* 인라인 스타일에서 전달된 값 대신 --col-color 변수를 참조 */
-                }
-            }
+            border-bottom: 1px solid $systemColor;
         }
     }
 }

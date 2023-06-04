@@ -1,19 +1,19 @@
-import { useState, useEffect, useRef } from "react";
-import "./MonthSelector.scss";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { minusM, PlusM } from "../../../../modules/module/date";
+import { addMin, minusMin } from "../../../../modules/module/date";
+import "./Minselector.scss";
 
-function MonthSelector({ monHandler }) {
-    const dispatch = useDispatch();
+function MinSelector() {
     const outerRef = useRef(null);
-    const month = useSelector((state) => state.dateReducer.month);
+    const dispatch = useDispatch();
+    const { minute } = useSelector((state) => state.dateReducer);
 
-    const increaseMon = () => {
-        dispatch(PlusM());
+    const increaseday = () => {
+        dispatch(addMin());
     };
 
-    const decreaseMon = () => {
-        dispatch(minusM());
+    const decreaseday = () => {
+        dispatch(minusMin());
     };
 
     useEffect(() => {
@@ -25,12 +25,12 @@ function MonthSelector({ monHandler }) {
                     target.contains(outerRef.current));
 
             if (event.deltaY < 0 && outerRef.current.contains(event.target)) {
-                decreaseMon();
+                decreaseday();
             } else if (
                 event.deltaY > 0 &&
                 outerRef.current.contains(event.target)
             ) {
-                increaseMon();
+                increaseday();
             }
 
             if (!isScrollable || !outerRef.current.contains(event.target)) {
@@ -46,12 +46,12 @@ function MonthSelector({ monHandler }) {
     }, []);
 
     return (
-        <div className="monthControll" ref={outerRef}>
-            {Number(month) - 1 === 0 ? <p>12</p> : <p>{Number(month) - 1}</p>}
-            <p className="now">{Number(month)}</p>
-            {Number(month) + 1 === 13 ? <p>1</p> : <p>{Number(month) + 1}</p>}
+        <div className="minutes" ref={outerRef}>
+            <span>{minute === 0 ? 59 : minute - 1}</span>
+            <span>{minute}</span>
+            <span>{minute === 59 ? 0 : minute + 1}</span>
         </div>
     );
 }
 
-export default MonthSelector;
+export default MinSelector;

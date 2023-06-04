@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-    name,
     nickName,
     password,
     eMail,
@@ -21,9 +20,6 @@ function SignUp() {
         dispatch(sign(0));
     };
 
-    const nameHandler = (e) => {
-        dispatch(name(e.target.value));
-    };
     const nickNameHandler = (e) => {
         dispatch(nickName(e.target.value));
     };
@@ -57,7 +53,6 @@ function SignUp() {
             .post(
                 "http://192.168.219.21:3001/auth/signup",
                 {
-                    name: userInputForm.name,
                     nickname: userInputForm.nickName,
                     email: userInputForm.eMail,
                     password: userInputForm.password,
@@ -97,18 +92,6 @@ function SignUp() {
                     </span>
                 </div>
                 <div className="inputZone">
-                    <div>
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="이름"
-                            value={userInputForm.name}
-                            autoComplete="off"
-                            onChange={(e) => {
-                                nameHandler(e);
-                            }}
-                        />
-                    </div>
                     <div>
                         <input
                             type="text"
@@ -207,7 +190,7 @@ function SignUp() {
                 </div>
                 <button
                     className="signUpSub"
-                    type="button"
+                    type="submit"
                     onClick={() => {
                         if (validateInputs()) {
                             userInfoSub();
