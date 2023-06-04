@@ -1,24 +1,21 @@
-import MonthSelector from "./MonthSelector";
 import DaySelector from "./DaySelector";
-import "./AlldayTime.scss";
+import Mselector from "./Mselector";
 import YearSelector from "./YearSelector";
-import TimeSelector from "./TimeSelector";
 import { useSelector, useDispatch } from "react-redux";
-import { dateControl } from "../../../../modules/module/modal";
+import { endDateControl } from "../../../../../modules/module/modal";
+import "../AlldayTime.scss";
 
 function AlldayTime() {
-    const openModal = useSelector((state) => state.modalReducer.dateControl);
     const dispatch = useDispatch();
     const saveDate = () => {
-        dispatch(dateControl());
+        dispatch(endDateControl());
     };
     return (
         <div className="timeTable">
             <div className="yearPicker">
                 <YearSelector />
-                <MonthSelector />
+                <Mselector />
                 <DaySelector />
-                <TimeSelector />
             </div>
             <div className="btnColor">
                 <button>반복 종료 안함</button>

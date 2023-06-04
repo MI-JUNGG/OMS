@@ -85,7 +85,6 @@ const createUser = async (socialId, nickname, email, socialTypeId) => {
       ?,
       ?,
       ?,
-      ?,
       1
     )`,
     [socialId, nickname, email, socialTypeId]
