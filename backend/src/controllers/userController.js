@@ -2,23 +2,23 @@ const userService = require("../services/userService");
 const { catchAsync, detectError } = require("../utils/detectError");
 
 // local - 회원가입
-const signup = catchAsync(async (req, res) => {
+const signUp = catchAsync(async (req, res) => {
   const { nickname, email, password } = req.body;
 
   if (!nickname || !email || !password) detectError("KEY_ERROR", 400);
 
-  await userService.signup(nickname, email, password);
+  await userService.signUp(nickname, email, password);
 
   return res.status(201).json({ message: "USER_CREATED!" });
 });
 
 // local - 로그인
-const signin = catchAsync(async (req, res) => {
+const signIn = catchAsync(async (req, res) => {
   const { email, password } = req.body;
-
+  console.log(email, password);
   if (!email || !password) detectError("KEY_ERROR", 400);
 
-  jwtToken = await userService.signin(email, password);
+  jwtToken = await userService.signIn(email, password);
 
   return res.status(200).json({ accessToken: jwtToken });
 });
@@ -49,8 +49,8 @@ const naverLogin = catchAsync(async (req, res) => {
 });
 
 module.exports = {
-  signup,
-  signin,
+  signUp,
+  signIn,
   kakaoLogin,
   naverLogin,
 };

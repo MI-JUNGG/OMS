@@ -11,7 +11,7 @@ const SocialTypeId = Object.freeze({
 });
 
 // LOCAL 회원가입
-const signup = async (nickname, email, password) => {
+const signUp = async (nickname, email, password) => {
   const pwValidation = new RegExp(
     "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,20})"
   );
@@ -30,7 +30,7 @@ const signup = async (nickname, email, password) => {
   return createUser;
 };
 
-const signin = async (email, password) => {
+const signIn = async (email, password) => {
   const hashedPassword = await userDao.getHashedPassword(email);
   if (!hashedPassword) detectError("PASSWORD_DOES_NOT_MATCH", 400);
 
@@ -121,8 +121,8 @@ const naverLogin = async (naverToken) => {
 };
 
 module.exports = {
-  signup,
-  signin,
+  signUp,
+  signIn,
   kakaoLogin,
   naverLogin,
 };
