@@ -21,8 +21,8 @@ CREATE TABLE `card` (
   `repeat_id` int NOT NULL,
   `title` varchar(30) NOT NULL,
   `color` varchar(30) NOT NULL,
-  `start_date` varchar(100) DEFAULT NULL,
-  `end_date` varchar(100) DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
   `deadline` datetime DEFAULT NULL,
   `memo` varchar(255) DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
@@ -161,5 +161,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20230518122437'),
   ('20230518133416'),
   ('20230518135145'),
-  ('20230604075014');
+  ('20230604075014'),
+  ('20230604080332');
 UNLOCK TABLES;
