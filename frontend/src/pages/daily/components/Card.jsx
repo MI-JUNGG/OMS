@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
-import { dateControl } from "../../../modules/module/modal";
+import { useSelector, useDispatch } from "react-redux";
+import { cardmodal } from "../../../modules/module/modal";
 import axios from "axios";
 import AlldayTime from "./CardCompo/AlldayTime";
 import ModalLink from "../../../assets/images/modal/ModalLink";
@@ -10,12 +10,24 @@ import ModalCheck from "../../../assets/images/modal/ModalCheck";
 import EndDate from "../components/CardCompo/endDate/EndDate";
 import RepeatEnd from "./repeat/RepeatEnd";
 import RepeatStart from "./repeat/RepeatStart";
+import ColorSelector from "./color/ColorSelector";
 import "./Card.scss";
 import All from "./All";
 import Repeat from "./repeat/Repeat";
 
 function Card() {
+    const dispatch = useDispatch();
     const [data, setData] = useState(null);
+    const [link, setLink] = useState(false);
+    const [note, setNote] = useState(false);
+
+    const linkHandler = () => {
+        setLink((prev) => !prev);
+    };
+
+    const noteHandler = () => {
+        setNote((note) => !note);
+    };
 
     const openModal = useSelector((state) => state.modalReducer.dateControl);
     const endDateModal = useSelector(
@@ -85,6 +97,10 @@ function Card() {
         setForm({ ...form, url: "" });
     };
 
+    const cardHandler = () => {
+        dispatch(cardmodal());
+    };
+
     const counterHandler = (e) => {
         const token =
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4NDczNDYwNn0.aRiYcyPZ6wyixzWbQnDWKzbCb8BlHMVSg3LnTQ2oZnA";
@@ -130,8 +146,13 @@ function Card() {
     return (
         <div className="modalBackGround">
             <div className="card" ref={outerRef}>
-                <div onClick={counterHandler}>
-                    <ModalCheck />
+                <div className="iconBtn">
+                    <div onClick={counterHandler}>
+                        <ModalCheck />
+                    </div>
+                    <div onClick={cardHandler}>
+                        <ModalX width={30} height={30} />
+                    </div>
                 </div>
                 <div className="cardTitle">
                     <input
@@ -154,26 +175,42 @@ function Card() {
                     {repeatStart && <RepeatStart />}
                 </div>
                 <div className="modalx" onClick={clearUrl}>
-                    <ModalX />
+                    {link === true && <ModalX width={10} height={10} />}
                 </div>
                 <div className="link">
                     <div className="linkIcon">
                         <ModalLink />
                     </div>
-                    <input value={url} onChange={urlHandler} type="url" />
+                    {link === false ? (
+                        <button onClick={linkHandler}>링크</button>
+                    ) : (
+                        <input
+                            className="inputline"
+                            value={url}
+                            onChange={urlHandler}
+                            type="url"
+                        />
+                    )}
                 </div>
                 <div className="modalx" onClick={clearContents}>
-                    <ModalX />
+                    {note === true && <ModalX width={10} height={10} />}
                 </div>
-                <div className="contents">
+                <div className="link">
                     <ModalNote />
-                    <textarea
-                        onChange={createContent}
-                        value={contents}
-                        name="content"
-                    />
+                    {note === false ? (
+                        <button onClick={noteHandler}>메모</button>
+                    ) : (
+                        <textarea
+                            className="inputline"
+                            onChange={createContent}
+                            value={contents}
+                            name="content"
+                        />
+                    )}
                 </div>
-                <div className="selectColor"></div>
+                <div className="selectColor">
+                    <ColorSelector />
+                </div>
             </div>
         </div>
     );

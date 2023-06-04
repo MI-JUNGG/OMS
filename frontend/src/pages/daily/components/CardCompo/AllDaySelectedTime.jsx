@@ -36,10 +36,12 @@ function AllDaySelectedTime() {
 
     const modalhandler = () => {
         dispatch(repeatControl());
+        repeatEnd && dispatch(repeatEndControl());
     };
 
     const endModalHandler = () => {
         dispatch(repeatEndControl());
+        repeatStart && dispatch(repeatControl());
     };
 
     const getDayOfWeek = (year, month, day) => {
