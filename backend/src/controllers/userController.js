@@ -15,7 +15,7 @@ const signUp = catchAsync(async (req, res) => {
 // local - 로그인
 const signIn = catchAsync(async (req, res) => {
   const { email, password } = req.body;
-  console.log(email, password);
+
   if (!email || !password) detectError("KEY_ERROR", 400);
 
   jwtToken = await userService.signIn(email, password);

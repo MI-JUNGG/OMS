@@ -6,9 +6,18 @@ const mypageInfo = catchAsync(async (req, res) => {
 
   if (!userId) detectError("NEED_USER_ID", 400);
 
-  await mypageService.mypageInfo(userId);
+  const [userEmail] = await mypageService.mypageInfo(userId);
 
-  return res.status(201).json({ message: "USER_CREATED!" });
+  return res.status(201).json(userEmail);
 });
 
-module.exports = { mypageInfo };
+const changeMypage = catchAsync(async (req, res) => {
+  const userId = req.userId;
+  const { nickname, password, newPassword } = req.body;
+
+  await mypageService.changeMypage(userId, nickname, password, newPassword);
+
+  return res.status(201).json({ message: "CHANGED!" });
+});
+
+module.exports = { mypageInfo, changeMypage };

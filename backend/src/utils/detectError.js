@@ -22,5 +22,5 @@ const globalErrorHandler = (err, req, res, next) => {
 module.exports = {
   detectError,
   catchAsync,
-  globalErrorHandler
+  globalErrorHandler,
 };
