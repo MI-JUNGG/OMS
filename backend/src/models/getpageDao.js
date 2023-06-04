@@ -11,9 +11,11 @@ const monthPage = async (userId, startMonth, endMonth) => {
       c.end_date                  AS end,
       c.deadline                  AS deadline,
       c.memo                      AS memo,
-      c.link                      AS link
+      c.link                      AS link,
+      m.color_palette_id          AS colorPaletteId
     FROM
       card c
+    LEFT JOIN mypage m            ON c.user_id = m.user_id 
     WHERE c.user_id = ?
     AND DATE_FORMAT(c.start_date, '%Y-%m') = ?
     AND DATE_FORMAT(c.end_date, '%Y-%m') = ?
