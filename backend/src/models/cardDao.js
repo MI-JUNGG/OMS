@@ -11,9 +11,6 @@ const postCard = async (
   endDate,
   deadline
 ) => {
-  // const formattedStartDate = new Date(startDate.replace(/%20/g, " "));
-  // const formattedEndDate = new Date(endDate.replace(/%20/g, " "));
-
   return await appDataSource.query(
     `
     INSERT INTO card (
@@ -47,19 +44,18 @@ const patchCard = async (
   color,
   link,
   memo,
-  start_date,
-  end_date,
+  startDate,
+  endDate,
   deadline,
-  cardId,
-  userId
+  cardId
 ) => {
   const changeRepeatId = repeatId ? `repeat_id = ?` : ``;
   const changeTitle = title ? `title = ?` : ``;
   const changeColor = color ? `color = ?` : ``;
   const changeLink = link ? `link = ?` : ``;
   const changeMemo = memo ? `memo = ?` : ``;
-  const changeStartDate = start_date ? `start_date = ?` : ``;
-  const changeEndDate = end_date ? `end_date = ?` : ``;
+  const changeStartDate = startDate ? `start_date = ?` : ``;
+  const changeEndDate = endDate ? `end_date = ?` : ``;
   const changeDeadline = deadline ? `deadline = ?` : ``;
 
   const result = await appDataSource.query(
@@ -78,18 +74,7 @@ const patchCard = async (
     WHERE
       id = ? AND user_id = ?
     `,
-    [
-      repeatId,
-      title,
-      color,
-      link,
-      memo,
-      start_date,
-      end_date,
-      deadline,
-      cardId,
-      userId,
-    ]
+    [repeatId, title, color, link, memo, startDate, endDate, deadline, cardId]
   );
 
   return result;

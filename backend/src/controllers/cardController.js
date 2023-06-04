@@ -31,8 +31,8 @@ const patchCard = catchAsync(async (req, res) => {
     color,
     link,
     memo,
-    start_date,
-    end_date,
+    startDate,
+    endDate,
     deadline,
     cardId,
   } = req.body;
@@ -45,11 +45,10 @@ const patchCard = catchAsync(async (req, res) => {
     color,
     link,
     memo,
-    start_date,
-    end_date,
+    startDate,
+    endDate,
     deadline,
-    cardId,
-    userId
+    cardId
   );
   return res.status(201).json({ message: "CARD_UPDATED!" });
 });
