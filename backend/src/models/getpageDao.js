@@ -15,8 +15,8 @@ const monthPage = async (userId, startMonth, endMonth) => {
     FROM
       card c
     WHERE c.user_id = ?
-    AND DATE_FORMAT(c.start_date, '%Y-%c') = ?
-    AND DATE_FORMAT(c.end_date, '%Y-%c') = ?
+    AND DATE_FORMAT(c.start_date, '%Y-%m') = ?
+    AND DATE_FORMAT(c.end_date, '%Y-%m') = ?
     ORDER BY c.start_date ASC
     `,
     [userId, startMonth, endMonth]
