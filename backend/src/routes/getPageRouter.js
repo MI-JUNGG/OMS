@@ -5,8 +5,7 @@ const { validateToken } = require("../utils/auth");
 const getpageController = require("../controllers/getpageController");
 
 router.get("/month", validateToken, getpageController.monthPage);
-//router.get("/week", getpageController.weekPage);
-//router.get("/day", getpageController.dayPage);
+router.get("/week", validateToken, getpageController.weekPage);
 
 module.exports = {
   router,
