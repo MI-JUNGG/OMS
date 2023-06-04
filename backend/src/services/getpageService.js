@@ -18,7 +18,17 @@ const weekPage = async (userId, startDate, endDate) => {
   return result;
 };
 
+const dayPage = async (userId, startDate, endDate) => {
+  const startMonth = startDate.substr(0, 7);
+  const endMonth = endDate.substr(0, 7);
+
+  const result = await getpageDao.dayPage(userId, startMonth, endMonth);
+
+  return result;
+};
+
 module.exports = {
   monthPage,
   weekPage,
+  dayPage,
 };
