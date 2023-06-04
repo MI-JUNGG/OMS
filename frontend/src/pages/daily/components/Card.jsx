@@ -11,9 +11,10 @@ import EndDate from "../components/CardCompo/endDate/EndDate";
 import RepeatEnd from "./repeat/RepeatEnd";
 import RepeatStart from "./repeat/RepeatStart";
 import ColorSelector from "./color/ColorSelector";
-import "./Card.scss";
 import All from "./All";
 import Repeat from "./repeat/Repeat";
+import ColorPicker from "./color/ColorPicker";
+import "./Card.scss";
 
 function Card() {
     const dispatch = useDispatch();
@@ -201,7 +202,7 @@ function Card() {
                         <button onClick={noteHandler}>메모</button>
                     ) : (
                         <textarea
-                            className="inputline"
+                            className="textArea"
                             onChange={createContent}
                             value={contents}
                             name="content"
