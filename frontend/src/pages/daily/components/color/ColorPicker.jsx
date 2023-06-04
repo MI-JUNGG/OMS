@@ -2,10 +2,10 @@ import "./colorCss/ColorPicker.scss";
 
 function ColorPicker() {
     return (
-        <div>
+        <div className="colorPickerBox">
             {Object.keys(colors).map((key) => (
                 <div key={key}>
-                    <h3>{key}</h3>
+                    <span>{key}</span>
                     <div className="colorRow">
                         {colors[key].map((color, index) => (
                             <div
@@ -14,19 +14,21 @@ function ColorPicker() {
                                     backgroundColor: color,
                                     width: "30px",
                                     height: "30px",
-                                    margin: "5px",
+                                    margin: "3px",
+                                    borderRadius: "100%",
                                 }}
                             ></div>
                         ))}
                     </div>
                 </div>
             ))}
+            <button>Select</button>
         </div>
     );
 }
 
 export default ColorPicker;
-const colors = {
+export const colors = {
     vivid: [
         "#EF4444",
         "#FF6800",

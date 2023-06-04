@@ -1,4 +1,5 @@
 .modalBackGround {
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
@@ -10,6 +11,7 @@
         border-bottom: 1px solid black;
         width: 80%;
     }
+
     .card {
         color: blueviolet;
         background: white;
@@ -24,12 +26,14 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+
         .iconBtn {
             width: 80%;
             display: flex;
             justify-content: space-between;
             padding-bottom: 10px;
         }
+
         .modalx {
             width: 80%;
             height: 10px;
@@ -38,6 +42,7 @@
             justify-content: end;
             cursor: pointer;
         }
+
         .contents {
             display: flex;
             align-items: center;
@@ -49,6 +54,7 @@
                 color: #abaeb5;
             }
         }
+
         .link {
             display: flex;
             justify-content: flex-start;
@@ -77,6 +83,7 @@
                 border: 1px solid black;
             }
         }
+
         .timeSelector {
             display: flex;
             justify-content: space-evenly;
@@ -125,6 +132,7 @@
             display: flex;
             display: flex;
             justify-content: center;
+
             textarea {
                 border-radius: 8px;
                 width: 70%;
@@ -134,5 +142,12 @@
                 resize: none;
             }
         }
+    }
+
+    .colorModal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 20px;
     }
 }

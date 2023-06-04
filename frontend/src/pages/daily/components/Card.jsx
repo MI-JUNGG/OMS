@@ -213,6 +213,9 @@ function Card() {
                     <ColorSelector />
                 </div>
             </div>
+            <div className="colorModal">
+                <ColorPicker />
+            </div>
         </div>
     );
 }
