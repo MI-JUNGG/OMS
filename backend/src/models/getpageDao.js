@@ -11,10 +11,8 @@ const { appDataSource } = require("./appDataSource");
 //   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 // };
 
-const monthPage = async (userId, startDate, endDate) => {
-  const parsedStartDate = new Date(startDate.replace(/%20/g, " "));
-  const parsedEndDate = new Date(endDate.replace(/%20/g, " "));
-
+const monthPage = async (userId, startMonth, endMonth) => {
+  console.log("dao", startMonth, endMonth);
   const result = await appDataSource.query(
     `
     SELECT
@@ -29,14 +27,17 @@ const monthPage = async (userId, startDate, endDate) => {
     FROM
       card c
     WHERE c.user_id = ?
-    AND ? >= c.start_date
-    AND ? <= c.end_date
+    AND DATE_FORMAT(c.start_date, '%Y-%m') = ?
+    AND DATE_FORMAT(c.end_date, '%Y-%m') = ?
     `,
-    [userId, parsedStartDate, parsedEndDate]
+    [userId, `%${startMonth}%`, `%${endMonth}%`]
   );
-
+  console.log(result);
   return result;
 };
+
+// AND c.start_date LIKE CONCAT(?, '%')
+// AND c.end_date LIKE CONCAT(?, '%')
 
 module.exports = {
   monthPage,

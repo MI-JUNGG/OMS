@@ -3,11 +3,11 @@ const { catchAsync, detectError } = require("../utils/detectError");
 
 // local - 회원가입
 const signup = catchAsync(async (req, res) => {
-  const { name, nickname, email, password } = req.body;
+  const { nickname, email, password } = req.body;
 
-  if (!name || !nickname || !email || !password) detectError("KEY_ERROR", 400);
+  if (!nickname || !email || !password) detectError("KEY_ERROR", 400);
 
-  await userService.signup(name, nickname, email, password);
+  await userService.signup(nickname, email, password);
 
   return res.status(201).json({ message: "USER_CREATED!" });
 });

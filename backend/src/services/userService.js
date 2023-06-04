@@ -11,7 +11,7 @@ const SocialTypeId = Object.freeze({
 });
 
 // LOCAL 회원가입
-const signup = async (name, nickname, email, password) => {
+const signup = async (nickname, email, password) => {
   const pwValidation = new RegExp(
     "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,20})"
   );
@@ -22,7 +22,6 @@ const signup = async (name, nickname, email, password) => {
   const hashedPassword = await bcrypt.hash(password, saltRounds);
 
   const createUser = await userDao.localCreateUser(
-    name,
     nickname,
     email,
     hashedPassword
@@ -40,7 +39,7 @@ const signin = async (email, password) => {
 
   const [userData] = await userDao.getUserId(email);
 
-  const payLoad = { userData: userData.id };
+  const payLoad = { userId: userData.id };
 
   const jwtToken = jwt.sign(payLoad, process.env.JWT_SECRET);
 
@@ -59,7 +58,6 @@ const kakaoLogin = async (kakaoToken) => {
 
   const { data } = result;
   const socialId = data.id;
-  const name = data.properties.name;
   const nickname = data.properties.nickname;
   const email = data.kakao_account.email;
   const socialTypeId = SocialTypeId.KAKAO;
@@ -69,7 +67,6 @@ const kakaoLogin = async (kakaoToken) => {
   if (!userId) {
     const newUser = await userDao.createUser(
       socialId,
-      name,
       nickname,
       email,
       socialTypeId

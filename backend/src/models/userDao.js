@@ -38,25 +38,21 @@ const getHashedPassword = async (email) => {
 };
 
 // local - user 생성
-const localCreateUser = async (name, nickname, email, hashedPassword) => {
+const localCreateUser = async (nickname, email, hashedPassword) => {
   return await appDataSource.query(
     `
     INSERT INTO users (
-      name,
       nickname,
       email,
       password,
-      social_type_id,
-      custom_id
+      social_type_id
     ) VALUES (
       ?,
       ?,
       ?,
-      ?,
-      ${SocialTypeId.LOCAL},
-      1
+      ${SocialTypeId.LOCAL}
     )`,
-    [name, nickname, email, hashedPassword]
+    [nickname, email, hashedPassword]
   );
 };
 
@@ -75,12 +71,11 @@ const checkUserById = async (socialId) => {
   return userInfo;
 };
 
-const createUser = async (socialId, name, nickname, email, socialTypeId) => {
+const createUser = async (socialId, nickname, email, socialTypeId) => {
   return await appDataSource.query(
     `
     INSERT INTO users (
       social_id,
-      name,
       nickname,
       email,
       social_type_id,
@@ -93,7 +88,7 @@ const createUser = async (socialId, name, nickname, email, socialTypeId) => {
       ?,
       1
     )`,
-    [socialId, name, nickname, email, socialTypeId]
+    [socialId, nickname, email, socialTypeId]
   );
 };
 
