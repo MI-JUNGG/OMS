@@ -9,7 +9,7 @@ $loginModalTextColor: #abaeb5;
         font-size: 30px;
         font-weight: bold;
         font-family: "Nanum";
-        margin: 30px auto 0;
+        margin: 90px auto 0;
         padding-bottom: 20px;
         border-bottom: 1px solid $loginModalTextColor;
     }
@@ -30,9 +30,9 @@ $loginModalTextColor: #abaeb5;
     .inputZone {
         div {
             display: flex;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             flex-direction: column;
-            height: 75px;
+            height: 70px;
 
             span {
                 font-size: 12px;

@@ -1,19 +1,19 @@
-import { useState, useEffect, useRef } from "react";
-import "./MonthSelector.scss";
+import { useEffect, useRef } from "react";
+import "../MonthSelector.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { minusM, PlusM } from "../../../../modules/module/date";
+import { ePlusM, eminusM } from "../../../../../modules/module/endDate";
 
-function MonthSelector({ monHandler }) {
+function Mselector() {
     const dispatch = useDispatch();
     const outerRef = useRef(null);
-    const month = useSelector((state) => state.dateReducer.month);
+    const month = useSelector((state) => state.endDateReducer.month);
 
     const increaseMon = () => {
-        dispatch(PlusM());
+        dispatch(ePlusM());
     };
 
     const decreaseMon = () => {
-        dispatch(minusM());
+        dispatch(eminusM());
     };
 
     useEffect(() => {
@@ -54,4 +54,4 @@ function MonthSelector({ monHandler }) {
     );
 }
 
-export default MonthSelector;
+export default Mselector;

@@ -1,19 +1,19 @@
-import { useState, useEffect, useRef } from "react";
-import "./MonthSelector.scss";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { minusM, PlusM } from "../../../../modules/module/date";
+import { ePlusY, eeminusY } from "../../../../../modules/module/endDate";
+import "../YearSelector.scss";
 
-function MonthSelector({ monHandler }) {
-    const dispatch = useDispatch();
+function YearSelector() {
     const outerRef = useRef(null);
-    const month = useSelector((state) => state.dateReducer.month);
+    const dispatch = useDispatch();
+    const year = useSelector((state) => state.endDateReducer.year);
 
-    const increaseMon = () => {
-        dispatch(PlusM());
+    const increaseYear = () => {
+        return dispatch(ePlusY());
     };
 
-    const decreaseMon = () => {
-        dispatch(minusM());
+    const decreaseYear = () => {
+        return dispatch(eeminusY());
     };
 
     useEffect(() => {
@@ -25,12 +25,12 @@ function MonthSelector({ monHandler }) {
                     target.contains(outerRef.current));
 
             if (event.deltaY < 0 && outerRef.current.contains(event.target)) {
-                decreaseMon();
+                decreaseYear();
             } else if (
                 event.deltaY > 0 &&
                 outerRef.current.contains(event.target)
             ) {
-                increaseMon();
+                increaseYear();
             }
 
             if (!isScrollable || !outerRef.current.contains(event.target)) {
@@ -46,12 +46,12 @@ function MonthSelector({ monHandler }) {
     }, []);
 
     return (
-        <div className="monthControll" ref={outerRef}>
-            {Number(month) - 1 === 0 ? <p>12</p> : <p>{Number(month) - 1}</p>}
-            <p className="now">{Number(month)}</p>
-            {Number(month) + 1 === 13 ? <p>1</p> : <p>{Number(month) + 1}</p>}
+        <div ref={outerRef} className="yearControll">
+            <p>{year - 1}</p>
+            <p className="now">{year}</p>
+            <p>{year + 1}</p>
         </div>
     );
 }
 
-export default MonthSelector;
+export default YearSelector;

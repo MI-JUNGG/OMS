@@ -8,7 +8,6 @@ import LoginModalBackground from "../sign/LoginModalBackground";
 import { loginModal } from "../../modules/module/loginModal";
 import { sign } from "../../modules/module/sign";
 import {
-    name,
     nickName,
     eMail,
     password,
@@ -25,7 +24,6 @@ function Nav() {
         dispatch(loginModal());
         dispatch(sign(0));
 
-        dispatch(name(""));
         dispatch(nickName(""));
         dispatch(eMail(""));
         dispatch(password(""));
