@@ -26,13 +26,12 @@ const weekPage = catchAsync(async (req, res) => {
 });
 
 const dayPage = catchAsync(async (req, res) => {
-  const { startDate, endDate } = req.query;
+  const { startDate } = req.query;
   const userId = req.userId;
 
-  if (!userId || !startDate || !endDate)
-    detectError("NEED_USER_ID OR NEED_DATE_INFO", 400);
+  if (!userId || !startDate) detectError("NEED_USER_ID OR NEED_DATE_INFO", 400);
 
-  const result = await getpageService.dayPage(userId, startDate, endDate);
+  const result = await getpageService.dayPage(userId, startDate);
 
   return res.status(200).json(result);
 });

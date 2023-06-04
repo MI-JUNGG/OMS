@@ -18,11 +18,10 @@ const weekPage = async (userId, startDate, endDate) => {
   return result;
 };
 
-const dayPage = async (userId, startDate, endDate) => {
-  const startMonth = startDate.substr(0, 7);
-  const endMonth = endDate.substr(0, 7);
+const dayPage = async (userId, startDate) => {
+  const startMonth = startDate.substr(0, 10);
 
-  const result = await getpageDao.dayPage(userId, startMonth, endMonth);
+  const result = await getpageDao.dayPage(userId, startMonth);
 
   return result;
 };
