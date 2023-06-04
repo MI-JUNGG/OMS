@@ -50,7 +50,7 @@ CREATE TABLE `color_palette` (
   `color6` varchar(10) NOT NULL,
   `color7` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +62,7 @@ CREATE TABLE `color_palette` (
 CREATE TABLE `mypage` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `color_palette_id` int NOT NULL DEFAULT '1',
+  `color_palette_id` int DEFAULT '1',
   `main_color` varchar(30) NOT NULL DEFAULT '#547AFF',
   `background_color` varchar(30) NOT NULL DEFAULT '#F3F6FF',
   `text_style` varchar(10) DEFAULT 'regular',
@@ -164,5 +164,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20230518135145'),
   ('20230604075014'),
   ('20230604080332'),
-  ('20230604122351');
+  ('20230604122351'),
+  ('20230604124159');
 UNLOCK TABLES;
