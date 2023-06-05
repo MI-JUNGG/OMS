@@ -76,13 +76,13 @@ const getTheme = async (userId) => {
         color_palette.color5,
         color_palette.color6,
         color_palette.color7
-      )
+      ) AS colorPalette
     FROM
       mypage
     JOIN
       color_palette
     ON
-      users.color_palette_id = color_palette.id
+      mypage.color_palette_id = color_palette.id
     WHERE
       user_id = ?
     `,
