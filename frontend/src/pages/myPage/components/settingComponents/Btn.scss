@@ -1,9 +1,13 @@
 $mainColor: #547aff;
+$systemColor: #abaeb5;
 
 .btnContainer {
     display: flex;
     justify-content: right;
-    margin-top: 28px;
+    // margin-top: 28px;
+    align-items: center;
+    height: 107px;
+    border-bottom: 1px solid $systemColor;
 
     button {
         width: 102px;
