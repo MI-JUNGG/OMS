@@ -13,11 +13,27 @@ const mypageInfo = catchAsync(async (req, res) => {
 
 const changeMypage = catchAsync(async (req, res) => {
   const userId = req.userId;
-  const { nickname, password, newPassword } = req.body;
+  const { nickname, currentPassword, newPassword } = req.body;
 
-  await mypageService.changeMypage(userId, nickname, password, newPassword);
+  if (userId && nickname) {
+    await mypageService.changeNickname(userId, nickname);
 
-  return res.status(201).json({ message: "CHANGED!" });
+    return res.status(201).json({ message: "NICKNAME_CHANGED!" });
+  } else if (userId && currentPassword && newPassword) {
+    await mypageService.changePassword(userId, currentPassword, newPassword);
+
+    return res.status(201).json({ message: "PASSWORD_CHANGED!" });
+  }
 });
 
-module.exports = { mypageInfo, changeMypage };
+const theme = catchAsync(async (req, res) => {
+  const userId = req.userId;
+
+  if (!userId) detectError("NEED_USER_ID", 400);
+
+  const [result] = await mypageService.theme(userId);
+
+  return res.status(201).json(result);
+});
+
+module.exports = { mypageInfo, changeMypage, theme };

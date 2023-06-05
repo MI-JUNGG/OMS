@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const { appDataSource } = require("./appDataSource");
 
 const mypageInfo = async (userId) => {
@@ -29,49 +30,70 @@ const changeNickname = async (nickname, userId) => {
   );
 };
 
-const changePassword = async (newPassword, userId, password) => {
-  const queryRunner = appDataSource.createQueryRunner();
+const getHashedPassword = async (userId) => {
+  const password = appDataSource.query(
+    `
+    SELECT
+      password
+    FROM
+      users
+    WHERE
+      id = ?
+    `,
+    [userId]
+  );
+  return password;
+};
 
-  await queryRunner.connect();
-  await queryRunner.startTransaction();
-
-  try {
-    const checkPassword = `
-      SELECT * FROM
-        users
-      WHERE
-        id = ?
-      AND
-        password = ?
-      `;
-
-    const checkResult = await queryRunner.query(checkPassword, [
-      userId,
-      password,
-    ]);
-
-    if (checkResult.length === 0) {
-      await queryRunner.rollbackTransaction();
-      throw new Error("check your password!");
-    }
-
-    const updateQuery = `
+const updatePassword = async (userId, hashedNewPassword) => {
+  return await appDataSource.query(
+    `
       UPDATE
         users
       SET
         password = ?
       WHERE
         id = ?
-      `;
-    await queryRunner.query(updateQuery, [newPassword, userId]);
-
-    await queryRunner.commitTransaction();
-  } catch (err) {
-    console.log(err);
-    await queryRunner.rollbackTransaction();
-  } finally {
-    await queryRunner.release();
-  }
+      `,
+    [hashedNewPassword, userId]
+  );
 };
 
-module.exports = { mypageInfo, changeNickname, changePassword };
+const theme = async (userId) => {
+  return await appDataSource.query(
+    `
+    SELECT
+      main_color                     AS mainColor,
+      background_color               AS backgroundColor,
+      text_style                     AS textStyle,
+      text_color                     AS textColor,
+      color_palette_id               AS colorPaletteId,
+      JSON_ARRAY(
+        color_palette.color1,
+        color_palette.color2,
+        color_palette.color3,
+        color_palette.color4,
+        color_palette.color5,
+        color_palette.color6,
+        color_palette.color7
+      )
+    FROM
+      users
+    JOIN
+      color_palette
+    ON
+      users.color_palette_id = color_palette.id
+    WHERE
+      id = ?
+    `,
+    [userId]
+  );
+};
+
+module.exports = {
+  mypageInfo,
+  changeNickname,
+  getHashedPassword,
+  updatePassword,
+  theme,
+};

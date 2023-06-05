@@ -20,7 +20,7 @@ const signUp = async (nickname, email, password) => {
 
   const saltRounds = 12;
   const hashedPassword = await bcrypt.hash(password, saltRounds);
-
+  console.log(hashedPassword);
   const createUser = await userDao.localCreateUser(
     nickname,
     email,
