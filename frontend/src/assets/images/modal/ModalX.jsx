@@ -1,11 +1,11 @@
 import React from "react";
 
-function ModalX() {
+function ModalX({ width, height }) {
     return (
         <div>
             <svg
-                width="10"
-                height="10"
+                width={width}
+                height={height}
                 viewBox="0 0 30 30"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"

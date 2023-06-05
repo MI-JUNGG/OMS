@@ -47,9 +47,9 @@ function MinSelector() {
 
     return (
         <div className="minutes" ref={outerRef}>
-            <span>{minute === 0 ? 59 : minute - 1}</span>
-            <span>{minute}</span>
-            <span>{minute === 59 ? 0 : minute + 1}</span>
+            <p>{minute === 0 ? 59 : minute - 1}</p>
+            <p className="now">{minute}</p>
+            <p>{minute === 59 ? 0 : minute + 1}</p>
         </div>
     );
 }

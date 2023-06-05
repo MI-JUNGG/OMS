@@ -1,20 +1,26 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTime, minusTime } from "../../../../modules/module/date";
-import "./TimeSelector.scss";
+import { ePlusD, eminusD } from "../../../../../modules/module/repeatEnd";
 
-function TimeSelector() {
-    const outerRef = useRef(null);
+import "../../CardCompo/DaySelector.scss";
+
+function EndDay() {
     const dispatch = useDispatch();
-    const { time } = useSelector((state) => state.dateReducer);
+    const { year, month, day } = useSelector((state) => state.endDateReducer);
+    const outerRef = useRef(null);
 
     const increaseday = () => {
-        dispatch(addTime());
+        dispatch(ePlusD());
     };
 
     const decreaseday = () => {
-        dispatch(minusTime());
+        dispatch(eminusD());
     };
+
+    function getLastDayOfMonth(year, month) {
+        const lastDay = new Date(year, month, 0).getDate();
+        return lastDay;
+    }
 
     useEffect(() => {
         const handleScroll = (event) => {
@@ -45,13 +51,23 @@ function TimeSelector() {
         };
     }, []);
 
+    const lastDayOfMonth = getLastDayOfMonth(year, month);
+
     return (
-        <div className="hour" ref={outerRef}>
-            <p>{time === 1 || time - 1 === -1 ? 24 : time - 1}</p>
-            <p className="now">{time}</p>
-            <p>{time === 24 ? 1 : time + 1}</p>
+        <div className="monthControll" ref={outerRef}>
+            {parseInt(day) === 1 ? (
+                <p>{lastDayOfMonth}</p>
+            ) : (
+                <p>{parseInt(day) - 1}</p>
+            )}
+            <p className="now">{Number(day)}</p>
+            {parseInt(day) === lastDayOfMonth ? (
+                <p>1</p>
+            ) : (
+                <p>{parseInt(day) + 1}</p>
+            )}
         </div>
     );
 }
 
-export default TimeSelector;
+export default EndDay;
