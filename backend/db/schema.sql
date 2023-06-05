@@ -31,7 +31,7 @@ CREATE TABLE `card` (
   KEY `repeat_id` (`repeat_id`),
   CONSTRAINT `card_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `card_ibfk_2` FOREIGN KEY (`repeat_id`) REFERENCES `repeat_type` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,13 +66,13 @@ CREATE TABLE `mypage` (
   `main_color` varchar(30) NOT NULL DEFAULT '#547AFF',
   `background_color` varchar(30) NOT NULL DEFAULT '#F3F6FF',
   `text_style` varchar(10) DEFAULT 'regular',
-  `text_style_color` varchar(30) DEFAULT 'dark',
+  `text_color` varchar(30) DEFAULT 'dark',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `color_palette_id` (`color_palette_id`),
   CONSTRAINT `mypage_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `mypage_ibfk_2` FOREIGN KEY (`color_palette_id`) REFERENCES `color_palette` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +131,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   KEY `social_type_id` (`social_type_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`social_type_id`) REFERENCES `social_type` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,5 +165,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20230604075014'),
   ('20230604080332'),
   ('20230604122351'),
-  ('20230604124159');
+  ('20230604124159'),
+  ('20230605133635');
 UNLOCK TABLES;
