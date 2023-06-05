@@ -6,8 +6,8 @@ const mypageInfo = async (userId) => {
   return await mypageDao.mypageInfo(userId);
 };
 
-const changeNickname = async (userId, nickname) => {
-  return await mypageDao.changeNickname(userId, nickname);
+const changeNickname = async (nickname, userId) => {
+  return await mypageDao.changeNickname(nickname, userId);
 };
 
 const changePassword = async (userId, currentPassword, newPassword) => {

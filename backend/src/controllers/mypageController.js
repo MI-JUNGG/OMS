@@ -16,7 +16,7 @@ const changeMypage = catchAsync(async (req, res) => {
   const { nickname, currentPassword, newPassword } = req.body;
 
   if (userId && nickname) {
-    await mypageService.changeNickname(userId, nickname);
+    await mypageService.changeNickname(nickname, userId);
 
     return res.status(201).json({ message: "NICKNAME_CHANGED!" });
   } else if (userId && currentPassword && newPassword) {
