@@ -26,14 +26,14 @@ const changeMypage = catchAsync(async (req, res) => {
   }
 });
 
-const theme = catchAsync(async (req, res) => {
+const getTheme = catchAsync(async (req, res) => {
   const userId = req.userId;
 
   if (!userId) detectError("NEED_USER_ID", 400);
 
-  const [result] = await mypageService.theme(userId);
+  const [result] = await mypageService.getTheme(userId);
 
   return res.status(201).json(result);
 });
 
-module.exports = { mypageInfo, changeMypage, theme };
+module.exports = { mypageInfo, changeMypage, getTheme };

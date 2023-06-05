@@ -22,8 +22,8 @@ const changePassword = async (userId, currentPassword, newPassword) => {
   await mypageDao.updatePassword(userId, hashedNewPassword);
 };
 
-const theme = async (userId) => {
-  return await mypageDao.theme(userId);
+const getTheme = async (userId) => {
+  return await mypageDao.getTheme(userId);
 };
 
-module.exports = { mypageInfo, changeNickname, changePassword, theme };
+module.exports = { mypageInfo, changeNickname, changePassword, getTheme };

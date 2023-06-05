@@ -6,7 +6,7 @@ const mypageInfo = async (userId) => {
     `
     SELECT
       social_type_id       AS socialTypeId,
-      email               AS email
+      email                AS email
     FROM
       users
     WHERE
@@ -59,7 +59,7 @@ const updatePassword = async (userId, hashedNewPassword) => {
   );
 };
 
-const theme = async (userId) => {
+const getTheme = async (userId) => {
   return await appDataSource.query(
     `
     SELECT
@@ -78,13 +78,13 @@ const theme = async (userId) => {
         color_palette.color7
       )
     FROM
-      users
+      mypage
     JOIN
       color_palette
     ON
       users.color_palette_id = color_palette.id
     WHERE
-      id = ?
+      user_id = ?
     `,
     [userId]
   );
@@ -95,5 +95,5 @@ module.exports = {
   changeNickname,
   getHashedPassword,
   updatePassword,
-  theme,
+  getTheme,
 };

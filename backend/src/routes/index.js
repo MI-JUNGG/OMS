@@ -5,6 +5,6 @@ const userRouter = require("./userRouter");
 const mypageRouter = require("./mypageRouter");
 
 router.use("/auth", userRouter.router);
-router.use("/", mypageRouter.router);
+router.use("/mypage", mypageRouter.router);
 
 module.exports = router;
