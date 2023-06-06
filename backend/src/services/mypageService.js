@@ -26,4 +26,40 @@ const getTheme = async (userId) => {
   return await mypageDao.getTheme(userId);
 };
 
-module.exports = { mypageInfo, changeNickname, changePassword, getTheme };
+const changeTheme = async (
+  mainColor,
+  backgroundColor,
+  textStyle,
+  textColor,
+  color1,
+  color2,
+  color3,
+  color4,
+  color5,
+  color6,
+  color7,
+  userId
+) => {
+  return await mypageDao.changeTheme(
+    mainColor,
+    backgroundColor,
+    textStyle,
+    textColor,
+    color1,
+    color2,
+    color3,
+    color4,
+    color5,
+    color6,
+    color7,
+    userId
+  );
+};
+
+module.exports = {
+  mypageInfo,
+  changeNickname,
+  changePassword,
+  getTheme,
+  changeTheme,
+};

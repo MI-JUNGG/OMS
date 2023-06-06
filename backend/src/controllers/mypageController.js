@@ -36,4 +36,38 @@ const getTheme = catchAsync(async (req, res) => {
   return res.status(201).json(result);
 });
 
-module.exports = { mypageInfo, changeMypage, getTheme };
+const changeTheme = catchAsync(async (req, res) => {
+  const userId = req.userId;
+  const {
+    mainColor,
+    backgroundColor,
+    textStyle,
+    textColor,
+    color1,
+    color2,
+    color3,
+    color4,
+    color5,
+    color6,
+    color7,
+  } = req.body;
+
+  const [result] = await mypageService.changeTheme(
+    mainColor,
+    backgroundColor,
+    textStyle,
+    textColor,
+    color1,
+    color2,
+    color3,
+    color4,
+    color5,
+    color6,
+    color7,
+    userId
+  );
+
+  return res.status(201).json(result);
+});
+
+module.exports = { mypageInfo, changeMypage, getTheme, changeTheme };

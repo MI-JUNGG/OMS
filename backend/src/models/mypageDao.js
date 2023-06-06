@@ -90,10 +90,74 @@ const getTheme = async (userId) => {
   );
 };
 
+const changeTheme = async (
+  mainColor,
+  backgroundColor,
+  textStyle,
+  textColor,
+  color1,
+  color2,
+  color3,
+  color4,
+  color5,
+  color6,
+  color7,
+  userId
+) => {
+  const changeMainColor = mainColor ? `m.main_color = ?,` : ``;
+  const changeBackgroundColor = backgroundColor
+    ? `m.background_color = ?,`
+    : ``;
+  const changeTextStyle = textStyle ? `m.text_style = ?,` : ``;
+  const changeTextColor = textColor ? `m.text_color = ?,` : ``;
+
+  return await appDataSource.query(
+    `
+      UPDATE
+        mypage m
+      JOIN
+        color_palette c
+      ON
+        mypage.color_palette_id = color_palette.id
+      SET
+        ${changeMainColor}
+        ${changeBackgroundColor}
+        ${changeTextStyle}
+        ${changeTextColor}
+        c.color1 = ?,
+        c.color2 = ?,
+        c.color3 = ?,
+        c.color4 = ?,
+        c.color5 = ?,
+        c.color6 = ?,
+        c.color7 = ?,
+      WHERE
+        user_id = ?
+      AND
+        c.id = 6
+      `,
+    [
+      mainColor,
+      backgroundColor,
+      textStyle,
+      textColor,
+      color1,
+      color2,
+      color3,
+      color4,
+      color5,
+      color6,
+      color7,
+      userId,
+    ]
+  );
+};
+
 module.exports = {
   mypageInfo,
   changeNickname,
   getHashedPassword,
   updatePassword,
   getTheme,
+  changeTheme,
 };
