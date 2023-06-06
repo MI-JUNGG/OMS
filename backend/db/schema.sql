@@ -42,13 +42,13 @@ CREATE TABLE `card` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `color_palette` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `color1` varchar(10) NOT NULL,
-  `color2` varchar(10) NOT NULL,
-  `color3` varchar(10) NOT NULL,
-  `color4` varchar(10) NOT NULL,
-  `color5` varchar(10) NOT NULL,
-  `color6` varchar(10) NOT NULL,
-  `color7` varchar(10) NOT NULL,
+  `color1` varchar(10) DEFAULT NULL,
+  `color2` varchar(10) DEFAULT NULL,
+  `color3` varchar(10) DEFAULT NULL,
+  `color4` varchar(10) DEFAULT NULL,
+  `color5` varchar(10) DEFAULT NULL,
+  `color6` varchar(10) DEFAULT NULL,
+  `color7` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -166,5 +166,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20230604080332'),
   ('20230604122351'),
   ('20230604124159'),
-  ('20230605133635');
+  ('20230605133635'),
+  ('20230606051850');
 UNLOCK TABLES;
