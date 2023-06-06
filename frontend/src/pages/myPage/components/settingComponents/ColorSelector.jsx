@@ -1,9 +1,9 @@
-import "./ColorSelecter.scss";
+import "./ColorSelector.scss";
 
-function ColorSelecter() {
+function ColorSelector() {
     return (
         <>
-            <div className="colorSelecterContainer">
+            <div className="colorSelectorContainer">
                 <div className="selectZone">
                     <div className="mainColorSelect">
                         <h3>Main Color</h3>
@@ -44,14 +44,43 @@ function ColorSelecter() {
                         </div>
                     </div>
                 </div>
-                <div className="colorPreview">colorPreview</div>
+                <div className="colorPreview">
+                    <div className="previewTop">
+                        <img
+                            src="/src/assets/images/logo/logo.svg"
+                            alt="로고"
+                        />
+                    </div>
+                    <div className="previewInsideContainer">
+                        <div className="previewInside">
+                            <button className="previewBtn" type="button">
+                                Button
+                            </button>
+                            <span className="previewText">Text Color</span>
+                            <div className="previewLogo">
+                                <img
+                                    src="/src/assets/images/setting/setting_calendar.svg"
+                                    alt="logo"
+                                    style={{
+                                        marginRight: "10px",
+                                        fill: "red",
+                                    }}
+                                />
+                                <img
+                                    src="/src/assets/images/setting/setting_calendar2.svg"
+                                    alt="logo"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div />
         </>
     );
 }
 
-export default ColorSelecter;
+export default ColorSelector;
 
 const MAIN_COLOR = [
     {

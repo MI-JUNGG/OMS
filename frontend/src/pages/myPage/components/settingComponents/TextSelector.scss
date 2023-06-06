@@ -1,0 +1,51 @@
+$mainColor: #547aff;
+
+.textSelectorContainer {
+    display: flex;
+
+    .textSelectorZone {
+        flex-direction: column;
+
+        .textStyleSelectZone {
+            h3 {
+                font-size: 22px;
+            }
+
+            .textStyleSelect {
+                display: flex;
+
+                div {
+                    display: flex;
+                    width: 87px;
+                    height: 44px;
+                    border: 1px solid $mainColor;
+                    color: $mainColor;
+                    border-radius: 15px;
+                    text-align: center;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 15;
+                    margin-right: 15px;
+                }
+            }
+        }
+
+        .textColorSelectZone {
+            h3 {
+                font-size: 22px;
+            }
+
+            .textColorSelect {
+                display: flex;
+
+                .textColor {
+                    width: 158px;
+                    height: 57px;
+                    border-radius: 15px;
+                    border: 1px solid $mainColor;
+                    margin-right: 49px;
+                }
+            }
+        }
+    }
+}

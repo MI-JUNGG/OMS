@@ -1,0 +1,95 @@
+$colorSelecter: #58595b;
+$mainColor: #547aff;
+
+.colorSelectorContainer {
+    display: flex;
+    justify-content: space-between;
+
+    .selectZone {
+        flex-direction: column;
+        height: 337px;
+        margin-top: 72px;
+
+        .mainColorSelect {
+            margin-bottom: 72px;
+
+            .mainColorList {
+                display: flex;
+            }
+        }
+
+        .bgColorSelect {
+            .bgColorList {
+                display: flex;
+            }
+        }
+    }
+
+    .colorPreview {
+        width: 490px;
+        height: 337px;
+        margin-top: 42px;
+        background-color: aliceblue;
+        // border: 1px solid #abaeb5;
+
+        .previewTop {
+            background-color: $mainColor;
+            height: 35px;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+
+            img {
+                width: 54px;
+                height: 20px;
+                margin-left: 10px;
+            }
+        }
+
+        .previewInsideContainer {
+            background-color: #f3f6ff;
+            display: flex;
+            justify-content: center;
+
+            .previewInside {
+                width: 413px;
+                height: 252px;
+                border-radius: 30px;
+                flex-direction: column;
+                text-align: center;
+                background-color: #333333;
+                margin-top: 27px;
+
+                button {
+                    width: 124px;
+                    height: 32px;
+                    border-radius: 50px;
+                    background-color: $mainColor;
+                    color: #ffffff;
+                    font-size: 18px;
+                    border: none;
+                    margin-top: 50px;
+                }
+
+                span {
+                    color: $mainColor;
+                    font-size: 18px;
+                    display: block;
+                    margin: 35px auto;
+                }
+
+                .previewLogo {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    img {
+                        width: 31px;
+                        height: 31px;
+                        stroke: red;
+                    }
+                }
+            }
+        }
+    }
+}

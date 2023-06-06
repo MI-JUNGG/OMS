@@ -1,6 +1,6 @@
 import "./Setting.scss";
 import Buttons from "./settingComponents/Btn";
-import ColorSelecter from "./settingComponents/ColorSelecter";
+import ColorSelector from "./settingComponents/ColorSelector";
 import TextSelector from "./settingComponents/TextSelector";
 
 function Setting() {
@@ -9,7 +9,7 @@ function Setting() {
             <div className="settingContainer">
                 <div className="settingContents">
                     <Buttons />
-                    <ColorSelecter />
+                    <ColorSelector />
                     <TextSelector />
                 </div>
             </div>
