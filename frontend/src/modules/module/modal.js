@@ -1,3 +1,4 @@
+// modalSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const modalSlice = createSlice({
@@ -6,8 +7,15 @@ const modalSlice = createSlice({
         cardmodal: false,
         dateControl: false,
         endDateControl: false,
+        dateType: false,
+        repeatControl: false,
+        repeatEndControl: false,
+        showColorPicker: false,
     },
     reducers: {
+        showColorPicker: (state) => {
+            return { ...state, showColorPicker: !state.showColorPicker };
+        },
         cardmodal: (state) => {
             return { ...state, cardmodal: !state.cardmodal };
         },
@@ -17,8 +25,25 @@ const modalSlice = createSlice({
         endDateControl: (state) => {
             return { ...state, endDateControl: !state.endDateControl };
         },
+        dateType: (state, actions) => {
+            return { ...state, dateType: actions.payload };
+        },
+        repeatControl: (state) => {
+            return { ...state, repeatControl: !state.repeatControl };
+        },
+        repeatEndControl: (state) => {
+            return { ...state, repeatEndControl: !state.repeatEndControl };
+        },
     },
 });
 
-export const { cardmodal, dateControl, endDateControl } = modalSlice.actions;
+export const {
+    cardmodal,
+    dateControl,
+    endDateControl,
+    dateType,
+    repeatControl,
+    repeatEndControl,
+    showColorPicker,
+} = modalSlice.actions;
 export default modalSlice.reducer;

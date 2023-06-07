@@ -1,31 +1,55 @@
 import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { dateControl } from "../../../modules/module/modal";
+import { useSelector, useDispatch } from "react-redux";
+import { cardmodal } from "../../../modules/module/modal";
 import axios from "axios";
 import AlldayTime from "./CardCompo/AlldayTime";
 import ModalLink from "../../../assets/images/modal/ModalLink";
 import ModalNote from "../../../assets/images/modal/modalNote";
 import ModalX from "../../../assets/images/modal/ModalX";
 import ModalCheck from "../../../assets/images/modal/ModalCheck";
-import AllDaySelectedTime from "./CardCompo/AllDaySelectedTime";
 import EndDate from "../components/CardCompo/endDate/EndDate";
+import RepeatEnd from "./repeat/RepeatEnd";
+import RepeatStart from "./repeat/RepeatStart";
+import ColorSelector from "./color/ColorSelector";
+import ColorPalette from "./color/ColorPalette";
+import All from "./All";
+import Repeat from "./repeat/Repeat";
+import ColorPicker from "./color/ColorPicker";
+import { showColorPicker } from "../../../modules/module/modal";
 import "./Card.scss";
 
 function Card() {
-    const [data, setData] = useState(null);
     const dispatch = useDispatch();
-    const today = new Date();
-    const id = today.toISOString();
+    const [data, setData] = useState(null);
+    const [link, setLink] = useState(false);
+    const [note, setNote] = useState(false);
+
+    const linkHandler = () => {
+        setLink((prev) => !prev);
+    };
+
+    const noteHandler = () => {
+        setNote((note) => !note);
+    };
+    const showColorPick = useSelector(
+        (state) => state.modalReducer.showColorPicker,
+    );
+
     const openModal = useSelector((state) => state.modalReducer.dateControl);
     const endDateModal = useSelector(
         (state) => state.modalReducer.endDateControl,
     );
+    const repeatStart = useSelector(
+        (state) => state.modalReducer.repeatControl,
+    );
+    const repeatEnd = useSelector(
+        (state) => state.modalReducer.repeatEndControl,
+    );
+    console.log(repeatEnd);
+    const datetype = useSelector((state) => state.modalReducer.dateType);
     const outerRef = useRef(null);
 
-    const modalHandler = () => {
-        dispatch(dateControl());
-        console.log(openModal);
-    };
+    console.log(datetype);
 
     const [form, setForm] = useState({
         title: "",
@@ -79,6 +103,10 @@ function Card() {
         setForm({ ...form, url: "" });
     };
 
+    const cardHandler = () => {
+        dispatch(cardmodal());
+    };
+
     const counterHandler = (e) => {
         const token =
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4NDczNDYwNn0.aRiYcyPZ6wyixzWbQnDWKzbCb8BlHMVSg3LnTQ2oZnA";
@@ -122,10 +150,18 @@ function Card() {
     };
 
     return (
-        <div className="modalBackGround">
-            <div className="card" ref={outerRef}>
-                <div onClick={counterHandler}>
-                    <ModalCheck />
+        <div className="modalBackGround" ref={outerRef}>
+            <div className="colorModal">
+                {showColorPick === true && <ColorPalette />}
+            </div>
+            <div className="card">
+                <div className="iconBtn">
+                    <div onClick={counterHandler}>
+                        <ModalCheck />
+                    </div>
+                    <div onClick={cardHandler}>
+                        <ModalX width={30} height={30} />
+                    </div>
                 </div>
                 <div className="cardTitle">
                     <input
@@ -136,38 +172,54 @@ function Card() {
                         placeholder="제목"
                     />
                 </div>
-                {openModal === false && endDateModal === false && (
-                    <div className="timeControll">
-                        <AllDaySelectedTime />
-                        <div className="btn">
-                            <button>종일</button>
-                            <button onClick={modalHandler}>반복</button>
-                        </div>
-                    </div>
-                )}
-                {openModal && <AlldayTime />}
-                {endDateModal && <EndDate />}
+                <div className="timeSelect">
+                    {!openModal && !endDateModal && datetype ? (
+                        <All />
+                    ) : (
+                        !openModal && !endDateModal && <Repeat />
+                    )}
+                    {openModal && <AlldayTime />}
+                    {endDateModal && <EndDate />}
+                    {repeatEnd && <RepeatEnd />}
+                    {repeatStart && <RepeatStart />}
+                </div>
                 <div className="modalx" onClick={clearUrl}>
-                    <ModalX />
+                    {link === true && <ModalX width={10} height={10} />}
                 </div>
                 <div className="link">
                     <div className="linkIcon">
                         <ModalLink />
                     </div>
-                    <input value={url} onChange={urlHandler} type="url" />
+                    {link === false ? (
+                        <button onClick={linkHandler}>링크</button>
+                    ) : (
+                        <input
+                            className="inputline"
+                            value={url}
+                            onChange={urlHandler}
+                            type="url"
+                        />
+                    )}
                 </div>
                 <div className="modalx" onClick={clearContents}>
-                    <ModalX />
+                    {note === true && <ModalX width={10} height={10} />}
                 </div>
-                <div className="contents">
+                <div className="link">
                     <ModalNote />
-                    <textarea
-                        onChange={createContent}
-                        value={contents}
-                        name="content"
-                    />
+                    {note === false ? (
+                        <button onClick={noteHandler}>메모</button>
+                    ) : (
+                        <textarea
+                            className="textArea"
+                            onChange={createContent}
+                            value={contents}
+                            name="content"
+                        />
+                    )}
                 </div>
-                <div className="selectColor"></div>
+                <div className="selectColor">
+                    <ColorSelector />
+                </div>
             </div>
         </div>
     );

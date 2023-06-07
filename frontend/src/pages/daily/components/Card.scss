@@ -1,4 +1,5 @@
 .modalBackGround {
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
@@ -6,11 +7,20 @@
     right: 0;
     background: rgba(0, 0, 0, 0.1);
 
+    .timeSelect {
+        border-bottom: 1px solid black;
+        width: 80%;
+    }
+    .colorModal {
+        position: absolute;
+        top: 30%;
+        left: 70%;
+    }
     .card {
         color: blueviolet;
         background: white;
         border-radius: 8px;
-        width: 30vw;
+        width: 25vw;
         padding: 40px 10px 10px 10px;
         gap: 10px;
         display: flex;
@@ -21,21 +31,13 @@
         left: 50%;
         transform: translate(-50%, -50%);
 
-        .timeControll {
+        .iconBtn {
+            width: 80%;
             display: flex;
-            gap: 10px;
-            .btn {
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-                button {
-                    background: none;
-                    border-radius: 12px;
-                    width: 60px;
-                    height: 25px;
-                }
-            }
+            justify-content: space-between;
+            padding-bottom: 10px;
         }
+
         .modalx {
             width: 80%;
             height: 10px;
@@ -44,23 +46,48 @@
             justify-content: end;
             cursor: pointer;
         }
+
+        .contents {
+            display: flex;
+            align-items: center;
+            width: 80%;
+
+            button {
+                border: none;
+                background-color: white;
+                color: #abaeb5;
+            }
+        }
+
         .link {
             display: flex;
-            justify-content: center;
-            height: 4vw;
-            width: 100%;
+            justify-content: flex-start;
+            width: 80%;
 
+            button {
+                border: none;
+                background-color: white;
+                color: #abaeb5;
+            }
             .linkIcon {
                 margin-top: -10px;
             }
-            input {
+            .inputline {
                 border-radius: 8px;
                 outline: none;
-                height: 100%;
-                width: 70%;
+                height: 2vw;
+                width: 90%;
+                border: 1px solid black;
+            }
+            .textArea {
+                border-radius: 8px;
+                outline: none;
+                height: 5vw;
+                width: 90%;
                 border: 1px solid black;
             }
         }
+
         .timeSelector {
             display: flex;
             justify-content: space-evenly;
@@ -76,8 +103,8 @@
         .selectColor {
             border-top: 1px solid black;
             width: 80%;
-            height: 5vh;
             padding: 5px;
+            overflow: auto;
         }
 
         .cardTitle {
@@ -109,6 +136,7 @@
             display: flex;
             display: flex;
             justify-content: center;
+
             textarea {
                 border-radius: 8px;
                 width: 70%;
@@ -118,5 +146,15 @@
                 resize: none;
             }
         }
+    }
+
+    .colorModal {
+        display: flex;
+        margin-left: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
     }
 }

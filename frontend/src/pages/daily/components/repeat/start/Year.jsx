@@ -1,19 +1,19 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTime, minusTime } from "../../../../modules/module/date";
-import "./TimeSelector.scss";
+import { minusY, PlusY } from "../../../../../modules/module/repeatStart";
+import "../../CardCompo/YearSelector.scss";
 
-function TimeSelector() {
+function Year() {
     const outerRef = useRef(null);
     const dispatch = useDispatch();
-    const { time } = useSelector((state) => state.dateReducer);
+    const year = useSelector((state) => state.dateReducer.year);
 
-    const increaseday = () => {
-        dispatch(addTime());
+    const increaseYear = () => {
+        return dispatch(PlusY());
     };
 
-    const decreaseday = () => {
-        dispatch(minusTime());
+    const decreaseYear = () => {
+        return dispatch(minusY());
     };
 
     useEffect(() => {
@@ -25,12 +25,12 @@ function TimeSelector() {
                     target.contains(outerRef.current));
 
             if (event.deltaY < 0 && outerRef.current.contains(event.target)) {
-                decreaseday();
+                decreaseYear();
             } else if (
                 event.deltaY > 0 &&
                 outerRef.current.contains(event.target)
             ) {
-                increaseday();
+                increaseYear();
             }
 
             if (!isScrollable || !outerRef.current.contains(event.target)) {
@@ -46,12 +46,12 @@ function TimeSelector() {
     }, []);
 
     return (
-        <div className="hour" ref={outerRef}>
-            <p>{time === 1 || time - 1 === -1 ? 24 : time - 1}</p>
-            <p className="now">{time}</p>
-            <p>{time === 24 ? 1 : time + 1}</p>
+        <div ref={outerRef} className="yearControll">
+            <p>{year - 1}</p>
+            <p className="now">{year}</p>
+            <p>{year + 1}</p>
         </div>
     );
 }
 
-export default TimeSelector;
+export default Year;

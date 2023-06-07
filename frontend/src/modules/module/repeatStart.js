@@ -1,43 +1,77 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 function getDaysInMonth(year, month) {
     return new Date(year, month, 0).getDate();
 }
 
-const enddateSlice = createSlice({
-    name: "counter",
+// start: { year: null, month: null, day: null, time: 0, minute: 0 },
+// end: { year: null, month: null, day: null, time: 0, minute: 0 },
+
+const repeatdateSlice = createSlice({
+    name: "date",
     initialState: {
         year: null,
         month: null,
         day: null,
-        time: 23,
-        minute: 59,
     },
     reducers: {
-        eaddDate: (state, action) => {
+        addTime: (state) => {
+            let newTime = state.time + 1;
+            if (newTime > 24) {
+                newTime = 1;
+            }
+            return { ...state, time: newTime };
+        },
+        minusTime: (state) => {
+            let newTime = state.time - 1;
+            if (newTime < 1) {
+                newTime = 24;
+            }
+            return { ...state, time: newTime };
+        },
+        addMin: (state) => {
+            let newMin = state.minute + 1;
+            let newTime = state.time;
+            if (newMin > 59) {
+                newMin = 0;
+                newTime = state.time + 1;
+            }
+            return { ...state, time: newTime, minute: newMin };
+        },
+        minusMin: (state) => {
+            let newMin = state.minute - 1;
+            let newTime = state.time;
+            if (newMin < 0) {
+                newMin = 59;
+                newTime = state.time - 1;
+            }
+            return { ...state, time: newTime, minute: newMin };
+        },
+        addDate: (state, action) => {
             return {
                 ...state,
                 year: action.payload,
             };
         },
-        eaddMonth: (state, action) => {
+        addMonth: (state, action) => {
             return {
                 ...state,
                 month: action.payload,
             };
         },
-        eaddDay: (state, action) => {
+        addDay: (state, action) => {
             return {
                 ...state,
                 day: action.payload,
             };
         },
-        ePlusY: (state) => {
+        PlusY: (state) => {
             return {
                 ...state,
                 year: state.year + 1,
             };
         },
-        ePlusM: (state) => {
+        PlusM: (state) => {
             let newMonth = state.month + 1;
             let newYear = state.year;
 
@@ -53,7 +87,7 @@ const enddateSlice = createSlice({
             };
         },
 
-        ePlusD: (state) => {
+        PlusD: (state) => {
             const daysInMonth = getDaysInMonth(state.year, state.month);
             const day = state.day + 1;
             let newDay = day;
@@ -77,13 +111,13 @@ const enddateSlice = createSlice({
             };
         },
 
-        eminusY: (state) => {
+        minusY: (state) => {
             return {
                 ...state,
                 year: state.year - 1,
             };
         },
-        eminusM: (state) => {
+        minusM: (state) => {
             let newMonth = state.month - 1;
             let newYear = state.year;
 
@@ -98,7 +132,7 @@ const enddateSlice = createSlice({
                 year: newYear,
             };
         },
-        eminusD: (state) => {
+        minusD: (state) => {
             const daysInPreviousMonth = getDaysInMonth(
                 state.year,
                 state.month - 1,
@@ -128,15 +162,15 @@ const enddateSlice = createSlice({
 });
 
 export const {
-    eaddDate,
-    eaddDay,
-    eaddMonth,
-    ePlusD,
-    ePlusM,
-    ePlusY,
-    eeminusY,
-    eminusM,
-    eminusD,
-} = enddateSlice.actions;
+    addDate,
+    addDay,
+    addMonth,
+    PlusD,
+    PlusM,
+    PlusY,
+    minusY,
+    minusM,
+    minusD,
+} = repeatdateSlice.actions;
 
-export default enddateSlice.reducer;
+export default repeatdateSlice.reducer;

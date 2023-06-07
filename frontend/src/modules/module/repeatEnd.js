@@ -3,7 +3,7 @@ function getDaysInMonth(year, month) {
     return new Date(year, month, 0).getDate();
 }
 
-const enddateSlice = createSlice({
+const repeatenddateSlice = createSlice({
     name: "counter",
     initialState: {
         year: null,
@@ -137,6 +137,6 @@ export const {
     eeminusY,
     eminusM,
     eminusD,
-} = enddateSlice.actions;
+} = repeatenddateSlice.actions;
 
-export default enddateSlice.reducer;
+export default repeatenddateSlice.reducer;

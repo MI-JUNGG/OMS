@@ -1,0 +1,13 @@
+.colorBox {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    .circle {
+        border: 1px solid black;
+
+        border-radius: 100%;
+        width: 1.5vw;
+        height: 1.5vw;
+    }
+}

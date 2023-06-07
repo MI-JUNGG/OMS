@@ -1,19 +1,19 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTime, minusTime } from "../../../../modules/module/date";
-import "./TimeSelector.scss";
+import { minusM, PlusM } from "../../../../../modules/module/repeatStart";
+import "../../CardCompo/MonthSelector.scss";
 
-function TimeSelector() {
-    const outerRef = useRef(null);
+function Month({ monHandler }) {
     const dispatch = useDispatch();
-    const { time } = useSelector((state) => state.dateReducer);
+    const outerRef = useRef(null);
+    const month = useSelector((state) => state.dateReducer.month);
 
-    const increaseday = () => {
-        dispatch(addTime());
+    const increaseMon = () => {
+        dispatch(PlusM());
     };
 
-    const decreaseday = () => {
-        dispatch(minusTime());
+    const decreaseMon = () => {
+        dispatch(minusM());
     };
 
     useEffect(() => {
@@ -25,12 +25,12 @@ function TimeSelector() {
                     target.contains(outerRef.current));
 
             if (event.deltaY < 0 && outerRef.current.contains(event.target)) {
-                decreaseday();
+                decreaseMon();
             } else if (
                 event.deltaY > 0 &&
                 outerRef.current.contains(event.target)
             ) {
-                increaseday();
+                increaseMon();
             }
 
             if (!isScrollable || !outerRef.current.contains(event.target)) {
@@ -46,12 +46,12 @@ function TimeSelector() {
     }, []);
 
     return (
-        <div className="hour" ref={outerRef}>
-            <p>{time === 1 || time - 1 === -1 ? 24 : time - 1}</p>
-            <p className="now">{time}</p>
-            <p>{time === 24 ? 1 : time + 1}</p>
+        <div className="monthControll" ref={outerRef}>
+            {Number(month) - 1 === 0 ? <p>12</p> : <p>{Number(month) - 1}</p>}
+            <p className="now">{Number(month)}</p>
+            {Number(month) + 1 === 13 ? <p>1</p> : <p>{Number(month) + 1}</p>}
         </div>
     );
 }
 
-export default TimeSelector;
+export default Month;
