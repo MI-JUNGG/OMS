@@ -52,7 +52,7 @@ const changeTheme = catchAsync(async (req, res) => {
     color7,
   } = req.body;
 
-  const [result] = await mypageService.changeTheme(
+  const result = await mypageService.changeTheme(
     mainColor,
     backgroundColor,
     textStyle,
@@ -66,8 +66,8 @@ const changeTheme = catchAsync(async (req, res) => {
     color7,
     userId
   );
-
-  return res.status(201).json(result);
+  console.log(result);
+  return res.status(201).json({ message: result });
 });
 
 module.exports = { mypageInfo, changeMypage, getTheme, changeTheme };
