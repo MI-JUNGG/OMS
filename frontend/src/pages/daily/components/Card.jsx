@@ -151,9 +151,9 @@ function Card() {
 
     return (
         <div className="modalBackGround" ref={outerRef}>
-            <div className="colorModal">
+            {/* <div className="colorModal">
                 {showColorPick === true && <ColorPalette />}
-            </div>
+            </div> */}
             <div className="card">
                 <div className="iconBtn">
                     <div onClick={counterHandler}>
