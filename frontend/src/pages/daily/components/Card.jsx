@@ -11,9 +11,11 @@ import EndDate from "../components/CardCompo/endDate/EndDate";
 import RepeatEnd from "./repeat/RepeatEnd";
 import RepeatStart from "./repeat/RepeatStart";
 import ColorSelector from "./color/ColorSelector";
+import ColorPalette from "./color/ColorPalette";
 import All from "./All";
 import Repeat from "./repeat/Repeat";
 import ColorPicker from "./color/ColorPicker";
+import { showColorPicker } from "../../../modules/module/modal";
 import "./Card.scss";
 
 function Card() {
@@ -29,6 +31,9 @@ function Card() {
     const noteHandler = () => {
         setNote((note) => !note);
     };
+    const showColorPick = useSelector(
+        (state) => state.modalReducer.showColorPicker,
+    );
 
     const openModal = useSelector((state) => state.modalReducer.dateControl);
     const endDateModal = useSelector(
@@ -145,8 +150,11 @@ function Card() {
     };
 
     return (
-        <div className="modalBackGround">
-            <div className="card" ref={outerRef}>
+        <div className="modalBackGround" ref={outerRef}>
+            <div className="colorModal">
+                {showColorPick === true && <ColorPalette />}
+            </div>
+            <div className="card">
                 <div className="iconBtn">
                     <div onClick={counterHandler}>
                         <ModalCheck />
@@ -212,9 +220,6 @@ function Card() {
                 <div className="selectColor">
                     <ColorSelector />
                 </div>
-            </div>
-            <div className="colorModal">
-                <ColorPicker />
             </div>
         </div>
     );

@@ -10,8 +10,12 @@ const modalSlice = createSlice({
         dateType: false,
         repeatControl: false,
         repeatEndControl: false,
+        showColorPicker: false,
     },
     reducers: {
+        showColorPicker: (state) => {
+            return { ...state, showColorPicker: !state.showColorPicker };
+        },
         cardmodal: (state) => {
             return { ...state, cardmodal: !state.cardmodal };
         },
@@ -40,5 +44,6 @@ export const {
     dateType,
     repeatControl,
     repeatEndControl,
+    showColorPicker,
 } = modalSlice.actions;
 export default modalSlice.reducer;

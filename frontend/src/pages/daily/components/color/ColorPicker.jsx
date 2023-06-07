@@ -1,86 +1,51 @@
-import "./colorCss/ColorPicker.scss";
+import React, { useState } from "react";
+import { ChromePicker } from "react-color";
 
-function ColorPicker() {
+const ColorPicker = () => {
+    const [color, setColor] = useState("#ffffff"); // 초기 색상값 설정
+
+    const handleChange = (selectedColor) => {
+        setColor(selectedColor.hex);
+    };
+
     return (
-        <div className="colorPickerBox">
-            {Object.keys(colors).map((key) => (
-                <div key={key}>
-                    <span>{key}</span>
-                    <div className="colorRow">
-                        {colors[key].map((color, index) => (
-                            <div
-                                key={index}
-                                style={{
-                                    backgroundColor: color,
-                                    width: "30px",
-                                    height: "30px",
-                                    margin: "3px",
-                                    borderRadius: "100%",
-                                }}
-                            ></div>
-                        ))}
-                    </div>
-                </div>
-            ))}
-            <button>Select</button>
+        <div>
+            <ChromePicker
+                color={color}
+                onChange={handleChange}
+                disableAlpha={true}
+                styles={{
+                    default: {
+                        picker: {
+                            height: "300px",
+                        },
+                        slider: {
+                            height: "300px",
+                        },
+                        swatch: {
+                            padding: "5px",
+                            background: "#fff",
+                            borderRadius: "1px",
+                            boxShadow: "0 0 0 1px rgba(0,0,0,.1)",
+                            display: "inline-block",
+                            cursor: "pointer",
+                        },
+                        swatch: {
+                            width: "80px",
+                            height: "80px",
+                        },
+                    },
+                }}
+            />
+            <div
+                style={{
+                    backgroundColor: color,
+                    width: "100px",
+                    height: "100px",
+                }}
+            ></div>
         </div>
     );
-}
+};
 
 export default ColorPicker;
-export const colors = {
-    vivid: [
-        "#EF4444",
-        "#FF6800",
-        "#FACC15",
-        "#16A34A",
-        "#3582FF",
-        "#9038FF",
-        "#58595B",
-    ],
-    bright: [
-        "#FE7B91",
-        "#FF9246",
-        "#FDE047",
-        "#4ADE80",
-        "#6AA0F8",
-        "#AF71FF",
-        "#7E7E80",
-    ],
-    soft: [
-        "#FCA5A5",
-        "#FDBA74",
-        "#FFE76A",
-        "#86EFAC",
-        "#A7C8FF",
-        "#D9BBFF",
-        "#BBBBBB",
-    ],
-    reddish: [
-        "#FF41A4",
-        "#FF6666",
-        "#FF9090",
-        "#FF9ED3",
-        "#F692FF",
-        "#FF71D7",
-        "#DF79F9",
-    ],
-    pale: [
-        "#818CF8",
-        "#3B95FE",
-        "#38BDF8",
-        "#7DD3FC",
-        "#66E6F6",
-        "#4FE4CD",
-        "#B7EA5E",
-    ],
-    custom: [
-        "#818CF8",
-        "#3B95FE",
-        "#38BDF8",
-        "#7DD3FC",
-        "#66E6F6",
-        "#4FE4CD",
-        "#B7EA5E",
-    ],
-};

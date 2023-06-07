@@ -51,7 +51,6 @@ function Repeat() {
                     {endTime} : {endMinute}
                 </span>
             </div>
-
             <DateType />
         </div>
     );
