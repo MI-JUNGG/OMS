@@ -2,12 +2,14 @@ $mainColor: #547aff;
 
 .textSelectorContainer {
     display: flex;
+    justify-content: space-between;
     border-top: 0.3px solid #abaeb5;
 
     .textSelectorZone {
         flex-direction: column;
 
         .textStyleSelectZone {
+            margin-top: 35px;
             h3 {
                 font-size: 22px;
             }
@@ -27,11 +29,13 @@ $mainColor: #547aff;
                     align-items: center;
                     font-size: 15;
                     margin-right: 15px;
+                    cursor: pointer;
                 }
             }
         }
 
         .textColorSelectZone {
+            margin-top: 47px;
             h3 {
                 font-size: 22px;
             }
@@ -48,6 +52,7 @@ $mainColor: #547aff;
                     border-radius: 15px;
                     border: 1px solid $mainColor;
                     margin-right: 49px;
+                    cursor: pointer;
 
                     div {
                         width: 127px;
@@ -66,25 +71,66 @@ $mainColor: #547aff;
         }
 
         .blockColorSelctZone {
+            margin-top: 47px;
             h3 {
                 font-size: 22px;
+                margin-bottom: 30px;
             }
 
             .blockColorSelect {
                 display: flex;
-                width: 354px;
-
                 div {
+                    cursor: pointer;
+                }
+
+                .blockColorVivid {
                     width: 30px;
                     height: 30px;
                     border-radius: 100px;
                     margin-right: 22px;
+                    cursor: pointer;
                 }
-                img {
-                    background-color: red;
-                    fill: black;
-                    stroke: black;
-                }
+            }
+        }
+    }
+
+    .textPreviewContainer {
+        border: 0.3px solid #abaeb5;
+        width: 490px;
+        height: 337px;
+        margin-top: 75px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .textPreview {
+            flex-direction: column;
+
+            font-size: 13px;
+            width: 230px;
+            color: #9747ff;
+
+            .textPreviewCard_1 {
+                display: flex;
+                align-items: center;
+                height: 35px;
+                border-left: 3px solid #9747ff;
+                background-color: #f3effe;
+                margin-bottom: 20px;
+                padding-left: 15px;
+            }
+
+            .textPreviewCard_2 {
+                height: 68px;
+                background-color: #f3effe;
+                margin-bottom: 20px;
+                padding: 10px 0 0 15px;
+            }
+
+            .textPreviewCard_3 {
+                height: 137px;
+                background-color: #f3effe;
+                padding: 10px 0 0 15px;
             }
         }
     }

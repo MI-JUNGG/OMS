@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./TextSelector.scss";
 import { useDispatch, useSelector } from "react-redux";
-import settingPlus from "/src/assets/images/setting/setting_plus.svg";
+import ModalPlus from "/src/assets/images/modal/ModalPlus";
 
 function TextSelector() {
     useEffect(() => {
@@ -13,7 +13,6 @@ function TextSelector() {
     const settingReducer = useSelector((state) => state.settingReducer);
 
     const [blockColor, setBlockColor] = useState([]);
-    console.log(blockColor);
 
     return (
         <>
@@ -23,7 +22,18 @@ function TextSelector() {
                         <h3>Text Style</h3>
                         <div className="textStyleSelect">
                             {TEXT_STYLE.map((style, i) => {
-                                return <div key={i}>{style.style} </div>;
+                                return (
+                                    <div
+                                        key={i}
+                                        style={{
+                                            fontSize: style.fontSize,
+                                            fontStyle: style.style,
+                                            textDecoration: style.style,
+                                        }}
+                                    >
+                                        {style.style}
+                                    </div>
+                                );
                             })}
                         </div>
                     </div>
@@ -59,13 +69,21 @@ function TextSelector() {
                                         ></div>
                                     );
                                 })}
-                            <svg xmlns="http://www.w3.org/2000/svg" />
+                            <div>
+                                <ModalPlus />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="textPreview"></div>
 
+                <div className="textPreviewContainer">
+                    <div className="textPreview">
+                        <div className="textPreviewCard_1">⚽ Schedule</div>
+                        <div className="textPreviewCard_2">⚽ Schedule</div>
+                        <div className="textPreviewCard_3">⚽ Schedule</div>
+                    </div>
+                </div>
+            </div>
             <div />
         </>
     );
@@ -77,18 +95,22 @@ const TEXT_STYLE = [
     {
         id: 1,
         style: "Regular",
+        fontSize: "14px",
     },
     {
         id: 2,
         style: "Bold",
+        fontSize: "20px",
     },
     {
         id: 3,
         style: "Italic",
+        fontSize: "19px",
     },
     {
         id: 4,
-        style: "under line",
+        style: "underline",
+        fontSize: "15px",
     },
 ];
 

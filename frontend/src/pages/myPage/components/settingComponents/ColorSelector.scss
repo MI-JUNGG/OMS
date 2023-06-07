@@ -1,4 +1,4 @@
-$colorSelecter: #58595b;
+$colorSelector: #58595b;
 $mainColor: #547aff;
 
 .colorSelectorContainer {
@@ -15,12 +15,19 @@ $mainColor: #547aff;
 
             .mainColorList {
                 display: flex;
+
+                div {
+                    cursor: pointer;
+                }
             }
         }
 
         .bgColorSelect {
             .bgColorList {
                 display: flex;
+                div {
+                    cursor: pointer;
+                }
             }
         }
     }
@@ -28,7 +35,7 @@ $mainColor: #547aff;
     .colorPreview {
         width: 490px;
         height: 337px;
-        margin-top: 42px;
+        margin-top: 35px;
         background-color: aliceblue;
         // border: 1px solid #abaeb5;
 
@@ -57,7 +64,7 @@ $mainColor: #547aff;
                 border-radius: 30px;
                 flex-direction: column;
                 text-align: center;
-                background-color: #333333;
+                background-color: #ffffff;
                 margin-top: 27px;
 
                 button {
@@ -82,12 +89,6 @@ $mainColor: #547aff;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-
-                    img {
-                        width: 31px;
-                        height: 31px;
-                        stroke: red;
-                    }
                 }
             }
         }

@@ -1,4 +1,6 @@
 import "./ColorSelector.scss";
+import SettingCalndaer_1 from "../../../../assets/images/setting/SettingCalendar_1";
+import SettingCalndaer_2 from "../../../../assets/images/setting/SettingCalendar_2";
 
 function ColorSelector() {
     return (
@@ -58,18 +60,9 @@ function ColorSelector() {
                             </button>
                             <span className="previewText">Text Color</span>
                             <div className="previewLogo">
-                                <img
-                                    src="/src/assets/images/setting/setting_calendar.svg"
-                                    alt="logo"
-                                    style={{
-                                        marginRight: "10px",
-                                        fill: "red",
-                                    }}
-                                />
-                                <img
-                                    src="/src/assets/images/setting/setting_calendar2.svg"
-                                    alt="logo"
-                                />
+                                <SettingCalndaer_1 />
+
+                                <SettingCalndaer_2 />
                             </div>
                         </div>
                     </div>

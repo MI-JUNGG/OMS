@@ -29,8 +29,6 @@ const ColorPicker = () => {
                             boxShadow: "0 0 0 1px rgba(0,0,0,.1)",
                             display: "inline-block",
                             cursor: "pointer",
-                        },
-                        swatch: {
                             width: "80px",
                             height: "80px",
                         },
