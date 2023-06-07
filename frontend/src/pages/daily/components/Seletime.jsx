@@ -8,6 +8,16 @@ function Seletime() {
     const day = searchParams.get("date");
     const [date, setDate] = useState(day);
     const navigate = useNavigate();
+    const [test, setTest] = useState({
+        start: "2023-6-8 01:00",
+        end: "2023-6-8 20:00",
+        title: "test title",
+        color: "yellow",
+    });
+    const { start, end, title, color } = test;
+
+    const getStartTime = new Date(start).getHours();
+    const getEndTime = new Date(end).getHours();
 
     const datePlusHandler = () => {
         const formatDate = new Date(date);
@@ -50,11 +60,23 @@ function Seletime() {
                 </div>
             </div>
             {hours.map((hour) => {
+                const startTime = new Date(start).getHours();
+                const endTime = new Date(end).getHours();
+                const hourSplit = hour.split(":");
+                const hourValue = Number(hourSplit[0]);
+
+                let backgroundColor = "";
+                if (hourValue >= startTime && hourValue <= endTime) {
+                    backgroundColor = color;
+                }
+
                 return (
                     <div key={hour} className="timeContainer">
                         <div className="timeSlot">{hour}</div>
                         <div className="timeBorder"></div>
-                        <div className="contents"></div>
+                        <div className="contents" style={{ backgroundColor }}>
+                            {hourValue === startTime && title}
+                        </div>
                     </div>
                 );
             })}
