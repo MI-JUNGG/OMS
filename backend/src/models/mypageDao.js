@@ -104,12 +104,108 @@ const changeTheme = async (
   color7,
   userId
 ) => {
+  const queryRunner = appDataSource.createQueryRunner();
+
+  await queryRunner.connect();
+  await queryRunner.startTransaction();
+
+  try{
+    const updateFields = [
+      mainColor ? `m.main_color = ?` : ``,
+      backgroundColor ? `m.background_color = ?`: ``,
+      textStyle ? `m.text_style = ?` : ``,
+      textColor ? `m.text_color = ?` : ``
+    ].filter(value => value !== "").join(", ");
+
+    const insertFields = [
+      color1 ? `c.color1 = ?` : ``,
+      color2 ? `c.color2 = ?` : ``,
+      color3 ? `c.color3 = ?` : ``,
+      color4 ? `c.color4 = ?` : ``,
+      color5 ? `c.color5 = ?` : ``,
+      color6 ? `c.color6 = ?` : ``,
+      color7 ? `c.color7 = ?` : ``
+    ].filter(value => value !== "").join(", ");
+
+    const updateParams = [
+      mainColor,
+      backgroundColor,
+      textStyle,
+      textColor,
+      userId
+    ].filter(value => value !== "")
+
+    const insertParams = [
+      color1,
+      color2,
+      color3,
+      color4,
+      color5,
+      color6,
+      color7
+
+    ].filter(value => value !== "")
+
+    const updateQuery =
+    `
+      UPDATE
+        mypage m
+      SET
+        ${updateFields}
+      WHERE
+        m.user_id = ?
+    `
+
+    const insertQuery =
+    `
+      INSERT INTO
+        color_palette
+      SET
+        ${insertFields}
+    `
+
+    await queryRunner.query(updateQuery, updateParams)
+    await queryRunner.query(insertQuery, insertParams)
+
+    await queryRunner.commitTransaction()
+  } catch (err) {
+    await queryRunner.rollbackTransaction()
+    throw error
+  } finally {
+    await queryRunner.release()
+  }
+
+  
+
   const changeMainColor = mainColor ? `m.main_color = ?,` : ``;
   const changeBackgroundColor = backgroundColor
     ? `m.background_color = ?,`
     : ``;
   const changeTextStyle = textStyle ? `m.text_style = ?,` : ``;
   const changeTextColor = textColor ? `m.text_color = ?,` : ``;
+  const changeColor1 = color1 ? `c.color1 = ?,` : ``;
+  const changeColor2 = color2 ? `c.color2 = ?,` : ``;
+  const changeColor3 = color3 ? `c.color3 = ?,` : ``;
+  const changeColor4 = color4 ? `c.color4 = ?,` : ``;
+  const changeColor5 = color5 ? `c.color5 = ?,` : ``;
+  const changeColor6 = color6 ? `c.color6 = ?,` : ``;
+  const changeColor7 = color7 ? `c.color7 = ?` : ``;
+
+  const updateFields = [
+    changeMainColor,
+    changeBackgroundColor,
+    changeTextColor,
+    changeTextStyle,
+    changeColor1,
+    changeColor2,
+    changeColor3,
+    changeColor4,
+    changeColor5,
+    changeColor6,
+    changeColor7,
+  ]
+    .filter((value) => value !== "")
+    .join("\n");
 
   return await appDataSource.query(
     `
@@ -120,21 +216,9 @@ const changeTheme = async (
       ON
         mypage.color_palette_id = color_palette.id
       SET
-        ${changeMainColor}
-        ${changeBackgroundColor}
-        ${changeTextStyle}
-        ${changeTextColor}
-        c.color1 = ?,
-        c.color2 = ?,
-        c.color3 = ?,
-        c.color4 = ?,
-        c.color5 = ?,
-        c.color6 = ?,
-        c.color7 = ?,
+        ${updateFields}
       WHERE
-        user_id = ?
-      AND
-        c.id = 6
+        m.user_id = ?
       `,
     [
       mainColor,
@@ -150,7 +234,17 @@ const changeTheme = async (
       color7,
       userId,
     ]
-  );
+
+
+
+    const insertQuery =
+    `
+      INSERT INTO
+        color_palette
+      SET
+        ${insertFields}
+    `
+
 };
 
 module.exports = {
