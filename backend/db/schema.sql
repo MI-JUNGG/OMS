@@ -63,8 +63,8 @@ CREATE TABLE `mypage` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `color_palette_id` int DEFAULT '1',
-  `main_color` varchar(30) NOT NULL DEFAULT '#547AFF',
-  `background_color` varchar(30) NOT NULL DEFAULT '#F3F6FF',
+  `main_color` varchar(30) DEFAULT '#547AFF',
+  `background_color` varchar(30) DEFAULT '#F3F6FF',
   `text_style` varchar(10) DEFAULT 'regular',
   `text_color` varchar(30) DEFAULT 'dark',
   PRIMARY KEY (`id`),
@@ -167,5 +167,7 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20230604122351'),
   ('20230604124159'),
   ('20230605133635'),
-  ('20230606051850');
+  ('20230606051850'),
+  ('20230607125647'),
+  ('20230607125900');
 UNLOCK TABLES;
