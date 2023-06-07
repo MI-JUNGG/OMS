@@ -2,6 +2,7 @@ $mainColor: #547aff;
 
 .textSelectorContainer {
     display: flex;
+    border-top: 0.3px solid #abaeb5;
 
     .textSelectorZone {
         flex-direction: column;
@@ -39,11 +40,50 @@ $mainColor: #547aff;
                 display: flex;
 
                 .textColor {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     width: 158px;
                     height: 57px;
                     border-radius: 15px;
                     border: 1px solid $mainColor;
                     margin-right: 49px;
+
+                    div {
+                        width: 127px;
+                        height: 24px;
+                        background-color: #f3effe;
+                        color: #9747ff;
+                        padding-left: 10px;
+                        border-left: 2px solid #9747ff;
+
+                        span {
+                            font-size: 13px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .blockColorSelctZone {
+            h3 {
+                font-size: 22px;
+            }
+
+            .blockColorSelect {
+                display: flex;
+                width: 354px;
+
+                div {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 100px;
+                    margin-right: 22px;
+                }
+                img {
+                    background-color: red;
+                    fill: black;
+                    stroke: black;
                 }
             }
         }
