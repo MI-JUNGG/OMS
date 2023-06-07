@@ -111,7 +111,7 @@ const changeThemeSettings = async (
     `,
     [mainColor, backgroundColor, textStyle, textColor, userId]
   );
-  console.log(result);
+
   return result;
 };
 
@@ -152,11 +152,11 @@ const changeThemeColor = async (
       c.color7 = ?
     WHERE
       c.id = ?
-    AMD
+    AND
       m.user_id = ?
     `;
 
-    await appDataSource.query(updatePalette, [
+    return appDataSource.query(updatePalette, [
       color1,
       color2,
       color3,
@@ -168,6 +168,8 @@ const changeThemeColor = async (
       userId,
     ]);
   } else {
+    const paletteId = 6;
+
     const insertPalette = `
     INSERT INTO
       color_palette 
@@ -180,10 +182,10 @@ const changeThemeColor = async (
         color6,
         color7 )
     VALUES
-      ( ?, ?, ?, ?, ?, ?, ?, ? )
+      ( 6, ?, ?, ?, ?, ?, ?, ? )
     `;
 
-    await appDataSource.query(insertPalette, [
+    return await appDataSource.query(insertPalette, [
       paletteId,
       color1,
       color2,

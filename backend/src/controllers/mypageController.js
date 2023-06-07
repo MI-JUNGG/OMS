@@ -66,8 +66,8 @@ const changeTheme = catchAsync(async (req, res) => {
     color7,
     userId
   );
-  console.log(result);
-  return res.status(201).json({ message: result });
+  console.log([result]);
+  return res.status(201).json([result]);
 });
 
 module.exports = { mypageInfo, changeMypage, getTheme, changeTheme };
