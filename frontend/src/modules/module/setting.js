@@ -8,6 +8,9 @@ const SettingSlice = createSlice({
         textStyle: "Regular",
         textColor: "Dark",
         blockColor: "#AF71FF",
+        blockColorTheme: 1,
+        blockColorThemeTitle: "bright",
+        isModal: false,
     },
     reducers: {
         main: (state, action) => {
@@ -22,12 +25,29 @@ const SettingSlice = createSlice({
         textStyle: (state, action) => {
             state.textStyle = action.payload;
         },
-        blockColor: (state, action) => {
+        handleBlockColor: (state, action) => {
             state.blockColor = action.payload;
+        },
+        handleBlockColorTheme: (state, action) => {
+            state.blockColorTheme = action.payload;
+        },
+        handleBlockColorThemeTitle: (state, action) => {
+            state.blockColorThemeTitle = action.payload;
+        },
+        isModal: (state) => {
+            return { ...state, isModal: !state.isModal };
         },
     },
 });
 
-export const { main, background, textColor, textStyle, blockColor } =
-    SettingSlice.actions;
+export const {
+    main,
+    background,
+    textColor,
+    textStyle,
+    handleBlockColor,
+    handleBlockColorTheme,
+    handleBlockColorThemeTitle,
+    isModal,
+} = SettingSlice.actions;
 export default SettingSlice.reducer;

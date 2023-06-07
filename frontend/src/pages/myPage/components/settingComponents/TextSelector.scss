@@ -35,7 +35,7 @@ $mainColor: #547aff;
         }
 
         .textColorSelectZone {
-            margin-top: 47px;
+            margin-top: 32px;
             h3 {
                 font-size: 22px;
             }
@@ -71,7 +71,7 @@ $mainColor: #547aff;
         }
 
         .blockColorSelctZone {
-            margin-top: 47px;
+            margin-top: 32px;
             h3 {
                 font-size: 22px;
                 margin-bottom: 30px;
@@ -79,7 +79,7 @@ $mainColor: #547aff;
 
             .blockColorSelect {
                 display: flex;
-                div {
+                .blockColorVivid {
                     cursor: pointer;
                 }
 
@@ -90,6 +90,9 @@ $mainColor: #547aff;
                     margin-right: 22px;
                     cursor: pointer;
                 }
+                .moreColor {
+                    cursor: pointer;
+                }
             }
         }
     }
@@ -98,7 +101,7 @@ $mainColor: #547aff;
         border: 0.3px solid #abaeb5;
         width: 490px;
         height: 337px;
-        margin-top: 75px;
+        margin-top: 50px;
         display: flex;
         justify-content: center;
         align-items: center;

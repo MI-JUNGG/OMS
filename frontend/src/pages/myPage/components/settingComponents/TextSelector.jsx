@@ -2,17 +2,30 @@ import { useEffect, useState } from "react";
 import "./TextSelector.scss";
 import { useDispatch, useSelector } from "react-redux";
 import ModalPlus from "/src/assets/images/modal/ModalPlus";
+import { isModal } from "../../../../modules/module/setting";
+import ColorPicker from "./ColorPicker";
+import ColorPickerBackground from "./ColorPickerBackground";
 
 function TextSelector() {
+    const dispatch = useDispatch();
+    const ismodal = useSelector((state) => state.settingReducer.isModal);
+    const handleOutClick = () => {
+        dispatch(isModal());
+    };
+    const blockColorTheme = useSelector(
+        (state) => state.settingReducer.blockColorTheme,
+    );
+    const blockColorThemeTitle = useSelector(
+        (state) => state.settingReducer.blockColorThemeTitle,
+    );
+    console.log(blockColorTheme, blockColorThemeTitle);
+
+    const [blockColor, setBlockColor] = useState([]);
     useEffect(() => {
         fetch("/data/blockColor.json")
             .then((data) => data.json())
             .then((data) => setBlockColor(data));
     }, []);
-    const dispatch = useDispatch();
-    const settingReducer = useSelector((state) => state.settingReducer);
-
-    const [blockColor, setBlockColor] = useState([]);
 
     return (
         <>
@@ -41,7 +54,6 @@ function TextSelector() {
                         <h3>Text Color</h3>
                         <div className="textColorSelect">
                             {TEXT_COLOR.map((color, i) => {
-                                console.log(color);
                                 return (
                                     <div key={i} className="textColor">
                                         <div
@@ -58,7 +70,9 @@ function TextSelector() {
                         <h3>Block Color</h3>
                         <div className="blockColorSelect">
                             {blockColor.length > 0 &&
-                                blockColor[1].bright.map((data, i) => {
+                                blockColor[blockColorTheme][
+                                    blockColorThemeTitle
+                                ]?.map((data, i) => {
                                     return (
                                         <div
                                             key={i}
@@ -69,9 +83,23 @@ function TextSelector() {
                                         ></div>
                                     );
                                 })}
-                            <div>
+                            <div className="moreColor" onClick={handleOutClick}>
                                 <ModalPlus />
                             </div>
+                            {ismodal === true && (
+                                <>
+                                    <ColorPicker
+                                        ColorList={blockColor}
+                                        blockColorTheme={blockColorTheme}
+                                        blockColorThemeTitle={
+                                            blockColorThemeTitle
+                                        }
+                                    />
+                                    <ColorPickerBackground
+                                        onClick={handleOutClick}
+                                    />
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
