@@ -110,7 +110,7 @@ function Seletime() {
                                 className={`otherContents ${
                                     hourValue === getStartTime && `first`
                                 }`}
-                                style={{ backgroundColor }}
+                                // style={{ backgroundColor }}
                             >
                                 {hourValue === getStartTime &&
                                     !isTitleRendered && (
