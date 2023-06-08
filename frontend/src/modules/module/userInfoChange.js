@@ -13,10 +13,10 @@ const userInfoChange = createSlice({
             state.nickName = action.payload;
         },
         newPassword: (state, action) => {
-            state.password = action.payload;
+            state.newPassword = action.payload;
         },
         repeatNewPassword: (state, action) => {
-            state.password = action.payload;
+            state.repeatNewPassword = action.payload;
         },
         password: (state, action) => {
             state.password = action.payload;

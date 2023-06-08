@@ -29,7 +29,7 @@ function PasswordChage() {
                     className="passwordInput"
                     placeholder="비밀번호"
                     type="password"
-                    onChange={authPassword}
+                    onChange={(e) => authPassword(e)}
                 />
             </div>
             <div className="passwordChage">

@@ -50,21 +50,25 @@ function UserInfo() {
         console.log("A");
     };
 
+    console.log(form.password, form.newPassword);
+
     const changepassword = () => {
         fetch("http://192.168.0.5:3001/mypage/changeInfo", {
             method: "PUT",
             headers: {
                 Authorization:
                     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODYyMTMyNDF9.zw_otMjvyPKmFiz2rmWx8HMykWVq5UkNjfdKm10XJcE",
+                "Content-Type": "application/json", // JSON 형식으로 요청을 보내기 위해 Content-Type을 설정
             },
             body: JSON.stringify({
-                password: password,
-                newPassword: newPassword,
+                currentPassword: form.password,
+                newPassword: form.newPassword,
             }),
         })
             .then((data) => data.json())
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
+        console.log("A");
     };
 
     return (
@@ -100,7 +104,7 @@ function UserInfo() {
                         <button
                             className="SubButton"
                             type="button"
-                            onClick={changeNickname}
+                            onClick={changepassword}
                         >
                             저장하기
                         </button>
