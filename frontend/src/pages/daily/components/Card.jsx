@@ -24,7 +24,9 @@ function Card() {
     const [data, setData] = useState(null);
     const [link, setLink] = useState(false);
     const [note, setNote] = useState(false);
-    const typeId = useSelector((state) => state.modalReducer.typeControl);
+    const typeId = Number(
+        useSelector((state) => state.modalReducer.typeControl),
+    );
 
     const AllStartYear = useSelector((state) => state.dateReducer.year);
     const AllStartMonth = useSelector((state) => state.dateReducer.Month);
@@ -45,9 +47,10 @@ function Card() {
         repeatStartYear + repeatStartMonth + repeatStartDay,
     );
     const repeatEndYear = useSelector((state) => state.repeatEndReducer.year);
+
     const repeatEndMonth = useSelector((state) => state.repeatEndReducer.month);
     const repeatEndDay = useSelector((state) => state.repeatEndReducer.day);
-    const repeatE = new Date(repeatEndYear + repeatEndMonth + repeatEndDay);
+    const repeatE = new Date(repeatEndYear, repeatEndMonth, repeatEndDay);
 
     const linkHandler = () => {
         setLink((prev) => !prev);
@@ -143,7 +146,7 @@ function Card() {
                             counterHandler(
                                 title,
                                 contents,
-                                startDate,
+                                repeatE,
                                 endDate,
                                 color,
                                 url,
