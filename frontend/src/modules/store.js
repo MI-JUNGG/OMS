@@ -12,8 +12,11 @@ import loginReducer from "./module/login";
 import loginModalReducer from "./module/loginModal";
 import dateReducer from "./module/date";
 import endDateReducer from "./module/endDate";
+import settingReducer from "./module/setting";
 import repeatEndReducer from "./module/repeatEnd";
 import repeatStartReducer from "./module/repeatStart";
+import userInfoChangeReducer from "./module/userInfoChange";
+import colorPickerReducer from "./module/colorPicker";
 
 const store = configureStore({
     reducer: {
@@ -29,8 +32,11 @@ const store = configureStore({
         loginModalReducer,
         dateReducer,
         endDateReducer,
+        settingReducer,
         repeatStartReducer,
         repeatEndReducer,
+        userInfoChangeReducer,
+        colorPickerReducer,
     },
 });
 

@@ -6,6 +6,7 @@ import { year } from "../modules/module/year";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 import axios from "axios";
+import { color } from "../modules/module/colorPicker.js";
 
 function Main() {
     const [schedule, setSchedule] = useState([]);
@@ -28,7 +29,20 @@ function Main() {
             .catch((error) => {
                 console.error(error);
             });
+
+        fetch("http://192.168.0.5:3001/mypage/theme", {
+            method: "GET",
+            headers: {
+                Authorization:
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODYyMjEyNTN9.OTJL43-q4t35oxcfbQ0kcUVkTBmdJVIrEVSBdIdzeuY",
+                "Content-Type": "application/json", // JSON 형식으로 요청을 보내기 위해 Content-Type을 설정
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+            .then((data) => dispatch(color(data)));
     }, []);
+    console.log(color);
 
     const yearForm = useSelector((state) => state.yearReducer.value);
     const monthForm = useSelector((state) => state.monthReducer.month);
@@ -164,8 +178,6 @@ function Main() {
 
         return <div className="calendar-grid">{days}</div>;
     };
-
-    console.log(schedule);
 
     return (
         <div className="mainContainer">
