@@ -51,6 +51,7 @@ function Daily() {
         axios
             .get("http://192.168.0.5:3001/day", {
                 params: {
+                    //수정
                     startDate: "2023-07-07",
                 },
                 headers: {
@@ -59,7 +60,7 @@ function Daily() {
                 },
             })
             .then((response) => {
-                console.log(response);
+                console.log(response.data);
             })
             .catch((error) => {
                 console.log(error);
