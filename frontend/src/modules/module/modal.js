@@ -11,6 +11,7 @@ const modalSlice = createSlice({
         repeatControl: false,
         repeatEndControl: false,
         showColorPicker: false,
+        typeControl: 1,
     },
     reducers: {
         showColorPicker: (state) => {
@@ -34,6 +35,9 @@ const modalSlice = createSlice({
         repeatEndControl: (state) => {
             return { ...state, repeatEndControl: !state.repeatEndControl };
         },
+        typeControl: (_, actions) => {
+            return { repeatEndControl: actions.payload };
+        },
     },
 });
 
@@ -45,5 +49,6 @@ export const {
     repeatControl,
     repeatEndControl,
     showColorPicker,
+    typeControl,
 } = modalSlice.actions;
 export default modalSlice.reducer;
