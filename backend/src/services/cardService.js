@@ -7,9 +7,9 @@ const postCard = async (
   color,
   link,
   memo,
-  startDate,
-  endDate,
-  deadline
+  formattedStartDate,
+  formattedEndDate,
+  formatteddeadlineDate
 ) => {
   const postCard = await cardDao.postCard(
     userId,
@@ -18,9 +18,9 @@ const postCard = async (
     color,
     link,
     memo,
-    startDate,
-    endDate,
-    deadline
+    formattedStartDate,
+    formattedEndDate,
+    formatteddeadlineDate
   );
 
   return postCard;

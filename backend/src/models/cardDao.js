@@ -7,9 +7,9 @@ const postCard = async (
   color,
   link,
   memo,
-  startDate,
-  endDate,
-  deadline
+  formattedStartDate,
+  formattedEndDate,
+  formatteddeadlineDate
 ) => {
   return await appDataSource.query(
     `
@@ -34,7 +34,17 @@ const postCard = async (
       ?,
       ?
     )`,
-    [userId, repeatId, title, color, link, memo, startDate, endDate, deadline]
+    [
+      userId,
+      repeatId,
+      title,
+      color,
+      link,
+      memo,
+      formattedStartDate,
+      formattedEndDate,
+      formatteddeadlineDate,
+    ]
   );
 };
 
