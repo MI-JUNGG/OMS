@@ -15,6 +15,7 @@ import endDateReducer from "./module/endDate";
 import settingReducer from "./module/setting";
 import repeatEndReducer from "./module/repeatEnd";
 import repeatStartReducer from "./module/repeatStart";
+import userInfoChangeReducer from "./module/userInfoChange";
 
 const store = configureStore({
     reducer: {
@@ -33,6 +34,7 @@ const store = configureStore({
         settingReducer,
         repeatStartReducer,
         repeatEndReducer,
+        userInfoChangeReducer,
     },
 });
 

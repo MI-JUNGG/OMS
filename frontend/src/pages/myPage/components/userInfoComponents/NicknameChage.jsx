@@ -1,6 +1,21 @@
 import "./NicknameChage.scss";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import userInfoChange, {
+    nickName,
+} from "../../../../modules/module/userInfoChange";
 
 function NicknameChage() {
+    const form = useSelector((state) => state.userInfoChangeReducer);
+
+    console.log(form);
+
+    const dispatch = useDispatch();
+
+    const inputNickname = (e) => {
+        dispatch(nickName(e.target.value));
+    };
+
     return (
         <div className="NicknameChageContainer">
             <div className="userId">
@@ -9,7 +24,11 @@ function NicknameChage() {
             </div>
             <div className="nicknameChage">
                 <h3>닉네임</h3>
-                <input className="nicknameInput" placeholder="NickName" />
+                <input
+                    className="nicknameInput"
+                    placeholder="NickName"
+                    onChange={(e) => inputNickname(e)}
+                />
             </div>
         </div>
     );
