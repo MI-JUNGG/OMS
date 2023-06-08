@@ -16,6 +16,7 @@ import All from "./All";
 import Repeat from "./repeat/Repeat";
 import ColorPicker from "./color/ColorPicker";
 import { showColorPicker } from "../../../modules/module/modal";
+import { counterHandler } from "../server";
 import "./Card.scss";
 
 function Card() {
@@ -23,6 +24,33 @@ function Card() {
     const [data, setData] = useState(null);
     const [link, setLink] = useState(false);
     const [note, setNote] = useState(false);
+    const typeId = Number(
+        useSelector((state) => state.modalReducer.typeControl),
+    );
+
+    const AllStartYear = useSelector((state) => state.dateReducer.year);
+    const AllStartMonth = useSelector((state) => state.dateReducer.Month);
+    const AllStartDay = useSelector((state) => state.dateReducer.Day);
+
+    const AllEndYear = useSelector((state) => state.endDateReducer.year);
+    const AllEndMonth = useSelector((state) => state.endDateReducer.month);
+    const AllEndDay = useSelector((state) => state.endDateReducer.day);
+
+    const repeatStartYear = useSelector(
+        (state) => state.repeatStartReducer.year,
+    );
+    const repeatStartMonth = useSelector(
+        (state) => state.repeatStartReducer.month,
+    );
+    const repeatStartDay = useSelector((state) => state.repeatStartReducer.day);
+    const repeat = new Date(
+        repeatStartYear + repeatStartMonth + repeatStartDay,
+    );
+    const repeatEndYear = useSelector((state) => state.repeatEndReducer.year);
+
+    const repeatEndMonth = useSelector((state) => state.repeatEndReducer.month);
+    const repeatEndDay = useSelector((state) => state.repeatEndReducer.day);
+    const repeatE = new Date(repeatEndYear, repeatEndMonth, repeatEndDay);
 
     const linkHandler = () => {
         setLink((prev) => !prev);
@@ -45,19 +73,18 @@ function Card() {
     const repeatEnd = useSelector(
         (state) => state.modalReducer.repeatEndControl,
     );
-    console.log(repeatEnd);
+
     const datetype = useSelector((state) => state.modalReducer.dateType);
+
     const outerRef = useRef(null);
 
-    console.log(datetype);
-
     const [form, setForm] = useState({
+        repeatId: typeId,
         title: "",
         contents: "",
         url: "",
-        repeatId: 1,
-        startDate: "",
-        endDate: "",
+        startDate: repeat,
+        endDate: repeatE,
         color: "",
     });
     const { title, contents, startDate, endDate, color, url, repeatId } = form;
@@ -107,58 +134,29 @@ function Card() {
         dispatch(cardmodal());
     };
 
-    const counterHandler = (e) => {
-        const token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4NDczNDYwNn0.aRiYcyPZ6wyixzWbQnDWKzbCb8BlHMVSg3LnTQ2oZnA";
-        const config = {
-            headers: {
-                Authorization: token,
-            },
-        };
-
-        axios
-            .post(
-                "http://192.168.219.152:3001/card",
-                {
-                    title: title,
-                    memo: contents,
-                    startDate: startDate,
-                    repeatId: repeatId,
-                    endDate: endDate,
-                    color: color,
-                    link: url,
-                    deadline: endDate,
-                },
-                config,
-            )
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((error) => {
-                console.log("error", error);
-            });
-        setForm({
-            title: "",
-            contents: "",
-            url: "",
-            repeatId: 1,
-            startDate: "",
-            endDate: "",
-            color: "",
-        });
-        // dispatch(addCard({ ...form, id }));
-    };
-
     return (
         <div className="modalBackGround" ref={outerRef}>
-            <div className="colorModal">
+            {/* <div className="colorModal">
                 {showColorPick === true && <ColorPalette />}
-            </div>
+            </div> */}
             <div className="card">
                 <div className="iconBtn">
-                    <div onClick={counterHandler}>
+                    <div
+                        onClick={() =>
+                            counterHandler(
+                                title,
+                                contents,
+                                repeatE,
+                                endDate,
+                                color,
+                                url,
+                                repeatId,
+                            )
+                        }
+                    >
                         <ModalCheck />
                     </div>
+
                     <div onClick={cardHandler}>
                         <ModalX width={30} height={30} />
                     </div>

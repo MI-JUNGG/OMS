@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { dateType } from "../../../../modules/module/modal";
+import { dateType, typeControl } from "../../../../modules/module/modal";
 import "./DateType.scss";
 
 function DateType() {
@@ -7,11 +7,11 @@ function DateType() {
     const dispatch = useDispatch();
 
     const showAll = () => {
-        dispatch(dateType(true));
+        dispatch(dateType(true), typeControl(2));
     };
 
     const showRepeat = () => {
-        dispatch(dateType(false));
+        dispatch(dateType(false), typeControl(3));
     };
 
     const isSelectedAll = colorSelector === true ? "select" : "unselect";

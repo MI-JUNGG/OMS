@@ -43,8 +43,36 @@
             height: 100%;
         }
 
-        &:last-child .contents {
-            border-left: none;
+        &:first-child {
+            .otherContents:first-child {
+                border-top: 1px solid black;
+            }
+        }
+        .first {
+            border-top: 1px solid black;
+        }
+        .otherContents {
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            border-left: 1px solid black;
+            height: 100%;
+
+            &:first-child {
+                border-top: 1px solid black;
+            }
+
+            &.yellowBackground {
+                background-color: yellow;
+            }
+
+            .title {
+                z-index: 1;
+                color: black;
+                font-weight: bold;
+                padding: 5px;
+            }
         }
     }
 }

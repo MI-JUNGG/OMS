@@ -20,7 +20,7 @@ const signUp = async (nickname, email, password) => {
 
   const saltRounds = 12;
   const hashedPassword = await bcrypt.hash(password, saltRounds);
-
+  console.log(hashedPassword);
   const createUser = await userDao.localCreateUser(
     nickname,
     email,
@@ -39,8 +39,8 @@ const signIn = async (email, password) => {
 
   const [userData] = await userDao.getUserId(email);
 
-  const payLoad = { userData: userData.id };
-
+  const payLoad = { userId: userData.id };
+  console.log(userData, payLoad);
   const jwtToken = jwt.sign(payLoad, process.env.JWT_SECRET);
 
   return jwtToken;
