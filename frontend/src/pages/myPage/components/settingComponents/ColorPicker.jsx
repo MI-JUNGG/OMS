@@ -5,6 +5,7 @@ import {
     handleBlockColorTheme,
     handleBlockColorThemeTitle,
 } from "../../../../modules/module/setting";
+import { isModal } from "../../../../modules/module/setting";
 
 function ColorPicker(props) {
     const colorList = props.ColorList;
@@ -26,6 +27,7 @@ function ColorPicker(props) {
     const handleColorList = () => {
         dispatch(handleBlockColorTheme(colorSub.key));
         dispatch(handleBlockColorThemeTitle(colorSub.title));
+        dispatch(isModal(false));
     };
     return (
         <>
