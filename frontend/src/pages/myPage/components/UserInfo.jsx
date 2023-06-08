@@ -47,7 +47,6 @@ function UserInfo() {
             .then((data) => data.json())
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
-        console.log("A");
     };
 
     console.log(form.password, form.newPassword);
@@ -68,7 +67,6 @@ function UserInfo() {
             .then((data) => data.json())
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
-        console.log("A");
     };
 
     return (
