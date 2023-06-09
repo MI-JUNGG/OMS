@@ -1,6 +1,5 @@
 .dayTable {
-    min-width: 1280px;
-    height: 1372px;
+    width: 75vw;
     background-color: skyblue;
     border-radius: 16px;
     padding: 20px;
@@ -8,20 +7,10 @@
     .dayChanger {
         display: flex;
         align-items: center;
-        justify-content: space-around;
-        margin: auto;
-        width: 443px;
-
-        height: 10%;
-
+        justify-content: center;
+        text-align: center;
+        height: 5%;
         font-size: x-large;
-
-        .minusDay {
-            cursor: pointer;
-        }
-        .plusDay {
-            cursor: pointer;
-        }
     }
 
     .timeContainer {
@@ -54,10 +43,8 @@
             height: 100%;
         }
 
-        &:first-child {
-            .otherContents:first-child {
-                border-top: 1px solid black;
-            }
+        &:last-child .contents {
+            border-left: none;
         }
         .first {
             border-top: 1px solid black;
