@@ -40,7 +40,7 @@ const signIn = async (email, password) => {
   const [userData] = await userDao.getUserId(email);
 
   const payLoad = { userId: userData.id };
-  console.log(userData, payLoad);
+
   const jwtToken = jwt.sign(payLoad, process.env.JWT_SECRET);
 
   return jwtToken;
