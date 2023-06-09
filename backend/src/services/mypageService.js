@@ -32,6 +32,7 @@ const changeTheme = async (
   backgroundColor,
   textStyle,
   textColor,
+  colorPaletteId,
   userId
 ) => {
   return await mypageDao.changeTheme(
@@ -39,6 +40,7 @@ const changeTheme = async (
     backgroundColor,
     textStyle,
     textColor,
+    colorPaletteId,
     userId
   );
 };

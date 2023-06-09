@@ -38,7 +38,8 @@ const getTheme = catchAsync(async (req, res) => {
 
 const changeTheme = catchAsync(async (req, res) => {
   const userId = req.userId;
-  const { mainColor, backgroundColor, textStyle, textColor } = req.body;
+  const { mainColor, backgroundColor, textStyle, textColor, colorPaletteId } =
+    req.body;
   if (!userId) detectError("NEED_USER_ID", 400);
 
   const result = await mypageService.changeTheme(
@@ -46,6 +47,7 @@ const changeTheme = catchAsync(async (req, res) => {
     backgroundColor,
     textStyle,
     textColor,
+    colorPaletteId,
     userId
   );
   return res.status(201).json({ message: "설정 업데이트!" });
@@ -54,6 +56,7 @@ const changeTheme = catchAsync(async (req, res) => {
 const changeColor = catchAsync(async (req, res) => {
   const userId = req.userId;
   const { color1, color2, color3, color4, color5, color6, color7 } = req.body;
+
   if (!userId) detectError("NEED_USER_ID", 400);
   if (!color1 || !color2 || !color3 || !color4 || !color5 || !color6 || !color7)
     detectError("NEED_COLOR", 400);
