@@ -1,5 +1,5 @@
 .dayTable {
-    width: 75vw;
+    min-width: 1280px;
     background-color: skyblue;
     border-radius: 16px;
     padding: 20px;
@@ -7,10 +7,20 @@
     .dayChanger {
         display: flex;
         align-items: center;
-        justify-content: center;
-        text-align: center;
-        height: 5%;
+        justify-content: space-around;
+        margin: auto;
+        width: 443px;
+
+        height: 10%;
+
         font-size: x-large;
+
+        .minusDay {
+            cursor: pointer;
+        }
+        .plusDay {
+            cursor: pointer;
+        }
     }
 
     .timeContainer {
@@ -71,7 +81,7 @@
                 z-index: 1;
                 color: black;
                 font-weight: bold;
-                padding: 5px;
+                padding: 35px;
             }
         }
     }
