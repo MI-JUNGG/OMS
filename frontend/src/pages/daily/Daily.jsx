@@ -49,17 +49,18 @@ function Daily() {
     useEffect(() => {
         initialState();
         axios
-            .get("http://192.168.219.152/3001/card/day", {
+            .get("http://192.168.0.5:3001/day", {
                 params: {
-                    date: "2023-03-04",
+                    //수정
+                    startDate: "2023-07-07",
                 },
                 headers: {
                     Authorization:
-                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6MSwiaWF0IjoxNjgyOTMxMjAyfQ.qbyo8xpoRQV1WbCNFiOzMC3-0pFQOjsHgN8heIc_qhc",
+                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODYyMTM2NDV9.ocHuTfEoZRIBIRa259IWn0TgcPyGKqOMIZ-wOetGIRw",
                 },
             })
             .then((response) => {
-                console.log(response);
+                console.log(response.data);
             })
             .catch((error) => {
                 console.log(error);
