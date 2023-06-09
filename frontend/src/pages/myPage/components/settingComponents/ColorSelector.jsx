@@ -1,8 +1,12 @@
 import "./ColorSelector.scss";
 import SettingCalndaer_1 from "../../../../assets/images/setting/SettingCalendar_1";
 import SettingCalndaer_2 from "../../../../assets/images/setting/SettingCalendar_2";
+import { useDispatch, useSelector } from "react-redux";
 
 function ColorSelector() {
+    const dispatch = useDispatch();
+    const form = useSelector((state) => state.temporaryColorReducer);
+    console.log(form);
     return (
         <>
             <div className="colorSelectorContainer">
@@ -21,6 +25,7 @@ function ColorSelector() {
                                             backgroundColor: data.color,
                                             marginRight: "32px",
                                         }}
+                                        // onClick={}
                                     />
                                 );
                             })}

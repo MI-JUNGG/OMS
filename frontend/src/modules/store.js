@@ -17,6 +17,7 @@ import repeatEndReducer from "./module/repeatEnd";
 import repeatStartReducer from "./module/repeatStart";
 import userInfoChangeReducer from "./module/userInfoChange";
 import colorPickerReducer from "./module/colorPicker";
+import temporaryColorReducer from "./module/temporaryColorSetting";
 
 const store = configureStore({
     reducer: {
@@ -37,6 +38,7 @@ const store = configureStore({
         repeatEndReducer,
         userInfoChangeReducer,
         colorPickerReducer,
+        temporaryColorReducer,
     },
 });
 
