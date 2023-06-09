@@ -31,7 +31,7 @@ CREATE TABLE `card` (
   KEY `repeat_id` (`repeat_id`),
   CONSTRAINT `card_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `card_ibfk_2` FOREIGN KEY (`repeat_id`) REFERENCES `repeat_type` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,7 +50,7 @@ CREATE TABLE `color_palette` (
   `color6` varchar(10) DEFAULT NULL,
   `color7` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,12 +67,19 @@ CREATE TABLE `mypage` (
   `background_color` varchar(30) DEFAULT '#F3F6FF',
   `text_style` varchar(10) DEFAULT 'regular',
   `text_color` varchar(30) DEFAULT 'dark',
+  `color1` varchar(30) DEFAULT NULL,
+  `color2` varchar(30) DEFAULT NULL,
+  `color3` varchar(30) DEFAULT NULL,
+  `color4` varchar(30) DEFAULT NULL,
+  `color5` varchar(30) DEFAULT NULL,
+  `color6` varchar(30) DEFAULT NULL,
+  `color7` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `color_palette_id` (`color_palette_id`),
   CONSTRAINT `mypage_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `mypage_ibfk_2` FOREIGN KEY (`color_palette_id`) REFERENCES `color_palette` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,5 +176,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20230605133635'),
   ('20230606051850'),
   ('20230607125647'),
-  ('20230607125900');
+  ('20230607125900'),
+  ('20230609141958');
 UNLOCK TABLES;

@@ -1,0 +1,11 @@
+-- migrate:up
+ALTER TABLE mypage ADD color1 VARCHAR(30) NULL;
+ALTER TABLE mypage ADD color2 VARCHAR(30) NULL;
+ALTER TABLE mypage ADD color3 VARCHAR(30) NULL;
+ALTER TABLE mypage ADD color4 VARCHAR(30) NULL;
+ALTER TABLE mypage ADD color5 VARCHAR(30) NULL;
+ALTER TABLE mypage ADD color6 VARCHAR(30) NULL;
+ALTER TABLE mypage ADD color7 VARCHAR(30) NULL;
+
+-- migrate:down
+
