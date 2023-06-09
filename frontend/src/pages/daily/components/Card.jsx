@@ -203,7 +203,7 @@ function Card() {
                     <div className="modalx" onClick={clearContents}>
                         {note === true && <ModalX width={10} height={10} />}
                     </div>
-                    <div className="link">
+                    <div className="contentsMemo">
                         <ModalNote />
                         {note === false ? (
                             <button onClick={noteHandler}>메모</button>
