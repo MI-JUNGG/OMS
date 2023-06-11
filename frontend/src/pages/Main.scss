@@ -118,6 +118,7 @@ $allDaySchedule: rgba(245, 158, 11, 0.1);
         .prev-month-day,
         .next-month-day {
             color: transparent;
+            pointer-events: none;
         }
 
         .days {

@@ -9,8 +9,21 @@ import axios from "axios";
 import { color } from "../modules/module/colorPicker.js";
 
 function Main() {
+    const yearForm = useSelector((state) => state.yearReducer.value);
+    const monthForm = useSelector((state) => state.monthReducer.month);
+    const monthList = useSelector((state) => state.monthReducer.monthList);
+    const dispatch = useDispatch();
+
+    const date = new Date(yearForm, monthForm - 1);
     const [schedule, setSchedule] = useState([]);
+
     useEffect(() => {
+        const startDate = `${yearForm}-${monthForm}-01_00:00:00`;
+        const endDate = `${yearForm}-${monthForm}-${daysInMonth(
+            yearForm,
+            monthForm - 1,
+        )}_23:59:59`;
+
         fetch("/data/test.json")
             .then((response) => response.json())
             .then((data) => {
@@ -21,9 +34,28 @@ function Main() {
                 );
             });
 
+        //     axios
+        //         .get("/data/date.json")
+        //         .then((response) => {
+        //             setSchedule(response.data);
+        //         })
+        //         .catch((error) => {
+        //             console.error(error);
+        //         });
+        // }, []);
+
         axios
-            .get("/data/date.json")
+            .get("http://192.168.219.152:3001/month", {
+                params: {
+                    startDate: startDate,
+                    endDate: endDate,
+                },
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                },
+            })
             .then((response) => {
+                console.log(response);
                 setSchedule(response.data);
             })
             .catch((error) => {
@@ -43,13 +75,6 @@ function Main() {
             .then((data) => dispatch(color(data)));
     }, []);
     console.log(color);
-
-    const yearForm = useSelector((state) => state.yearReducer.value);
-    const monthForm = useSelector((state) => state.monthReducer.month);
-    const monthList = useSelector((state) => state.monthReducer.monthList);
-    const dispatch = useDispatch();
-
-    const date = new Date(yearForm, monthForm - 1);
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const monthNames = [];
@@ -204,9 +229,8 @@ function Main() {
                         </div>
                     ))}
                 </div>
-                {schedule.length > 0 && (
-                    <div className="days">{renderDays()}</div>
-                )}
+
+                <div className="days">{renderDays()}</div>
             </div>
         </div>
     );
