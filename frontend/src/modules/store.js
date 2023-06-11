@@ -14,6 +14,7 @@ import dateReducer from "./module/date";
 import endDateReducer from "./module/endDate";
 import repeatEndReducer from "./module/repeatEnd";
 import repeatStartReducer from "./module/repeatStart";
+import limitReducer from "./module/Limit";
 
 const store = configureStore({
     reducer: {
@@ -31,6 +32,7 @@ const store = configureStore({
         endDateReducer,
         repeatStartReducer,
         repeatEndReducer,
+        limitReducer,
     },
 });
 

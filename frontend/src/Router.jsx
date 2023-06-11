@@ -4,7 +4,7 @@ import Main from "./pages/Main";
 import Detail from "./pages/Detail";
 import Daily from "./pages/daily/Daily";
 import Nav from "./pages/nav/Nav";
-import Week from "./pages/weekly/weekly";
+import Week from "./pages/weekly/Week";
 
 function Router() {
     return (

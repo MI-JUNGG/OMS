@@ -1,0 +1,44 @@
+.timetable {
+    width: 1280px;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin: auto;
+
+    th {
+        padding: 8px;
+        border: 1px solid #ccc;
+        text-align: center;
+    }
+
+    td {
+        padding: 8px;
+        border: 1px solid #ccc;
+        text-align: center;
+    }
+
+    .timetable-hours {
+        th {
+            border-bottom: 1px solid #ccc;
+        }
+        td {
+            border: none;
+        }
+    }
+
+    thead {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        border-bottom: 1px solid #ccc;
+
+        th:first-child {
+            width: 60px; /* Adjust the width of the first column if needed */
+        }
+    }
+
+    tbody {
+        td:first-child {
+            font-weight: bold;
+        }
+    }
+}
