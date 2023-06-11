@@ -18,7 +18,6 @@ function TextSelector() {
     const blockColorThemeTitle = useSelector(
         (state) => state.settingReducer.blockColorThemeTitle,
     );
-    console.log(blockColorTheme, blockColorThemeTitle);
 
     const [blockColor, setBlockColor] = useState([]);
     useEffect(() => {
