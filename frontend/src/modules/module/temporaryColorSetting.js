@@ -3,11 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const temporaryColorSetting = createSlice({
     name: "temporaryColorSetting",
     initialState: {
-        temporaryMainColor: "",
+        temporaryMainColor: "#547aff",
         temporaryBackgroundColor: "",
         temporaryTextStyle: "",
         temporaryTextColor: "",
-        temporaryBlockColor: "",
+        temporaryBlockColor: {
+            mainColor: "",
+            bgColor: "",
+        },
         temporaryBlockColorTheme: "",
         temporaryBlockColorThemeTitle: "",
     },
@@ -24,8 +27,11 @@ const temporaryColorSetting = createSlice({
         temporaryTextColor: (state, action) => {
             state.temporaryTextColor = action.payload;
         },
-        temporaryBlockColor: (state, action) => {
-            state.temporaryBlockColor = action.payload;
+        temporaryBlockMainColor: (state, action) => {
+            state.temporaryBlockColor.mainColor = action.payload;
+        },
+        temporaryBlockBGColor: (state, action) => {
+            state.temporaryBlockColor.bgColor = action.payload;
         },
         temporaryBlockColorTheme: (state, action) => {
             state.temporaryBlockColorTheme = action.payload;
@@ -41,7 +47,8 @@ export const {
     temporaryBackgroundColor,
     temporaryTextStyle,
     temporaryTextColor,
-    temporaryBlockColor,
+    temporaryBlockMainColor,
+    temporaryBlockBGColor,
     temporaryBlockColorTheme,
     temporaryBlockColorThemeTitle,
 } = temporaryColorSetting.actions;
