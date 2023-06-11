@@ -1,8 +1,32 @@
 import "./ColorSelector.scss";
 import SettingCalndaer_1 from "../../../../assets/images/setting/SettingCalendar_1";
 import SettingCalndaer_2 from "../../../../assets/images/setting/SettingCalendar_2";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    temporaryBackgroundColor,
+    temporaryMainColor,
+} from "../../../../modules/module/temporaryColorSetting";
 
 function ColorSelector() {
+    const dispatch = useDispatch();
+    const form = useSelector((state) => state.temporaryColorReducer);
+    console.log(form);
+    const changeTemporaryMainColor = (id) => {
+        dispatch(temporaryMainColor(id));
+    };
+    const changeTemporaryBGColor = (id) => {
+        dispatch(temporaryBackgroundColor(id));
+    };
+
+    document.documentElement.style.setProperty(
+        "--temporarybackgroundColor",
+        form.temporaryBackgroundColor,
+    );
+    document.documentElement.style.setProperty(
+        "--temporaryMainColor",
+        form.temporaryMainColor,
+    );
+
     return (
         <>
             <div className="colorSelectorContainer">
@@ -21,6 +45,9 @@ function ColorSelector() {
                                             backgroundColor: data.color,
                                             marginRight: "32px",
                                         }}
+                                        onClick={() =>
+                                            changeTemporaryMainColor(data.color)
+                                        }
                                     />
                                 );
                             })}
@@ -39,6 +66,9 @@ function ColorSelector() {
                                             borderRadius: "100px",
                                             backgroundColor: data.color,
                                             marginRight: "32px",
+                                        }}
+                                        onClick={() => {
+                                            changeTemporaryBGColor(data.color);
                                         }}
                                     />
                                 );
@@ -61,7 +91,6 @@ function ColorSelector() {
                             <span className="previewText">Text Color</span>
                             <div className="previewLogo">
                                 <SettingCalndaer_1 />
-
                                 <SettingCalndaer_2 />
                             </div>
                         </div>

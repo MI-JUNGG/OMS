@@ -8,8 +8,6 @@ import userInfoChange, {
 function NicknameChage() {
     const form = useSelector((state) => state.userInfoChangeReducer);
 
-    console.log(form);
-
     const dispatch = useDispatch();
 
     const inputNickname = (e) => {

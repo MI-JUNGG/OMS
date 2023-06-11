@@ -1,5 +1,6 @@
 $colorSelector: #58595b;
 $mainColor: #547aff;
+$--temporarybackgroundColor: "";
 
 .colorSelectorContainer {
     display: flex;
@@ -40,7 +41,7 @@ $mainColor: #547aff;
         // border: 1px solid #abaeb5;
 
         .previewTop {
-            background-color: $mainColor;
+            background-color: var(--temporaryMainColor);
             height: 35px;
             display: flex;
             justify-content: left;
@@ -54,24 +55,25 @@ $mainColor: #547aff;
         }
 
         .previewInsideContainer {
-            background-color: #f3f6ff;
+            background-color: var(--temporarybackgroundColor);
             display: flex;
             justify-content: center;
+            height: 302px;
 
             .previewInside {
                 width: 413px;
-                height: 252px;
+
                 border-radius: 30px;
                 flex-direction: column;
                 text-align: center;
                 background-color: #ffffff;
-                margin-top: 27px;
+                margin: 27px 0;
 
                 button {
                     width: 124px;
                     height: 32px;
                     border-radius: 50px;
-                    background-color: $mainColor;
+                    background-color: var(--temporaryMainColor);
                     color: #ffffff;
                     font-size: 18px;
                     border: none;
@@ -79,7 +81,7 @@ $mainColor: #547aff;
                 }
 
                 span {
-                    color: $mainColor;
+                    color: var(--temporaryMainColor);
                     font-size: 18px;
                     display: block;
                     margin: 35px auto;

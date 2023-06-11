@@ -5,6 +5,12 @@ import ModalPlus from "/src/assets/images/modal/ModalPlus";
 import { isModal } from "../../../../modules/module/setting";
 import ColorPicker from "./ColorPicker";
 import ColorPickerBackground from "./ColorPickerBackground";
+import {
+    temporaryBlockBGColor,
+    temporaryBlockMainColor,
+    temporaryTextColor,
+    temporaryTextStyle,
+} from "../../../../modules/module/temporaryColorSetting";
 
 function TextSelector() {
     const dispatch = useDispatch();
@@ -18,7 +24,6 @@ function TextSelector() {
     const blockColorThemeTitle = useSelector(
         (state) => state.settingReducer.blockColorThemeTitle,
     );
-    console.log(blockColorTheme, blockColorThemeTitle);
 
     const [blockColor, setBlockColor] = useState([]);
     useEffect(() => {
@@ -26,6 +31,17 @@ function TextSelector() {
             .then((data) => data.json())
             .then((data) => setBlockColor(data));
     }, []);
+
+    const changeTemporaryTextStyle = (id) => {
+        dispatch(temporaryTextStyle(id));
+    };
+    const changeTemporaryTextColor = (id) => {
+        dispatch(temporaryTextColor(id));
+    };
+    const changeTemporaryBlockMainColor = (id) => {
+        dispatch(temporaryBlockMainColor(id.mainColor));
+        dispatch(temporaryBlockBGColor(id.backgroundColor));
+    };
 
     return (
         <>
@@ -35,13 +51,19 @@ function TextSelector() {
                         <h3>Text Style</h3>
                         <div className="textStyleSelect">
                             {TEXT_STYLE.map((style, i) => {
+                                const fixStyle = {
+                                    fontSize: style.fontSize,
+                                    fontStyle: style.style,
+                                    textDecoration: style.style,
+                                };
                                 return (
                                     <div
                                         key={i}
-                                        style={{
-                                            fontSize: style.fontSize,
-                                            fontStyle: style.style,
-                                            textDecoration: style.style,
+                                        style={fixStyle}
+                                        onClick={() => {
+                                            changeTemporaryTextStyle(
+                                                style.style,
+                                            );
                                         }}
                                     >
                                         {style.style}
@@ -55,7 +77,15 @@ function TextSelector() {
                         <div className="textColorSelect">
                             {TEXT_COLOR.map((color, i) => {
                                 return (
-                                    <div key={i} className="textColor">
+                                    <div
+                                        key={i}
+                                        className="textColor"
+                                        onClick={() => {
+                                            changeTemporaryTextColor(
+                                                color.color,
+                                            );
+                                        }}
+                                    >
                                         <div
                                             className={`textColor${color.color}`}
                                         >
@@ -79,6 +109,11 @@ function TextSelector() {
                                             className="blockColorVivid"
                                             style={{
                                                 backgroundColor: `${data.mainColor}`,
+                                            }}
+                                            onClick={() => {
+                                                changeTemporaryBlockMainColor(
+                                                    data,
+                                                );
                                             }}
                                         ></div>
                                     );
