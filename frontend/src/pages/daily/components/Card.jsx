@@ -181,39 +181,41 @@ function Card() {
                     {repeatEnd && <RepeatEnd />}
                     {repeatStart && <RepeatStart />}
                 </div>
-                <div className="modalx" onClick={clearUrl}>
-                    {link === true && <ModalX width={10} height={10} />}
-                </div>
-                <div className="link">
-                    <div className="linkIcon">
-                        <ModalLink />
+                <div className="cardContent">
+                    <div className="modalx" onClick={clearUrl}>
+                        {link === true && <ModalX width={10} height={10} />}
                     </div>
-                    {link === false ? (
-                        <button onClick={linkHandler}>링크</button>
-                    ) : (
-                        <input
-                            className="inputline"
-                            value={url}
-                            onChange={urlHandler}
-                            type="url"
-                        />
-                    )}
-                </div>
-                <div className="modalx" onClick={clearContents}>
-                    {note === true && <ModalX width={10} height={10} />}
-                </div>
-                <div className="link">
-                    <ModalNote />
-                    {note === false ? (
-                        <button onClick={noteHandler}>메모</button>
-                    ) : (
-                        <textarea
-                            className="textArea"
-                            onChange={createContent}
-                            value={contents}
-                            name="content"
-                        />
-                    )}
+                    <div className="link">
+                        <div className="linkIcon">
+                            <ModalLink />
+                        </div>
+                        {link === false ? (
+                            <button onClick={linkHandler}>링크</button>
+                        ) : (
+                            <input
+                                className="inputline"
+                                value={url}
+                                onChange={urlHandler}
+                                type="url"
+                            />
+                        )}
+                    </div>
+                    <div className="modalx" onClick={clearContents}>
+                        {note === true && <ModalX width={10} height={10} />}
+                    </div>
+                    <div className="contentsMemo">
+                        <ModalNote />
+                        {note === false ? (
+                            <button onClick={noteHandler}>메모</button>
+                        ) : (
+                            <textarea
+                                className="textArea"
+                                onChange={createContent}
+                                value={contents}
+                                name="content"
+                            />
+                        )}
+                    </div>
                 </div>
                 <div className="selectColor">
                     <ColorSelector />

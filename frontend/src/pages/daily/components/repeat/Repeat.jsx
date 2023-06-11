@@ -8,6 +8,7 @@ import {
 } from "../../../../modules/module/modal";
 import DateRight from "../../../../assets/images/date_picker/DateRight";
 import DateType from "../CardCompo/DateType";
+import RepeatBtn from "./RepeatBtn";
 import "../All.scss";
 
 function Repeat() {
@@ -31,27 +32,30 @@ function Repeat() {
     };
 
     return (
-        <div className="flex">
-            <div onClick={modalHandler}>
-                <div>
-                    <span>{month}월</span>
-                    <span>{day}일</span>
+        <div id="Repeat">
+            <div className="flex">
+                <div onClick={modalHandler}>
+                    <div>
+                        <span>{month}월</span>
+                        <span>{day}일</span>
+                    </div>
+                    <span>
+                        {time} : {minute}
+                    </span>
                 </div>
-                <span>
-                    {time} : {minute}
-                </span>
-            </div>
-            <DateRight />
-            <div onClick={endModalHandler}>
-                <div>
-                    <span>{endMonth}월</span>
-                    <span>{endDay}일</span>
+                <DateRight />
+                <div onClick={endModalHandler}>
+                    <div>
+                        <span>{endMonth}월</span>
+                        <span>{endDay}일</span>
+                    </div>
+                    <span>
+                        {endTime} : {endMinute}
+                    </span>
                 </div>
-                <span>
-                    {endTime} : {endMinute}
-                </span>
+                <DateType />
             </div>
-            <DateType />
+            <RepeatBtn />
         </div>
     );
 }

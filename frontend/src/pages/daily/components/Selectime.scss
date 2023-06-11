@@ -1,5 +1,5 @@
 .dayTable {
-    width: 75vw;
+    min-width: 1280px;
     background-color: skyblue;
     border-radius: 16px;
     padding: 20px;
@@ -8,6 +8,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 20px;
         text-align: center;
         height: 5%;
         font-size: x-large;
@@ -43,10 +44,8 @@
             height: 100%;
         }
 
-        &:first-child {
-            .otherContents:first-child {
-                border-top: 1px solid black;
-            }
+        &:last-child .contents {
+            border-left: none;
         }
         .first {
             border-top: 1px solid black;
@@ -71,7 +70,7 @@
                 z-index: 1;
                 color: black;
                 font-weight: bold;
-                padding: 5px;
+                padding: 35px;
             }
         }
     }

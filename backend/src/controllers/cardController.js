@@ -1,13 +1,17 @@
 const cardService = require("../services/cardService");
 const { catchAsync, detectError } = require("../utils/detectError");
+const dayjs = require("dayjs");
 
 const postCard = catchAsync(async (req, res) => {
   const userId = req.userId;
   const { repeatId, title, color, link, memo, startDate, endDate, deadline } =
     req.body;
-  console.log(userId, title, color, link, memo, startDate, endDate, deadline);
   if (!userId || !repeatId || !title || !color || !startDate || !endDate)
     detectError("KEY_ERROR", 400);
+
+  const formattedStartDate = dayjs(startDate).format("YYYY-MM-DD HH:mm:ss");
+  const formattedEndDate = dayjs(startDate).format("YYYY-MM-DD HH:mm:ss");
+  const formatteddeadlineDate = dayjs(startDate).format("YYYY-MM-DD HH:mm:ss");
 
   await cardService.postCard(
     userId,
@@ -16,9 +20,9 @@ const postCard = catchAsync(async (req, res) => {
     color,
     link,
     memo,
-    startDate,
-    endDate,
-    deadline
+    formattedStartDate,
+    formattedEndDate,
+    formatteddeadlineDate
   );
   return res.status(201).json({ message: "CARD_CREATED!" });
 });
