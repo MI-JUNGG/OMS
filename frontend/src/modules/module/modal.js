@@ -12,6 +12,7 @@ const modalSlice = createSlice({
         repeatEndControl: false,
         showColorPicker: false,
         typeControl: 1,
+        limit: false,
     },
     reducers: {
         showColorPicker: (state) => {
@@ -38,6 +39,9 @@ const modalSlice = createSlice({
         typeControl: (_, actions) => {
             return { repeatEndControl: actions.payload };
         },
+        limitControl: (state) => {
+            return { ...state, limit: !state.limit };
+        },
     },
 });
 
@@ -50,5 +54,6 @@ export const {
     repeatEndControl,
     showColorPicker,
     typeControl,
+    limitControl,
 } = modalSlice.actions;
 export default modalSlice.reducer;

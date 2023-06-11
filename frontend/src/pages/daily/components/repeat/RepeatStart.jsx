@@ -8,8 +8,9 @@ import "../CardCompo/AlldayTime.scss";
 function RepeatStart() {
     const dispatch = useDispatch();
     const onClickHandler = () => {
-        dispathch(repeatControl());
+        dispatch(repeatControl());
     };
+
     return (
         <div className="timeTable">
             <div className="yearPicker">

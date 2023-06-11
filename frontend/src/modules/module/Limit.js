@@ -129,10 +129,10 @@ export const {
     laddDate,
     laddDay,
     laddMonth,
-    lePlusD,
+    lPlusD,
     lPlusM,
     lPlusY,
-    leminusY,
+    lminusY,
     lminusM,
     lminusD,
 } = limitdateSlice.actions;

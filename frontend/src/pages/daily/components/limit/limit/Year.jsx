@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { lPlusY, lminusY } from "../../../../../modules/module/Limit";
+import "../../CardCompo/YearSelector.scss";
 
 function Year() {
     const outerRef = useRef(null);

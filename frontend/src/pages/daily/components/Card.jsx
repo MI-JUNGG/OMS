@@ -18,6 +18,7 @@ import ColorPicker from "./color/ColorPicker";
 import { showColorPicker } from "../../../modules/module/modal";
 import { counterHandler } from "../server";
 import "./Card.scss";
+import LimitDateSelect from "./limit/LimitDateSelect";
 
 function Card() {
     const dispatch = useDispatch();
@@ -52,6 +53,8 @@ function Card() {
     const repeatEndDay = useSelector((state) => state.repeatEndReducer.day);
     const repeatE = new Date(repeatEndYear, repeatEndMonth, repeatEndDay);
 
+    const showLimit = useSelector((state) => state.modalReducer.limit); //
+    console.log(showLimit);
     const linkHandler = () => {
         setLink((prev) => !prev);
     };
@@ -133,7 +136,8 @@ function Card() {
     const cardHandler = () => {
         dispatch(cardmodal());
     };
-
+    const closeModal =
+        !openModal && !endDateModal && !repeatEnd && !repeatStart && !showLimit;
     return (
         <div className="modalBackGround" ref={outerRef}>
             {/* <div className="colorModal">
@@ -171,15 +175,16 @@ function Card() {
                     />
                 </div>
                 <div className="timeSelect">
-                    {!openModal && !endDateModal && datetype ? (
+                    {closeModal && datetype ? (
                         <All />
                     ) : (
-                        !openModal && !endDateModal && <Repeat />
+                        closeModal && <Repeat />
                     )}
                     {openModal && <AlldayTime />}
                     {endDateModal && <EndDate />}
                     {repeatEnd && <RepeatEnd />}
                     {repeatStart && <RepeatStart />}
+                    {showLimit && <LimitDateSelect />}
                 </div>
                 <div className="cardContent">
                     <div className="modalx" onClick={clearUrl}>

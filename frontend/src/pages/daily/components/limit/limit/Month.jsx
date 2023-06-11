@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { lPlusM, lminusM } from "../../../../../modules/module/endDate";
+import { lPlusM, lminusM } from "../../../../../modules/module/Limit";
+import "../../CardCompo/MonthSelector.scss";
 
 function Month() {
     const dispatch = useDispatch();
     const outerRef = useRef(null);
-    const month = useSelector((state) => state.endDateReducer.month);
-
+    const month = useSelector((state) => state.limitReducer.month);
+    console.log(month);
     const increaseMon = () => {
         dispatch(lPlusM());
     };

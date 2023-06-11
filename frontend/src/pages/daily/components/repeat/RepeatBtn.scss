@@ -1,3 +1,24 @@
-#RepeatType {
+#repeatType {
+    margin-top: 10px;
+    min-width: 400px;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    select {
+        border-radius: 16px;
+        border: none;
+        background-color: beige;
+        width: 150px;
+        height: 25px;
+        text-align: center;
+    }
+    button {
+        border-radius: 16px;
+        background-color: beige;
+        border: none;
+        width: 200px;
+        height: 25px;
+        text-align: center;
+    }
 }
