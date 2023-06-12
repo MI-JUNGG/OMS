@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { sign } from "../../modules/module/sign";
 import "./SignIn.scss";
 import { KAKAO_AUTH_URL } from "./kakao";
-import { NAVER_AUTH_URL } from "./naver";
+import { NAVER_AUTH_URL } from "./LoginNaver";
 import NaverLogin from "./naverLogin";
 import axios from "axios";
 import { useLocation } from "react-router";
@@ -52,9 +52,7 @@ function SignIn() {
             .catch((err) => console.log(err));
     };
 
-    const naverLoginMove = () => {
-        window.location.href = NAVER_AUTH_URL;
-    };
+    const naverLoginMove = () => {};
 
     return (
         <>
@@ -100,7 +98,12 @@ function SignIn() {
                             로그인
                         </span>
                     </div>
-                    <div className="naverIdLogin" onClick={naverLoginMove}>
+                    <div
+                        className="naverIdLogin"
+                        onClick={() => {
+                            window.location.href = NAVER_AUTH_URL;
+                        }}
+                    >
                         <img src="/src/assets/images/social_logo/naver.svg" />
                         <span>
                             Naver

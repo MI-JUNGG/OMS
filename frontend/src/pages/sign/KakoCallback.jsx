@@ -10,7 +10,6 @@ import axios from "axios";
 function KakoCallback() {
     const code = new URL(window.location.href).searchParams.get("code");
     useEffect(() => {
-        console.log("A");
         axios
             .post(
                 `https://kauth.kakao.com/oauth/token?grant_type=${KAKAO_GRANT_TYPE}&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&code=${code}`,

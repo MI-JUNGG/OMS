@@ -49,6 +49,10 @@ function Nav() {
                                     localStorage.removeItem("token");
                                     alert("로그아웃 하셨습니다");
                                     window.location.replace("/");
+                                    Kakao.init(
+                                        "27f63acdf1c5a40aa9a44940fecc9a01",
+                                    );
+                                    Kakao.isInitialized();
                                 }}
                             >
                                 로그아웃
