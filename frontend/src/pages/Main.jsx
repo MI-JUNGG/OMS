@@ -44,37 +44,36 @@ function Main() {
         //         });
         // }, []);
 
-        axios
-            .get("http://192.168.219.152:3001/month", {
-                params: {
-                    startDate: startDate,
-                    endDate: endDate,
-                },
-                headers: {
-                    Authorization: localStorage.getItem("token"),
-                },
-            })
-            .then((response) => {
-                console.log(response);
-                setSchedule(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        // axios
+        //     .get("http://192.168.219.152:3001/month", {
+        //         params: {
+        //             startDate: startDate,
+        //             endDate: endDate,
+        //         },
+        //         headers: {
+        //             Authorization: localStorage.getItem("token"),
+        //         },
+        //     })
+        //     .then((response) => {
+        //         console.log(response);
+        //         setSchedule(response.data);
+        //     })
+        //     .catch((error) => {
+        //         console.error(error);
+        //     });
 
-        fetch("http://192.168.0.5:3001/mypage/theme", {
-            method: "GET",
-            headers: {
-                Authorization:
-                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODYyMjEyNTN9.OTJL43-q4t35oxcfbQ0kcUVkTBmdJVIrEVSBdIdzeuY",
-                "Content-Type": "application/json", // JSON 형식으로 요청을 보내기 위해 Content-Type을 설정
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => console.log(data))
-            .then((data) => dispatch(color(data)));
+        // fetch("http://192.168.0.5:3001/mypage/theme", {
+        //     method: "GET",
+        //     headers: {
+        //         Authorization:
+        //             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODYyMjEyNTN9.OTJL43-q4t35oxcfbQ0kcUVkTBmdJVIrEVSBdIdzeuY",
+        //         "Content-Type": "application/json", // JSON 형식으로 요청을 보내기 위해 Content-Type을 설정
+        //     },
+        // })
+        //     .then((response) => response.json())
+        //     .then((data) => console.log(data))
+        //     .then((data) => dispatch(color(data)));
     }, []);
-    console.log(color);
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const monthNames = [];
