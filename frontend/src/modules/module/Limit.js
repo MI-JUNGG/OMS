@@ -9,8 +9,15 @@ const limitdateSlice = createSlice({
         year: null,
         month: null,
         day: null,
+        value: "매일",
     },
     reducers: {
+        valueSelector: (state, action) => {
+            return {
+                ...state,
+                value: action.payload,
+            };
+        },
         laddDate: (state, action) => {
             return {
                 ...state,
@@ -135,6 +142,7 @@ export const {
     lminusY,
     lminusM,
     lminusD,
+    valueSelector,
 } = limitdateSlice.actions;
 
 export default limitdateSlice.reducer;

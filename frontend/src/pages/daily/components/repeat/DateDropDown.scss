@@ -1,0 +1,26 @@
+.selectDrop {
+    background-color: white;
+    list-style: none;
+    border: 1px solid #a8b6e7;
+    padding: 10px;
+    border-radius: 8px;
+    gap: 5px;
+    li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        cursor: pointer;
+        color: #abaeb5;
+        padding: 20px;
+        border-radius: 15px;
+        font-size: 18px;
+        // &:hover {
+        //     background-color: #547aff;
+        // }
+    }
+
+    .selected {
+        background-color: #547aff;
+    }
+}

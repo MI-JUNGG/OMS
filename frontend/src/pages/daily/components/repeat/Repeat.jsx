@@ -35,7 +35,7 @@ function Repeat() {
         <div id="Repeat">
             <div className="flex">
                 <div onClick={modalHandler}>
-                    <div>
+                    <div className="text">
                         <span>{month}월</span>
                         <span>{day}일</span>
                     </div>
@@ -45,7 +45,7 @@ function Repeat() {
                 </div>
                 <DateRight />
                 <div onClick={endModalHandler}>
-                    <div>
+                    <div className="text">
                         <span>{endMonth}월</span>
                         <span>{endDay}일</span>
                     </div>

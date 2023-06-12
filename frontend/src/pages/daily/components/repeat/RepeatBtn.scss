@@ -5,14 +5,18 @@
     align-items: center;
     justify-content: space-between;
 
-    select {
+    .repeatBot {
         border-radius: 16px;
         border: none;
         background-color: beige;
-        width: 150px;
         height: 25px;
+        width: 150px;
         text-align: center;
+        #repeatText {
+            font-size: 15px;
+        }
     }
+
     button {
         border-radius: 16px;
         background-color: beige;
