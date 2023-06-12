@@ -18,6 +18,7 @@ function TextSelector() {
     const handleOutClick = () => {
         dispatch(isModal());
     };
+    const form = useSelector((state) => state.temporaryColorReducer);
     const blockColorTheme = useSelector(
         (state) => state.settingReducer.blockColorTheme,
     );
@@ -37,11 +38,62 @@ function TextSelector() {
     };
     const changeTemporaryTextColor = (id) => {
         dispatch(temporaryTextColor(id));
+        // dispatch(temporary);
     };
     const changeTemporaryBlockMainColor = (id) => {
         dispatch(temporaryBlockMainColor(id.mainColor));
         dispatch(temporaryBlockBGColor(id.backgroundColor));
+        dispatch(temporaryTextColor(id.mainColor));
     };
+
+    document.documentElement.style.setProperty(
+        "--textPreviewFontColor",
+        form.temporaryTextColor,
+    );
+    document.documentElement.style.setProperty(
+        "--textPreviewBGColor",
+        form.temporaryBlockColor.bgColor,
+    );
+    document.documentElement.style.setProperty(
+        "--textPreviewMainColor",
+        form.temporaryBlockColor.mainColor,
+    );
+
+    const TEXT_STYLE = [
+        {
+            id: 1,
+            style: "Regular",
+            fontSize: "14px",
+        },
+        {
+            id: 2,
+            style: "Bold",
+            fontSize: "20px",
+        },
+        {
+            id: 3,
+            style: "Italic",
+            fontSize: "19px",
+        },
+        {
+            id: 4,
+            style: "underline",
+            fontSize: "15px",
+        },
+    ];
+
+    const TEXT_COLOR = [
+        {
+            id: 1,
+            title: "Dark",
+            color: "black",
+        },
+        {
+            id: 2,
+            title: "Colored",
+            color: form.temporaryBlockColor.mainColor,
+        },
+    ];
 
     return (
         <>
@@ -87,9 +139,9 @@ function TextSelector() {
                                         }}
                                     >
                                         <div
-                                            className={`textColor${color.color}`}
+                                            className={`textColor${color.title}`}
                                         >
-                                            <span>{color.color}</span>
+                                            <span>{color.title}</span>
                                         </div>
                                     </div>
                                 );
@@ -153,37 +205,3 @@ function TextSelector() {
 }
 
 export default TextSelector;
-
-const TEXT_STYLE = [
-    {
-        id: 1,
-        style: "Regular",
-        fontSize: "14px",
-    },
-    {
-        id: 2,
-        style: "Bold",
-        fontSize: "20px",
-    },
-    {
-        id: 3,
-        style: "Italic",
-        fontSize: "19px",
-    },
-    {
-        id: 4,
-        style: "underline",
-        fontSize: "15px",
-    },
-];
-
-const TEXT_COLOR = [
-    {
-        id: 1,
-        color: "Dark",
-    },
-    {
-        id: 2,
-        color: "Colored",
-    },
-];
