@@ -49,9 +49,10 @@ function SignUp() {
     }
 
     const userInfoSub = () => {
+        console.log("A");
         axios
             .post(
-                "http://192.168.219.21:3001/auth/signup",
+                "http://192.168.219.152:3001/auth/signup",
                 {
                     nickname: userInputForm.nickName,
                     email: userInputForm.eMail,
@@ -63,8 +64,14 @@ function SignUp() {
                     },
                 },
             )
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
+            .then((res) => {
+                console.log(res);
+                alert("성공!");
+            })
+            .catch((err) => {
+                console.log(err);
+                alert("실패!");
+            });
     };
 
     const kakaoSignUp = () => {
@@ -194,7 +201,6 @@ function SignUp() {
                     onClick={() => {
                         if (validateInputs()) {
                             userInfoSub();
-                            window.location.replace("/");
                         } else {
                             setIsComplete(true);
                         }
