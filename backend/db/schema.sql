@@ -132,7 +132,7 @@ CREATE TABLE `users` (
   `social_id` varchar(30) DEFAULT NULL,
   `nickname` varchar(15) NOT NULL,
   `email` varchar(40) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -177,5 +177,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20230606051850'),
   ('20230607125647'),
   ('20230607125900'),
-  ('20230609141958');
+  ('20230609141958'),
+  ('20230612151546');
 UNLOCK TABLES;
