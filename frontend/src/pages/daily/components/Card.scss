@@ -58,7 +58,7 @@
                 align-items: center;
                 width: 80%;
                 height: 137px;
-                z-index: 1;
+
                 button {
                     border: none;
                     background-color: white;
@@ -178,6 +178,5 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        z-index: 2;
     }
 }
