@@ -26,4 +26,4 @@ export const hours = [
     "24:00",
 ];
 
-export const week = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+export const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];

@@ -1,35 +1,29 @@
 import React from "react";
-import { hours, week } from "../daily/time";
+import { hours, days } from "../daily/time";
 import "./weekly.scss";
 
 function Weekly() {
     return (
-        <table className="timetable">
-            <thead>
-                <tr>
-                    <th></th>
-                    {week.map((day) => (
-                        <th key={day}>{day}</th>
+        <div className="weekContainer">
+            <div className="timetable">
+                <div className="timetable__header">
+                    {days.map((day, index) => (
+                        <div className="timetable__day" key={index}>
+                            {day}
+                        </div>
                     ))}
-                </tr>
-                <tr className="timetable-hours">
-                    <td></td>
-                    {week.map(() => (
-                        <td></td>
+                </div>
+                <div className="timetable__body">
+                    {hours.map((hour) => (
+                        <div className="timetable__row" key={hour}>
+                            {days.map((_, index) => (
+                                <div className="timetable__cell" key={index} />
+                            ))}
+                        </div>
                     ))}
-                </tr>
-            </thead>
-            <tbody>
-                {hours.map((hour) => (
-                    <tr key={hour}>
-                        <td>{hour}</td>
-                        {week.map(() => (
-                            <td></td>
-                        ))}
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+                </div>
+            </div>
+        </div>
     );
 }
 

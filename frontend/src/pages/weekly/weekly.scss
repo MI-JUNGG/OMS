@@ -1,44 +1,32 @@
-.timetable {
-    width: 1280px;
-    border: 1px solid #ccc;
-    border-collapse: collapse;
-    table-layout: fixed;
-    margin: auto;
+.weekContainer {
+    margin-top: 30px;
+    .timetable {
+        display: flex;
+        flex-direction: column;
+        width: 1280px;
+        min-width: 1280px;
+        margin: auto;
 
-    th {
-        padding: 8px;
-        border: 1px solid #ccc;
-        text-align: center;
-    }
-
-    td {
-        padding: 8px;
-        border: 1px solid #ccc;
-        text-align: center;
-    }
-
-    .timetable-hours {
-        th {
-            border-bottom: 1px solid #ccc;
+        &__header {
+            display: flex;
         }
-        td {
-            border: none;
+
+        &__day,
+        &__cell {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            border: 1px solid #ccc;
+            height: 100px;
         }
-    }
 
-    thead {
-        background-color: #f2f2f2;
-        font-weight: bold;
-        border-bottom: 1px solid #ccc;
-
-        th:first-child {
-            width: 60px; /* Adjust the width of the first column if needed */
+        &__body {
+            display: flex;
+            flex-direction: column;
         }
-    }
 
-    tbody {
-        td:first-child {
-            font-weight: bold;
+        &__row {
+            display: flex;
         }
     }
 }
