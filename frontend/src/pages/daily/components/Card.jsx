@@ -17,8 +17,8 @@ import Repeat from "./repeat/Repeat";
 import ColorPicker from "./color/ColorPicker";
 import { showColorPicker } from "../../../modules/module/modal";
 import { counterHandler } from "../server";
-import "./Card.scss";
 import LimitDateSelect from "./limit/LimitDateSelect";
+import "./Card.scss";
 
 function Card() {
     const dispatch = useDispatch();

@@ -76,7 +76,7 @@ function Selectime() {
 
                 let backgroundColor = "";
                 if (hourValue >= startTime && hourValue <= endTime) {
-                    backgroundColor = color;
+                    backgroundColor = "#FE7B91";
                 }
 
                 return (
@@ -86,6 +86,10 @@ function Selectime() {
                         {hourValue >= getStartTime &&
                         hourValue <= getEndTime ? (
                             <div
+                                style={{
+                                    backgroundColor: backgroundColor,
+                                    zIndex: 0,
+                                }}
                                 className={`otherContents ${
                                     hourValue === getStartTime && `first`
                                 }`}
