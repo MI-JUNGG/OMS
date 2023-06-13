@@ -91,6 +91,7 @@ function Card() {
         color: "",
     });
     const { title, contents, startDate, endDate, color, url, repeatId } = form;
+
     useEffect(() => {
         const handleScroll = (event) => {
             const { target } = event;
@@ -117,12 +118,6 @@ function Card() {
     const createContent = (e) => {
         setForm({ ...form, contents: e.target.value });
     };
-    const selectStartTime = (e) => {
-        setForm({ ...form, startDate: e.target.value });
-    };
-    const selectEndTime = (e) => {
-        setForm({ ...form, endDate: e.target.value });
-    };
     const urlHandler = (e) => {
         setForm({ ...form, url: e.target.value });
     };
@@ -138,26 +133,24 @@ function Card() {
     };
     const closeModal =
         !openModal && !endDateModal && !repeatEnd && !repeatStart && !showLimit;
+
+    const sendingData = () => {
+        counterHandler(title, contents, repeatE, endDate, color, url, repeatId);
+        setForm({
+            repeatId: "",
+            title: "",
+            contents: "",
+            url: "",
+            startDate: "",
+            endDate: "",
+            color: "",
+        });
+    };
     return (
         <div className="modalBackGround" ref={outerRef}>
-            {/* <div className="colorModal">
-                {showColorPick === true && <ColorPalette />}
-            </div> */}
             <div className="card">
                 <div className="iconBtn">
-                    <div
-                        onClick={() =>
-                            counterHandler(
-                                title,
-                                contents,
-                                repeatE,
-                                endDate,
-                                color,
-                                url,
-                                repeatId,
-                            )
-                        }
-                    >
+                    <div onClick={sendingData}>
                         <ModalCheck />
                     </div>
 

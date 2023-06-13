@@ -25,10 +25,14 @@ function RepeatBtn() {
     return (
         <div id="repeatType">
             <div onClick={() => showModal(repeatType)} className="repeatBot">
-                <span id="repeatText">{repeatType}</span>
+                <button id="repeatText">{repeatType}</button>
                 {showmodal && <DateDropDown showModal={blockmodal} />}
             </div>
-            <button type="button" onClick={limitmodalHandler}>
+            <button
+                className="limitDate"
+                type="button"
+                onClick={limitmodalHandler}
+            >
                 {repeatString}
             </button>
         </div>
