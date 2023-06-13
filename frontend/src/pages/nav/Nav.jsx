@@ -23,7 +23,6 @@ function Nav() {
     const HandleModal = () => {
         dispatch(loginModal());
         dispatch(sign(0));
-
         dispatch(nickName(""));
         dispatch(eMail(""));
         dispatch(password(""));
