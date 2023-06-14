@@ -43,6 +43,7 @@
         "react-dnd": "^16.0.1",
         "sass": "^1.61.0"
     },
+    "proxy": "https://nid.naver.com",
     "main": ".eslintrc.js",
     "keywords": [],
     "author": "",
