@@ -1,0 +1,11 @@
+.hourContanier {
+    width: 80px;
+    min-width: 50px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+    .hour {
+        height: 100px;
+        text-align: right;
+    }
+}

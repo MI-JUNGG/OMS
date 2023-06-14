@@ -1,24 +1,19 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addMin, minusMin } from "../../../../modules/module/date";
-import { eaddMin, eminusMin } from "../../../../modules/module/endDate";
-import "./Minselector.scss";
+import { lPlusY, lminusY } from "../../../../../modules/module/Limit";
+import "../../CardCompo/YearSelector.scss";
 
-function MinSelector() {
+function Year() {
     const outerRef = useRef(null);
     const dispatch = useDispatch();
-    const isRepeat = useSelector((state) => state.modalReducer.endDateControl);
+    const year = useSelector((state) => state.limitReducer.year);
 
-    const startminute = useSelector((state) => state.dateReducer.minute);
-    const endMin = useSelector((state) => state.endDateReducer.minute);
-    const minute = isRepeat ? endMin : startminute;
-
-    const increaseday = () => {
-        isRepeat ? dispatch(eaddMin()) : dispatch(addMin());
+    const increaseYear = () => {
+        return dispatch(lPlusY());
     };
 
-    const decreaseday = () => {
-        isRepeat ? dispatch(eminusMin()) : dispatch(minusMin());
+    const decreaseYear = () => {
+        return dispatch(lminusY());
     };
 
     useEffect(() => {
@@ -30,12 +25,12 @@ function MinSelector() {
                     target.contains(outerRef.current));
 
             if (event.deltaY < 0 && outerRef.current.contains(event.target)) {
-                decreaseday();
+                decreaseYear();
             } else if (
                 event.deltaY > 0 &&
                 outerRef.current.contains(event.target)
             ) {
-                increaseday();
+                increaseYear();
             }
 
             if (!isScrollable || !outerRef.current.contains(event.target)) {
@@ -51,12 +46,12 @@ function MinSelector() {
     }, []);
 
     return (
-        <div className="minutes" ref={outerRef}>
-            <p>{minute === 0 ? 59 : minute - 1}</p>
-            <p className="now">{minute}</p>
-            <p>{minute === 59 ? 0 : minute + 1}</p>
+        <div ref={outerRef} className="yearControll">
+            <p>{year - 1}</p>
+            <p className="now">{year}</p>
+            <p>{year + 1}</p>
         </div>
     );
 }
 
-export default MinSelector;
+export default Year;

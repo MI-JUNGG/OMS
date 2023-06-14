@@ -1,25 +1,27 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addMin, minusMin } from "../../../../modules/module/date";
-import { eaddMin, eminusMin } from "../../../../modules/module/endDate";
-import "./Minselector.scss";
+import { lPlusD, lminusD } from "../../../../../modules/module/Limit";
+import "../../CardCompo/AlldayTime.scss";
 
-function MinSelector() {
-    const outerRef = useRef(null);
+function Day() {
     const dispatch = useDispatch();
-    const isRepeat = useSelector((state) => state.modalReducer.endDateControl);
-
-    const startminute = useSelector((state) => state.dateReducer.minute);
-    const endMin = useSelector((state) => state.endDateReducer.minute);
-    const minute = isRepeat ? endMin : startminute;
+    const day = useSelector((state) => state.limitReducer.day);
+    const month = useSelector((state) => state.limitReducer.month);
+    const year = useSelector((state) => state.limitReducer.year);
+    const outerRef = useRef(null);
 
     const increaseday = () => {
-        isRepeat ? dispatch(eaddMin()) : dispatch(addMin());
+        dispatch(lPlusD());
     };
 
     const decreaseday = () => {
-        isRepeat ? dispatch(eminusMin()) : dispatch(minusMin());
+        dispatch(lminusD());
     };
+
+    function getLastDayOfMonth(year, month) {
+        const lastDay = new Date(year, month, 0).getDate();
+        return lastDay;
+    }
 
     useEffect(() => {
         const handleScroll = (event) => {
@@ -50,13 +52,23 @@ function MinSelector() {
         };
     }, []);
 
+    const lastDayOfMonth = getLastDayOfMonth(year, month);
+
     return (
-        <div className="minutes" ref={outerRef}>
-            <p>{minute === 0 ? 59 : minute - 1}</p>
-            <p className="now">{minute}</p>
-            <p>{minute === 59 ? 0 : minute + 1}</p>
+        <div className="monthControll" ref={outerRef}>
+            {parseInt(day) === 1 ? (
+                <p>{lastDayOfMonth}</p>
+            ) : (
+                <p>{parseInt(day) - 1}</p>
+            )}
+            <p className="now">{Number(day)}</p>
+            {parseInt(day) === lastDayOfMonth ? (
+                <p>1</p>
+            ) : (
+                <p>{parseInt(day) + 1}</p>
+            )}
         </div>
     );
 }
 
-export default MinSelector;
+export default Day;
