@@ -3,7 +3,7 @@ import { sign } from "../../modules/module/sign";
 import "./SignIn.scss";
 import { KAKAO_AUTH_URL } from "./kakao";
 import { NAVER_AUTH_URL } from "./LoginNaver";
-import NaverLogin from "./naverLogin";
+// import NaverLogin from "./naverLogin";
 import axios from "axios";
 import { useLocation } from "react-router";
 import { email, password } from "/src/modules/module/login";
@@ -51,8 +51,6 @@ function SignIn() {
             })
             .catch((err) => console.log(err));
     };
-
-    const naverLoginMove = () => {};
 
     return (
         <>
@@ -111,7 +109,7 @@ function SignIn() {
                             로그인
                         </span>
                     </div>
-                    <NaverLogin />
+                    {/* <NaverLogin /> */}
                 </div>
             </div>
         </>

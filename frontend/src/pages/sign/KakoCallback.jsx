@@ -1,10 +1,5 @@
 import React, { useEffect } from "react";
-import {
-    KAKAO_CLIENT_ID,
-    KAKAO_GRANT_TYPE,
-    KAKAO_REDIRECT_URI,
-    KAKAO_AUTH_URL,
-} from "./kakao";
+import { KAKAO_CLIENT_ID, KAKAO_GRANT_TYPE, KAKAO_REDIRECT_URI } from "./kakao";
 import axios from "axios";
 
 function KakoCallback() {
