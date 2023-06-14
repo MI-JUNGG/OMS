@@ -1,10 +1,12 @@
 import React from "react";
 import { hours, days } from "../daily/time";
+import Hour from "./Hour";
 import "./weekly.scss";
 
 function Weekly() {
     return (
         <div className="weekContainer">
+            <Hour />
             <div className="timetable">
                 <div className="timetable__header">
                     {days.map((day, index) => (

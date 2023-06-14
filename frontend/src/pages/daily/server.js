@@ -1,8 +1,7 @@
 import axios from "axios";
-import { useDispatch } from "react-redux";
+
 import { addCard } from "../../modules/module/card";
 
-const dispatch = useDispatch();
 const API = "";
 const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODYyMTM2NDV9.ocHuTfEoZRIBIRa259IWn0TgcPyGKqOMIZ-wOetGIRw";
@@ -19,7 +18,6 @@ export const callUserCard = () => {
         })
         .then((response) => {
             console.log(response.data);
-            dispatch(addCard(response.data));
         })
         .catch((error) => {
             console.log(error);
