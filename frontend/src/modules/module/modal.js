@@ -13,8 +13,12 @@ const modalSlice = createSlice({
         showColorPicker: false,
         typeControl: 1,
         limit: false,
+        FixCard: false,
     },
     reducers: {
+        cardTypeReducer: (state) => {
+            return { ...state, FixCard: !state.FixCard };
+        },
         showColorPicker: (state) => {
             return { ...state, showColorPicker: !state.showColorPicker };
         },
@@ -55,5 +59,6 @@ export const {
     showColorPicker,
     typeControl,
     limitControl,
+    cardTypeReducer,
 } = modalSlice.actions;
 export default modalSlice.reducer;

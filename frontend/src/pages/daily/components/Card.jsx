@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { cardmodal } from "../../../modules/module/modal";
-import axios from "axios";
+import { DeleteCardHandler } from "../../daily/server";
+import { removeCard } from "../../../modules/module/card";
 import AlldayTime from "./CardCompo/AlldayTime";
 import ModalLink from "../../../assets/images/modal/ModalLink";
 import ModalNote from "../../../assets/images/modal/modalNote";
@@ -19,6 +20,7 @@ import { showColorPicker } from "../../../modules/module/modal";
 import { counterHandler } from "../server";
 import LimitDateSelect from "./limit/LimitDateSelect";
 import "./Card.scss";
+import Trash from "../../../assets/images/floating_action/Trash";
 
 function Card() {
     const dispatch = useDispatch();
@@ -28,6 +30,11 @@ function Card() {
     const typeId = Number(
         useSelector((state) => state.modalReducer.typeControl),
     );
+    /*카드삭제*/
+    const deleteHandler = (cardId) => {
+        DeleteCardHandler(cardId);
+        dispatch(removeCard());
+    };
 
     const AllStartYear = useSelector((state) => state.dateReducer.year);
     const AllStartMonth = useSelector((state) => state.dateReducer.Month);
@@ -53,8 +60,10 @@ function Card() {
     const repeatEndDay = useSelector((state) => state.repeatEndReducer.day);
     const repeatE = new Date(repeatEndYear, repeatEndMonth, repeatEndDay);
 
+    const cardType = useSelector((state) => state.modalReducer.FixCard);
+
     const showLimit = useSelector((state) => state.modalReducer.limit); //
-    console.log(showLimit);
+
     const linkHandler = () => {
         setLink((prev) => !prev);
     };
@@ -146,6 +155,7 @@ function Card() {
             color: "",
         });
     };
+
     return (
         <div className="modalBackGround" ref={outerRef}>
             <div className="card">
@@ -155,7 +165,13 @@ function Card() {
                     </div>
 
                     <div onClick={cardHandler}>
-                        <ModalX width={30} height={30} />
+                        {cardType === true ? (
+                            <div onClick={deleteHandler}>
+                                <Trash />
+                            </div>
+                        ) : (
+                            <ModalX width={30} height={30} />
+                        )}
                     </div>
                 </div>
                 <div className="cardTitle">
