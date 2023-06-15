@@ -6,6 +6,7 @@ import {
     endDateControl,
     repeatControl,
 } from "../../../../modules/module/modal";
+
 import DateRight from "../../../../assets/images/date_picker/DateRight";
 import DateType from "../CardCompo/DateType";
 import RepeatBtn from "./RepeatBtn";
@@ -34,8 +35,8 @@ function Repeat() {
     return (
         <div id="Repeat">
             <div className="flex">
-                <div onClick={modalHandler}>
-                    <div>
+                <div className="timeBox" onClick={modalHandler}>
+                    <div className="text">
                         <span>{month}월</span>
                         <span>{day}일</span>
                     </div>
@@ -44,8 +45,8 @@ function Repeat() {
                     </span>
                 </div>
                 <DateRight />
-                <div onClick={endModalHandler}>
-                    <div>
+                <div className="timeBox" onClick={endModalHandler}>
+                    <div className="text">
                         <span>{endMonth}월</span>
                         <span>{endDay}일</span>
                     </div>

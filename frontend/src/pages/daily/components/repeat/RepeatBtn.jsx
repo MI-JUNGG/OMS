@@ -1,17 +1,40 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { limitControl } from "../../../../modules/module/modal";
+import DateDropDown from "./DateDropDown";
 import "./RepeatBtn.scss";
 
 function RepeatBtn() {
+    const [showmodal, setShowModal] = useState(false);
+    const year = useSelector((state) => state.limitReducer.year);
+    const month = useSelector((state) => state.limitReducer.month);
+    const day = useSelector((state) => state.limitReducer.day);
+    const repeatType = useSelector((state) => state.limitReducer.value);
+    console.log(repeatType);
+    const dispatch = useDispatch();
+    const limitmodalHandler = () => {
+        dispatch(limitControl());
+    };
+    const showModal = () => {
+        setShowModal((prev) => !prev);
+    };
+    const blockmodal = () => {
+        setShowModal(false);
+    };
+    const repeatString = `${year}년 ${month}월 ${day}일까지 반복`;
     return (
         <div id="repeatType">
-            <div className="repeatBot">
-                <select name="type">
-                    <option value="매일">매일</option>
-                    <option value="매주">매주</option>
-                    <option value="매달">매달</option>
-                    <option value="매년">매년</option>
-                </select>
-            </div>{" "}
-            <div>날짜자리</div>
+            <div onClick={() => showModal(repeatType)} className="repeatBot">
+                <button id="repeatText">{repeatType}</button>
+                {showmodal && <DateDropDown showModal={blockmodal} />}
+            </div>
+            <button
+                className="limitDate"
+                type="button"
+                onClick={limitmodalHandler}
+            >
+                {repeatString}
+            </button>
         </div>
     );
 }

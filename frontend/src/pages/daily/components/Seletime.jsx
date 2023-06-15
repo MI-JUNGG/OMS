@@ -4,9 +4,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { hours } from "../time";
 import DateLeft from "../../../assets/images/date_picker/DateLeft";
 import DateRight from "../../../assets/images/date_picker/DateRight";
+import { cardTypeReducer } from "../../../modules/module/modal";
+import { cardmodal } from "../../../modules/module/modal";
+
 import "./Selectime.scss";
+import { useDispatch, useSelector } from "react-redux";
 
 function Selectime() {
+    const dispatch = useDispatch();
     const location = useLocation();
     const searchParams = new URLSearchParams(window.location.search);
     const day = searchParams.get("date");
@@ -22,7 +27,7 @@ function Selectime() {
         color: "yellow",
     });
     const { start, end, title, color } = test;
-
+    const cardType = useSelector((state) => state.modalReducer.FixCard);
     const getStartTime = new Date(start).getHours();
     const getEndTime = new Date(end).getHours();
 
@@ -50,6 +55,10 @@ function Selectime() {
         navigate(newLocation);
     };
 
+    const fixModalHandler = () => {
+        dispatch(cardmodal());
+        dispatch(cardTypeReducer());
+    };
     // useEffect(() => {
     //     const formattedDate = searchParams.get("date");
     //     setDate(formattedDate);
@@ -76,7 +85,7 @@ function Selectime() {
 
                 let backgroundColor = "";
                 if (hourValue >= startTime && hourValue <= endTime) {
-                    backgroundColor = color;
+                    backgroundColor = "#FE7B91";
                 }
 
                 return (
@@ -86,6 +95,11 @@ function Selectime() {
                         {hourValue >= getStartTime &&
                         hourValue <= getEndTime ? (
                             <div
+                                onClick={fixModalHandler}
+                                style={{
+                                    backgroundColor: backgroundColor,
+                                    zIndex: 0,
+                                }}
                                 className={`otherContents ${
                                     hourValue === getStartTime && `first`
                                 }`}

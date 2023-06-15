@@ -25,3 +25,5 @@ export const hours = [
     "23:00",
     "24:00",
 ];
+
+export const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];

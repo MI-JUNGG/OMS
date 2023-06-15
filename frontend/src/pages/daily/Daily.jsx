@@ -12,6 +12,8 @@ import LoginModalBackground from "../sign/LoginModalBackground";
 import { cardmodal } from "../../modules/module/modal";
 import { addDate, addMonth, addDay } from "../../modules/module/date";
 import { eaddDate, eaddMonth, eaddDay } from "../../modules/module/endDate";
+import { laddDate, laddMonth, laddDay } from "../../modules/module/Limit";
+import { callUserCard } from "./server";
 
 function Daily() {
     const dispatch = useDispatch();
@@ -37,6 +39,10 @@ function Daily() {
         const endmonthAction = eaddMonth(Number(month));
         const enddayAction = eaddDay(Number(day));
 
+        const limitdateAction = laddDate(Number(year));
+        const limitmonthAction = laddMonth(Number(month));
+        const limitdayAction = laddDay(Number(day));
+
         dispatch(enddateAction);
         dispatch(endmonthAction);
         dispatch(enddayAction);
@@ -44,27 +50,15 @@ function Daily() {
         dispatch(dateAction);
         dispatch(monthAction);
         dispatch(dayAction);
+
+        dispatch(limitdateAction);
+        dispatch(limitmonthAction);
+        dispatch(limitdayAction);
     };
 
     useEffect(() => {
         initialState();
-        axios
-            .get("http://192.168.0.5:3001/day", {
-                params: {
-                    //수정
-                    startDate: "2023-07-07",
-                },
-                headers: {
-                    Authorization:
-                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODYyMTM2NDV9.ocHuTfEoZRIBIRa259IWn0TgcPyGKqOMIZ-wOetGIRw",
-                },
-            })
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        callUserCard();
     }, []);
 
     return (
