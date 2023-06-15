@@ -6,7 +6,6 @@ import Week from "./pages/weekly/weekly";
 import MyPage from "./pages/myPage/myPage";
 import KakoCallback from "./pages/sign/kakoCallback";
 import NaverCallback from "./pages/sign/naverCallback";
-import NaverLogin from "./pages/sign/NaverLogin";
 
 function Router() {
     return (

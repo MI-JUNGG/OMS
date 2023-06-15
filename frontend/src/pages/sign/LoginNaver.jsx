@@ -21,15 +21,8 @@ export function LoginNaver() {
         naverLogin.init();
     };
 
-    const getNaverToken = () => {
-        if (!location.hash) return;
-        const token = location.hash.split("=")[1].split("&")[0];
-        console.log(token);
-    };
-
     useEffect(() => {
         loginFormWithNaver();
-        getNaverToken;
     }, []);
 
     const NAVER_CLIENT_ID = "W9f_MEprUwIoTeyjePIb";
@@ -44,24 +37,25 @@ export function LoginNaver() {
 
     console.log(state);
     console.log(code);
+    useEffect(() => {
+        axios
+            .post(
+                `/oauth2.0/token?client_id=${NAVER_CLIENT_ID}&client_secret=${NAVER_CLIENT_SECRET}&grant_type=authorization_code&state=${state}&code=${code}`,
 
-    axios
-        .post(
-            `https://nid.naver.com/oauth2.0/token?client_id=${NAVER_CLIENT_ID}&client_secret=${NAVER_CLIENT_SECRET}&grant_type=authorization_code&state=${state}&code=${code}`,
-
-            {},
-            {
-                headers: {
-                    "Content-type": "application/json",
+                {},
+                {
+                    headers: {
+                        "Content-type": "application/json",
+                    },
                 },
-            },
-        )
-        .then((res) => res.json())
-        .then((res) => {
-            console.log(res);
-            console.log("a");
-        })
-        .then((err) => console.log(err));
+            )
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                console.log("a");
+            })
+            .then((err) => console.log(err));
+    }, [code]);
 
     return <div id="naverIdLogin"> </div>;
 }
