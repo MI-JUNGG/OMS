@@ -37,7 +37,8 @@ $--temporarybackgroundColor: "";
         width: 490px;
         height: 337px;
         margin-top: 35px;
-        background-color: aliceblue;
+        background-color: var(--temporarybackgroundColor);
+
         // border: 1px solid #abaeb5;
 
         .previewTop {

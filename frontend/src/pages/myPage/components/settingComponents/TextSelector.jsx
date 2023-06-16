@@ -25,12 +25,11 @@ function TextSelector() {
     const blockColorThemeTitle = useSelector(
         (state) => state.settingReducer.blockColorThemeTitle,
     );
+    const colorForm = useSelector((state) => state.colorPickerReducer.color);
 
     const [blockColor, setBlockColor] = useState([]);
     useEffect(() => {
-        fetch("/data/blockColor.json")
-            .then((data) => data.json())
-            .then((data) => setBlockColor(data));
+        setBlockColor(colorForm);
     }, []);
 
     const changeTemporaryTextStyle = (id) => {
@@ -38,7 +37,6 @@ function TextSelector() {
     };
     const changeTemporaryTextColor = (id) => {
         dispatch(temporaryTextColor(id));
-        // dispatch(temporary);
     };
     const changeTemporaryBlockMainColor = (id) => {
         dispatch(temporaryBlockMainColor(id.mainColor));
@@ -97,109 +95,124 @@ function TextSelector() {
 
     return (
         <>
-            <div className="textSelectorContainer">
-                <div className="textSelectorZone">
-                    <div className="textStyleSelectZone">
-                        <h3>Text Style</h3>
-                        <div className="textStyleSelect">
-                            {TEXT_STYLE.map((style, i) => {
-                                const fixStyle = {
-                                    fontSize: style.fontSize,
-                                    fontStyle: style.style,
-                                    textDecoration: style.style,
-                                };
-                                return (
-                                    <div
-                                        key={i}
-                                        style={fixStyle}
-                                        onClick={() => {
-                                            changeTemporaryTextStyle(
-                                                style.style,
-                                            );
-                                        }}
-                                    >
-                                        {style.style}
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                    <div className="textColorSelectZone">
-                        <h3>Text Color</h3>
-                        <div className="textColorSelect">
-                            {TEXT_COLOR.map((color, i) => {
-                                return (
-                                    <div
-                                        key={i}
-                                        className="textColor"
-                                        onClick={() => {
-                                            changeTemporaryTextColor(
-                                                color.color,
-                                            );
-                                        }}
-                                    >
-                                        <div
-                                            className={`textColor${color.title}`}
-                                        >
-                                            <span>{color.title}</span>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                    <div className="blockColorSelctZone">
-                        <h3>Block Color</h3>
-                        <div className="blockColorSelect">
-                            {blockColor.length > 0 &&
-                                blockColor[blockColorTheme][
-                                    blockColorThemeTitle
-                                ]?.map((data, i) => {
-                                    return (
-                                        <div
-                                            key={i}
-                                            className="blockColorVivid"
-                                            style={{
-                                                backgroundColor: `${data.mainColor}`,
-                                            }}
-                                            onClick={() => {
-                                                changeTemporaryBlockMainColor(
-                                                    data,
-                                                );
-                                            }}
-                                        ></div>
-                                    );
-                                })}
-                            <div className="moreColor" onClick={handleOutClick}>
-                                <ModalPlus />
+            {blockColor.length > 0 && (
+                <>
+                    <div className="textSelectorContainer">
+                        <div className="textSelectorZone">
+                            <div className="textStyleSelectZone">
+                                <h3>Text Style</h3>
+                                <div className="textStyleSelect">
+                                    {TEXT_STYLE.map((style, i) => {
+                                        const fixStyle = {
+                                            fontSize: style.fontSize,
+                                            fontStyle: style.style,
+                                            textDecoration: style.style,
+                                        };
+                                        return (
+                                            <div
+                                                key={i}
+                                                style={fixStyle}
+                                                onClick={() => {
+                                                    changeTemporaryTextStyle(
+                                                        style.style,
+                                                    );
+                                                }}
+                                            >
+                                                {style.style}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
-                            {ismodal === true && (
-                                <>
-                                    <ColorPicker
-                                        ColorList={blockColor}
-                                        blockColorTheme={blockColorTheme}
-                                        blockColorThemeTitle={
+                            <div className="textColorSelectZone">
+                                <h3>Text Color</h3>
+                                <div className="textColorSelect">
+                                    {TEXT_COLOR.map((color, i) => {
+                                        return (
+                                            <div
+                                                key={i}
+                                                className="textColor"
+                                                onClick={() => {
+                                                    changeTemporaryTextColor(
+                                                        color.color,
+                                                    );
+                                                }}
+                                            >
+                                                <div
+                                                    className={`textColor${color.title}`}
+                                                >
+                                                    <span>{color.title}</span>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                            <div className="blockColorSelctZone">
+                                <h3>Block Color</h3>
+                                <div className="blockColorSelect">
+                                    {blockColor.length > 0 &&
+                                        blockColor[blockColorTheme][
                                             blockColorThemeTitle
-                                        }
-                                    />
-                                    <ColorPickerBackground
+                                        ]?.map((data, i) => {
+                                            return (
+                                                <div
+                                                    key={i}
+                                                    className="blockColorVivid"
+                                                    style={{
+                                                        backgroundColor: `${data.mainColor}`,
+                                                    }}
+                                                    onClick={() => {
+                                                        changeTemporaryBlockMainColor(
+                                                            data,
+                                                        );
+                                                    }}
+                                                ></div>
+                                            );
+                                        })}
+                                    <div
+                                        className="moreColor"
                                         onClick={handleOutClick}
-                                    />
-                                </>
-                            )}
+                                    >
+                                        <ModalPlus />
+                                    </div>
+                                    {ismodal === true && (
+                                        <>
+                                            <ColorPicker
+                                                ColorList={blockColor}
+                                                blockColorTheme={
+                                                    blockColorTheme
+                                                }
+                                                blockColorThemeTitle={
+                                                    blockColorThemeTitle
+                                                }
+                                            />
+                                            <ColorPickerBackground
+                                                onClick={handleOutClick}
+                                            />
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="textPreviewContainer">
+                            <div className="textPreview">
+                                <div className="textPreviewCard_1">
+                                    ⚽ Schedule
+                                </div>
+                                <div className="textPreviewCard_2">
+                                    ⚽ Schedule
+                                </div>
+                                <div className="textPreviewCard_3">
+                                    ⚽ Schedule
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div className="textPreviewContainer">
-                    <div className="textPreview">
-                        <div className="textPreviewCard_1">⚽ Schedule</div>
-                        <div className="textPreviewCard_2">⚽ Schedule</div>
-                        <div className="textPreviewCard_3">⚽ Schedule</div>
-                    </div>
-                </div>
-            </div>
-            <div />
+                    <div />
+                </>
+            )}
         </>
     );
 }
