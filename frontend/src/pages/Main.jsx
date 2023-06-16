@@ -18,11 +18,12 @@ function Main() {
     const [schedule, setSchedule] = useState([]);
 
     useEffect(() => {
-        const startDate = `${yearForm}-${monthForm}-01_00:00:00`;
-        const endDate = `${yearForm}-${monthForm}-${daysInMonth(
-            yearForm,
-            monthForm - 1,
-        )}_23:59:59`;
+        // const startDate = `${yearForm}-${monthForm}-01_00:00:00`;
+        // const endDate = `${yearForm}-${monthForm}-${daysInMonth(
+        //     yearForm,
+        //     monthForm - 1,
+        // )}_23:59:59`;
+        const queryMonth = `${yearForm}-${monthForm}`;
 
         fetch("/data/test.json")
             .then((response) => response.json())
@@ -34,7 +35,6 @@ function Main() {
                 );
             });
 
-<<<<<<< HEAD
         axios
             .get("/data/date.json")
             .then((response) => {
@@ -43,43 +43,12 @@ function Main() {
             .catch((error) => {
                 console.error(error);
             });
-    }, []);
-    console.log(schedule);
-
-    // axios
-    //     .get("http://192.168.219.152:3001/month", {
-    //         params: {
-    //             startDate: startDate,
-    //             endDate: endDate,
-    //         },
-    //         headers: {
-    //             Authorization: localStorage.getItem("token"),
-    //         },
-    //     })
-    //     .then((response) => {
-    //         console.log(response);
-    //         setSchedule(response.data);
-    //     })
-    //     .catch((error) => {
-    //         console.error(error);
-    //     });
-    // }, [yearForm, monthForm]);
-=======
-        //     axios
-        //         .get("/data/date.json")
-        //         .then((response) => {
-        //             setSchedule(response.data);
-        //         })
-        //         .catch((error) => {
-        //             console.error(error);
-        //         });
-        // }, []);
 
         // axios
         //     .get("http://192.168.219.152:3001/month", {
         //         params: {
-        //             startDate: startDate,
-        //             endDate: endDate,
+        //             startDate: queryMonth,
+        //             endDate: queryMonth,
         //         },
         //         headers: {
         //             Authorization: localStorage.getItem("token"),
@@ -105,7 +74,6 @@ function Main() {
         //     .then((data) => console.log(data))
         //     .then((data) => dispatch(color(data)));
     }, []);
->>>>>>> develop
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const monthNames = [];
@@ -187,22 +155,22 @@ function Main() {
                     day++;
                 } else {
                     const dayHasSchedule = schedule.find((item) => {
-                        const itemDate = new Date(item.date);
+                        const itemDate = new Date(item.start);
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
                             itemDate.getMonth() === date.getMonth() &&
                             itemDate.getDate() === day &&
-                            item.state_Id === 1
+                            item.repeat === 2
                         );
                     });
 
                     const shortSchedule = schedule.find((item) => {
-                        const itemDate = new Date(item.date);
+                        const itemDate = new Date(item.start);
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
                             itemDate.getMonth() === date.getMonth() &&
                             itemDate.getDate() === day &&
-                            item.state_Id === 2
+                            item.repeat === 1
                         );
                     });
 
@@ -218,7 +186,11 @@ function Main() {
                             {dayHasSchedule && (
                                 <div>{dayHasSchedule.title}</div>
                             )}
-                            {shortSchedule && <div>{shortSchedule.title}</div>}
+                            {shortSchedule && (
+                                <div className="short">
+                                    {shortSchedule.title}
+                                </div>
+                            )}
                         </div>,
                     );
 
