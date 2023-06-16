@@ -33,34 +33,35 @@ function Main() {
                 );
             });
 
-        //     axios
-        //         .get("/data/date.json")
-        //         .then((response) => {
-        //             setSchedule(response.data);
-        //         })
-        //         .catch((error) => {
-        //             console.error(error);
-        //         });
-        // }, []);
-
         axios
-            .get("http://192.168.219.152:3001/month", {
-                params: {
-                    startDate: startDate,
-                    endDate: endDate,
-                },
-                headers: {
-                    Authorization: localStorage.getItem("token"),
-                },
-            })
+            .get("/data/date.json")
             .then((response) => {
-                console.log(response);
                 setSchedule(response.data);
             })
             .catch((error) => {
                 console.error(error);
             });
-    }, [yearForm, monthForm]);
+    }, []);
+    console.log(schedule);
+
+    // axios
+    //     .get("http://192.168.219.152:3001/month", {
+    //         params: {
+    //             startDate: startDate,
+    //             endDate: endDate,
+    //         },
+    //         headers: {
+    //             Authorization: localStorage.getItem("token"),
+    //         },
+    //     })
+    //     .then((response) => {
+    //         console.log(response);
+    //         setSchedule(response.data);
+    //     })
+    //     .catch((error) => {
+    //         console.error(error);
+    //     });
+    // }, [yearForm, monthForm]);
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const monthNames = [];
