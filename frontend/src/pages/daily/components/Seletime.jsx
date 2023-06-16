@@ -16,20 +16,49 @@ function Selectime() {
     const searchParams = new URLSearchParams(window.location.search);
     const day = searchParams.get("date");
     const formatDate = dayjs(day);
-    const returnDate = formatDate.format("YYYY.MM.DD"); // 날짜 형식을 "YYYY.MM.DD"로 변경
+    const returnDate = formatDate.format("YYYY.MM.DD");
     console.log(returnDate);
     const [date, setDate] = useState(returnDate);
     const navigate = useNavigate();
-    const [test, setTest] = useState({
-        start: "2023-06-08 01:00",
-        end: "2023-06-08 5:00",
-        title: "Test Title",
-        color: "yellow",
-    });
-    const { start, end, title, color } = test;
+    const [test, setTest] = useState([
+        {
+            cardId: 15,
+            start: "2023-06-08 01:00",
+            end: "2023-06-08 5:00",
+            title: "Test Title",
+            color: "yellow",
+        },
+        {
+            cardId: 16,
+            start: "2023-06-08 06:00",
+            end: "2023-06-08 7:00",
+            title: "Test Title",
+            color: "blue",
+        },
+        {
+            cardId: 17,
+            start: "2023-06-08 20:00",
+            end: "2023-06-08 21:00",
+            title: "Test Title",
+            color: "red",
+        },
+        {
+            cardId: 18,
+            start: "2023-06-08 22:00",
+            end: "2023-06-08 23:00",
+            title: "Test Title",
+            color: "red",
+        },
+        {
+            cardId: 19,
+            start: "2023-06-08 01:00",
+            end: "2023-06-08 02:00",
+            title: "Test Title",
+            color: "red",
+        },
+    ]);
+
     const cardType = useSelector((state) => state.modalReducer.FixCard);
-    const getStartTime = new Date(start).getHours();
-    const getEndTime = new Date(end).getHours();
 
     const datePlusHandler = () => {
         const formatDate = new Date(date);
@@ -59,12 +88,6 @@ function Selectime() {
         dispatch(cardmodal());
         dispatch(cardTypeReducer());
     };
-    // useEffect(() => {
-    //     const formattedDate = searchParams.get("date");
-    //     setDate(formattedDate);
-    // }, [location]);
-
-    let isTitleRendered = false;
 
     return (
         <div className="dayTable">
@@ -77,43 +100,59 @@ function Selectime() {
                     <DateRight />
                 </div>
             </div>
-            {hours.map((hour, index) => {
-                const startTime = new Date(start).getHours();
-                const endTime = new Date(end).getHours();
+
+            {hours.map((hour) => {
                 const hourSplit = hour.split(":");
                 const hourValue = Number(hourSplit[0]);
 
-                let backgroundColor = "";
-                if (hourValue >= startTime && hourValue <= endTime) {
-                    backgroundColor = "#FE7B91";
-                }
+                const matchingEvents = test.filter((event) => {
+                    const eventStart = dayjs(event.start);
+                    const eventEnd = dayjs(event.end);
+                    const eventStartHour = eventStart.hour();
+                    const eventEndHour = eventEnd.hour();
 
-                return (
-                    <div key={hour} className="timeContainer">
-                        <div className="timeSlot">{hour}</div>
-                        <div className="timeBorder"></div>
-                        {hourValue >= getStartTime &&
-                        hourValue <= getEndTime ? (
-                            <div
-                                onClick={fixModalHandler}
-                                style={{
-                                    backgroundColor: backgroundColor,
-                                    zIndex: 0,
-                                }}
-                                className={`otherContents ${
-                                    hourValue === getStartTime && `first`
-                                }`}
-                            >
-                                {hourValue === getStartTime &&
-                                    !isTitleRendered && (
-                                        <div className="title">{title}</div>
-                                    )}
-                            </div>
-                        ) : (
+                    return (
+                        hourValue >= eventStartHour && hourValue < eventEndHour
+                    );
+                });
+
+                if (matchingEvents.length > 0) {
+                    return (
+                        <div key={hour} className="timeContainer">
+                            <div className="timeSlot">{hour}</div>
+                            <div className="timeBorder"></div>
+                            {matchingEvents.map((event, index) => {
+                                const startTime = dayjs(event.start).format(
+                                    "HH:mm",
+                                );
+
+                                return (
+                                    <div
+                                        key={event.cardId}
+                                        className={`${
+                                            index !== matchingEvents.length - 1
+                                                ? "contents"
+                                                : "otherContents"
+                                        } ${hour === startTime ? "first" : ""}`}
+                                        style={{
+                                            backgroundColor: event.color,
+                                        }}
+                                    >
+                                        {hour === startTime && event.title}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    );
+                } else {
+                    return (
+                        <div key={hour} className="timeContainer">
+                            <div className="timeSlot">{hour}</div>
+                            <div className="timeBorder"></div>
                             <div className="contents"></div>
-                        )}
-                    </div>
-                );
+                        </div>
+                    );
+                }
             })}
         </div>
     );
