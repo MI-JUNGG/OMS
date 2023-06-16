@@ -11,6 +11,9 @@ import Button from "../button/Button";
 import LoginModalBackground from "../sign/LoginModalBackground";
 import { cardmodal } from "../../modules/module/modal";
 import { addDate, addMonth, addDay } from "../../modules/module/date";
+import { eaddDate, eaddMonth, eaddDay } from "../../modules/module/endDate";
+import { laddDate, laddMonth, laddDay } from "../../modules/module/Limit";
+import { callUserCard } from "./server";
 
 function Daily() {
     const dispatch = useDispatch();
@@ -32,29 +35,30 @@ function Daily() {
         const monthAction = addMonth(Number(month));
         const dayAction = addDay(Number(day));
 
+        const enddateAction = eaddDate(Number(year));
+        const endmonthAction = eaddMonth(Number(month));
+        const enddayAction = eaddDay(Number(day));
+
+        const limitdateAction = laddDate(Number(year));
+        const limitmonthAction = laddMonth(Number(month));
+        const limitdayAction = laddDay(Number(day));
+
+        dispatch(enddateAction);
+        dispatch(endmonthAction);
+        dispatch(enddayAction);
+
         dispatch(dateAction);
         dispatch(monthAction);
         dispatch(dayAction);
+
+        dispatch(limitdateAction);
+        dispatch(limitmonthAction);
+        dispatch(limitdayAction);
     };
 
     useEffect(() => {
         initialState();
-        axios
-            .get("http://192.168.219.21:3001/card/day", {
-                params: {
-                    date: "2023-03-04",
-                },
-                headers: {
-                    Authorization:
-                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6MSwiaWF0IjoxNjgyOTMxMjAyfQ.qbyo8xpoRQV1WbCNFiOzMC3-0pFQOjsHgN8heIc_qhc",
-                },
-            })
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        callUserCard();
     }, []);
 
     return (

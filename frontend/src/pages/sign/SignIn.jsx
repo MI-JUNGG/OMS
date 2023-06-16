@@ -1,12 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { sign } from "../../modules/module/sign";
 import "./SignIn.scss";
-import {
-    KAKAO_CLIENT_ID,
-    KAKAO_GRANT_TYPE,
-    KAKAO_REDIRECT_URI,
-    KAKAO_AUTH_URL,
-} from "./kakao";
+import { KAKAO_AUTH_URL } from "./kakao";
 import { NAVER_AUTH_URL } from "./naver";
 import NaverLogin from "./naverLogin";
 import axios from "axios";
@@ -20,58 +15,11 @@ function SignIn() {
         dispatch(sign(1));
     };
 
-    const kakaoLogin = () => {
-        window.location.href = KAKAO_AUTH_URL;
-    };
-
-    const naverLoginMove = () => {
-        window.location.href = NAVER_AUTH_URL;
-    };
-
     const location = useLocation();
 
     const state = new URL(window.location.href).searchParams.get("state");
 
     const code = new URL(window.location.href).searchParams.get("code");
-
-    // const kakaoGetCode = async () => {
-    //     if (code) {
-    //         const response = await axios
-    //             .post(
-    //                 `https://kauth.kakao.com/oauth/token?grant_type=${KAKAO_GRANT_TYPE}&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&code=${code}`,
-    //                 {},
-    //                 {
-    //                     headers: {
-    //                         "Content-type":
-    //                             "application/x-www-form-urlencoded;charset=utf-8",
-    //                     },
-    //                 },
-    //             )
-    //             .then((res) => {
-    //                 console.log(res);
-    //                 const accessToken = res.data.access_token;
-    //                 localStorage.setItem("token", accessToken);
-    //                 alert("성공적으로 로그인 했습니다");
-
-    //                 axios.post(
-    //                     `로컬통신주소`,
-    //                     {},
-    //                     {
-    //                         headers: {
-    //                             Authorization: `Bearer ${accessToken}`,
-    //                             "Content-type":
-    //                                 "application/x-www-form-urlencoded;charset=utf-8",
-    //                         },
-    //                     },
-    //                 );
-    //                 window.location.replace("/");
-    //             });
-
-    //         // Access Token을 이용하여 로그인 처리 등의 작업 수행
-    //     }
-    // };
-
-    // kakaoGetCode();
 
     const localLogin = useSelector((state) => state.loginReducer);
 
@@ -102,6 +50,10 @@ function SignIn() {
                 window.location.replace("/");
             })
             .catch((err) => console.log(err));
+    };
+
+    const naverLoginMove = () => {
+        window.location.href = NAVER_AUTH_URL;
     };
 
     return (
@@ -135,7 +87,12 @@ function SignIn() {
                     </div>
                 </div>
                 <div className="socialLogin">
-                    <div className="kakaoLogin" onClick={kakaoLogin}>
+                    <div
+                        className="kakaoLogin"
+                        onClick={() => {
+                            window.location.href = KAKAO_AUTH_URL;
+                        }}
+                    >
                         <img src="/src/assets/images/social_logo/kakao.svg" />
                         <span>
                             Kakao

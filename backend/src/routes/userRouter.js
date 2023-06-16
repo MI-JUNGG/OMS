@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { validateToken } = require("../utils/auth");
 
 const userController = require("../controllers/userController");
 
-router.post("/signup", userController.signup);
-router.get("/signin", userController.signin);
+router.post("/signUp", userController.signUp);
+router.post("/signIn", userController.signIn);
 router.post("/kakao", userController.kakaoLogin);
 
 module.exports = {

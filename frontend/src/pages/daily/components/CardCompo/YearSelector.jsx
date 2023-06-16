@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { minusY, PlusY } from "../../../../modules/module/date";
+import "./YearSelector.scss";
 
 function YearSelector() {
     const outerRef = useRef(null);
@@ -45,12 +46,10 @@ function YearSelector() {
     }, []);
 
     return (
-        <div>
-            <div ref={outerRef} className="yearControll">
-                <p>{year - 1}</p>
-                <p>{year}</p>
-                <p>{year + 1}</p>
-            </div>
+        <div ref={outerRef} className="yearControll">
+            <p>{year - 1}</p>
+            <p className="now">{year}</p>
+            <p>{year + 1}</p>
         </div>
     );
 }

@@ -48,7 +48,7 @@ function MonthSelector({ monHandler }) {
     return (
         <div className="monthControll" ref={outerRef}>
             {Number(month) - 1 === 0 ? <p>12</p> : <p>{Number(month) - 1}</p>}
-            <p>{Number(month)}</p>
+            <p className="now">{Number(month)}</p>
             {Number(month) + 1 === 13 ? <p>1</p> : <p>{Number(month) + 1}</p>}
         </div>
     );

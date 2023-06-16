@@ -1,45 +1,131 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addCard } from "../../../modules/module/card";
-import axios from "axios";
+import { useState, useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { cardmodal } from "../../../modules/module/modal";
+import { DeleteCardHandler } from "../../daily/server";
+import { removeCard } from "../../../modules/module/card";
 import AlldayTime from "./CardCompo/AlldayTime";
 import ModalLink from "../../../assets/images/modal/ModalLink";
 import ModalNote from "../../../assets/images/modal/modalNote";
 import ModalX from "../../../assets/images/modal/ModalX";
+import ModalCheck from "../../../assets/images/modal/ModalCheck";
+import EndDate from "../components/CardCompo/endDate/EndDate";
+import RepeatEnd from "./repeat/RepeatEnd";
+import RepeatStart from "./repeat/RepeatStart";
+import ColorSelector from "./color/ColorSelector";
+import ColorPalette from "./color/ColorPalette";
+import All from "./All";
+import Repeat from "./repeat/Repeat";
+import ColorPicker from "./color/ColorPicker";
+import { showColorPicker } from "../../../modules/module/modal";
+import { counterHandler } from "../server";
+import LimitDateSelect from "./limit/LimitDateSelect";
 import "./Card.scss";
+import Trash from "../../../assets/images/floating_action/Trash";
 
 function Card() {
-    const [data, setData] = useState(null);
     const dispatch = useDispatch();
-    const today = new Date();
-    const id = today.toISOString();
-    const year = useSelector((state) => state.dateReducer);
-    console.log(year);
+    const [data, setData] = useState(null);
+    const [link, setLink] = useState(false);
+    const [note, setNote] = useState(false);
+    const typeId = Number(
+        useSelector((state) => state.modalReducer.typeControl),
+    );
+    /*카드삭제*/
+    const deleteHandler = (cardId) => {
+        DeleteCardHandler(cardId);
+        dispatch(removeCard());
+    };
+
+    const AllStartYear = useSelector((state) => state.dateReducer.year);
+    const AllStartMonth = useSelector((state) => state.dateReducer.Month);
+    const AllStartDay = useSelector((state) => state.dateReducer.Day);
+
+    const AllEndYear = useSelector((state) => state.endDateReducer.year);
+    const AllEndMonth = useSelector((state) => state.endDateReducer.month);
+    const AllEndDay = useSelector((state) => state.endDateReducer.day);
+
+    const repeatStartYear = useSelector(
+        (state) => state.repeatStartReducer.year,
+    );
+    const repeatStartMonth = useSelector(
+        (state) => state.repeatStartReducer.month,
+    );
+    const repeatStartDay = useSelector((state) => state.repeatStartReducer.day);
+    const repeat = new Date(
+        repeatStartYear + repeatStartMonth + repeatStartDay,
+    );
+    const repeatEndYear = useSelector((state) => state.repeatEndReducer.year);
+
+    const repeatEndMonth = useSelector((state) => state.repeatEndReducer.month);
+    const repeatEndDay = useSelector((state) => state.repeatEndReducer.day);
+    const repeatE = new Date(repeatEndYear, repeatEndMonth, repeatEndDay);
+
+    const cardType = useSelector((state) => state.modalReducer.FixCard);
+
+    const showLimit = useSelector((state) => state.modalReducer.limit); //
+
+    const linkHandler = () => {
+        setLink((prev) => !prev);
+    };
+
+    const noteHandler = () => {
+        setNote((note) => !note);
+    };
+    const showColorPick = useSelector(
+        (state) => state.modalReducer.showColorPicker,
+    );
+
+    const openModal = useSelector((state) => state.modalReducer.dateControl);
+    const endDateModal = useSelector(
+        (state) => state.modalReducer.endDateControl,
+    );
+    const repeatStart = useSelector(
+        (state) => state.modalReducer.repeatControl,
+    );
+    const repeatEnd = useSelector(
+        (state) => state.modalReducer.repeatEndControl,
+    );
+
+    const datetype = useSelector((state) => state.modalReducer.dateType);
+
+    const outerRef = useRef(null);
+
     const [form, setForm] = useState({
+        repeatId: typeId,
         title: "",
         contents: "",
         url: "",
-        starDate: "00:00",
-        endDate: "00:00",
-        fontColorId: 1,
-        color: "#0000",
-        date: "2023-03-04",
+        startDate: repeat,
+        endDate: repeatE,
+        color: "",
     });
+    const { title, contents, startDate, endDate, color, url, repeatId } = form;
 
-    const params = new URLSearchParams(window.location.search);
-    const date = params.get("date");
+    useEffect(() => {
+        const handleScroll = (event) => {
+            const { target } = event;
+            const isScrollable =
+                target.scrollHeight > target.clientHeight &&
+                (target === outerRef.current ||
+                    target.contains(outerRef.current));
+
+            if (!isScrollable || !outerRef.current.contains(event.target)) {
+                event.preventDefault();
+            }
+        };
+
+        window.addEventListener("wheel", handleScroll, { passive: false });
+
+        return () => {
+            window.removeEventListener("wheel", handleScroll);
+        };
+    }, []);
 
     const createTitle = (e) => {
         setForm({ ...form, title: e.target.value });
     };
     const createContent = (e) => {
         setForm({ ...form, contents: e.target.value });
-    };
-    const selectStartTime = (e) => {
-        setForm({ ...form, startDate: e.target.value });
-    };
-    const selectEndTime = (e) => {
-        setForm({ ...form, endDate: e.target.value });
     };
     const urlHandler = (e) => {
         setForm({ ...form, url: e.target.value });
@@ -50,92 +136,107 @@ function Card() {
     const clearUrl = () => {
         setForm({ ...form, url: "" });
     };
+
+    const cardHandler = () => {
+        dispatch(cardmodal());
+    };
+    const closeModal =
+        !openModal && !endDateModal && !repeatEnd && !repeatStart && !showLimit;
+
+    const sendingData = () => {
+        counterHandler(title, contents, repeatE, endDate, color, url, repeatId);
+        setForm({
+            repeatId: "",
+            title: "",
+            contents: "",
+            url: "",
+            startDate: "",
+            endDate: "",
+            color: "",
+        });
+    };
+
     return (
-        <div className="modalBackGround">
+        <div className="modalBackGround" ref={outerRef}>
             <div className="card">
+                <div className="iconBtn">
+                    <div onClick={sendingData}>
+                        <ModalCheck />
+                    </div>
+
+                    <div onClick={cardHandler}>
+                        {cardType === true ? (
+                            <div onClick={deleteHandler}>
+                                <Trash />
+                            </div>
+                        ) : (
+                            <ModalX width={30} height={30} />
+                        )}
+                    </div>
+                </div>
                 <div className="cardTitle">
                     <input
                         type="search"
                         onChange={createTitle}
-                        value={form.title}
+                        value={title}
                         name="title"
                         placeholder="제목"
                     />
                 </div>
-                <AlldayTime />
-                <div className="modalx" onClick={clearUrl}>
-                    <ModalX />
+                <div className="timeSelect">
+                    {closeModal && datetype ? (
+                        <All />
+                    ) : (
+                        closeModal && <Repeat />
+                    )}
+                    {openModal && <AlldayTime />}
+                    {endDateModal && <EndDate />}
+                    {repeatEnd && <RepeatEnd />}
+                    {repeatStart && <RepeatStart />}
+                    {showLimit && <LimitDateSelect />}
                 </div>
-                <div className="link">
-                    <div className="linkIcon">
-                        <ModalLink />
+                <div className="cardContent">
+                    <div className="modalx" onClick={clearUrl}>
+                        {link === true && <ModalX width={10} height={10} />}
                     </div>
-                    <input value={form.url} onChange={urlHandler} type="url" />
+                    <div className="link">
+                        <div className="linkIcon">
+                            <ModalLink />
+                        </div>
+                        {link === false ? (
+                            <button onClick={linkHandler}>링크</button>
+                        ) : (
+                            <input
+                                className="inputline"
+                                value={url}
+                                onChange={urlHandler}
+                                type="url"
+                            />
+                        )}
+                    </div>
+                    <div className="modalx" onClick={clearContents}>
+                        {note === true && <ModalX width={10} height={10} />}
+                    </div>
+                    <div className="contentsMemo">
+                        <ModalNote />
+                        {note === false ? (
+                            <button onClick={noteHandler}>메모</button>
+                        ) : (
+                            <textarea
+                                className="textArea"
+                                onChange={createContent}
+                                value={contents}
+                                name="content"
+                            />
+                        )}
+                    </div>
                 </div>
-                <div className="modalx" onClick={clearContents}>
-                    <ModalX />
+                <div className="selectColor">
+                    <ColorSelector />
                 </div>
-                <div className="contents">
-                    <ModalNote />
-                    <textarea
-                        onChange={createContent}
-                        value={form.contents}
-                        name="content"
-                    />
-                </div>
-                <div className="selectColor"></div>
             </div>
         </div>
     );
 }
 
 export default Card;
-
-// const counterHandler = (e) => {
-//     const {
-//         title,
-//         contents,
-//         startDate,
-//         endDate,
-//         fontColorId,
-//         date,
-//         color,
-//     } = form;
-//     const config = {
-//         headers: {
-//             Authorization:
-//                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6MSwiaWF0IjoxNjgyOTMxMjAyfQ.qbyo8xpoRQV1WbCNFiOzMC3-0pFQOjsHgN8heIc_qhc",
-//         },
-//     };
-//     console.log(form);
-//     axios
-//         .post(
-//             "http://192.168.219.21:3001/card/day",
-//             {
-//                 title,
-//                 contents,
-//                 startDate,
-//                 endDate,
-//                 fontColorId,
-//                 color,
-//                 date,
-//             },
-//             config,
-//         )
-//         .then((res) => {
-//             console.log(res);
-//         })
-//         .catch((error) => {
-//             console.log("error", error);
-//         });
-//     dispatch(addCard({ ...form, id }));
-//     setForm({
-//         title: "",
-//         contents: "",
-//         starDate: "00:00",
-//         endDate: "00:00",
-//         fontColorId: 1,
-//         color: "#0000",
-//         date: "2023-03-04",
-//     });
-// };

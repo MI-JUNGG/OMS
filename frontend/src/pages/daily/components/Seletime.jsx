@@ -1,13 +1,35 @@
 import React, { useState, useEffect } from "react";
+import dayjs from "dayjs";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./Selectime.scss";
+import { hours } from "../time";
+import DateLeft from "../../../assets/images/date_picker/DateLeft";
+import DateRight from "../../../assets/images/date_picker/DateRight";
+import { cardTypeReducer } from "../../../modules/module/modal";
+import { cardmodal } from "../../../modules/module/modal";
 
-function Seletime() {
+import "./Selectime.scss";
+import { useDispatch, useSelector } from "react-redux";
+
+function Selectime() {
+    const dispatch = useDispatch();
     const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
+    const searchParams = new URLSearchParams(window.location.search);
     const day = searchParams.get("date");
-    const [date, setDate] = useState(day);
+    const formatDate = dayjs(day);
+    const returnDate = formatDate.format("YYYY.MM.DD"); // 날짜 형식을 "YYYY.MM.DD"로 변경
+    console.log(returnDate);
+    const [date, setDate] = useState(returnDate);
     const navigate = useNavigate();
+    const [test, setTest] = useState({
+        start: "2023-06-08 01:00",
+        end: "2023-06-08 5:00",
+        title: "Test Title",
+        color: "yellow",
+    });
+    const { start, end, title, color } = test;
+    const cardType = useSelector((state) => state.modalReducer.FixCard);
+    const getStartTime = new Date(start).getHours();
+    const getEndTime = new Date(end).getHours();
 
     const datePlusHandler = () => {
         const formatDate = new Date(date);
@@ -33,28 +55,63 @@ function Seletime() {
         navigate(newLocation);
     };
 
-    useEffect(() => {
-        const formattedDate = searchParams.get("date");
-        setDate(formattedDate);
-    }, [location]);
+    const fixModalHandler = () => {
+        dispatch(cardmodal());
+        dispatch(cardTypeReducer());
+    };
+    // useEffect(() => {
+    //     const formattedDate = searchParams.get("date");
+    //     setDate(formattedDate);
+    // }, [location]);
+
+    let isTitleRendered = false;
 
     return (
         <div className="dayTable">
             <div className="dayChanger">
                 <div className="minusDay" onClick={dateMinusHandler}>
-                    -
+                    <DateLeft />
                 </div>
-                {date}
+                <div>{returnDate}</div>
                 <div className="plusDay" onClick={datePlusHandler}>
-                    +
+                    <DateRight />
                 </div>
             </div>
-            {hours.map((hour) => {
+            {hours.map((hour, index) => {
+                const startTime = new Date(start).getHours();
+                const endTime = new Date(end).getHours();
+                const hourSplit = hour.split(":");
+                const hourValue = Number(hourSplit[0]);
+
+                let backgroundColor = "";
+                if (hourValue >= startTime && hourValue <= endTime) {
+                    backgroundColor = "#FE7B91";
+                }
+
                 return (
                     <div key={hour} className="timeContainer">
                         <div className="timeSlot">{hour}</div>
                         <div className="timeBorder"></div>
-                        <div className="contents"></div>
+                        {hourValue >= getStartTime &&
+                        hourValue <= getEndTime ? (
+                            <div
+                                onClick={fixModalHandler}
+                                style={{
+                                    backgroundColor: backgroundColor,
+                                    zIndex: 0,
+                                }}
+                                className={`otherContents ${
+                                    hourValue === getStartTime && `first`
+                                }`}
+                            >
+                                {hourValue === getStartTime &&
+                                    !isTitleRendered && (
+                                        <div className="title">{title}</div>
+                                    )}
+                            </div>
+                        ) : (
+                            <div className="contents"></div>
+                        )}
                     </div>
                 );
             })}
@@ -62,32 +119,4 @@ function Seletime() {
     );
 }
 
-export default Seletime;
-
-export const hours = [
-    "00:00",
-    "01:00",
-    "02:00",
-    "03:00",
-    "04:00",
-    "05:00",
-    "06:00",
-    "07:00",
-    "08:00",
-    "09:00",
-    "10:00",
-    "11:00",
-    "12:00",
-    "13:00",
-    "14:00",
-    "15:00",
-    "16:00",
-    "17:00",
-    "18:00",
-    "19:00",
-    "20:00",
-    "21:00",
-    "22:00",
-    "23:00",
-    "24:00",
-];
+export default Selectime;

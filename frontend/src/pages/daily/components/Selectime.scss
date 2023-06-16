@@ -1,5 +1,5 @@
 .dayTable {
-    width: 75vw;
+    min-width: 1280px;
     background-color: skyblue;
     border-radius: 16px;
     padding: 20px;
@@ -8,6 +8,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 20px;
         text-align: center;
         height: 5%;
         font-size: x-large;
@@ -20,6 +21,7 @@
 
         .timeSlot {
             font-size: 12px;
+            width: 50px;
             position: relative;
             top: -50%;
         }
@@ -45,6 +47,32 @@
 
         &:last-child .contents {
             border-left: none;
+        }
+        .first {
+            border-top: 1px solid black;
+        }
+        .otherContents {
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            border-left: 1px solid black;
+            height: 100%;
+
+            &:first-child {
+                border-top: 1px solid black;
+            }
+
+            &.yellowBackground {
+                background-color: yellow;
+            }
+
+            .title {
+                z-index: 1;
+                color: black;
+                font-weight: bold;
+                padding: 35px;
+            }
         }
     }
 }
