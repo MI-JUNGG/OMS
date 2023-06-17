@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { useLocation, useNavigate } from "react-router-dom";
+import DayHours from "./DayHours";
 import { hours } from "../time";
 import DateLeft from "../../../assets/images/date_picker/DateLeft";
 import DateRight from "../../../assets/images/date_picker/DateRight";
@@ -24,38 +25,38 @@ function Selectime() {
         {
             cardId: 15,
             start: "2023-06-08 01:00",
-            end: "2023-06-08 5:00",
+            end: "2023-06-08 05:00",
             title: "Test Title",
             color: "yellow",
         },
         {
             cardId: 16,
-            start: "2023-06-08 06:00",
-            end: "2023-06-08 7:00",
-            title: "Test Title",
+            start: "2023-06-08 02:00",
+            end: "2023-06-08 03:00",
+            title: "Test Title11",
             color: "blue",
         },
-        {
-            cardId: 17,
-            start: "2023-06-08 20:00",
-            end: "2023-06-08 21:00",
-            title: "Test Title",
-            color: "red",
-        },
-        {
-            cardId: 18,
-            start: "2023-06-08 22:00",
-            end: "2023-06-08 23:00",
-            title: "Test Title",
-            color: "red",
-        },
-        {
-            cardId: 19,
-            start: "2023-06-08 01:00",
-            end: "2023-06-08 02:00",
-            title: "Test Title",
-            color: "red",
-        },
+        // {
+        //     cardId: 17,
+        //     start: "2023-06-08 20:00",
+        //     end: "2023-06-08 21:00",
+        //     title: "Test Title",
+        //     color: "red",
+        // },
+        // {
+        //     cardId: 18,
+        //     start: "2023-06-08 22:00",
+        //     end: "2023-06-08 23:00",
+        //     title: "Test Title",
+        //     color: "red",
+        // },
+        // {
+        //     cardId: 19,
+        //     start: "2023-06-08 01:00",
+        //     end: "2023-06-08 02:00",
+        //     title: "Test Title",
+        //     color: "red",
+        // },
     ]);
 
     const cardType = useSelector((state) => state.modalReducer.FixCard);
@@ -100,60 +101,29 @@ function Selectime() {
                     <DateRight />
                 </div>
             </div>
-
-            {hours.map((hour) => {
-                const hourSplit = hour.split(":");
-                const hourValue = Number(hourSplit[0]);
-
-                const matchingEvents = test.filter((event) => {
-                    const eventStart = dayjs(event.start);
-                    const eventEnd = dayjs(event.end);
-                    const eventStartHour = eventStart.hour();
-                    const eventEndHour = eventEnd.hour();
-
-                    return (
-                        hourValue >= eventStartHour && hourValue < eventEndHour
-                    );
-                });
-
-                if (matchingEvents.length > 0) {
-                    return (
-                        <div key={hour} className="timeContainer">
-                            <div className="timeSlot">{hour}</div>
-                            <div className="timeBorder"></div>
-                            {matchingEvents.map((event, index) => {
-                                const startTime = dayjs(event.start).format(
-                                    "HH:mm",
-                                );
-
-                                return (
-                                    <div
-                                        key={event.cardId}
-                                        className={`${
-                                            index !== matchingEvents.length - 1
-                                                ? "contents"
-                                                : "otherContents"
-                                        } ${hour === startTime ? "first" : ""}`}
-                                        style={{
-                                            backgroundColor: event.color,
-                                        }}
-                                    >
-                                        {hour === startTime && event.title}
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    );
-                } else {
-                    return (
-                        <div key={hour} className="timeContainer">
-                            <div className="timeSlot">{hour}</div>
-                            <div className="timeBorder"></div>
-                            <div className="contents"></div>
-                        </div>
-                    );
-                }
-            })}
+            <div className="timeTable">
+                <DayHours />
+                <ul>
+                    {hours.map((item) => {
+                        const matchingData = test.find(
+                            (data) =>
+                                dayjs(data.start).format("HH:mm") <= item &&
+                                dayjs(data.end).format("HH:mm") > item,
+                        );
+                        console.log(matchingData);
+                        if (matchingData) {
+                            const { cardId, title } = matchingData;
+                            return (
+                                <li key={item} className="renderCard">
+                                    <div key={cardId}>{title}</div>
+                                </li>
+                            );
+                        } else {
+                            return <li key={item} className="renderCard"></li>;
+                        }
+                    })}
+                </ul>
+            </div>
         </div>
     );
 }

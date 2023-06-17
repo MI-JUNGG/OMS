@@ -1,10 +1,9 @@
-.hourContanier {
-    width: 80px;
-    min-width: 50px;
+.dayhourContanier {
     display: flex;
     flex-direction: column;
-    margin-top: 100px;
+
     .hour {
+        padding-top: 8px;
         height: 100px;
         text-align: right;
         font-size: 16px;
