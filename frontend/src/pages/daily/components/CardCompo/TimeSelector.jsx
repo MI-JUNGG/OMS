@@ -1,19 +1,22 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTime, minusTime } from "../../../../modules/module/date";
+import { eaddTime, eminusTime } from "../../../../modules/module/endDate";
 import "./TimeSelector.scss";
 
 function TimeSelector() {
     const outerRef = useRef(null);
     const dispatch = useDispatch();
-    const { time } = useSelector((state) => state.dateReducer);
-
+    const isRepeat = useSelector((state) => state.modalReducer.endDateControl);
+    const startTime = useSelector((state) => state.dateReducer.time);
+    const endTime = useSelector((state) => state.endDateReducer.time);
+    const time = isRepeat ? endTime : startTime;
     const increaseday = () => {
-        dispatch(addTime());
+        isRepeat ? dispatch(eaddTime()) : dispatch(addTime());
     };
 
     const decreaseday = () => {
-        dispatch(minusTime());
+        isRepeat ? dispatch(eminusTime) : dispatch(minusTime());
     };
 
     useEffect(() => {

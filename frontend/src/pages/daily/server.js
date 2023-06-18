@@ -1,5 +1,29 @@
 import axios from "axios";
 
+import { addCard } from "../../modules/module/card";
+
+const API = "10.99.246.181";
+const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODY4MjE2ODZ9.CcP95C4a17JnLgmassY7yvgEsCpCrjqoxAJQCTRICS8";
+export const callUserCard = (handleOutClick) => {
+    axios
+        .get("http://10.99.246.181:3001/day", {
+            params: {
+                //수정
+                startDate: "2023-07-07",
+            },
+            headers: {
+                Authorization: token,
+            },
+        })
+        .then((response) => {
+            handleOutClick(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
+
 export const counterHandler = (
     title,
     contents,
@@ -27,8 +51,6 @@ export const counterHandler = (
         url,
     );
 
-    const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODYyMTM2NDV9.ocHuTfEoZRIBIRa259IWn0TgcPyGKqOMIZ-wOetGIRw";
     const config = {
         headers: {
             Authorization: token,
@@ -37,7 +59,7 @@ export const counterHandler = (
 
     axios
         .post(
-            "http://192.168.0.5:3001/card",
+            API,
             {
                 // title: title,
                 title: "1234",
@@ -61,4 +83,63 @@ export const counterHandler = (
         });
 
     console.log(endDate);
+};
+
+export const FixCardHandler = (
+    title,
+    contents,
+    repeatE,
+    repeatId,
+    endDate,
+    color,
+    url,
+) => {
+    console.log(title, contents, repeatE, repeatId, endDate, color, url);
+    axios
+        .put(
+            `http://${API}:3001/card`,
+            {
+                cardId: 26,
+                title: "수정수정",
+                memo: contents,
+                startDate: repeatE.toISOString(),
+                repeatId: 2,
+                endDate: repeatE.toISOString(),
+                color: "#1234",
+                link: url,
+                deadline: repeatE.toISOString(),
+            },
+            {
+                headers: {
+                    Authorization: token,
+                },
+            },
+        )
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+};
+
+export const DeleteCardHandler = (cardId) => {
+    axios
+        .delete(`http://${API}:3001/card`, {
+            headers: {
+                Authorization: token,
+            },
+            data: {
+                cardId: 27,
+            },
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .then(function (data) {
+            console.log(data);
+        });
 };

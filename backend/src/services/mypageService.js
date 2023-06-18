@@ -32,6 +32,20 @@ const changeTheme = async (
   backgroundColor,
   textStyle,
   textColor,
+  colorPaletteId,
+  userId
+) => {
+  return await mypageDao.changeTheme(
+    mainColor,
+    backgroundColor,
+    textStyle,
+    textColor,
+    colorPaletteId,
+    userId
+  );
+};
+
+const changeColor = async (
   color1,
   color2,
   color3,
@@ -41,57 +55,16 @@ const changeTheme = async (
   color7,
   userId
 ) => {
-  if (
-    !color1 &&
-    !color2 &&
-    !color3 &&
-    !color4 &&
-    !color5 &&
-    !color6 &&
-    !color7
-  ) {
-    const changeThemeSettings = await mypageDao.changeThemeSettings(
-      mainColor,
-      backgroundColor,
-      textStyle,
-      textColor,
-      userId
-    );
-    console.log(changeThemeSettings);
-    return changeThemeSettings;
-  } else if (!mainColor && !backgroundColor && !textStyle && !textColor) {
-    // const changeThemeColor =
-    return await mypageDao.changeThemeColor(
-      color1,
-      color2,
-      color3,
-      color4,
-      color5,
-      color6,
-      color7,
-      userId
-    );
-  } else {
-    const changeThemeSettings = await mypageDao.changeThemeSettings(
-      mainColor,
-      backgroundColor,
-      textStyle,
-      textColor,
-      userId
-    );
-    const changeThemeColor = await mypageDao.changeThemeColor(
-      color1,
-      color2,
-      color3,
-      color4,
-      color5,
-      color6,
-      color7,
-      userId
-    );
-
-    return changeThemeSettings && changeThemeColor;
-  }
+  return await mypageDao.changeColor(
+    color1,
+    color2,
+    color3,
+    color4,
+    color5,
+    color6,
+    color7,
+    userId
+  );
 };
 
 module.exports = {
@@ -100,4 +73,5 @@ module.exports = {
   changePassword,
   getTheme,
   changeTheme,
+  changeColor,
 };

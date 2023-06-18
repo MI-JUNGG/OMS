@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { cardmodal } from "../../../modules/module/modal";
-import axios from "axios";
+import { DeleteCardHandler, FixCardHandler } from "../../daily/server";
+import { removeCard } from "../../../modules/module/card";
 import AlldayTime from "./CardCompo/AlldayTime";
 import ModalLink from "../../../assets/images/modal/ModalLink";
 import ModalNote from "../../../assets/images/modal/modalNote";
@@ -15,9 +16,11 @@ import ColorPalette from "./color/ColorPalette";
 import All from "./All";
 import Repeat from "./repeat/Repeat";
 import ColorPicker from "./color/ColorPicker";
-import { showColorPicker } from "../../../modules/module/modal";
+import { cardTypeReducer } from "../../../modules/module/modal";
 import { counterHandler } from "../server";
+import LimitDateSelect from "./limit/LimitDateSelect";
 import "./Card.scss";
+import Trash from "../../../assets/images/floating_action/Trash";
 
 function Card() {
     const dispatch = useDispatch();
@@ -27,6 +30,12 @@ function Card() {
     const typeId = Number(
         useSelector((state) => state.modalReducer.typeControl),
     );
+    /*카드삭제*/
+    const deleteHandler = (cardId) => {
+        DeleteCardHandler(cardId);
+        dispatch(removeCard());
+        dispatch(cardTypeReducer());
+    };
 
     const AllStartYear = useSelector((state) => state.dateReducer.year);
     const AllStartMonth = useSelector((state) => state.dateReducer.Month);
@@ -51,6 +60,10 @@ function Card() {
     const repeatEndMonth = useSelector((state) => state.repeatEndReducer.month);
     const repeatEndDay = useSelector((state) => state.repeatEndReducer.day);
     const repeatE = new Date(repeatEndYear, repeatEndMonth, repeatEndDay);
+
+    const cardType = useSelector((state) => state.modalReducer.FixCard);
+
+    const showLimit = useSelector((state) => state.modalReducer.limit); //
 
     const linkHandler = () => {
         setLink((prev) => !prev);
@@ -88,6 +101,7 @@ function Card() {
         color: "",
     });
     const { title, contents, startDate, endDate, color, url, repeatId } = form;
+
     useEffect(() => {
         const handleScroll = (event) => {
             const { target } = event;
@@ -109,20 +123,10 @@ function Card() {
     }, []);
 
     const createTitle = (e) => {
-        setForm({ ...form, title: e.target.value });
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
     };
-    const createContent = (e) => {
-        setForm({ ...form, contents: e.target.value });
-    };
-    const selectStartTime = (e) => {
-        setForm({ ...form, startDate: e.target.value });
-    };
-    const selectEndTime = (e) => {
-        setForm({ ...form, endDate: e.target.value });
-    };
-    const urlHandler = (e) => {
-        setForm({ ...form, url: e.target.value });
-    };
+
     const clearContents = () => {
         setForm({ ...form, contents: "" });
     };
@@ -133,32 +137,39 @@ function Card() {
     const cardHandler = () => {
         dispatch(cardmodal());
     };
+    const closeModal =
+        !openModal && !endDateModal && !repeatEnd && !repeatStart && !showLimit;
+
+    const sendingData = () => {
+        FixCardHandler(title, contents, repeatE, endDate, color, url, repeatId);
+        // counterHandler(title, contents, repeatE, endDate, color, url, repeatId);
+        setForm({
+            repeatId: "",
+            title: "",
+            contents: "",
+            url: "",
+            startDate: "",
+            endDate: "",
+            color: "",
+        });
+    };
 
     return (
         <div className="modalBackGround" ref={outerRef}>
-            {/* <div className="colorModal">
-                {showColorPick === true && <ColorPalette />}
-            </div> */}
             <div className="card">
                 <div className="iconBtn">
-                    <div
-                        onClick={() =>
-                            counterHandler(
-                                title,
-                                contents,
-                                repeatE,
-                                endDate,
-                                color,
-                                url,
-                                repeatId,
-                            )
-                        }
-                    >
+                    <div onClick={sendingData}>
                         <ModalCheck />
                     </div>
 
                     <div onClick={cardHandler}>
-                        <ModalX width={30} height={30} />
+                        {cardType === true ? (
+                            <div onClick={deleteHandler}>
+                                <Trash />
+                            </div>
+                        ) : (
+                            <ModalX width={30} height={30} />
+                        )}
                     </div>
                 </div>
                 <div className="cardTitle">
@@ -171,49 +182,53 @@ function Card() {
                     />
                 </div>
                 <div className="timeSelect">
-                    {!openModal && !endDateModal && datetype ? (
+                    {closeModal && datetype ? (
                         <All />
                     ) : (
-                        !openModal && !endDateModal && <Repeat />
+                        closeModal && <Repeat />
                     )}
                     {openModal && <AlldayTime />}
                     {endDateModal && <EndDate />}
                     {repeatEnd && <RepeatEnd />}
                     {repeatStart && <RepeatStart />}
+                    {showLimit && <LimitDateSelect />}
                 </div>
-                <div className="modalx" onClick={clearUrl}>
-                    {link === true && <ModalX width={10} height={10} />}
-                </div>
-                <div className="link">
-                    <div className="linkIcon">
-                        <ModalLink />
+                <div className="cardContent">
+                    <div className="modalx" onClick={clearUrl}>
+                        {link === true && <ModalX width={10} height={10} />}
                     </div>
-                    {link === false ? (
-                        <button onClick={linkHandler}>링크</button>
-                    ) : (
-                        <input
-                            className="inputline"
-                            value={url}
-                            onChange={urlHandler}
-                            type="url"
-                        />
-                    )}
-                </div>
-                <div className="modalx" onClick={clearContents}>
-                    {note === true && <ModalX width={10} height={10} />}
-                </div>
-                <div className="link">
-                    <ModalNote />
-                    {note === false ? (
-                        <button onClick={noteHandler}>메모</button>
-                    ) : (
-                        <textarea
-                            className="textArea"
-                            onChange={createContent}
-                            value={contents}
-                            name="content"
-                        />
-                    )}
+                    <div className="link">
+                        <div className="linkIcon">
+                            <ModalLink />
+                        </div>
+                        {link === false ? (
+                            <button onClick={linkHandler}>링크</button>
+                        ) : (
+                            <input
+                                name="url"
+                                className="inputline"
+                                value={url}
+                                onChange={createTitle}
+                                type="url"
+                            />
+                        )}
+                    </div>
+                    <div className="modalx" onClick={clearContents}>
+                        {note === true && <ModalX width={10} height={10} />}
+                    </div>
+                    <div className="contentsMemo">
+                        <ModalNote />
+                        {note === false ? (
+                            <button onClick={noteHandler}>메모</button>
+                        ) : (
+                            <textarea
+                                className="textArea"
+                                onChange={createTitle}
+                                value={contents}
+                                name="contents"
+                            />
+                        )}
+                    </div>
                 </div>
                 <div className="selectColor">
                     <ColorSelector />

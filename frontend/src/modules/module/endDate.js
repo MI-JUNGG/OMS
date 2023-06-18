@@ -13,6 +13,38 @@ const enddateSlice = createSlice({
         minute: 59,
     },
     reducers: {
+        eaddTime: (state) => {
+            let newTime = state.time + 1;
+            if (newTime > 24) {
+                newTime = 1;
+            }
+            return { ...state, time: newTime };
+        },
+        eminusTime: (state) => {
+            let newTime = state.time - 1;
+            if (newTime < 1) {
+                newTime = 24;
+            }
+            return { ...state, time: newTime };
+        },
+        eaddMin: (state) => {
+            let newMin = state.minute + 1;
+            let newTime = state.time;
+            if (newMin > 59) {
+                newMin = 0;
+                newTime = state.time + 1;
+            }
+            return { ...state, time: newTime, minute: newMin };
+        },
+        eminusMin: (state) => {
+            let newMin = state.minute - 1;
+            let newTime = state.time;
+            if (newMin < 0) {
+                newMin = 59;
+                newTime = state.time - 1;
+            }
+            return { ...state, time: newTime, minute: newMin };
+        },
         eaddDate: (state, action) => {
             return {
                 ...state,
@@ -137,6 +169,10 @@ export const {
     eeminusY,
     eminusM,
     eminusD,
+    eaddTime,
+    eminusTime,
+    eaddMin,
+    eminusMin,
 } = enddateSlice.actions;
 
 export default enddateSlice.reducer;

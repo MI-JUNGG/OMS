@@ -90,14 +90,15 @@ const getTheme = async (userId) => {
   );
 };
 
-const changeThemeSettings = async (
+const changeTheme = async (
   mainColor,
   backgroundColor,
   textStyle,
   textColor,
+  colorPaletteId,
   userId
 ) => {
-  const result = appDataSource.query(
+  return await appDataSource.query(
     `
     UPDATE
       mypage
@@ -105,17 +106,16 @@ const changeThemeSettings = async (
       main_color = ?,
       background_color = ?,
       text_style = ?,
-      text_color = ?
+      text_color = ?,
+      color_palette_id = ?
     WHERE
       user_id = ?
     `,
-    [mainColor, backgroundColor, textStyle, textColor, userId]
+    [mainColor, backgroundColor, textStyle, textColor, colorPaletteId, userId]
   );
-
-  return result;
 };
 
-const changeThemeColor = async (
+const changeColor = async (
   color1,
   color2,
   color3,
@@ -125,76 +125,23 @@ const changeThemeColor = async (
   color7,
   userId
 ) => {
-  const paletteId = 6;
-  const existingPalette = await appDataSource.query(
+  return await appDataSource.query(
     `
-    SELECT * FROM
-      color_palette
-    WHERE
-      id = ?
-    `,
-    [paletteId]
-  );
-
-  if (existingPalette) {
-    const updatePalette = `
     UPDATE
-      color_palette c
-    JOIN
-      mypage m ON m.color_palette_id = c.id
+      mypage
     SET
-      c.color1 = ?,
-      c.color2 = ?,
-      c.color3 = ?,
-      c.color4 = ?,
-      c.color5 = ?,
-      c.color6 = ?,
-      c.color7 = ?
+      color1 = ?,
+      color2 = ?,
+      color3 = ?,
+      color4 = ?,
+      color5 = ?,
+      color6 = ?,
+      color7 = ?
     WHERE
-      c.id = ?
-    AND
-      m.user_id = ?
-    `;
-
-    return appDataSource.query(updatePalette, [
-      color1,
-      color2,
-      color3,
-      color4,
-      color5,
-      color6,
-      color7,
-      paletteId,
-      userId,
-    ]);
-  } else {
-    const paletteId = 6;
-
-    const insertPalette = `
-    INSERT INTO
-      color_palette 
-      ( id,
-        color1,
-        color2,
-        color3,
-        color4,
-        color5,
-        color6,
-        color7 )
-    VALUES
-      ( 6, ?, ?, ?, ?, ?, ?, ? )
-    `;
-
-    return await appDataSource.query(insertPalette, [
-      paletteId,
-      color1,
-      color2,
-      color3,
-      color4,
-      color5,
-      color6,
-    ]);
-  }
+      user_id = ?
+    `,
+    [color1, color2, color3, color4, color5, color6, color7, userId]
+  );
 };
 
 module.exports = {
@@ -203,6 +150,6 @@ module.exports = {
   getHashedPassword,
   updatePassword,
   getTheme,
-  changeThemeSettings,
-  changeThemeColor,
+  changeTheme,
+  changeColor,
 };

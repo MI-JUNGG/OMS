@@ -1,19 +1,24 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMin, minusMin } from "../../../../modules/module/date";
+import { eaddMin, eminusMin } from "../../../../modules/module/endDate";
 import "./Minselector.scss";
 
 function MinSelector() {
     const outerRef = useRef(null);
     const dispatch = useDispatch();
-    const { minute } = useSelector((state) => state.dateReducer);
+    const isRepeat = useSelector((state) => state.modalReducer.endDateControl);
+
+    const startminute = useSelector((state) => state.dateReducer.minute);
+    const endMin = useSelector((state) => state.endDateReducer.minute);
+    const minute = isRepeat ? endMin : startminute;
 
     const increaseday = () => {
-        dispatch(addMin());
+        isRepeat ? dispatch(eaddMin()) : dispatch(addMin());
     };
 
     const decreaseday = () => {
-        dispatch(minusMin());
+        isRepeat ? dispatch(eminusMin()) : dispatch(minusMin());
     };
 
     useEffect(() => {

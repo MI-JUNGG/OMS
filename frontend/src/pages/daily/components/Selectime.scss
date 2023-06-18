@@ -1,77 +1,42 @@
 .dayTable {
-    width: 75vw;
+    width: 1280px;
+    min-width: 1280px;
     background-color: skyblue;
     border-radius: 16px;
-    padding: 20px;
+    padding: 15px;
 
     .dayChanger {
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 20px;
         text-align: center;
         height: 5%;
         font-size: x-large;
     }
 
-    .timeContainer {
+    .timeTable {
         display: flex;
-        align-items: center;
-        height: 50px;
-
-        .timeSlot {
-            font-size: 12px;
-            position: relative;
-            top: -50%;
-        }
-
-        .timeBorder {
-            border-top: 1px solid black;
-            width: 50px;
-            height: 100%;
-            margin-left: 5px;
+        justify-content: center;
+        width: 1170px;
+        .renderCard {
+            width: 1100px;
+            height: 100px;
             display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .contents {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            border-top: 1px solid black;
-            border-left: 1px solid black;
-            height: 100%;
-        }
-
-        &:first-child {
-            .otherContents:first-child {
+            list-style: none;
+            .rederTitle {
                 border-top: 1px solid black;
+                width: 100%;
+                padding: 10px;
             }
-        }
-        .first {
-            border-top: 1px solid black;
-        }
-        .otherContents {
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            width: 100%;
-            border-left: 1px solid black;
-            height: 100%;
-
-            &:first-child {
+            .rederempty {
+                width: 100%;
+                padding: 10px;
+                border-top: none;
+            }
+            .empty {
                 border-top: 1px solid black;
-            }
-
-            &.yellowBackground {
-                background-color: yellow;
-            }
-
-            .title {
-                z-index: 1;
-                color: black;
-                font-weight: bold;
-                padding: 5px;
+                width: 100%;
             }
         }
     }
