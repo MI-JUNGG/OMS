@@ -59,28 +59,19 @@ const patchCard = async (
   deadline,
   cardId
 ) => {
-  const changeRepeatId = repeatId ? `repeat_id = ?` : ``;
-  const changeTitle = title ? `title = ?` : ``;
-  const changeColor = color ? `color = ?` : ``;
-  const changeLink = link ? `link = ?` : ``;
-  const changeMemo = memo ? `memo = ?` : ``;
-  const changeStartDate = startDate ? `start_date = ?` : ``;
-  const changeEndDate = endDate ? `end_date = ?` : ``;
-  const changeDeadline = deadline ? `deadline = ?` : ``;
-
   const result = await appDataSource.query(
     `
     UPDATE
       card
     SET
-      ${changeRepeatId}
-      ${changeTitle}
-      ${changeColor}
-      ${changeLink}
-      ${changeMemo}
-      ${changeStartDate}
-      ${changeEndDate}
-      ${changeDeadline}
+      repeat_id = ?,
+      title = ?,
+      color = ?,
+      link = ?,
+      memo = ?,
+      start_date = ?,
+      end_date = ?,
+      deadline = ?
     WHERE
       id = ? AND user_id = ?
     `,
