@@ -19,7 +19,7 @@ function Selectime() {
     const day = searchParams.get("date");
     const formatDate = dayjs(day);
     const returnDate = formatDate.format("YYYY.MM.DD");
-    console.log(returnDate);
+
     const [date, setDate] = useState(returnDate);
     const navigate = useNavigate();
     const [test, setTest] = useState([
@@ -114,7 +114,11 @@ function Selectime() {
 
                         if (matchingData.length > 0) {
                             return (
-                                <li key={item} className="renderCard">
+                                <li
+                                    onClick={fixModalHandler}
+                                    key={item}
+                                    className="renderCard"
+                                >
                                     {matchingData.map(
                                         ({ cardId, title, color }) => (
                                             <div
@@ -132,7 +136,11 @@ function Selectime() {
                             );
                         } else {
                             return (
-                                <li key={item} className="renderCard">
+                                <li
+                                    onClick={fixModalHandler}
+                                    key={item}
+                                    className="renderCard"
+                                >
                                     <div className="empty"></div>
                                 </li>
                             );

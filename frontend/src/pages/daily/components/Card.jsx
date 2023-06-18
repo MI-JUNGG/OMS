@@ -153,7 +153,7 @@ function Card() {
             color: "",
         });
     };
-    console.log(cardType);
+
     return (
         <div className="modalBackGround" ref={outerRef}>
             <div className="card">
