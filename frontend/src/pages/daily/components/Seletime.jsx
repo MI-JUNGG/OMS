@@ -10,6 +10,7 @@ import { cardmodal } from "../../../modules/module/modal";
 
 import "./Selectime.scss";
 import { useDispatch, useSelector } from "react-redux";
+import { colors } from "./color/ColorPalette";
 
 function Selectime() {
     const dispatch = useDispatch();
@@ -36,27 +37,27 @@ function Selectime() {
             title: "Test Title11",
             color: "blue",
         },
-        // {
-        //     cardId: 17,
-        //     start: "2023-06-08 20:00",
-        //     end: "2023-06-08 21:00",
-        //     title: "Test Title",
-        //     color: "red",
-        // },
-        // {
-        //     cardId: 18,
-        //     start: "2023-06-08 22:00",
-        //     end: "2023-06-08 23:00",
-        //     title: "Test Title",
-        //     color: "red",
-        // },
-        // {
-        //     cardId: 19,
-        //     start: "2023-06-08 01:00",
-        //     end: "2023-06-08 02:00",
-        //     title: "Test Title",
-        //     color: "red",
-        // },
+        {
+            cardId: 17,
+            start: "2023-06-08 20:00",
+            end: "2023-06-08 21:00",
+            title: "Test Title",
+            color: "red",
+        },
+        {
+            cardId: 18,
+            start: "2023-06-08 22:00",
+            end: "2023-06-08 23:00",
+            title: "Test Title",
+            color: "red",
+        },
+        {
+            cardId: 19,
+            start: "2023-06-08 01:00",
+            end: "2023-06-08 02:00",
+            title: "Test Title",
+            color: "red",
+        },
     ]);
 
     const cardType = useSelector((state) => state.modalReducer.FixCard);
@@ -105,21 +106,36 @@ function Selectime() {
                 <DayHours />
                 <ul>
                     {hours.map((item) => {
-                        const matchingData = test.find(
+                        const matchingData = test.filter(
                             (data) =>
-                                dayjs(data.start).format("HH:mm") <= item &&
+                                dayjs(data.start).format("HH:mm") === item &&
                                 dayjs(data.end).format("HH:mm") > item,
                         );
-                        console.log(matchingData);
-                        if (matchingData) {
-                            const { cardId, title } = matchingData;
+
+                        if (matchingData.length > 0) {
                             return (
                                 <li key={item} className="renderCard">
-                                    <div key={cardId}>{title}</div>
+                                    {matchingData.map(
+                                        ({ cardId, title, color }) => (
+                                            <div
+                                                className="rederTitle"
+                                                style={{
+                                                    backgroundColor: color,
+                                                }}
+                                                key={cardId}
+                                            >
+                                                {title}
+                                            </div>
+                                        ),
+                                    )}
                                 </li>
                             );
                         } else {
-                            return <li key={item} className="renderCard"></li>;
+                            return (
+                                <li key={item} className="renderCard">
+                                    <div className="empty"></div>
+                                </li>
+                            );
                         }
                     })}
                 </ul>
