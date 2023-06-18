@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ChromePicker } from "react-color";
 
-const ColorPicker = () => {
+const CustomPicker = () => {
     const [color, setColor] = useState("#ffffff"); // 초기 색상값 설정
 
     const handleChange = (selectedColor) => {
@@ -46,4 +46,4 @@ const ColorPicker = () => {
     );
 };
 
-export default ColorPicker;
+export default CustomPicker;

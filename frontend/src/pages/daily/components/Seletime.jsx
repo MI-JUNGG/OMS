@@ -86,9 +86,10 @@ function Selectime() {
         navigate(newLocation);
     };
 
-    const fixModalHandler = () => {
+    const fixModalHandler = (e) => {
         dispatch(cardmodal());
         dispatch(cardTypeReducer());
+        console.log(e.target);
     };
 
     return (
@@ -120,16 +121,11 @@ function Selectime() {
                                     className="renderCard"
                                 >
                                     {matchingData.map(
-                                        ({
-                                            cardId,
-                                            title,
-                                            color,
-                                            start,
-                                            end,
-                                        }) =>
+                                        ({ cardId, title, color, start }) =>
                                             dayjs(start).format("HH:mm") ===
                                             item ? (
                                                 <div
+                                                    value={cardId}
                                                     className="rederTitle"
                                                     style={{
                                                         backgroundColor: color,
@@ -140,25 +136,20 @@ function Selectime() {
                                                 </div>
                                             ) : (
                                                 <div
-                                                    className="rederTitle"
+                                                    value={cardId}
+                                                    className="rederempty"
                                                     style={{
                                                         backgroundColor: color,
                                                     }}
                                                     key={cardId}
-                                                >
-                                                    1
-                                                </div>
+                                                ></div>
                                             ),
                                     )}
                                 </li>
                             );
                         } else {
                             return (
-                                <li
-                                    onClick={fixModalHandler}
-                                    key={item}
-                                    className="renderCard"
-                                >
+                                <li key={item} className="renderCard">
                                     <div className="empty"></div>
                                 </li>
                             );
