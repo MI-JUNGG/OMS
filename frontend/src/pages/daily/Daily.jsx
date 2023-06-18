@@ -58,7 +58,7 @@ function Daily() {
 
     useEffect(() => {
         initialState();
-        callUserCard();
+        callUserCard(handleOutClick);
     }, []);
 
     return (

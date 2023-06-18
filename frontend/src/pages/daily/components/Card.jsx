@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { cardmodal } from "../../../modules/module/modal";
-import { DeleteCardHandler } from "../../daily/server";
+import { DeleteCardHandler, FixCardHandler } from "../../daily/server";
 import { removeCard } from "../../../modules/module/card";
 import AlldayTime from "./CardCompo/AlldayTime";
 import ModalLink from "../../../assets/images/modal/ModalLink";
@@ -16,7 +16,7 @@ import ColorPalette from "./color/ColorPalette";
 import All from "./All";
 import Repeat from "./repeat/Repeat";
 import ColorPicker from "./color/ColorPicker";
-import { showColorPicker } from "../../../modules/module/modal";
+import { cardTypeReducer } from "../../../modules/module/modal";
 import { counterHandler } from "../server";
 import LimitDateSelect from "./limit/LimitDateSelect";
 import "./Card.scss";
@@ -34,6 +34,7 @@ function Card() {
     const deleteHandler = (cardId) => {
         DeleteCardHandler(cardId);
         dispatch(removeCard());
+        dispatch(cardTypeReducer());
     };
 
     const AllStartYear = useSelector((state) => state.dateReducer.year);
@@ -122,14 +123,10 @@ function Card() {
     }, []);
 
     const createTitle = (e) => {
-        setForm({ ...form, title: e.target.value });
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
     };
-    const createContent = (e) => {
-        setForm({ ...form, contents: e.target.value });
-    };
-    const urlHandler = (e) => {
-        setForm({ ...form, url: e.target.value });
-    };
+
     const clearContents = () => {
         setForm({ ...form, contents: "" });
     };
@@ -144,7 +141,8 @@ function Card() {
         !openModal && !endDateModal && !repeatEnd && !repeatStart && !showLimit;
 
     const sendingData = () => {
-        counterHandler(title, contents, repeatE, endDate, color, url, repeatId);
+        FixCardHandler(title, contents, repeatE, endDate, color, url, repeatId);
+        // counterHandler(title, contents, repeatE, endDate, color, url, repeatId);
         setForm({
             repeatId: "",
             title: "",
@@ -207,9 +205,10 @@ function Card() {
                             <button onClick={linkHandler}>링크</button>
                         ) : (
                             <input
+                                name="url"
                                 className="inputline"
                                 value={url}
-                                onChange={urlHandler}
+                                onChange={createTitle}
                                 type="url"
                             />
                         )}
@@ -224,9 +223,9 @@ function Card() {
                         ) : (
                             <textarea
                                 className="textArea"
-                                onChange={createContent}
+                                onChange={createTitle}
                                 value={contents}
-                                name="content"
+                                name="contents"
                             />
                         )}
                     </div>
