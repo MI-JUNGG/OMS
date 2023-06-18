@@ -17,12 +17,13 @@
         &__day,
         &__cell {
             flex: 1;
-            text-align: center;
             padding: 8px;
             border-bottom: 1px solid #ccc;
             border-left: 1px solid #ccc;
             height: 100px;
-
+            display: flex;
+            justify-content: center;
+            align-items: center;
             &:last-child {
                 border-right: 1px solid #ccc; /* 마지막 요소에 border-right 추가 */
             }
