@@ -40,7 +40,7 @@ function Selectime() {
         {
             cardId: 17,
             start: "2023-06-08 20:00",
-            end: "2023-06-08 21:00",
+            end: "2023-06-08 22:00",
             title: "Test Title",
             color: "red",
         },
@@ -108,7 +108,7 @@ function Selectime() {
                     {hours.map((item) => {
                         const matchingData = test.filter(
                             (data) =>
-                                dayjs(data.start).format("HH:mm") === item &&
+                                dayjs(data.start).format("HH:mm") <= item &&
                                 dayjs(data.end).format("HH:mm") > item,
                         );
 
@@ -120,17 +120,35 @@ function Selectime() {
                                     className="renderCard"
                                 >
                                     {matchingData.map(
-                                        ({ cardId, title, color }) => (
-                                            <div
-                                                className="rederTitle"
-                                                style={{
-                                                    backgroundColor: color,
-                                                }}
-                                                key={cardId}
-                                            >
-                                                {title}
-                                            </div>
-                                        ),
+                                        ({
+                                            cardId,
+                                            title,
+                                            color,
+                                            start,
+                                            end,
+                                        }) =>
+                                            dayjs(start).format("HH:mm") ===
+                                            item ? (
+                                                <div
+                                                    className="rederTitle"
+                                                    style={{
+                                                        backgroundColor: color,
+                                                    }}
+                                                    key={cardId}
+                                                >
+                                                    {title}
+                                                </div>
+                                            ) : (
+                                                <div
+                                                    className="rederTitle"
+                                                    style={{
+                                                        backgroundColor: color,
+                                                    }}
+                                                    key={cardId}
+                                                >
+                                                    1
+                                                </div>
+                                            ),
                                     )}
                                 </li>
                             );
