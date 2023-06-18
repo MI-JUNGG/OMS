@@ -12,10 +12,10 @@ import EndDate from "../components/CardCompo/endDate/EndDate";
 import RepeatEnd from "./repeat/RepeatEnd";
 import RepeatStart from "./repeat/RepeatStart";
 import ColorSelector from "./color/ColorSelector";
-import ColorPalette from "./color/ColorPalette";
+
 import All from "./All";
 import Repeat from "./repeat/Repeat";
-import ColorPicker from "./color/ColorPicker";
+
 import { cardTypeReducer } from "../../../modules/module/modal";
 import { counterHandler } from "../server";
 import LimitDateSelect from "./limit/LimitDateSelect";

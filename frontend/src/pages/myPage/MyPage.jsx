@@ -35,6 +35,11 @@ function MyPage() {
         data === 0 && navigate("/");
     };
 
+    const logout = () => {
+        localStorage.removeItem("token");
+        navigate("/");
+    };
+
     return (
         <>
             <div className="myPageContainer">
@@ -47,7 +52,7 @@ function MyPage() {
                         <div className="logZone">
                             <span>NickName</span>
                             <div className="logOutZone">
-                                <span>로그아웃</span>
+                                <span onClick={logout}>로그아웃</span>
                                 <span className="withDrawal">회원탈퇴</span>
                             </div>
                         </div>
@@ -56,6 +61,11 @@ function MyPage() {
                         {PAGE_STATE.map((data, id) => {
                             return (
                                 <div
+                                    className={`${
+                                        pageState === data.id
+                                            ? "selectState"
+                                            : ""
+                                    }`}
                                     key={data.id}
                                     onClick={() => {
                                         pageStateChanger(data.id);

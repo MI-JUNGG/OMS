@@ -6,7 +6,7 @@ import { year } from "../modules/module/year";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 import axios from "axios";
-import { color } from "../modules/module/colorPicker.js";
+import { customPaletteld } from "../modules/module/colorPicker.js";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);

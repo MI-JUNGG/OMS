@@ -1,5 +1,3 @@
-import React from "react";
-import ColorPicker from "./ColorPicker";
 import "./colorCss/ColorPalette.scss";
 
 function ColorPalette() {
@@ -43,7 +41,6 @@ function ColorPalette() {
                 ))}
                 <button>Select</button>
             </div>
-            <ColorPicker />
         </div>
     );
 }

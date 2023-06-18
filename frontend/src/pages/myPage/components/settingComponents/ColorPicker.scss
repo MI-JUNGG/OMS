@@ -5,8 +5,8 @@ $mainColor: #547aff;
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 62%;
-    left: 57%;
+    top: 55%;
+    left: 58%;
     z-index: 1;
     .colorPickerContainer {
         width: 264px;
@@ -42,6 +42,12 @@ $mainColor: #547aff;
                     height: 24px;
                     border-radius: 100px;
                 }
+                .customPaletteld {
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 100px;
+                    border: 1px lightgray solid;
+                }
             }
             .selected {
                 width: 246px;
@@ -58,6 +64,12 @@ $mainColor: #547aff;
                     width: 24px;
                     height: 24px;
                     border-radius: 100px;
+                }
+                .customPaletteld {
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 100px;
+                    border: 1px lightgray solid;
                 }
             }
         }
