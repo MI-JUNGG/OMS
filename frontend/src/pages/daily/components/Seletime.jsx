@@ -40,7 +40,7 @@ function Selectime() {
         {
             cardId: 17,
             start: "2023-06-08 20:00",
-            end: "2023-06-08 21:00",
+            end: "2023-06-08 22:00",
             title: "Test Title",
             color: "red",
         },
@@ -86,9 +86,10 @@ function Selectime() {
         navigate(newLocation);
     };
 
-    const fixModalHandler = () => {
+    const fixModalHandler = (e) => {
         dispatch(cardmodal());
         dispatch(cardTypeReducer());
+        console.log(e.target);
     };
 
     return (
@@ -108,7 +109,7 @@ function Selectime() {
                     {hours.map((item) => {
                         const matchingData = test.filter(
                             (data) =>
-                                dayjs(data.start).format("HH:mm") === item &&
+                                dayjs(data.start).format("HH:mm") <= item &&
                                 dayjs(data.end).format("HH:mm") > item,
                         );
 
@@ -120,27 +121,35 @@ function Selectime() {
                                     className="renderCard"
                                 >
                                     {matchingData.map(
-                                        ({ cardId, title, color }) => (
-                                            <div
-                                                className="rederTitle"
-                                                style={{
-                                                    backgroundColor: color,
-                                                }}
-                                                key={cardId}
-                                            >
-                                                {title}
-                                            </div>
-                                        ),
+                                        ({ cardId, title, color, start }) =>
+                                            dayjs(start).format("HH:mm") ===
+                                            item ? (
+                                                <div
+                                                    value={cardId}
+                                                    className="rederTitle"
+                                                    style={{
+                                                        backgroundColor: color,
+                                                    }}
+                                                    key={cardId}
+                                                >
+                                                    {title}
+                                                </div>
+                                            ) : (
+                                                <div
+                                                    value={cardId}
+                                                    className="rederempty"
+                                                    style={{
+                                                        backgroundColor: color,
+                                                    }}
+                                                    key={cardId}
+                                                ></div>
+                                            ),
                                     )}
                                 </li>
                             );
                         } else {
                             return (
-                                <li
-                                    onClick={fixModalHandler}
-                                    key={item}
-                                    className="renderCard"
-                                >
+                                <li key={item} className="renderCard">
                                     <div className="empty"></div>
                                 </li>
                             );
