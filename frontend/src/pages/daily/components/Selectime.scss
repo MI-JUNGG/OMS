@@ -1,8 +1,9 @@
 .dayTable {
+    width: 1280px;
     min-width: 1280px;
     background-color: skyblue;
     border-radius: 16px;
-    padding: 20px;
+    padding: 15px;
 
     .dayChanger {
         display: flex;
@@ -14,64 +15,19 @@
         font-size: x-large;
     }
 
-    .timeContainer {
+    .timeTable {
         display: flex;
-        align-items: center;
-        height: 50px;
-
-        .timeSlot {
-            font-size: 12px;
-            width: 50px;
-            position: relative;
-            top: -50%;
-        }
-
-        .timeBorder {
+        justify-content: center;
+        width: 1170px;
+        .renderCard {
             border-top: 1px solid black;
-            width: 50px;
-            height: 100%;
-            margin-left: 5px;
+            width: 1100px;
+            height: 100px;
             display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .contents {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            border-top: 1px solid black;
-            border-left: 1px solid black;
-            height: 100%;
-        }
-
-        &:last-child .contents {
-            border-left: none;
-        }
-        .first {
-            border-top: 1px solid black;
-        }
-        .otherContents {
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            width: 100%;
-            border-left: 1px solid black;
-            height: 100%;
-
-            &:first-child {
-                border-top: 1px solid black;
-            }
-
-            &.yellowBackground {
-                background-color: yellow;
-            }
-
-            .title {
-                z-index: 1;
-                color: black;
-                font-weight: bold;
-                padding: 35px;
+            list-style: none;
+            .rederTitle {
+                width: 50%;
+                padding: 10px;
             }
         }
     }
