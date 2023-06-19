@@ -7,10 +7,11 @@ import DateLeft from "../../../assets/images/date_picker/DateLeft";
 import DateRight from "../../../assets/images/date_picker/DateRight";
 import { cardTypeReducer } from "../../../modules/module/modal";
 import { cardmodal } from "../../../modules/module/modal";
-
 import "./Selectime.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { colors } from "./color/ColorPalette";
+import { update } from "../../../modules/module/date";
+import { endUpdate } from "../../../modules/module/endDate";
 
 function Selectime() {
     const dispatch = useDispatch();
@@ -86,10 +87,33 @@ function Selectime() {
         navigate(newLocation);
     };
 
-    const fixModalHandler = (e) => {
+    const fixModalHandler = (e, cardId) => {
         dispatch(cardmodal());
         dispatch(cardTypeReducer());
-        console.log(e.target);
+        const getData = cardId;
+
+        const { start, end, title, url, memo, color } = test.find(
+            (data) => data.cardId === cardId,
+        );
+        const parsedDate = dayjs(start);
+        const parsedEndDate = dayjs(end);
+
+        const formatTime = {
+            year: parsedDate.year(),
+            month: parsedDate.month() + 1,
+            day: parsedDate.date(),
+            time: parsedDate.hour(),
+            minute: parsedDate.minute(),
+        };
+        const formattedEndDate = {
+            year: parsedEndDate.year(),
+            month: parsedEndDate.month() + 1,
+            day: parsedEndDate.date(),
+            time: parsedEndDate.hour(),
+            minute: parsedEndDate.minute(),
+        };
+        dispatch(update(formatTime));
+        dispatch(endUpdate(formattedEndDate));
     };
 
     return (
@@ -115,17 +139,18 @@ function Selectime() {
 
                         if (matchingData.length > 0) {
                             return (
-                                <li
-                                    onClick={fixModalHandler}
-                                    key={item}
-                                    className="renderCard"
-                                >
+                                <li key={item} className="renderCard">
                                     {matchingData.map(
                                         ({ cardId, title, color, start }) =>
                                             dayjs(start).format("HH:mm") ===
                                             item ? (
                                                 <div
-                                                    value={cardId}
+                                                    onClick={(e) =>
+                                                        fixModalHandler(
+                                                            e,
+                                                            cardId,
+                                                        )
+                                                    }
                                                     className="rederTitle"
                                                     style={{
                                                         backgroundColor: color,
@@ -136,7 +161,12 @@ function Selectime() {
                                                 </div>
                                             ) : (
                                                 <div
-                                                    value={cardId}
+                                                    onClick={(e) =>
+                                                        fixModalHandler(
+                                                            e,
+                                                            cardId,
+                                                        )
+                                                    }
                                                     className="rederempty"
                                                     style={{
                                                         backgroundColor: color,

@@ -13,6 +13,16 @@ const enddateSlice = createSlice({
         minute: 59,
     },
     reducers: {
+        endUpdate: (state, action) => {
+            const { year, month, day, time, minute } = action.payload;
+            return {
+                year,
+                month,
+                day,
+                time,
+                minute,
+            };
+        },
         eaddTime: (state) => {
             let newTime = state.time + 1;
             if (newTime > 24) {
@@ -160,6 +170,7 @@ const enddateSlice = createSlice({
 });
 
 export const {
+    endUpdate,
     eaddDate,
     eaddDay,
     eaddMonth,
