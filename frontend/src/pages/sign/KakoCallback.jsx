@@ -1,16 +1,10 @@
 import React, { useEffect } from "react";
-import {
-    KAKAO_CLIENT_ID,
-    KAKAO_GRANT_TYPE,
-    KAKAO_REDIRECT_URI,
-    KAKAO_AUTH_URL,
-} from "./kakao";
+import { KAKAO_CLIENT_ID, KAKAO_GRANT_TYPE, KAKAO_REDIRECT_URI } from "./kakao";
 import axios from "axios";
 
 function KakoCallback() {
     const code = new URL(window.location.href).searchParams.get("code");
     useEffect(() => {
-        console.log("A");
         axios
             .post(
                 `https://kauth.kakao.com/oauth/token?grant_type=${KAKAO_GRANT_TYPE}&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&code=${code}`,

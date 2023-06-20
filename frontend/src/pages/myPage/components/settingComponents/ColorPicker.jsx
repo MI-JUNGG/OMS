@@ -13,8 +13,6 @@ function ColorPicker(props) {
     const blockColorThemeTitle = props.blockColorThemeTitle;
     const dispatch = useDispatch();
 
-    const form = useSelector((state) => state.settingReducer);
-
     const [colorSub, setColorSub] = useState({
         key: blockColorTheme,
         title: blockColorThemeTitle,
@@ -178,6 +176,37 @@ function ColorPicker(props) {
                                         <>
                                             <div
                                                 className="colorOfColorList"
+                                                style={{
+                                                    backgroundColor: `${data.mainColor}`,
+                                                }}
+                                            />
+                                        </>
+                                    );
+                                })}
+                        </div>
+                    </div>
+                    <div className="colorTitle">
+                        <span>
+                            {colorList.length > 0 &&
+                                Object.keys(colorList[5])[0]}
+                        </span>
+                        <div
+                            className={`${
+                                colorSub.title === Object.keys(colorList[5])[0]
+                                    ? "selected"
+                                    : "colorList"
+                            } `}
+                            onClick={() => {
+                                pickColorList(5, "custom");
+                            }}
+                        >
+                            {colorList.length > 0 &&
+                                colorList[5].custom.map((data) => {
+                                    return (
+                                        <>
+                                            <div
+                                                key={data.id}
+                                                className="customPaletteld"
                                                 style={{
                                                     backgroundColor: `${data.mainColor}`,
                                                 }}

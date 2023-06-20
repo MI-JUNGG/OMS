@@ -43,7 +43,6 @@ function ColorPalette() {
                 ))}
                 <button>Select</button>
             </div>
-            <ColorPicker />
         </div>
     );
 }

@@ -4,15 +4,15 @@ const temporaryColorSetting = createSlice({
     name: "temporaryColorSetting",
     initialState: {
         temporaryMainColor: "#547aff",
-        temporaryBackgroundColor: "",
+        temporaryBackgroundColor: "#f3f6ff",
         temporaryTextStyle: "",
-        temporaryTextColor: "",
+        temporaryTextColor: "dark",
         temporaryBlockColor: {
             mainColor: "",
             bgColor: "",
         },
-        temporaryBlockColorTheme: "",
-        temporaryBlockColorThemeTitle: "",
+        temporaryBlockColorTheme: "0",
+        temporaryBlockColorThemeTitle: "vivid",
     },
     reducers: {
         temporaryMainColor: (state, action) => {

@@ -4,7 +4,6 @@ const UserSlice = createSlice({
     name: "user",
     initialState: {
         eMail: "",
-
         nickName: "",
         password: "",
         confirmPassword: "",
@@ -13,7 +12,6 @@ const UserSlice = createSlice({
         eMail: (state, action) => {
             state.eMail = action.payload;
         },
-
         nickName: (state, action) => {
             state.nickName = action.payload;
         },
