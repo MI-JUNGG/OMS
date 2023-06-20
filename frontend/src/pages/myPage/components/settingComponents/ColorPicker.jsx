@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ColorPicker.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,6 +7,11 @@ import {
 } from "../../../../modules/module/setting";
 import { isModal, isCustomPicker } from "../../../../modules/module/setting";
 import { ChromePicker } from "react-color";
+import {
+    setCustomMainColor,
+    setCustomBackgroundColor,
+} from "../../../../modules/module/colorPicker";
+import axios from "axios";
 
 function ColorPicker(props) {
     const colorList = props.ColorList;
@@ -18,6 +23,50 @@ function ColorPicker(props) {
         key: blockColorTheme,
         title: blockColorThemeTitle,
     });
+    const [customId, setCustomId] = useState("");
+
+    const customForm = useSelector(
+        (state) => state.colorPickerReducer.color[5].custom,
+    );
+    // console.log(customForm);
+
+    const changeCustomColor = () => {
+        dispatch(
+            setCustomMainColor({
+                categoryId: 5, // index of the "custom" category in the color array
+                customId: customId - 1, // subtract 1 to match the array index
+                mainColor: color,
+            }),
+        );
+        dispatch(
+            setCustomBackgroundColor({
+                categoryId: 5, // index of the "custom" category in the color array
+                customId: customId - 1, // subtract 1 to match the array index
+                backgroundColor: `${color}1A`,
+            }),
+        );
+        dispatch(isCustomPicker(false));
+
+        // axios.put("http://192.168.219.152:3001/mypage/color", {
+
+        //             headers: {
+        //                 Authorization: localStorage.getItem("token"),
+        //             },
+        //         data: {
+        //             color1 : customForm[0].mainColor,
+        //             color2 : customForm[1].mainColor,
+        //             color3 : customForm[2].mainColor,
+        //             color4 : customForm[3].mainColor,
+        //             color5 : customForm[4].mainColor,
+        //             color6 : customForm[5].mainColor,
+        //             color7 : customForm[6].mainColor,
+        //         }
+        //         } )
+        //         .then((response) => {
+        //             console.log(response);
+        //             setSchedule(response.data);
+        //         })
+    };
 
     const pickColorList = (key, title) => {
         setColorSub({ key: key, title: title });
@@ -28,11 +77,9 @@ function ColorPicker(props) {
         dispatch(handleBlockColorThemeTitle(colorSub.title));
         dispatch(isModal(false));
     };
-
     const isOnCustom = useSelector(
         (state) => state.settingReducer.isCustomPicker,
     );
-    console.log(isOnCustom);
 
     const [color, setColor] = useState("#ffffff"); // 초기 색상값 설정
     const handleChange = (selectedColor) => {
@@ -240,6 +287,7 @@ function ColorPicker(props) {
                                                         ) {
                                                             onCustom();
                                                         }
+                                                        setCustomId(data.id);
                                                     }}
                                                 />
                                             </>
@@ -304,10 +352,21 @@ function ColorPicker(props) {
                             }}
                         />
                         <div className="customPickerBtn">
-                            <button className="customPickerSelectBtn">
+                            <button
+                                className="customPickerSelectBtn"
+                                type="button"
+                                onClick={changeCustomColor}
+                            >
                                 Select
                             </button>
-                            <button className="customPickerCancelBtn">
+                            <button
+                                className="customPickerCancelBtn"
+                                type="button"
+                                onClick={() => {
+                                    dispatch(isModal(false));
+                                    dispatch(isCustomPicker(false));
+                                }}
+                            >
                                 Cancel
                             </button>
                         </div>

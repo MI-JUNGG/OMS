@@ -241,11 +241,18 @@ const ColorPicker = createSlice({
         ],
     },
     reducers: {
-        customPaletteld: (state, action) => {
-            state.color.custom = action.payload;
+        setCustomMainColor: (state, action) => {
+            const { categoryId, customId, mainColor } = action.payload;
+            state.color[categoryId].custom[customId].mainColor = mainColor;
+        },
+        setCustomBackgroundColor: (state, action) => {
+            const { categoryId, customId, backgroundColor } = action.payload;
+            state.color[categoryId].custom[customId].backgroundColor =
+                backgroundColor;
         },
     },
 });
 
-export const { customPaletteld } = ColorPicker.actions;
+export const { setCustomMainColor, setCustomBackgroundColor } =
+    ColorPicker.actions;
 export default ColorPicker.reducer;
