@@ -46,18 +46,16 @@ const dateSlice = createSlice({
             let newTime = state.time;
             if (newMin > 59) {
                 newMin = 0;
-                newTime = state.time + 1;
             }
-            return { ...state, time: newTime, minute: newMin };
+            return { ...state, minute: newMin };
         },
         minusMin: (state) => {
             let newMin = state.minute - 1;
-            let newTime = state.time;
+
             if (newMin < 0) {
                 newMin = 59;
-                newTime = state.time - 1;
             }
-            return { ...state, time: newTime, minute: newMin };
+            return { ...state, minute: newMin };
         },
         addDate: (state, action) => {
             return {

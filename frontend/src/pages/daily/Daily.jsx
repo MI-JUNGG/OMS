@@ -13,6 +13,7 @@ import { cardmodal } from "../../modules/module/modal";
 import { addDate, addMonth, addDay } from "../../modules/module/date";
 import { eaddDate, eaddMonth, eaddDay } from "../../modules/module/endDate";
 import { laddDate, laddMonth, laddDay } from "../../modules/module/Limit";
+import { addCard } from "../../modules/module/card";
 import { callUserCard } from "./server";
 
 function Daily() {
@@ -23,6 +24,7 @@ function Daily() {
     const form = useSelector((state) => state.dateReducer);
     const handleOutClick = () => {
         dispatch(cardmodal());
+        dispatch(addCard());
     };
 
     const initialState = () => {

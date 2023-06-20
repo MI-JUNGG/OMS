@@ -22,9 +22,7 @@ import Trash from "../../../assets/images/floating_action/Trash";
 
 function Card() {
     const dispatch = useDispatch();
-    const [data, setData] = useState(null);
-    const [link, setLink] = useState(false);
-    const [note, setNote] = useState(false);
+
     const typeId = Number(
         useSelector((state) => state.modalReducer.typeControl),
     );
@@ -63,13 +61,6 @@ function Card() {
 
     const showLimit = useSelector((state) => state.modalReducer.limit); //
 
-    const linkHandler = () => {
-        setLink((prev) => !prev);
-    };
-
-    const noteHandler = () => {
-        setNote((note) => !note);
-    };
     const showColorPick = useSelector(
         (state) => state.modalReducer.showColorPicker,
     );
@@ -193,39 +184,33 @@ function Card() {
                 </div>
                 <div className="cardContent">
                     <div className="modalx" onClick={clearUrl}>
-                        {link === true && <ModalX width={10} height={10} />}
+                        <ModalX width={10} height={10} />
                     </div>
                     <div className="link">
                         <div className="linkIcon">
                             <ModalLink />
                         </div>
-                        {link === false ? (
-                            <button onClick={linkHandler}>링크</button>
-                        ) : (
-                            <input
-                                name="url"
-                                className="inputline"
-                                value={url}
-                                onChange={createTitle}
-                                type="url"
-                            />
-                        )}
+
+                        <input
+                            name="url"
+                            className="inputline"
+                            value={url}
+                            onChange={createTitle}
+                            type="url"
+                        />
                     </div>
                     <div className="modalx" onClick={clearContents}>
-                        {note === true && <ModalX width={10} height={10} />}
+                        <ModalX width={10} height={10} />
                     </div>
                     <div className="contentsMemo">
                         <ModalNote />
-                        {note === false ? (
-                            <button onClick={noteHandler}>메모</button>
-                        ) : (
-                            <textarea
-                                className="textArea"
-                                onChange={createTitle}
-                                value={contents}
-                                name="contents"
-                            />
-                        )}
+
+                        <textarea
+                            className="textArea"
+                            onChange={createTitle}
+                            value={contents}
+                            name="contents"
+                        />
                     </div>
                 </div>
                 <div className="selectColor">{/* <ColorSelector /> */}</div>

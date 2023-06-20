@@ -2,8 +2,8 @@ import axios from "axios";
 
 import { addCard } from "../../modules/module/card";
 
-const API = "10.99.246.181";
-const token =
+export const API = "10.99.246.181";
+export const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODY4MjE2ODZ9.CcP95C4a17JnLgmassY7yvgEsCpCrjqoxAJQCTRICS8";
 export const callUserCard = (handleOutClick) => {
     axios

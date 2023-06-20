@@ -19,10 +19,18 @@ function Repeat() {
         return state.dateReducer;
     });
 
-    const endMonth = useSelector((state) => state.endDateReducer.month);
-    const endDay = useSelector((state) => state.endDateReducer.day);
-    const endMinute = useSelector((state) => state.endDateReducer.minute);
-    const endTime = useSelector((state) => state.endDateReducer.time);
+    const endMonth = String(
+        useSelector((state) => state.endDateReducer.month),
+    ).padStart(2, "0");
+    const endDay = String(
+        useSelector((state) => state.endDateReducer.day),
+    ).padStart(2, "0");
+    const endMinute = String(
+        useSelector((state) => state.endDateReducer.minute),
+    ).padStart(2, "0");
+    const endTime = String(
+        useSelector((state) => state.endDateReducer.time),
+    ).padStart(2, "0");
 
     const modalHandler = () => {
         dispatch(dateControl());
@@ -37,11 +45,12 @@ function Repeat() {
             <div className="flex">
                 <div className="timeBox" onClick={modalHandler}>
                     <div className="text">
-                        <span>{month}월</span>
-                        <span>{day}일</span>
+                        <span>{String(month).padStart(2, "0")}월</span>
+                        <span>{String(day).padStart(2, "0")}일</span>
                     </div>
                     <span>
-                        {time} : {minute}
+                        {String(time).padStart(2, "0")} :{" "}
+                        {String(minute).padStart(2, "0")}
                     </span>
                 </div>
                 <DateRight />

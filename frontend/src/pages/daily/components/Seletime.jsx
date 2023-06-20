@@ -62,7 +62,8 @@ function Selectime() {
     ]);
 
     const cardType = useSelector((state) => state.modalReducer.FixCard);
-
+    //스케쥴
+    const card = useSelector((state) => state.cardReducer);
     const datePlusHandler = () => {
         const formatDate = new Date(date);
         formatDate.setDate(formatDate.getDate() + 1);
