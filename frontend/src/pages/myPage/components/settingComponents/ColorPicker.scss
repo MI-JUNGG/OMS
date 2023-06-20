@@ -1,4 +1,5 @@
 $mainColor: #547aff;
+$textColor: #ffffff;
 
 .colorPickerWrapper {
     display: flex;
@@ -84,5 +85,31 @@ $mainColor: #547aff;
         border: none;
         margin: 20px auto 7px;
         cursor: pointer;
+    }
+    .customPickerBtn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 13px;
+
+        button {
+            width: 228px;
+            height: 23px;
+            border-radius: 50px;
+
+            font-size: 12px;
+            border: 1px solid $mainColor;
+        }
+
+        .customPickerSelectBtn {
+            background-color: $mainColor;
+            color: $textColor;
+            margin-bottom: 8px;
+        }
+
+        .customPickerCancelBtn {
+            background-color: #ffffff;
+            color: $mainColor;
+        }
     }
 }
