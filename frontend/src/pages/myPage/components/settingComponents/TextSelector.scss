@@ -89,6 +89,7 @@ $mainColor: #547aff;
                     border-radius: 100px;
                     margin-right: 22px;
                     cursor: pointer;
+                    border: 1px solid lightgray;
                 }
                 .moreColor {
                     cursor: pointer;
@@ -105,34 +106,35 @@ $mainColor: #547aff;
         display: flex;
         justify-content: center;
         align-items: center;
+        color: var(--textPreviewFontColor);
 
         .textPreview {
             flex-direction: column;
 
             font-size: 13px;
             width: 230px;
-            color: #9747ff;
+            // color: #9747ff;
 
             .textPreviewCard_1 {
                 display: flex;
                 align-items: center;
                 height: 35px;
-                border-left: 3px solid #9747ff;
-                background-color: #f3effe;
+                border-left: 3px solid var(--textPreviewMainColor);
+                background-color: var(--textPreviewBGColor);
                 margin-bottom: 20px;
                 padding-left: 15px;
             }
 
             .textPreviewCard_2 {
                 height: 68px;
-                background-color: #f3effe;
+                background-color: var(--textPreviewBGColor);
                 margin-bottom: 20px;
                 padding: 10px 0 0 15px;
             }
 
             .textPreviewCard_3 {
                 height: 137px;
-                background-color: #f3effe;
+                background-color: var(--textPreviewBGColor);
                 padding: 10px 0 0 15px;
             }
         }

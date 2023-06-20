@@ -10,7 +10,7 @@ import {
 function ColorSelector() {
     const dispatch = useDispatch();
     const form = useSelector((state) => state.temporaryColorReducer);
-    console.log(form);
+
     const changeTemporaryMainColor = (id) => {
         dispatch(temporaryMainColor(id));
     };

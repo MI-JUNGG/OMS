@@ -1,30 +1,66 @@
 import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { useLocation, useNavigate } from "react-router-dom";
+import DayHours from "./DayHours";
 import { hours } from "../time";
 import DateLeft from "../../../assets/images/date_picker/DateLeft";
 import DateRight from "../../../assets/images/date_picker/DateRight";
+import { cardTypeReducer } from "../../../modules/module/modal";
+import { cardmodal } from "../../../modules/module/modal";
+
 import "./Selectime.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { colors } from "./color/ColorPalette";
 
 function Selectime() {
+    const dispatch = useDispatch();
     const location = useLocation();
     const searchParams = new URLSearchParams(window.location.search);
     const day = searchParams.get("date");
     const formatDate = dayjs(day);
-    const returnDate = formatDate.format("YYYY.MM.DD"); // 날짜 형식을 "YYYY.MM.DD"로 변경
-    console.log(returnDate);
+    const returnDate = formatDate.format("YYYY.MM.DD");
+
     const [date, setDate] = useState(returnDate);
     const navigate = useNavigate();
-    const [test, setTest] = useState({
-        start: "2023-06-08 01:00",
-        end: "2023-06-08 5:00",
-        title: "Test Title",
-        color: "yellow",
-    });
-    const { start, end, title, color } = test;
+    const [test, setTest] = useState([
+        {
+            cardId: 15,
+            start: "2023-06-08 01:00",
+            end: "2023-06-08 05:00",
+            title: "Test Title",
+            color: "yellow",
+        },
+        {
+            cardId: 16,
+            start: "2023-06-08 02:00",
+            end: "2023-06-08 03:00",
+            title: "Test Title11",
+            color: "blue",
+        },
+        {
+            cardId: 17,
+            start: "2023-06-08 20:00",
+            end: "2023-06-08 22:00",
+            title: "Test Title",
+            color: "red",
+        },
+        {
+            cardId: 18,
+            start: "2023-06-08 22:00",
+            end: "2023-06-08 23:00",
+            title: "Test Title",
+            color: "red",
+        },
+        {
+            cardId: 19,
+            start: "2023-06-08 01:00",
+            end: "2023-06-08 02:00",
+            title: "Test Title",
+            color: "red",
+        },
+    ]);
 
-    const getStartTime = new Date(start).getHours();
-    const getEndTime = new Date(end).getHours();
+    const cardType = useSelector((state) => state.modalReducer.FixCard);
 
     const datePlusHandler = () => {
         const formatDate = new Date(date);
@@ -50,12 +86,11 @@ function Selectime() {
         navigate(newLocation);
     };
 
-    // useEffect(() => {
-    //     const formattedDate = searchParams.get("date");
-    //     setDate(formattedDate);
-    // }, [location]);
-
-    let isTitleRendered = false;
+    const fixModalHandler = (e) => {
+        dispatch(cardmodal());
+        dispatch(cardTypeReducer());
+        console.log(e.target);
+    };
 
     return (
         <div className="dayTable">
@@ -68,39 +103,60 @@ function Selectime() {
                     <DateRight />
                 </div>
             </div>
-            {hours.map((hour, index) => {
-                const startTime = new Date(start).getHours();
-                const endTime = new Date(end).getHours();
-                const hourSplit = hour.split(":");
-                const hourValue = Number(hourSplit[0]);
+            <div className="timeTable">
+                <DayHours />
+                <ul>
+                    {hours.map((item) => {
+                        const matchingData = test.filter(
+                            (data) =>
+                                dayjs(data.start).format("HH:mm") <= item &&
+                                dayjs(data.end).format("HH:mm") > item,
+                        );
 
-                let backgroundColor = "";
-                if (hourValue >= startTime && hourValue <= endTime) {
-                    backgroundColor = color;
-                }
-
-                return (
-                    <div key={hour} className="timeContainer">
-                        <div className="timeSlot">{hour}</div>
-                        <div className="timeBorder"></div>
-                        {hourValue >= getStartTime &&
-                        hourValue <= getEndTime ? (
-                            <div
-                                className={`otherContents ${
-                                    hourValue === getStartTime && `first`
-                                }`}
-                            >
-                                {hourValue === getStartTime &&
-                                    !isTitleRendered && (
-                                        <div className="title">{title}</div>
+                        if (matchingData.length > 0) {
+                            return (
+                                <li
+                                    onClick={fixModalHandler}
+                                    key={item}
+                                    className="renderCard"
+                                >
+                                    {matchingData.map(
+                                        ({ cardId, title, color, start }) =>
+                                            dayjs(start).format("HH:mm") ===
+                                            item ? (
+                                                <div
+                                                    value={cardId}
+                                                    className="rederTitle"
+                                                    style={{
+                                                        backgroundColor: color,
+                                                    }}
+                                                    key={cardId}
+                                                >
+                                                    {title}
+                                                </div>
+                                            ) : (
+                                                <div
+                                                    value={cardId}
+                                                    className="rederempty"
+                                                    style={{
+                                                        backgroundColor: color,
+                                                    }}
+                                                    key={cardId}
+                                                ></div>
+                                            ),
                                     )}
-                            </div>
-                        ) : (
-                            <div className="contents"></div>
-                        )}
-                    </div>
-                );
-            })}
+                                </li>
+                            );
+                        } else {
+                            return (
+                                <li key={item} className="renderCard">
+                                    <div className="empty"></div>
+                                </li>
+                            );
+                        }
+                    })}
+                </ul>
+            </div>
         </div>
     );
 }

@@ -1,16 +1,15 @@
-import Year from "./start/Year";
-import Month from "./start/Month";
-import Day from "./start/Day";
 import { useDispatch } from "react-redux";
-import { repeatControl } from "../../../../modules/module/modal";
+import { limitControl } from "../../../../modules/module/modal";
+import Year from "./limit/year";
+import Month from "./limit/Month";
+import Day from "./limit/Day";
 import "../CardCompo/AlldayTime.scss";
 
-function RepeatStart() {
+function LimitDateSelect() {
     const dispatch = useDispatch();
-    const onClickHandler = () => {
-        dispatch(repeatControl());
+    const saveDate = () => {
+        dispatch(limitControl());
     };
-
     return (
         <div className="timeTable">
             <div className="yearPicker">
@@ -19,10 +18,10 @@ function RepeatStart() {
                 <Day />
             </div>
             <div className="btnColor">
-                <button onClick={onClickHandler}>저장</button>
+                <button onClick={saveDate}>Save</button>
             </div>
         </div>
     );
 }
 
-export default RepeatStart;
+export default LimitDateSelect;

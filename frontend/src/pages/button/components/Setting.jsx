@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 function Setting() {
     const navigate = useNavigate();
     const moveMyPage = () => {
-        navigate("/main");
+        navigate("/mypage");
     };
     return (
         <div onClick={moveMyPage}>

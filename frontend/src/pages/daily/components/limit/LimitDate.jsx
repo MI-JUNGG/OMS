@@ -1,7 +1,7 @@
 import React from "react";
 
-function Weekly() {
+function LimitDate() {
     return <div></div>;
 }
 
-export default Weekly;
+export default LimitDate;

@@ -15,6 +15,7 @@ import endDateReducer from "./module/endDate";
 import settingReducer from "./module/setting";
 import repeatEndReducer from "./module/repeatEnd";
 import repeatStartReducer from "./module/repeatStart";
+import limitReducer from "./module/Limit";
 import userInfoChangeReducer from "./module/userInfoChange";
 import colorPickerReducer from "./module/colorPicker";
 import temporaryColorReducer from "./module/temporaryColorSetting";
@@ -36,6 +37,7 @@ const store = configureStore({
         settingReducer,
         repeatStartReducer,
         repeatEndReducer,
+        limitReducer,
         userInfoChangeReducer,
         colorPickerReducer,
         temporaryColorReducer,

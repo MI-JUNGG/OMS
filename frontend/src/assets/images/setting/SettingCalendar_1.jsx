@@ -5,7 +5,6 @@ function SettingCalndaer_1() {
     const temporaryMainColor = useSelector(
         (state) => state.temporaryColorReducer.temporaryMainColor,
     );
-    console.log(temporaryMainColor);
 
     return (
         <div>

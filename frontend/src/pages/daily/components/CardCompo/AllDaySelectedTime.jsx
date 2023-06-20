@@ -54,7 +54,7 @@ function AllDaySelectedTime() {
 
     return (
         <div className="selectedDate">
-            <div onClick={modalhandler}>
+            <div className="textAll" onClick={modalhandler}>
                 <span>{month}월</span>
                 <span>{day}일</span>
                 <span>({getDayOfWeek(year, month, day)})</span>
@@ -62,7 +62,7 @@ function AllDaySelectedTime() {
 
             <DateRight />
 
-            <div onClick={endModalHandler}>
+            <div className="textAll" onClick={endModalHandler}>
                 <span>{m}월</span>
                 <span>{d}일</span>
                 <span>({getDayOfWeek(y, m, d)})</span>
