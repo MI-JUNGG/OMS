@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import axios from "axios";
 
 const NaverCallback = () => {
     const { naver } = window;
@@ -12,7 +13,7 @@ const NaverCallback = () => {
             // 팝업창으로 로그인을 진행할 것인지?
             isPopup: false,
             // 버튼 타입 ( 색상, 타입, 크기 변경 가능 )
-            loginButton: { color: "green", type: 1, height: 58 },
+            loginButton: { color: "green", type: 1, height: 65 },
             callbackHandle: true,
         });
         naverLogin.init();
@@ -48,16 +49,44 @@ const NaverCallback = () => {
     };
 
     const getToken = () => {
-        const token = window.location.href.split("=")[1].split("&")[0];
+        const url = window.location.href;
+        const urlObject = new URL(url);
+        const accessToken = urlObject.hash.split("=")[1].split("&")[0];
+
+        console.log(accessToken);
+
+        localStorage.setItem("token", accessToken);
         // console.log, alert 창을 통해 어스코드가 잘 추출 되는지 확인하자!
 
         // 이후 로컬 스토리지 또는 state에 저장하여 사용하자!
-        localStorage.setItem("token", token);
+
         // setGetToken(token)
-        window.location.replace("/");
+        axios
+            .post(
+                "http://10.99.230.245:3001/auth/naver",
+                {
+                    naverToken: localStorage.getItem("token"),
+                },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                        " Content-type":
+                            "application/x-www-form-urlencoded;charset=utf-8",
+                    },
+                },
+            )
+            .then((response) => {
+                console.log(response);
+                // localStorage.setItem("1", response.data.accessToken);
+                window.location.replace("/");
+            })
+            .then((error) => {
+                console.log(error);
+            });
     };
 
     useEffect(() => {
+        console.log("3");
         initializeNaverLogin();
         userAccessToken();
     }, []);
