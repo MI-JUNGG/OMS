@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { colors } from "./color/ColorPalette";
 import { update } from "../../../modules/module/date";
 import { endUpdate } from "../../../modules/module/endDate";
+import { addCard } from "../../../modules/module/card";
+import { callUserCard } from "../server";
 
 function Selectime() {
     const dispatch = useDispatch();
@@ -23,46 +25,8 @@ function Selectime() {
 
     const [date, setDate] = useState(returnDate);
     const navigate = useNavigate();
-    const [test, setTest] = useState([
-        {
-            cardId: 15,
-            start: "2023-06-08 01:00",
-            end: "2023-06-08 05:00",
-            title: "Test Title",
-            color: "yellow",
-        },
-        {
-            cardId: 16,
-            start: "2023-06-08 02:00",
-            end: "2023-06-08 03:00",
-            title: "Test Title11",
-            color: "blue",
-        },
-        {
-            cardId: 17,
-            start: "2023-06-08 20:00",
-            end: "2023-06-08 22:00",
-            title: "Test Title",
-            color: "red",
-        },
-        {
-            cardId: 18,
-            start: "2023-06-08 22:00",
-            end: "2023-06-08 23:00",
-            title: "Test Title",
-            color: "red",
-        },
-        {
-            cardId: 19,
-            start: "2023-06-08 01:00",
-            end: "2023-06-08 02:00",
-            title: "Test Title",
-            color: "red",
-        },
-    ]);
 
-    const cardType = useSelector((state) => state.modalReducer.FixCard);
-    //스케쥴
+    const data = useSelector((state) => state.cardReducer);
     const card = useSelector((state) => state.cardReducer);
     const datePlusHandler = () => {
         const formatDate = new Date(date);
@@ -93,7 +57,7 @@ function Selectime() {
         dispatch(cardTypeReducer());
         const getData = cardId;
 
-        const { start, end, title, url, memo, color } = test.find(
+        const { start, end, title, url, memo, color } = card.find(
             (data) => data.cardId === cardId,
         );
         const parsedDate = dayjs(start);
@@ -113,6 +77,7 @@ function Selectime() {
             time: parsedEndDate.hour(),
             minute: parsedEndDate.minute(),
         };
+        dispatch(addCard(callUserCard));
         dispatch(update(formatTime));
         dispatch(endUpdate(formattedEndDate));
     };
@@ -132,7 +97,7 @@ function Selectime() {
                 <DayHours />
                 <ul>
                     {hours.map((item) => {
-                        const matchingData = test.filter(
+                        const matchingData = card.filter(
                             (data) =>
                                 dayjs(data.start).format("HH:mm") <= item &&
                                 dayjs(data.end).format("HH:mm") > item,

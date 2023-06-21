@@ -56,7 +56,7 @@ function Card() {
     const repeatEndMonth = useSelector((state) => state.repeatEndReducer.month);
     const repeatEndDay = useSelector((state) => state.repeatEndReducer.day);
     const repeatE = new Date(repeatEndYear, repeatEndMonth, repeatEndDay);
-
+    console.log(repeatE);
     const cardType = useSelector((state) => state.modalReducer.FixCard);
 
     const showLimit = useSelector((state) => state.modalReducer.limit); //
@@ -76,12 +76,13 @@ function Card() {
         (state) => state.modalReducer.repeatEndControl,
     );
 
+    const repeatCardType = useSelector((state) => state.repeatTypeReducer.type);
+
     const datetype = useSelector((state) => state.modalReducer.dateType);
 
     const outerRef = useRef(null);
 
     const [form, setForm] = useState({
-        repeatId: typeId,
         title: "",
         contents: "",
         url: "",
@@ -89,8 +90,7 @@ function Card() {
         endDate: repeatE,
         color: "",
     });
-    const { title, contents, startDate, endDate, color, url, repeatId } = form;
-
+    const { title, contents, startDate, endDate, color, url } = form;
     useEffect(() => {
         const handleScroll = (event) => {
             const { target } = event;
@@ -128,12 +128,19 @@ function Card() {
     };
     const closeModal =
         !openModal && !endDateModal && !repeatEnd && !repeatStart && !showLimit;
-
+    console.log(repeatCardType);
     const sendingData = () => {
-        FixCardHandler(title, contents, repeatE, endDate, color, url, repeatId);
-        // counterHandler(title, contents, repeatE, endDate, color, url, repeatId);
+        //FixCardHandler(title, contents, repeatE, endDate, color, url, repeatId);
+        counterHandler(
+            title,
+            contents,
+            repeatE,
+            endDate,
+            color,
+            url,
+            repeatCardType,
+        );
         setForm({
-            repeatId: "",
             title: "",
             contents: "",
             url: "",

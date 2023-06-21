@@ -19,9 +19,11 @@ import limitReducer from "./module/Limit";
 import userInfoChangeReducer from "./module/userInfoChange";
 import colorPickerReducer from "./module/colorPicker";
 import temporaryColorReducer from "./module/temporaryColorSetting";
+import repeatTypeReducer from "./module/repeatType";
 
 const store = configureStore({
     reducer: {
+        repeatTypeReducer,
         cardReducer,
         monthReducer,
         viewReducer,
