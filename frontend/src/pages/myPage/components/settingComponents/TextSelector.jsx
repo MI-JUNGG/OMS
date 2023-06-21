@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./TextSelector.scss";
 import { useDispatch, useSelector } from "react-redux";
 import ModalPlus from "/src/assets/images/modal/ModalPlus";
-import { isModal } from "../../../../modules/module/setting";
+import { isModal, isCustomPicker } from "../../../../modules/module/setting";
 import ColorPicker from "./ColorPicker";
 import ColorPickerBackground from "./ColorPickerBackground";
 import {
@@ -16,7 +16,7 @@ function TextSelector() {
     const dispatch = useDispatch();
     const ismodal = useSelector((state) => state.settingReducer.isModal);
     const handleOutClick = () => {
-        dispatch(isModal());
+        dispatch(isModal(1));
     };
     const form = useSelector((state) => state.temporaryColorReducer);
     const blockColorTheme = useSelector(
@@ -25,12 +25,17 @@ function TextSelector() {
     const blockColorThemeTitle = useSelector(
         (state) => state.settingReducer.blockColorThemeTitle,
     );
+    const isOnCustom = useSelector(
+        (state) => state.settingReducer.isCustomPicker,
+    );
+
     const colorForm = useSelector((state) => state.colorPickerReducer.color);
 
     const [blockColor, setBlockColor] = useState([]);
+
     useEffect(() => {
         setBlockColor(colorForm);
-    }, []);
+    }, [colorForm]);
 
     const changeTemporaryTextStyle = (id) => {
         dispatch(temporaryTextStyle(id));
@@ -95,7 +100,7 @@ function TextSelector() {
 
     return (
         <>
-            {blockColor.length > 0 && (
+            {blockColor && blockColor.length > 0 && (
                 <>
                     <div className="textSelectorContainer">
                         <div className="textSelectorZone">
@@ -176,10 +181,10 @@ function TextSelector() {
                                     >
                                         <ModalPlus />
                                     </div>
-                                    {ismodal === true && (
+                                    {ismodal === 1 && blockColor && (
                                         <>
                                             <ColorPicker
-                                                ColorList={blockColor}
+                                                colorList={blockColor}
                                                 blockColorTheme={
                                                     blockColorTheme
                                                 }
@@ -188,7 +193,12 @@ function TextSelector() {
                                                 }
                                             />
                                             <ColorPickerBackground
-                                                onClick={handleOutClick}
+                                                onClick={() => {
+                                                    dispatch(isModal(0));
+                                                    dispatch(
+                                                        isCustomPicker(false),
+                                                    );
+                                                }}
                                             />
                                         </>
                                     )}

@@ -10,7 +10,9 @@ const SettingSlice = createSlice({
         blockColor: "#AF71FF",
         blockColorTheme: 1,
         blockColorThemeTitle: "bright",
-        isModal: false,
+        isModal: 0,
+        isCustomPicker: false,
+        axiosBlockColor: 0,
     },
     reducers: {
         main: (state, action) => {
@@ -34,8 +36,14 @@ const SettingSlice = createSlice({
         handleBlockColorThemeTitle: (state, action) => {
             state.blockColorThemeTitle = action.payload;
         },
-        isModal: (state) => {
-            return { ...state, isModal: !state.isModal };
+        isModal: (state, action) => {
+            state.isModal = action.payload;
+        },
+        isCustomPicker: (state, action) => {
+            state.isCustomPicker = action.payload;
+        },
+        handleaxiosBlockColor: (state, action) => {
+            state.axiosBlockColor = action.payload;
         },
     },
 });
@@ -49,5 +57,7 @@ export const {
     handleBlockColorTheme,
     handleBlockColorThemeTitle,
     isModal,
+    isCustomPicker,
+    handleaxiosBlockColor,
 } = SettingSlice.actions;
 export default SettingSlice.reducer;
