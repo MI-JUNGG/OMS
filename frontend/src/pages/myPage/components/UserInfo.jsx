@@ -18,19 +18,19 @@ function UserInfo() {
     const form = useSelector((state) => state.userInfoChangeReducer);
     console.log(form.nickName);
 
-    useEffect(() => {
-        fetch("http://192.168.0.5:3001/mypage", {
-            method: "GET",
-            headers: {
-                Authorization:
-                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODYyMTMyNDF9.zw_otMjvyPKmFiz2rmWx8HMykWVq5UkNjfdKm10XJcE",
-            },
-        })
-            .then((data) => data.json())
-            .then((data) => console.log(data))
-            .then((data) => setUserInfo(data))
-            .catch((err) => console.log(err));
-    }, []);
+    // useEffect(() => {
+    //     fetch("http://10.99.230.245/mypage", {
+    //         method: "GET",
+    //         headers: {
+    //             Authorization:
+    //                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODczMjU0NDh9.GfMx3DKfCSMsSPWx6WXNb9NW9gi0jvfnof9A91I8ZWc",
+    //         },
+    //     })
+    //         .then((data) => data.json())
+    //         .then((data) => console.log(data))
+    //         .then((data) => setUserInfo(data))
+    //         .catch((err) => console.log(err));
+    // }, []);
 
     const changeNickname = () => {
         fetch("http://192.168.0.5:3001/mypage/changeInfo", {

@@ -4,17 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     handleBlockColorTheme,
     handleBlockColorThemeTitle,
+    handleaxiosBlockColor,
+    isModal,
+    isCustomPicker,
 } from "../../../../modules/module/setting";
-import { isModal, isCustomPicker } from "../../../../modules/module/setting";
 import { ChromePicker } from "react-color";
 import {
     setCustomMainColor,
     setCustomBackgroundColor,
 } from "../../../../modules/module/colorPicker";
-import axios from "axios";
 
 function ColorPicker(props) {
-    const colorList = props.ColorList;
+    const colorList = props.colorList;
     const blockColorTheme = props.blockColorTheme;
     const blockColorThemeTitle = props.blockColorThemeTitle;
     const dispatch = useDispatch();
@@ -24,11 +25,6 @@ function ColorPicker(props) {
         title: blockColorThemeTitle,
     });
     const [customId, setCustomId] = useState("");
-
-    const customForm = useSelector(
-        (state) => state.colorPickerReducer.color[5].custom,
-    );
-    // console.log(customForm);
 
     const changeCustomColor = () => {
         dispatch(
@@ -46,26 +42,6 @@ function ColorPicker(props) {
             }),
         );
         dispatch(isCustomPicker(false));
-
-        // axios.put("http://192.168.219.152:3001/mypage/color", {
-
-        //             headers: {
-        //                 Authorization: localStorage.getItem("token"),
-        //             },
-        //         data: {
-        //             color1 : customForm[0].mainColor,
-        //             color2 : customForm[1].mainColor,
-        //             color3 : customForm[2].mainColor,
-        //             color4 : customForm[3].mainColor,
-        //             color5 : customForm[4].mainColor,
-        //             color6 : customForm[5].mainColor,
-        //             color7 : customForm[6].mainColor,
-        //         }
-        //         } )
-        //         .then((response) => {
-        //             console.log(response);
-        //             setSchedule(response.data);
-        //         })
     };
 
     const pickColorList = (key, title) => {
@@ -76,10 +52,15 @@ function ColorPicker(props) {
         dispatch(handleBlockColorTheme(colorSub.key));
         dispatch(handleBlockColorThemeTitle(colorSub.title));
         dispatch(isModal(false));
+        dispatch(handleaxiosBlockColor(colorSub.key + 1));
     };
     const isOnCustom = useSelector(
         (state) => state.settingReducer.isCustomPicker,
     );
+    const axiosBlock = useSelector(
+        (state) => state.settingReducer.axiosBlockColor,
+    );
+    console.log("A", axiosBlock);
 
     const [color, setColor] = useState("#ffffff"); // 초기 색상값 설정
     const handleChange = (selectedColor) => {
@@ -96,7 +77,8 @@ function ColorPicker(props) {
                     <div className="colorPickerContainer">
                         <div className="colorTitle">
                             <span>
-                                {colorList.length > 0 &&
+                                {colorList &&
+                                    colorList.length > 0 &&
                                     Object.keys(colorList[0])[0]}
                             </span>
                             <div
@@ -110,7 +92,8 @@ function ColorPicker(props) {
                                     pickColorList(0, "vivid");
                                 }}
                             >
-                                {colorList.length > 0 &&
+                                {colorList &&
+                                    colorList.length > 0 &&
                                     colorList[0].vivid.map((data) => {
                                         return (
                                             <>
@@ -128,7 +111,8 @@ function ColorPicker(props) {
 
                         <div className="colorTitle">
                             <span>
-                                {colorList.length > 0 &&
+                                {colorList &&
+                                    colorList.length > 0 &&
                                     Object.keys(colorList[1])[0]}
                             </span>
                             <div
@@ -142,7 +126,8 @@ function ColorPicker(props) {
                                     pickColorList(1, "bright");
                                 }}
                             >
-                                {colorList.length > 0 &&
+                                {colorList &&
+                                    colorList.length > 0 &&
                                     colorList[1].bright.map((data) => {
                                         return (
                                             <>
@@ -160,7 +145,8 @@ function ColorPicker(props) {
 
                         <div className="colorTitle">
                             <span>
-                                {colorList.length > 0 &&
+                                {colorList &&
+                                    colorList.length > 0 &&
                                     Object.keys(colorList[2])[0]}
                             </span>
                             <div
@@ -174,7 +160,8 @@ function ColorPicker(props) {
                                     pickColorList(2, "soft");
                                 }}
                             >
-                                {colorList.length > 0 &&
+                                {colorList &&
+                                    colorList.length > 0 &&
                                     colorList[2].soft.map((data) => {
                                         return (
                                             <>
@@ -192,7 +179,8 @@ function ColorPicker(props) {
 
                         <div className="colorTitle">
                             <span>
-                                {colorList.length > 0 &&
+                                {colorList &&
+                                    colorList.length > 0 &&
                                     Object.keys(colorList[3])[0]}
                             </span>
                             <div
@@ -206,7 +194,8 @@ function ColorPicker(props) {
                                     pickColorList(3, "reddish");
                                 }}
                             >
-                                {colorList.length > 0 &&
+                                {colorList &&
+                                    colorList.length > 0 &&
                                     colorList[3].reddish.map((data) => {
                                         return (
                                             <>
@@ -224,7 +213,8 @@ function ColorPicker(props) {
 
                         <div className="colorTitle">
                             <span>
-                                {colorList.length > 0 &&
+                                {colorList &&
+                                    colorList.length > 0 &&
                                     Object.keys(colorList[4])[0]}
                             </span>
                             <div
@@ -238,7 +228,8 @@ function ColorPicker(props) {
                                     pickColorList(4, "pale");
                                 }}
                             >
-                                {colorList.length > 0 &&
+                                {colorList &&
+                                    colorList.length > 0 &&
                                     colorList[4].pale.map((data) => {
                                         return (
                                             <>
@@ -255,7 +246,8 @@ function ColorPicker(props) {
                         </div>
                         <div className="colorTitle">
                             <span>
-                                {colorList.length > 0 &&
+                                {colorList &&
+                                    colorList.length > 0 &&
                                     Object.keys(colorList[5])[0]}
                             </span>
                             <div
@@ -269,7 +261,8 @@ function ColorPicker(props) {
                                     pickColorList(5, "custom");
                                 }}
                             >
-                                {colorList.length > 0 &&
+                                {colorList &&
+                                    colorList.length > 0 &&
                                     colorList[5].custom.map((data) => {
                                         return (
                                             <>
@@ -363,7 +356,7 @@ function ColorPicker(props) {
                                 className="customPickerCancelBtn"
                                 type="button"
                                 onClick={() => {
-                                    dispatch(isModal(false));
+                                    dispatch(isModal(1));
                                     dispatch(isCustomPicker(false));
                                 }}
                             >
@@ -378,5 +371,3 @@ function ColorPicker(props) {
 }
 
 export default ColorPicker;
-
-const PALELLE = [];

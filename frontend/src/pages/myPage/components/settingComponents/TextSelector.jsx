@@ -32,9 +32,10 @@ function TextSelector() {
     const colorForm = useSelector((state) => state.colorPickerReducer.color);
 
     const [blockColor, setBlockColor] = useState([]);
+
     useEffect(() => {
         setBlockColor(colorForm);
-    }, []);
+    }, [colorForm]);
 
     const changeTemporaryTextStyle = (id) => {
         dispatch(temporaryTextStyle(id));
@@ -99,7 +100,7 @@ function TextSelector() {
 
     return (
         <>
-            {blockColor.length > 0 && (
+            {blockColor && blockColor.length > 0 && (
                 <>
                     <div className="textSelectorContainer">
                         <div className="textSelectorZone">
@@ -180,10 +181,10 @@ function TextSelector() {
                                     >
                                         <ModalPlus />
                                     </div>
-                                    {ismodal === 1 && (
+                                    {ismodal === 1 && blockColor && (
                                         <>
                                             <ColorPicker
-                                                ColorList={blockColor}
+                                                colorList={blockColor}
                                                 blockColorTheme={
                                                     blockColorTheme
                                                 }
