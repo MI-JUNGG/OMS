@@ -2,22 +2,23 @@ import axios from "axios";
 
 import { addCard } from "../../modules/module/card";
 
-const API = "10.99.246.181";
-const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODY4MjE2ODZ9.CcP95C4a17JnLgmassY7yvgEsCpCrjqoxAJQCTRICS8";
-export const callUserCard = (handleOutClick) => {
+export const API = "http://10.99.230.245:3001";
+export const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODczMjA5MzF9.IPsILZ50ZUhLMwCwkzHs3dM75GnaBrvNtjV7U0Ord08";
+export const callUserCard = (handleOutClick, day) => {
     axios
-        .get("http://10.99.246.181:3001/day", {
+        .get("http://10.99.230.245:3001/day", {
             params: {
                 //수정
-                startDate: "2023-07-07",
+                startDate: day,
             },
             headers: {
                 Authorization: token,
             },
         })
         .then((response) => {
-            handleOutClick(response.data);
+            console.log(response.data);
+            handleOutClick([...response.data]);
         })
         .catch((error) => {
             console.log(error);
@@ -28,28 +29,12 @@ export const counterHandler = (
     title,
     contents,
     repeatE,
-    repeatId,
     endDate,
     color,
     url,
+    repeatCardType,
 ) => {
-    console.log(typeof repeatE);
-    console.log(
-        "title",
-        title,
-        "memo",
-        contents,
-        "startDate",
-        repeatE,
-        "repeatId",
-        repeatId,
-        "endDate",
-        endDate,
-        "color",
-        color,
-        "url",
-        url,
-    );
+    console.log(repeatCardType);
 
     const config = {
         headers: {
@@ -59,16 +44,13 @@ export const counterHandler = (
 
     axios
         .post(
-            API,
+            "http://10.99.230.245:3001/card",
             {
-                // title: title,
-                title: "1234",
+                title: title,
                 memo: contents,
                 startDate: repeatE.toISOString(),
-                // repeatId: repeatId,
-                repeatId: 2,
+                repeatId: repeatCardType,
                 endDate: repeatE.toISOString(),
-                // color: color,
                 color: "#1234",
                 link: url,
                 deadline: repeatE.toISOString(),
@@ -100,12 +82,12 @@ export const FixCardHandler = (
             `http://${API}:3001/card`,
             {
                 cardId: 26,
-                title: "수정수정",
+                title: title,
                 memo: contents,
                 startDate: repeatE.toISOString(),
                 repeatId: 2,
                 endDate: repeatE.toISOString(),
-                color: "#1234",
+                color: color,
                 link: url,
                 deadline: repeatE.toISOString(),
             },
