@@ -31,37 +31,19 @@ const getTheme = catchAsync(async (req, res) => {
 
   if (!userId) detectError("NEED_USER_ID", 400);
 
-  const [result] = await mypageService.getTheme(userId);
+  const result = await mypageService.getTheme(userId);
 
   return res.status(201).json(result);
 });
 
 const changeTheme = catchAsync(async (req, res) => {
   const userId = req.userId;
-  const { mainColor, backgroundColor, textStyle, textColor, colorPaletteId } =
-    req.body;
-  if (!userId) detectError("NEED_USER_ID", 400);
-
-  const result = await mypageService.changeTheme(
+  const {
     mainColor,
     backgroundColor,
     textStyle,
     textColor,
     colorPaletteId,
-    userId
-  );
-  return res.status(201).json({ message: "설정 업데이트!" });
-});
-
-const changeColor = catchAsync(async (req, res) => {
-  const userId = req.userId;
-  const { color1, color2, color3, color4, color5, color6, color7 } = req.body;
-
-  if (!userId) detectError("NEED_USER_ID", 400);
-  if (!color1 || !color2 || !color3 || !color4 || !color5 || !color6 || !color7)
-    detectError("NEED_COLOR", 400);
-
-  const result = await mypageService.changeColor(
     color1,
     color2,
     color3,
@@ -69,10 +51,37 @@ const changeColor = catchAsync(async (req, res) => {
     color5,
     color6,
     color7,
-    userId
-  );
+  } = req.body;
+  if (!userId) detectError("NEED_USER_ID", 400);
 
-  return res.status(201).json({ message: "팔레트 업데이트!" });
+  if (!colorPaletteId === 6) {
+    await mypageService.changeTheme(
+      mainColor,
+      backgroundColor,
+      textStyle,
+      textColor,
+      colorPaletteId,
+      userId
+    );
+  } else {
+    await mypageService.Custom(
+      mainColor,
+      backgroundColor,
+      textStyle,
+      textColor,
+      colorPaletteId,
+      color1,
+      color2,
+      color3,
+      color4,
+      color5,
+      color6,
+      color7,
+      userId
+    );
+  }
+
+  return res.status(201).json({ message: "업데이트 성공!" });
 });
 
 module.exports = {
@@ -80,5 +89,4 @@ module.exports = {
   changeMypage,
   getTheme,
   changeTheme,
-  changeColor,
 };

@@ -60,34 +60,57 @@ const updatePassword = async (userId, hashedNewPassword) => {
 };
 
 const getTheme = async (userId) => {
-  return await appDataSource.query(
+  const themeResult = await appDataSource.query(
     `
     SELECT
-      main_color                     AS mainColor,
-      background_color               AS backgroundColor,
-      text_style                     AS textStyle,
-      text_color                     AS textColor,
-      color_palette_id               AS colorPaletteId,
-      JSON_ARRAY(
-        color_palette.color1,
-        color_palette.color2,
-        color_palette.color3,
-        color_palette.color4,
-        color_palette.color5,
-        color_palette.color6,
-        color_palette.color7
-      ) AS colorPalette
+      m.main_color                     AS mainColor,
+      m.background_color               AS backgroundColor,
+      m.text_style                     AS textStyle,
+      m.text_color                     AS textColor,
+      m.color_palette_id               AS colorPaletteId,
+      m.color1,
+      m.color2,
+      m.color3,
+      m.color4,
+      m.color5,
+      m.color6,
+      m.color7
     FROM
-      mypage
+      mypage m
     JOIN
       color_palette
-    ON
-      mypage.color_palette_id = color_palette.id
+    ON m.color_palette_id = color_palette.id
     WHERE
       user_id = ?
     `,
     [userId]
   );
+
+  const colorPaletteId = themeResult[0].colorPaletteId;
+
+  const colorPaletteResult = await appDataSource.query(
+    `
+    SELECT
+      color1,
+      color2,
+      color3,
+      color4,
+      color5,
+      color6
+    FROM
+      color_palette
+    WHERE
+      id = ?
+    `,
+    [colorPaletteId]
+  );
+
+  const theme = {
+    ...themeResult[0],
+    colorPalette: colorPaletteResult[0],
+  };
+
+  return theme;
 };
 
 const changeTheme = async (
@@ -115,7 +138,12 @@ const changeTheme = async (
   );
 };
 
-const changeColor = async (
+const Custom = async (
+  mainColor,
+  backgroundColor,
+  textStyle,
+  textColor,
+  colorPaletteId,
   color1,
   color2,
   color3,
@@ -125,11 +153,41 @@ const changeColor = async (
   color7,
   userId
 ) => {
+  const previousColors = await appDataSource.query(
+    `
+    SELECT
+      color1,
+      color2,
+      color3,
+      color4,
+      color5,
+      color6,
+      color7
+    FROM mypage
+    WHERE user_id = ?
+    `,
+    [userId]
+  );
+
+  const {
+    color1: prevColor1,
+    color2: prevColor2,
+    color3: prevColor3,
+    color4: prevColor4,
+    color5: prevColor5,
+    color6: prevColor6,
+    color7: prevColor7,
+  } = previousColors[0];
+
   return await appDataSource.query(
     `
-    UPDATE
-      mypage
+    UPDATE mypage
     SET
+      main_color = ?,
+      background_color = ?,
+      text_style = ?,
+      text_color = ?,
+      color_palette_id = ?,
       color1 = ?,
       color2 = ?,
       color3 = ?,
@@ -140,7 +198,21 @@ const changeColor = async (
     WHERE
       user_id = ?
     `,
-    [color1, color2, color3, color4, color5, color6, color7, userId]
+    [
+      mainColor,
+      backgroundColor,
+      textStyle,
+      textColor,
+      colorPaletteId,
+      color1 || prevColor1,
+      color2 || prevColor2,
+      color3 || prevColor3,
+      color4 || prevColor4,
+      color5 || prevColor5,
+      color6 || prevColor6,
+      color7 || prevColor7,
+      userId,
+    ]
   );
 };
 
@@ -151,5 +223,5 @@ module.exports = {
   updatePassword,
   getTheme,
   changeTheme,
-  changeColor,
+  Custom,
 };
