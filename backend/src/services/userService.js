@@ -82,19 +82,15 @@ const kakaoLogin = async (kakaoToken) => {
 
 // 네이버 로그인
 const naverLogin = async (naverToken) => {
+  console.log("servcie", naverToken);
   const result = await axios.get("https://openapi.naver.com/v1/nid/me", {
     headers: {
       Authorization: `Bearer ${naverToken}`,
       "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
     },
   });
-
-  if (!result) {
-    const error = new Error("NAVER_TOKEN_ERROR");
-    error.statusCode = 400;
-
-    throw error;
-  }
+  console.log(result);
+  if (!result) detectError("NAVER_TOKEN_ERROR", 400);
 
   const { data } = result;
   const socialId = data.response.id;
