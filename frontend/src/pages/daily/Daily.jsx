@@ -13,24 +13,27 @@ import { cardmodal } from "../../modules/module/modal";
 import { addDate, addMonth, addDay } from "../../modules/module/date";
 import { eaddDate, eaddMonth, eaddDay } from "../../modules/module/endDate";
 import { laddDate, laddMonth, laddDay } from "../../modules/module/Limit";
+import { addCard } from "../../modules/module/card";
 import { callUserCard } from "./server";
+import { callData } from "../weekly/weekSever";
+import dayjs from "dayjs";
 
 function Daily() {
     const dispatch = useDispatch();
     const ref = useRef();
+    const currentURL = window.location.href;
+    const url = new URL(currentURL);
+    const dateString = url.searchParams.get("date");
+    const [year, month, day] = dateString.split("-");
     const token = localStorage.getItem("token");
     const openCard = useSelector((state) => state.modalReducer.cardmodal);
     const form = useSelector((state) => state.dateReducer);
-    const handleOutClick = () => {
+    const handleOutClick = (data) => {
         dispatch(cardmodal());
+        dispatch(addCard(data));
     };
 
     const initialState = () => {
-        const currentURL = window.location.href;
-        const url = new URL(currentURL);
-        const dateString = url.searchParams.get("date");
-        const [year, month, day] = dateString.split("-");
-
         const dateAction = addDate(Number(year));
         const monthAction = addMonth(Number(month));
         const dayAction = addDay(Number(day));
@@ -58,7 +61,8 @@ function Daily() {
 
     useEffect(() => {
         initialState();
-        callUserCard(handleOutClick);
+        const DAY = dayjs(`${year}-${month}-${day}`).format("YYYY-MM-DD");
+        callUserCard(handleOutClick, DAY);
     }, []);
 
     return (

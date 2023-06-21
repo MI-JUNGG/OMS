@@ -5,7 +5,10 @@ const cardSlice = createSlice({
     initialState: [],
     reducers: {
         addCard: (state, action) => {
-            state.push(action.payload);
+            const payload = Array.isArray(action.payload)
+                ? action.payload
+                : [action.payload];
+            state.push(...payload);
         },
         removeCard: (state, action) => {
             const index = state.findIndex((card) => card.id === action.payload);

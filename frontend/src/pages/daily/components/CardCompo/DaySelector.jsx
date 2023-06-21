@@ -51,20 +51,14 @@ function DaySelector() {
     }, []);
 
     const lastDayOfMonth = getLastDayOfMonth(year, month);
-
+    const DAY = String(Number(day)).padStart(2, "0");
+    const DAYHPlus = String(Number(day) + 1).padStart(2, "0");
+    const DAYMius = String(Number(day) - 1).padStart(2, "0");
     return (
         <div className="monthControll" ref={outerRef}>
-            {parseInt(day) === 1 ? (
-                <p>{lastDayOfMonth}</p>
-            ) : (
-                <p>{parseInt(day) - 1}</p>
-            )}
-            <p className="now">{Number(day)}</p>
-            {parseInt(day) === lastDayOfMonth ? (
-                <p>1</p>
-            ) : (
-                <p>{parseInt(day) + 1}</p>
-            )}
+            {parseInt(day) === 1 ? <p>{lastDayOfMonth}</p> : <p>{DAYMius}</p>}
+            <p className="now">{DAY}</p>
+            {parseInt(day) === lastDayOfMonth ? <p>1</p> : <p>{DAYHPlus}</p>}
         </div>
     );
 }

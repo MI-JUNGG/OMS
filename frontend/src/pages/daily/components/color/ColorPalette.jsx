@@ -1,3 +1,5 @@
+import React from "react";
+// import ColorPicker from "./ColorPicker";
 import "./colorCss/ColorPalette.scss";
 
 function ColorPalette() {

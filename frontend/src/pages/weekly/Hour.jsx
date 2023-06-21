@@ -4,8 +4,12 @@ import "./Hour.scss";
 function Hour() {
     return (
         <div className="hourContanier">
-            {hours.map((hour) => {
-                return <div className="hour">{hour}</div>;
+            {hours.map((hour, index) => {
+                return (
+                    <div key={index} className="hour">
+                        {hour}
+                    </div>
+                );
             })}
         </div>
     );

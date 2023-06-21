@@ -10,7 +10,6 @@ function RepeatBtn() {
     const month = useSelector((state) => state.limitReducer.month);
     const day = useSelector((state) => state.limitReducer.day);
     const repeatType = useSelector((state) => state.limitReducer.value);
-    console.log(repeatType);
     const dispatch = useDispatch();
     const limitmodalHandler = () => {
         dispatch(limitControl());
