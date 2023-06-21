@@ -31,7 +31,7 @@ CREATE TABLE `card` (
   KEY `repeat_id` (`repeat_id`),
   CONSTRAINT `card_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `card_ibfk_2` FOREIGN KEY (`repeat_id`) REFERENCES `repeat_type` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +129,7 @@ CREATE TABLE `social_type` (
 CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `social_type_id` int NOT NULL,
-  `social_id` varchar(30) DEFAULT NULL,
+  `social_id` varchar(255) DEFAULT NULL,
   `nickname` varchar(15) NOT NULL,
   `email` varchar(40) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   KEY `social_type_id` (`social_type_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`social_type_id`) REFERENCES `social_type` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,5 +178,7 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20230607125647'),
   ('20230607125900'),
   ('20230609141958'),
-  ('20230612151546');
+  ('20230612151546'),
+  ('20230621082226'),
+  ('20230621082406');
 UNLOCK TABLES;
