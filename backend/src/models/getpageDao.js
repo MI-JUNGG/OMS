@@ -76,6 +76,7 @@ const dayPage = async (userId, startMonth) => {
     SELECT
       c.id                        AS cardId,
       c.title                     AS title,
+      c.color                     AS color,
       c.repeat_id                 AS \`repeat\`,
       c.start_date                AS \`start\`,
       c.deadline                  AS deadline,

@@ -1,11 +1,5 @@
 const { appDataSource } = require("./appDataSource");
 
-const SocialTypeId = Object.freeze({
-  LOCAL: 1,
-  KAKAO: 2,
-  NAVER: 3,
-});
-
 // local - user인지 확인
 const getUserId = async (email) => {
   return await appDataSource.query(
@@ -78,14 +72,12 @@ const createUser = async (socialId, nickname, email, socialTypeId) => {
       social_id,
       nickname,
       email,
-      social_type_id,
-      custom_id
+      social_type_id
     ) VALUES (
       ?,
       ?,
       ?,
-      ?,
-      1
+      ?
     )`,
     [socialId, nickname, email, socialTypeId]
   );

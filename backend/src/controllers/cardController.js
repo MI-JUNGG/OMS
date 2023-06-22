@@ -6,6 +6,7 @@ const postCard = catchAsync(async (req, res) => {
   const userId = req.userId;
   const { repeatId, title, color, link, memo, startDate, endDate, deadline } =
     req.body;
+
   if (!userId || !repeatId || !title || !color || !startDate || !endDate)
     detectError("KEY_ERROR", 400);
 
