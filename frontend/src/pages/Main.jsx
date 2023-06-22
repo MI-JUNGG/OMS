@@ -26,9 +26,6 @@ function Main() {
     const date = new Date(yearForm, monthForm - 1);
     const [schedule, setSchedule] = useState([]);
 
-    const form = useSelector((state) => state.colorPickerReducer);
-    console.log(form);
-
     useEffect(() => {
         // const startDate = `${yearForm}-${monthForm}-01_00:00:00`;
         // const endDate = `${yearForm}-${monthForm}-${daysInMonth(
@@ -50,7 +47,6 @@ function Main() {
         axios
             .get("/data/monthMock.json")
             .then((response) => {
-                console.log(response);
                 setSchedule(response.data.monthCard);
                 dispatch(
                     handleBlockColorTheme(
