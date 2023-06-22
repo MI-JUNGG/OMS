@@ -16,6 +16,7 @@ import {
     setCustomBackgroundColor,
 } from "../modules/module/colorPicker";
 import Button from "./button/Button";
+import { addCard } from "../modules/module/card";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);
@@ -24,15 +25,17 @@ function Main() {
     const dispatch = useDispatch();
 
     const date = new Date(yearForm, monthForm - 1);
-    const [schedule, setSchedule] = useState([]);
+
+    const monthSchedule = useSelector((state) => state.cardReducer);
 
     useEffect(() => {
-        // const startDate = `${yearForm}-${monthForm}-01_00:00:00`;
-        // const endDate = `${yearForm}-${monthForm}-${daysInMonth(
-        //     yearForm,
-        //     monthForm - 1,
-        // )}_23:59:59`;
-        const queryMonth = `${yearForm}-${monthForm}`;
+        const startDate = `${yearForm}-${monthForm}-01`;
+        const endDate = `${yearForm}-${monthForm}-${daysInMonth(
+            yearForm,
+            monthForm - 1,
+        )}`;
+
+        // const queryMonth = `${yearForm}-${monthForm}`;
 
         fetch("/data/test.json")
             .then((response) => response.json())
@@ -47,7 +50,6 @@ function Main() {
         axios
             .get("/data/monthMock.json")
             .then((response) => {
-                setSchedule(response.data.monthCard);
                 dispatch(
                     handleBlockColorTheme(
                         response.data.palette[0].colorPaletteId,
@@ -55,8 +57,10 @@ function Main() {
                 );
 
                 const customColors = response.data.palette[0];
+                const monthSchedule = response.data.monthCard;
 
-                // Update custom mainColor values
+                dispatch(addCard(monthSchedule));
+
                 customColors &&
                     Object.keys(customColors).forEach((key) => {
                         if (
@@ -66,7 +70,7 @@ function Main() {
                             const colorNumber = parseInt(
                                 key.replace("color", ""),
                             );
-                            const customId = colorNumber - 1; // custom 배열의 인덱스는 0부터 시작하므로 1을 뺍니다.
+                            const customId = colorNumber - 1;
                             const mainColor = customColors[key];
 
                             dispatch(
@@ -88,17 +92,14 @@ function Main() {
                             );
                         }
                     });
-
-                // Update custom backgroundColor values
-                // (If needed, follow a similar approach as above)
             })
             .catch((err) => console.log(err));
 
         // axios
         //     .get("http://192.168.219.152:3001/month", {
         //         params: {
-        //             startDate: queryMonth,
-        //             endDate: queryMonth,
+        //             startDate: startDate,
+        //             endDate: endDate,
         //         },
         //         headers: {
         //             Authorization: localStorage.getItem("token"),
@@ -231,7 +232,7 @@ function Main() {
                     );
                     day++;
                 } else {
-                    const dayHasSchedule = schedule.find((item) => {
+                    const dayHasSchedule = monthSchedule.find((item) => {
                         const itemDate = new Date(item.start);
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
@@ -241,7 +242,7 @@ function Main() {
                         );
                     });
 
-                    const shortSchedule = schedule.find((item) => {
+                    const shortSchedule = monthSchedule.find((item) => {
                         const itemDate = new Date(item.start);
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
