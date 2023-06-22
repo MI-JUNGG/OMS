@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { useLocation, useNavigate } from "react-router-dom";
+import DayHours from "./DayHours";
 import { hours } from "../time";
 import DateLeft from "../../../assets/images/date_picker/DateLeft";
 import DateRight from "../../../assets/images/date_picker/DateRight";
 import { cardTypeReducer } from "../../../modules/module/modal";
 import { cardmodal } from "../../../modules/module/modal";
-
 import "./Selectime.scss";
 import { useDispatch, useSelector } from "react-redux";
+import { colors } from "./color/ColorPalette";
+import { update } from "../../../modules/module/date";
+import { endUpdate } from "../../../modules/module/endDate";
+import { addCard } from "../../../modules/module/card";
+import { callUserCard } from "../server";
 
 function Selectime() {
     const dispatch = useDispatch();
@@ -16,21 +21,13 @@ function Selectime() {
     const searchParams = new URLSearchParams(window.location.search);
     const day = searchParams.get("date");
     const formatDate = dayjs(day);
-    const returnDate = formatDate.format("YYYY.MM.DD"); // 날짜 형식을 "YYYY.MM.DD"로 변경
-    console.log(returnDate);
+    const returnDate = formatDate.format("YYYY.MM.DD");
+
     const [date, setDate] = useState(returnDate);
     const navigate = useNavigate();
-    const [test, setTest] = useState({
-        start: "2023-06-08 01:00",
-        end: "2023-06-08 5:00",
-        title: "Test Title",
-        color: "yellow",
-    });
-    const { start, end, title, color } = test;
-    const cardType = useSelector((state) => state.modalReducer.FixCard);
-    const getStartTime = new Date(start).getHours();
-    const getEndTime = new Date(end).getHours();
 
+    const data = useSelector((state) => state.cardReducer);
+    const card = useSelector((state) => state.cardReducer);
     const datePlusHandler = () => {
         const formatDate = new Date(date);
         formatDate.setDate(formatDate.getDate() + 1);
@@ -55,16 +52,35 @@ function Selectime() {
         navigate(newLocation);
     };
 
-    const fixModalHandler = () => {
+    const fixModalHandler = (e, cardId) => {
         dispatch(cardmodal());
         dispatch(cardTypeReducer());
-    };
-    // useEffect(() => {
-    //     const formattedDate = searchParams.get("date");
-    //     setDate(formattedDate);
-    // }, [location]);
+        const getData = cardId;
 
-    let isTitleRendered = false;
+        const { start, end, title, url, memo, color } = card.find(
+            (data) => data.cardId === cardId,
+        );
+        const parsedDate = dayjs(start);
+        const parsedEndDate = dayjs(end);
+
+        const formatTime = {
+            year: parsedDate.year(),
+            month: parsedDate.month() + 1,
+            day: parsedDate.date(),
+            time: parsedDate.hour(),
+            minute: parsedDate.minute(),
+        };
+        const formattedEndDate = {
+            year: parsedEndDate.year(),
+            month: parsedEndDate.month() + 1,
+            day: parsedEndDate.date(),
+            time: parsedEndDate.hour(),
+            minute: parsedEndDate.minute(),
+        };
+        dispatch(addCard(callUserCard));
+        dispatch(update(formatTime));
+        dispatch(endUpdate(formattedEndDate));
+    };
 
     return (
         <div className="dayTable">
@@ -77,44 +93,66 @@ function Selectime() {
                     <DateRight />
                 </div>
             </div>
-            {hours.map((hour, index) => {
-                const startTime = new Date(start).getHours();
-                const endTime = new Date(end).getHours();
-                const hourSplit = hour.split(":");
-                const hourValue = Number(hourSplit[0]);
+            <div className="timeTable">
+                <DayHours />
+                <ul>
+                    {hours.map((item) => {
+                        const matchingData = card.filter(
+                            (data) =>
+                                dayjs(data.start).format("HH:mm") <= item &&
+                                dayjs(data.end).format("HH:mm") > item,
+                        );
 
-                let backgroundColor = "";
-                if (hourValue >= startTime && hourValue <= endTime) {
-                    backgroundColor = "#FE7B91";
-                }
-
-                return (
-                    <div key={hour} className="timeContainer">
-                        <div className="timeSlot">{hour}</div>
-                        <div className="timeBorder"></div>
-                        {hourValue >= getStartTime &&
-                        hourValue <= getEndTime ? (
-                            <div
-                                onClick={fixModalHandler}
-                                style={{
-                                    backgroundColor: backgroundColor,
-                                    zIndex: 0,
-                                }}
-                                className={`otherContents ${
-                                    hourValue === getStartTime && `first`
-                                }`}
-                            >
-                                {hourValue === getStartTime &&
-                                    !isTitleRendered && (
-                                        <div className="title">{title}</div>
+                        if (matchingData.length > 0) {
+                            return (
+                                <li key={item} className="renderCard">
+                                    {matchingData.map(
+                                        ({ cardId, title, color, start }) =>
+                                            dayjs(start).format("HH:mm") ===
+                                            item ? (
+                                                <div
+                                                    onClick={(e) =>
+                                                        fixModalHandler(
+                                                            e,
+                                                            cardId,
+                                                        )
+                                                    }
+                                                    className="rederTitle"
+                                                    style={{
+                                                        backgroundColor: color,
+                                                    }}
+                                                    key={cardId}
+                                                >
+                                                    {title}
+                                                </div>
+                                            ) : (
+                                                <div
+                                                    onClick={(e) =>
+                                                        fixModalHandler(
+                                                            e,
+                                                            cardId,
+                                                        )
+                                                    }
+                                                    className="rederempty"
+                                                    style={{
+                                                        backgroundColor: color,
+                                                    }}
+                                                    key={cardId}
+                                                ></div>
+                                            ),
                                     )}
-                            </div>
-                        ) : (
-                            <div className="contents"></div>
-                        )}
-                    </div>
-                );
-            })}
+                                </li>
+                            );
+                        } else {
+                            return (
+                                <li key={item} className="renderCard">
+                                    <div className="empty"></div>
+                                </li>
+                            );
+                        }
+                    })}
+                </ul>
+            </div>
         </div>
     );
 }

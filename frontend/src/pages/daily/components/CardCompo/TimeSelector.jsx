@@ -16,7 +16,8 @@ function TimeSelector() {
     };
 
     const decreaseday = () => {
-        isRepeat ? dispatch(eminusTime) : dispatch(minusTime());
+        console.log(1);
+        isRepeat ? dispatch(eminusTime()) : dispatch(minusTime());
     };
 
     useEffect(() => {
@@ -47,12 +48,25 @@ function TimeSelector() {
             window.removeEventListener("wheel", handleScroll);
         };
     }, []);
+    const TIME = String(parseInt(time)).padStart(2, "0");
+    const TIMEPlus = String(time + 1).padStart(2, "0");
+    const TIMEMius = String(time - 1).padStart(2, "0");
+
+    const renderPlusTime = (TIME) => {
+        if (TIME >= "24") {
+            return "01";
+        } else if (TIME === "01") {
+            return "02";
+        } else {
+            return TIMEPlus;
+        }
+    };
 
     return (
         <div className="hour" ref={outerRef}>
-            <p>{time === 1 || time - 1 === -1 ? 24 : time - 1}</p>
-            <p className="now">{time}</p>
-            <p>{time === 24 ? 1 : time + 1}</p>
+            <p>{TIME === "01" || time - 1 === -1 ? "24" : TIMEMius}</p>
+            <p className="now">{TIME > 24 ? "01" : TIME}</p>
+            <p>{renderPlusTime(TIME)}</p>
         </div>
     );
 }

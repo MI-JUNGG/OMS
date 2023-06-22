@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { cardmodal } from "../../../modules/module/modal";
-import { DeleteCardHandler } from "../../daily/server";
+import { DeleteCardHandler, FixCardHandler } from "../../daily/server";
 import { removeCard } from "../../../modules/module/card";
 import AlldayTime from "./CardCompo/AlldayTime";
 import ModalLink from "../../../assets/images/modal/ModalLink";
@@ -12,11 +12,9 @@ import EndDate from "../components/CardCompo/endDate/EndDate";
 import RepeatEnd from "./repeat/RepeatEnd";
 import RepeatStart from "./repeat/RepeatStart";
 import ColorSelector from "./color/ColorSelector";
-import ColorPalette from "./color/ColorPalette";
 import All from "./All";
 import Repeat from "./repeat/Repeat";
-import ColorPicker from "./color/ColorPicker";
-import { showColorPicker } from "../../../modules/module/modal";
+import { cardTypeReducer } from "../../../modules/module/modal";
 import { counterHandler } from "../server";
 import LimitDateSelect from "./limit/LimitDateSelect";
 import "./Card.scss";
@@ -24,9 +22,7 @@ import Trash from "../../../assets/images/floating_action/Trash";
 
 function Card() {
     const dispatch = useDispatch();
-    const [data, setData] = useState(null);
-    const [link, setLink] = useState(false);
-    const [note, setNote] = useState(false);
+
     const typeId = Number(
         useSelector((state) => state.modalReducer.typeControl),
     );
@@ -34,6 +30,7 @@ function Card() {
     const deleteHandler = (cardId) => {
         DeleteCardHandler(cardId);
         dispatch(removeCard());
+        dispatch(cardTypeReducer());
     };
 
     const AllStartYear = useSelector((state) => state.dateReducer.year);
@@ -59,18 +56,11 @@ function Card() {
     const repeatEndMonth = useSelector((state) => state.repeatEndReducer.month);
     const repeatEndDay = useSelector((state) => state.repeatEndReducer.day);
     const repeatE = new Date(repeatEndYear, repeatEndMonth, repeatEndDay);
-
+    console.log(repeatE);
     const cardType = useSelector((state) => state.modalReducer.FixCard);
 
     const showLimit = useSelector((state) => state.modalReducer.limit); //
 
-    const linkHandler = () => {
-        setLink((prev) => !prev);
-    };
-
-    const noteHandler = () => {
-        setNote((note) => !note);
-    };
     const showColorPick = useSelector(
         (state) => state.modalReducer.showColorPicker,
     );
@@ -86,12 +76,13 @@ function Card() {
         (state) => state.modalReducer.repeatEndControl,
     );
 
+    const repeatCardType = useSelector((state) => state.repeatTypeReducer.type);
+
     const datetype = useSelector((state) => state.modalReducer.dateType);
 
     const outerRef = useRef(null);
 
     const [form, setForm] = useState({
-        repeatId: typeId,
         title: "",
         contents: "",
         url: "",
@@ -99,8 +90,7 @@ function Card() {
         endDate: repeatE,
         color: "",
     });
-    const { title, contents, startDate, endDate, color, url, repeatId } = form;
-
+    const { title, contents, startDate, endDate, color, url } = form;
     useEffect(() => {
         const handleScroll = (event) => {
             const { target } = event;
@@ -122,14 +112,10 @@ function Card() {
     }, []);
 
     const createTitle = (e) => {
-        setForm({ ...form, title: e.target.value });
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
     };
-    const createContent = (e) => {
-        setForm({ ...form, contents: e.target.value });
-    };
-    const urlHandler = (e) => {
-        setForm({ ...form, url: e.target.value });
-    };
+
     const clearContents = () => {
         setForm({ ...form, contents: "" });
     };
@@ -142,11 +128,19 @@ function Card() {
     };
     const closeModal =
         !openModal && !endDateModal && !repeatEnd && !repeatStart && !showLimit;
-
+    console.log(repeatCardType);
     const sendingData = () => {
-        counterHandler(title, contents, repeatE, endDate, color, url, repeatId);
+        //FixCardHandler(title, contents, repeatE, endDate, color, url, repeatId);
+        counterHandler(
+            title,
+            contents,
+            repeatE,
+            endDate,
+            color,
+            url,
+            repeatCardType,
+        );
         setForm({
-            repeatId: "",
             title: "",
             contents: "",
             url: "",
@@ -197,43 +191,36 @@ function Card() {
                 </div>
                 <div className="cardContent">
                     <div className="modalx" onClick={clearUrl}>
-                        {link === true && <ModalX width={10} height={10} />}
+                        <ModalX width={10} height={10} />
                     </div>
                     <div className="link">
                         <div className="linkIcon">
                             <ModalLink />
                         </div>
-                        {link === false ? (
-                            <button onClick={linkHandler}>링크</button>
-                        ) : (
-                            <input
-                                className="inputline"
-                                value={url}
-                                onChange={urlHandler}
-                                type="url"
-                            />
-                        )}
+
+                        <input
+                            name="url"
+                            className="inputline"
+                            value={url}
+                            onChange={createTitle}
+                            type="url"
+                        />
                     </div>
                     <div className="modalx" onClick={clearContents}>
-                        {note === true && <ModalX width={10} height={10} />}
+                        <ModalX width={10} height={10} />
                     </div>
                     <div className="contentsMemo">
                         <ModalNote />
-                        {note === false ? (
-                            <button onClick={noteHandler}>메모</button>
-                        ) : (
-                            <textarea
-                                className="textArea"
-                                onChange={createContent}
-                                value={contents}
-                                name="content"
-                            />
-                        )}
+
+                        <textarea
+                            className="textArea"
+                            onChange={createTitle}
+                            value={contents}
+                            name="contents"
+                        />
                     </div>
                 </div>
-                <div className="selectColor">
-                    <ColorSelector />
-                </div>
+                <div className="selectColor">{/* <ColorSelector /> */}</div>
             </div>
         </div>
     );

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { valueSelector } from "../../../../modules/module/Limit";
 import { useDispatch } from "react-redux";
+import { typeReducer } from "../../../../modules/module/repeatType";
 import "./DateDropDown.scss";
 
 function DateDropDown({ showModal }) {
@@ -11,8 +12,8 @@ function DateDropDown({ showModal }) {
     const clickHandler = (index) => {
         dispatch(valueSelector(repeat[index]));
         setSelectedItemIndex(index);
-        console.log(index);
         showModal();
+        dispatch(typeReducer(index));
     };
 
     return (

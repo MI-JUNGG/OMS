@@ -44,12 +44,15 @@ function Mselector() {
             window.removeEventListener("wheel", handleScroll);
         };
     }, []);
+    const MONTH = String(Number(month)).padStart(2, "0");
+    const MONTHPlus = String(Number(month) + 1).padStart(2, "0");
+    const MONTHMius = String(Number(month) - 1).padStart(2, "0");
 
     return (
         <div className="monthControll" ref={outerRef}>
-            {Number(month) - 1 === 0 ? <p>12</p> : <p>{Number(month) - 1}</p>}
-            <p className="now">{Number(month)}</p>
-            {Number(month) + 1 === 13 ? <p>1</p> : <p>{Number(month) + 1}</p>}
+            {Number(month) - 1 === 0 ? <p>12</p> : <p>{MONTHMius}</p>}
+            <p className="now">{MONTH}</p>
+            {Number(month) + 1 === 13 ? <p>01</p> : <p>{MONTHPlus}</p>}
         </div>
     );
 }

@@ -17,6 +17,16 @@ const dateSlice = createSlice({
         minute: 0,
     },
     reducers: {
+        update: (state, action) => {
+            const { year, month, day, time, minute } = action.payload;
+            return {
+                year,
+                month,
+                day,
+                time,
+                minute,
+            };
+        },
         addTime: (state) => {
             let newTime = state.time + 1;
             if (newTime > 24) {
@@ -36,18 +46,16 @@ const dateSlice = createSlice({
             let newTime = state.time;
             if (newMin > 59) {
                 newMin = 0;
-                newTime = state.time + 1;
             }
-            return { ...state, time: newTime, minute: newMin };
+            return { ...state, minute: newMin };
         },
         minusMin: (state) => {
             let newMin = state.minute - 1;
-            let newTime = state.time;
+
             if (newMin < 0) {
                 newMin = 59;
-                newTime = state.time - 1;
             }
-            return { ...state, time: newTime, minute: newMin };
+            return { ...state, minute: newMin };
         },
         addDate: (state, action) => {
             return {
@@ -164,6 +172,7 @@ const dateSlice = createSlice({
 });
 
 export const {
+    update,
     addDate,
     addDay,
     addMonth,

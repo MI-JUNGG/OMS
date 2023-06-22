@@ -14,6 +14,7 @@ function MinSelector() {
     const minute = isRepeat ? endMin : startminute;
 
     const increaseday = () => {
+        console.log(1);
         isRepeat ? dispatch(eaddMin()) : dispatch(addMin());
     };
 
@@ -49,12 +50,15 @@ function MinSelector() {
             window.removeEventListener("wheel", handleScroll);
         };
     }, []);
+    const MIN = String(parseInt(minute)).padStart(2, "0");
+    const MINPlus = String(minute + 1).padStart(2, "0");
+    const MINMius = String(minute - 1).padStart(2, "0");
 
     return (
         <div className="minutes" ref={outerRef}>
-            <p>{minute === 0 ? 59 : minute - 1}</p>
-            <p className="now">{minute}</p>
-            <p>{minute === 59 ? 0 : minute + 1}</p>
+            <p>{MIN === "00" ? "59" : MINMius}</p>
+            <p className="now">{MIN}</p>
+            <p>{MIN === "59" ? "00" : MINPlus}</p>
         </div>
     );
 }

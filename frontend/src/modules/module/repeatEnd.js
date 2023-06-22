@@ -22,7 +22,7 @@ const repeatenddateSlice = createSlice({
         eaddMonth: (state, action) => {
             return {
                 ...state,
-                month: action.payload,
+                month: action.payload - 1,
             };
         },
         eaddDay: (state, action) => {
