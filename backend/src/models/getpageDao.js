@@ -70,7 +70,7 @@ const weekPage = async (userId, startMonth, endMonth) => {
   return result;
 };
 
-const dayPage = async (userId, startMonth) => {
+const dayPage = async (userId, plusTime) => {
   const result = await appDataSource.query(
     `
     SELECT
@@ -78,17 +78,18 @@ const dayPage = async (userId, startMonth) => {
       c.title                     AS title,
       c.color                     AS color,
       c.repeat_id                 AS \`repeat\`,
-      c.start_date                AS \`start\`,
+      c.start_date                AS startDate,
+      c.end_date                  AS endDate,
       c.deadline                  AS deadline,
       c.memo                      AS memo,
       c.link                      AS link
     FROM
       card c
     WHERE c.user_id = ?
-    AND DATE_FORMAT(c.start_date, '%Y-%m-%d') = ?
+    AND DATE_FORMAT(c.start_date, '%Y-%m-%dT%H:%i:%s') = ?
     ORDER BY c.start_date ASC
     `,
-    [userId, startMonth]
+    [userId, plusTime]
   );
 
   return result;

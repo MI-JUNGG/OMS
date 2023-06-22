@@ -1,5 +1,6 @@
 const getpageService = require("../services/getpageService");
 const { catchAsync, detectError } = require("../utils/detectError");
+const dayjs = require("dayjs");
 
 const monthPage = catchAsync(async (req, res) => {
   const { startDate, endDate } = req.query;
@@ -29,9 +30,12 @@ const dayPage = catchAsync(async (req, res) => {
   const { startDate } = req.query;
   const userId = req.userId;
 
+  const date = dayjs(startDate);
+  const plusTime = date.format("YYYY-MM-DDTHH:mm:ss");
+
   if (!userId || !startDate) detectError("NEED_USER_ID OR NEED_DATE_INFO", 400);
 
-  const result = await getpageService.dayPage(userId, startDate);
+  const result = await getpageService.dayPage(userId, plusTime);
 
   return res.status(200).json(result);
 });
