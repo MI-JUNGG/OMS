@@ -35,18 +35,6 @@ function Main() {
             monthForm - 1,
         )}`;
 
-        // const queryMonth = `${yearForm}-${monthForm}`;
-
-        fetch("/data/test.json")
-            .then((response) => response.json())
-            .then((data) => {
-                const backgroundColor = data[0].data.backgroundColor;
-                document.documentElement.style.setProperty(
-                    "--background-color",
-                    backgroundColor,
-                );
-            });
-
         axios
             .get("/data/monthMock.json")
             .then((response) => {
