@@ -18,8 +18,8 @@ const weekPage = async (userId, startDate, endDate) => {
   return result;
 };
 
-const dayPage = async (userId, plusTime) => {
-  const result = await getpageDao.dayPage(userId, plusTime);
+const dayPage = async (userId, plusTime, dateAddTime) => {
+  const result = await getpageDao.dayPage(userId, plusTime, dateAddTime);
 
   return result;
 };

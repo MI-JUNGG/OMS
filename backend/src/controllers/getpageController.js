@@ -30,12 +30,12 @@ const dayPage = catchAsync(async (req, res) => {
   const { startDate } = req.query;
   const userId = req.userId;
 
-  const date = dayjs(startDate);
-  const plusTime = date.format("YYYY-MM-DDTHH:mm:ss");
+  const plusTime = startDate + "T00:00:00";
+  const dateAddTime = startDate + "T23:59:59";
 
   if (!userId || !startDate) detectError("NEED_USER_ID OR NEED_DATE_INFO", 400);
 
-  const result = await getpageService.dayPage(userId, plusTime);
+  const result = await getpageService.dayPage(userId, plusTime, dateAddTime);
 
   return res.status(200).json(result);
 });
