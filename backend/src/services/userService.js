@@ -20,7 +20,7 @@ const signUp = async (nickname, email, password) => {
 
   const saltRounds = 12;
   const hashedPassword = await bcrypt.hash(password, saltRounds);
-  console.log(hashedPassword);
+
   const createUser = await userDao.localCreateUser(
     nickname,
     email,
@@ -82,19 +82,18 @@ const kakaoLogin = async (kakaoToken) => {
 
 // 네이버 로그인
 const naverLogin = async (naverToken) => {
-  console.log("servcie", naverToken);
   const result = await axios.get("https://openapi.naver.com/v1/nid/me", {
     headers: {
       Authorization: `Bearer ${naverToken}`,
       "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
     },
   });
-  console.log(result);
+
   if (!result) detectError("NAVER_TOKEN_ERROR", 400);
 
   const { data } = result;
   const socialId = data.response.id;
-  const nickname = data.response.nickname;
+  const nickname = data.response.name;
   const email = data.response.email;
   const socialTypeId = SocialTypeId.NAVER;
 
