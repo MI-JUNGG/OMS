@@ -6,6 +6,16 @@ import { year } from "../modules/module/year";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 import axios from "axios";
+import {
+    background,
+    handleBlockColorTheme,
+    main,
+} from "../modules/module/setting";
+import {
+    setCustomMainColor,
+    setCustomBackgroundColor,
+} from "../modules/module/colorPicker";
+import Button from "./button/Button";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);
@@ -15,6 +25,9 @@ function Main() {
 
     const date = new Date(yearForm, monthForm - 1);
     const [schedule, setSchedule] = useState([]);
+
+    const form = useSelector((state) => state.colorPickerReducer);
+    console.log(form);
 
     useEffect(() => {
         // const startDate = `${yearForm}-${monthForm}-01_00:00:00`;
@@ -35,13 +48,55 @@ function Main() {
             });
 
         axios
-            .get("/data/date.json")
+            .get("/data/monthMock.json")
             .then((response) => {
-                setSchedule(response.data);
+                console.log(response);
+                setSchedule(response.data.monthCard);
+                dispatch(
+                    handleBlockColorTheme(
+                        response.data.palette[0].colorPaletteId,
+                    ),
+                );
+
+                const customColors = response.data.palette[0];
+
+                // Update custom mainColor values
+                customColors &&
+                    Object.keys(customColors).forEach((key) => {
+                        if (
+                            key.startsWith("color") &&
+                            key !== "colorPaletteId"
+                        ) {
+                            const colorNumber = parseInt(
+                                key.replace("color", ""),
+                            );
+                            const customId = colorNumber - 1; // custom 배열의 인덱스는 0부터 시작하므로 1을 뺍니다.
+                            const mainColor = customColors[key];
+
+                            dispatch(
+                                setCustomMainColor({
+                                    categoryId: 5,
+                                    customId: customId,
+                                    mainColor: mainColor,
+                                }),
+                            );
+                            dispatch(
+                                setCustomBackgroundColor({
+                                    categoryId: 5,
+                                    customId: customId,
+                                    backgroundColor:
+                                        mainColor !== null
+                                            ? `${mainColor}1A`
+                                            : null,
+                                }),
+                            );
+                        }
+                    });
+
+                // Update custom backgroundColor values
+                // (If needed, follow a similar approach as above)
             })
-            .catch((error) => {
-                console.error(error);
-            });
+            .catch((err) => console.log(err));
 
         // axios
         //     .get("http://192.168.219.152:3001/month", {
@@ -64,14 +119,41 @@ function Main() {
         // fetch("http://192.168.0.5:3001/mypage/theme", {
         //     method: "GET",
         //     headers: {
-        //         Authorization:
-        //             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODYyMjEyNTN9.OTJL43-q4t35oxcfbQ0kcUVkTBmdJVIrEVSBdIdzeuY",
+        //         Authorization: localStorage.getItem("token"),
         //         "Content-Type": "application/json", // JSON 형식으로 요청을 보내기 위해 Content-Type을 설정
         //     },
         // })
         //     .then((response) => response.json())
         //     .then((data) => console.log(data))
-        //     .then((data) => dispatch(color(data)));
+        //     .then((res) => {
+        //         const mainColor = res[0].mainColor;
+        //         document.documentElement.style.setProperty(
+        //             "--main-color",
+        //             mainColor,
+        //         );
+        //         dispatch(main(mainColor));
+
+        //         const backgroundColor = res[0].backgroundColor;
+        //         document.documentElement.style.setProperty(
+        //             "--background-color",
+        //             backgroundColor,
+        //         );
+        //         dispatch(background(backgroundColor));
+
+        //         const textColor = res[0].textColor;
+        //         document.documentElement.style.setProperty(
+        //             "--text-color",
+        //             textColor,
+        //         );
+        //         dispatch(textColor(textColor));
+
+        //         const textStyle = res[0].textStyle;
+        //         document.documentElement.style.setProperty(
+        //             "--text-style",
+        //             textStyle,
+        //         );
+        //         dispatch(textStyle(textStyle));
+        //     });
     }, []);
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -233,6 +315,15 @@ function Main() {
                 </div>
 
                 <div className="days">{renderDays()}</div>
+                <div
+                    style={{
+                        position: "absolute",
+                        top: "100%",
+                        left: "90%",
+                    }}
+                >
+                    <Button />
+                </div>
             </div>
         </div>
     );
