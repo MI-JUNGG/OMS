@@ -7,18 +7,21 @@ import DateLeft from "../../assets/images/date_picker/DateLeft";
 import DateRight from "../../assets/images/date_picker/DateRight";
 import dayjs from "dayjs";
 import "./weekly.scss";
+import { useSelector } from "react-redux";
 
 function Weekly() {
     const navigate = useNavigate();
     const searchParams = new URLSearchParams(window.location.search);
+    console.log(searchParams);
     const day = searchParams.get("sundayDate");
+    console.log(day);
     const formatDate = dayjs(day);
     const starDate = formatDate.format("YYYY-MM-DD");
     const endDate = dayjs(starDate).add(7, "day").format("YYYY-MM-DD");
 
     const returnDate = formatDate.format("YYYY.MM.DD");
     const startDate = searchParams.get("sundayDate");
-    const [data, setData] = useState([]);
+    const data = useSelector((state) => state.cardReducer.week);
     const [date, setDate] = useState(returnDate);
     const dates = [];
     for (let i = 0; i < 7; i++) {

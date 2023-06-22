@@ -20,7 +20,7 @@ const signUp = async (nickname, email, password) => {
 
   const saltRounds = 12;
   const hashedPassword = await bcrypt.hash(password, saltRounds);
-  console.log(hashedPassword);
+
   const createUser = await userDao.localCreateUser(
     nickname,
     email,
@@ -89,16 +89,11 @@ const naverLogin = async (naverToken) => {
     },
   });
 
-  if (!result) {
-    const error = new Error("NAVER_TOKEN_ERROR");
-    error.statusCode = 400;
-
-    throw error;
-  }
+  if (!result) detectError("NAVER_TOKEN_ERROR", 400);
 
   const { data } = result;
   const socialId = data.response.id;
-  const nickname = data.response.nickname;
+  const nickname = data.response.name;
   const email = data.response.email;
   const socialTypeId = SocialTypeId.NAVER;
 

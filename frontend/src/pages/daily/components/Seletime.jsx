@@ -27,7 +27,8 @@ function Selectime() {
     const navigate = useNavigate();
 
     const data = useSelector((state) => state.cardReducer);
-    const card = useSelector((state) => state.cardReducer);
+    const card = useSelector((state) => state.cardReducer.day);
+
     const datePlusHandler = () => {
         const formatDate = new Date(date);
         formatDate.setDate(formatDate.getDate() + 1);

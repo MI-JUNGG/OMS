@@ -45,7 +45,12 @@ const changeTheme = async (
   );
 };
 
-const changeColor = async (
+const Custom = async (
+  mainColor,
+  backgroundColor,
+  textStyle,
+  textColor,
+  colorPaletteId,
   color1,
   color2,
   color3,
@@ -55,7 +60,12 @@ const changeColor = async (
   color7,
   userId
 ) => {
-  return await mypageDao.changeColor(
+  return await mypageDao.Custom(
+    mainColor,
+    backgroundColor,
+    textStyle,
+    textColor,
+    colorPaletteId,
     color1,
     color2,
     color3,
@@ -73,5 +83,5 @@ module.exports = {
   changePassword,
   getTheme,
   changeTheme,
-  changeColor,
+  Custom,
 };
