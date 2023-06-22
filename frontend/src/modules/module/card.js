@@ -32,15 +32,18 @@ const cardSlice = createSlice({
 
     reducers: {
         addCard: (state, action) => {
-            const payload = Array.isArray(action.payload)
-                ? action.payload
-                : [action.payload];
-            state.push(...payload);
+            const { cardType, cardData } = action.payload;
+            if (cardType === "day") {
+                state.day.push(cardData);
+            }
+            if (cardType === "week") {
+                state.day.push(cardData);
+            }
+            if (cardType === "month") {
+                state.day.push(cardData);
+            }
         },
-        removeCard: (state, action) => {
-            const index = state.findIndex((card) => card.id === action.payload);
-            state.splice(index, 1);
-        },
+        removeCard: (state, action) => {},
     },
 });
 
