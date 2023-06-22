@@ -56,7 +56,6 @@ function Card() {
     const repeatEndMonth = useSelector((state) => state.repeatEndReducer.month);
     const repeatEndDay = useSelector((state) => state.repeatEndReducer.day);
     const repeatE = new Date(repeatEndYear, repeatEndMonth, repeatEndDay);
-    console.log(repeatE);
     const cardType = useSelector((state) => state.modalReducer.FixCard);
 
     const showLimit = useSelector((state) => state.modalReducer.limit); //
@@ -128,18 +127,27 @@ function Card() {
     };
     const closeModal =
         !openModal && !endDateModal && !repeatEnd && !repeatStart && !showLimit;
-    console.log(repeatCardType);
+    const Fix = useSelector((state) => state.modalReducer.deleteCard);
     const sendingData = () => {
-        //FixCardHandler(title, contents, repeatE, endDate, color, url, repeatId);
-        counterHandler(
-            title,
-            contents,
-            repeatE,
-            endDate,
-            color,
-            url,
-            repeatCardType,
-        );
+        Fix === true
+            ? FixCardHandler(
+                  title,
+                  contents,
+                  repeatE,
+                  endDate,
+                  color,
+                  url,
+                  repeatId,
+              )
+            : counterHandler(
+                  title,
+                  contents,
+                  repeatE,
+                  endDate,
+                  color,
+                  url,
+                  repeatCardType,
+              );
         setForm({
             title: "",
             contents: "",
@@ -159,7 +167,7 @@ function Card() {
                     </div>
 
                     <div onClick={cardHandler}>
-                        {cardType === true ? (
+                        {Fix === true ? (
                             <div onClick={deleteHandler}>
                                 <Trash />
                             </div>

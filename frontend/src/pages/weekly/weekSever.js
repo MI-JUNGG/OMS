@@ -2,7 +2,7 @@ import axios from "axios";
 import { API, token } from "../daily/server";
 
 export const callData = (data, start, end) => {
-    console.log(start);
+    console.log(start, end);
     axios
         .get(`${API}/week`, {
             params: {
