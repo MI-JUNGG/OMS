@@ -1,6 +1,6 @@
 const { appDataSource } = require("./appDataSource");
 
-const monthPage = async (userId, startMonth, endMonth) => {
+const monthPage = async (userId, plusStartDate, plusEndDate) => {
   const palette = await appDataSource.query(
     `
   SELECT
@@ -26,51 +26,51 @@ const monthPage = async (userId, startMonth, endMonth) => {
       c.id                        AS cardId,
       c.title                     AS title,
       c.repeat_id                 AS \`repeat\`,
-      c.start_date                AS \`start\`,
-      c.end_date                  AS end,
       c.deadline                  AS deadline,
       c.memo                      AS memo,
-      c.link                      AS link
+      c.link                      AS link,
+      c.start_date                AS startDate,
+      c.end_date                  AS endDate
     FROM
       card c
     LEFT JOIN mypage m            ON c.user_id = m.user_id
     WHERE c.user_id = ?
-    AND DATE_FORMAT(c.start_date, '%Y-%m') = ?
-    AND DATE_FORMAT(c.end_date, '%Y-%m') = ?
+    AND DATE(c.start_date) >= ?
+    AND DATE(c.end_date) <= ?
     ORDER BY c.start_date ASC
     `,
-    [userId, startMonth, endMonth]
+    [userId, plusStartDate, plusEndDate]
   );
 
   return { palette, monthCard };
 };
 
-const weekPage = async (userId, startMonth, endMonth) => {
+const weekPage = async (userId, plusStartDate, plusEndDate) => {
   const result = await appDataSource.query(
     `
     SELECT
       c.id                        AS cardId,
       c.title                     AS title,
       c.repeat_id                 AS \`repeat\`,
-      c.start_date                AS \`start\`,
-      c.end_date                  AS end,
       c.deadline                  AS deadline,
       c.memo                      AS memo,
-      c.link                      AS link
+      c.link                      AS link,
+      c.start_date                AS startDate,
+      c.end_date                  AS endDate
     FROM
       card c
     WHERE c.user_id = ?
-    AND DATE_FORMAT(c.start_date, '%Y-%m-%d') >= ?
-    AND DATE_FORMAT(c.end_date, '%Y-%m-$d') <= ?
+    AND DATE(c.start_date) >= ?
+    AND DATE(c.end_date) <= ?
     ORDER BY c.start_date ASC
     `,
-    [userId, startMonth, endMonth]
+    [userId, plusStartDate, plusEndDate]
   );
 
   return result;
 };
 
-const dayPage = async (userId, plusTime, dateAddTime) => {
+const dayPage = async (userId, plusStartDate, plusEndDate) => {
   const result = await appDataSource.query(
     `
     SELECT
@@ -81,8 +81,8 @@ const dayPage = async (userId, plusTime, dateAddTime) => {
       c.deadline                  AS deadline,
       c.memo                      AS memo,
       c.link                      AS link,
-      CONVERT_TZ(c.start_date, 'UTC', 'Asia/Seoul')                AS startDate,
-      CONVERT_TZ(c.end_date, 'UTC', 'Asia/Seoul')                  AS endDate
+      c.start_date                AS startDate,
+      c.end_date                  AS endDate
     FROM
       card c
     WHERE c.user_id = ?
@@ -90,7 +90,7 @@ const dayPage = async (userId, plusTime, dateAddTime) => {
     AND DATE(c.end_date) <= ?
     ORDER BY c.start_date ASC
     `,
-    [userId, plusTime, dateAddTime]
+    [userId, plusStartDate, plusEndDate]
   );
 
   return result;
