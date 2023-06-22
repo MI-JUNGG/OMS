@@ -53,7 +53,8 @@ const patchCard = catchAsync(async (req, res) => {
     startDate,
     endDate,
     deadline,
-    cardId
+    cardId,
+    userId
   );
   return res.status(201).json({ message: "CARD_UPDATED!" });
 });
