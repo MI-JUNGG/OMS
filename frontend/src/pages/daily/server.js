@@ -24,14 +24,25 @@ export const callUserCard = (handleOutClick, day) => {
 export const counterHandler = (
     title,
     contents,
+    startDate,
     repeatE,
-    endDate,
     color,
     url,
-    repeatCardType,
+    repeatId,
+    limitDate,
 ) => {
-    console.log(repeatCardType);
-
+    console.log(
+        1,
+        "title: " + title,
+        "contents: " + contents,
+        "startDate :" + startDate,
+        "endDate :" + repeatE,
+        "color : " + color,
+        "url : " + url,
+        "repeatCardType : " + repeatId,
+        "limitDate : " + limitDate,
+    );
+    console.log(limitDate);
     const config = {
         headers: {
             Authorization: token,
@@ -44,8 +55,8 @@ export const counterHandler = (
             {
                 title: title,
                 memo: contents,
-                startDate: repeatE.toISOString(),
-                repeatId: repeatCardType,
+                startDate: startDate.toISOString(),
+                repeatId: repeatId,
                 endDate: repeatE.toISOString(),
                 color: "#1234",
                 link: url,
@@ -59,21 +70,27 @@ export const counterHandler = (
         .catch((error) => {
             console.log("error", error);
         });
-
-    console.log(endDate);
 };
 
 export const FixCardHandler = (
     title,
     contents,
-    repeatE,
-    repeatId,
+    startDate,
     endDate,
     color,
     url,
-    cardId,
+    repeatId,
 ) => {
-    console.log(title, contents, repeatE, repeatId, endDate, color, url);
+    console.log(
+        "title: " + title,
+        "contents: " + contents,
+        "startDate :" + startDate,
+        "endDate :" + endDate,
+        "color : " + color,
+        "url : " + url,
+        "repeatCardType : " + repeatCardType,
+    );
+
     axios
         .put(
             `${API}/card`,
@@ -81,12 +98,12 @@ export const FixCardHandler = (
                 cardId: cardId,
                 title: title,
                 memo: contents,
-                startDate: repeatE.toISOString(),
+                startDate: startDate.toISOString(),
                 repeatId: 2,
-                endDate: repeatE.toISOString(),
+                endDate: endDate.toISOString(),
                 color: color,
                 link: url,
-                deadline: repeatE.toISOString(),
+                deadline: endDate.toISOString(),
             },
             {
                 headers: {
@@ -103,6 +120,7 @@ export const FixCardHandler = (
 };
 
 export const DeleteCardHandler = (cardId) => {
+    console.log(cardId);
     axios
         .delete(`${API}/card`, {
             headers: {

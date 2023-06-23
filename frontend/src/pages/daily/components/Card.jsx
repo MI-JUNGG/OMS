@@ -19,6 +19,7 @@ import { counterHandler } from "../server";
 import LimitDateSelect from "./limit/LimitDateSelect";
 import "./Card.scss";
 import Trash from "../../../assets/images/floating_action/Trash";
+import dayjs from "dayjs";
 
 function Card() {
     const dispatch = useDispatch();
@@ -41,21 +42,54 @@ function Card() {
     const AllEndMonth = useSelector((state) => state.endDateReducer.month);
     const AllEndDay = useSelector((state) => state.endDateReducer.day);
 
-    const repeatStartYear = useSelector(
-        (state) => state.repeatStartReducer.year,
-    );
-    const repeatStartMonth = useSelector(
-        (state) => state.repeatStartReducer.month,
-    );
-    const repeatStartDay = useSelector((state) => state.repeatStartReducer.day);
+    const repeatStartYear = useSelector((state) => state.dateReducer.year);
+    const repeatStartMonth =
+        Number(useSelector((state) => state.dateReducer.month)) - 1;
+    const repeatStartDay = useSelector((state) => state.dateReducer.day);
+    const repeatStartTime = useSelector((state) => state.dateReducer.time);
+    const repeatStartMinute = useSelector((state) => state.dateReducer.minute);
     const repeat = new Date(
-        repeatStartYear + repeatStartMonth + repeatStartDay,
+        repeatStartYear,
+        repeatStartMonth,
+        repeatStartDay,
+        repeatStartTime,
+        repeatStartMinute,
     );
-    const repeatEndYear = useSelector((state) => state.repeatEndReducer.year);
 
-    const repeatEndMonth = useSelector((state) => state.repeatEndReducer.month);
-    const repeatEndDay = useSelector((state) => state.repeatEndReducer.day);
-    const repeatE = new Date(repeatEndYear, repeatEndMonth, repeatEndDay);
+    const repeatEndYear = Number(
+        useSelector((state) => state.repeatEndReducer.year),
+    );
+    const repeatEndMonth = Number(
+        useSelector((state) => state.repeatEndReducer.month),
+    );
+    const repeatEndDay = Number(
+        useSelector((state) => state.repeatEndReducer.day),
+    );
+    const repeatEndTime = Number(
+        useSelector((state) => state.repeatEndReducer.time),
+    );
+    const repeatEndDayMinute = Number(
+        useSelector((state) => state.repeatEndReducer.minute),
+    );
+
+    const repeatE = dayjs(
+        repeatEndYear,
+        repeatEndMonth,
+        repeatEndDay,
+        repeatEndTime,
+        repeatEndDayMinute,
+    ).format("YYYY-MM-DD HH:mm:ss");
+
+    const limitY = useSelector((state) => state.limitReducer.year);
+    const limitM = useSelector((state) => state.limitReducer.month);
+    const limitD = useSelector((state) => state.limitReducer.day);
+
+    const limitDate = dayjs()
+        .year(limitY)
+        .month(limitM - 1)
+        .date(limitD)
+        .format("YYYY-MM-DD");
+
     const cardType = useSelector((state) => state.modalReducer.FixCard);
 
     const showLimit = useSelector((state) => state.modalReducer.limit); //
@@ -85,11 +119,9 @@ function Card() {
         title: "",
         contents: "",
         url: "",
-        startDate: repeat,
-        endDate: repeatE,
         color: "",
     });
-    const { title, contents, startDate, endDate, color, url } = form;
+    const { title, contents, color, url } = form;
     useEffect(() => {
         const handleScroll = (event) => {
             const { target } = event;
@@ -133,20 +165,22 @@ function Card() {
             ? FixCardHandler(
                   title,
                   contents,
+                  repeat,
                   repeatE,
-                  endDate,
                   color,
                   url,
                   repeatId,
+                  limitDate,
               )
             : counterHandler(
                   title,
                   contents,
+                  repeat,
                   repeatE,
-                  endDate,
                   color,
                   url,
                   repeatCardType,
+                  limitDate,
               );
         setForm({
             title: "",
