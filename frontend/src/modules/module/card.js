@@ -59,13 +59,13 @@ const cardSlice = createSlice({
             console.log(1);
             const { cardType, cardData } = action.payload;
             if (cardType === "day") {
-                state.day.push(cardData);
+                state.day.push(...cardData);
             }
             if (cardType === "week") {
-                state.week.push(cardData);
+                state.week.push(...cardData);
             }
             if (cardType === "month") {
-                state.month.push(cardData);
+                state.month.push(...cardData);
             }
         },
         removeCard: (state, action) => {},
