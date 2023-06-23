@@ -37,7 +37,7 @@ function Daily() {
     const form = useSelector((state) => state.dateReducer);
     const handleOutClick = (data) => {
         dispatch(cardmodal());
-        dispatch(addCard("day", data));
+        dispatch(addCard({ cardType: "day", cardData: data }));
     };
 
     const initialState = () => {

@@ -122,6 +122,19 @@ function Card() {
         color: "",
     });
     const { title, contents, color, url } = form;
+
+    const limitType = useSelector((state) => state.limitReducer.value);
+
+    const typeNum =
+        limitType === "매일"
+            ? 2
+            : limitType === "매주"
+            ? 3
+            : limitType === "매달"
+            ? 4
+            : limitType === "매년"
+            ? 5
+            : 0;
     useEffect(() => {
         const handleScroll = (event) => {
             const { target } = event;
