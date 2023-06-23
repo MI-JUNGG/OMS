@@ -57,7 +57,8 @@ const patchCard = async (
   startDate,
   endDate,
   deadline,
-  cardId
+  cardId,
+  userId
 ) => {
   const result = await appDataSource.query(
     `
@@ -75,7 +76,18 @@ const patchCard = async (
     WHERE
       id = ? AND user_id = ?
     `,
-    [repeatId, title, color, link, memo, startDate, endDate, deadline, cardId]
+    [
+      repeatId,
+      title,
+      color,
+      link,
+      memo,
+      startDate,
+      endDate,
+      deadline,
+      cardId,
+      userId,
+    ]
   );
 
   return result;

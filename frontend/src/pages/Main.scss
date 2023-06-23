@@ -98,12 +98,14 @@ $allDaySchedule: rgba(245, 158, 11, 0.1);
         }
 
         .dayHasSchedule {
-            background-color: $allDaySchedule;
+            background-color: $allDaySchedule !important;
+            z-index: 1;
         }
 
         .shortSchedule {
-            div {
+            .short {
                 background-color: #fc9690;
+                z-index: 2;
             }
         }
 

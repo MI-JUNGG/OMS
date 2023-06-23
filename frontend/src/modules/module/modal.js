@@ -14,8 +14,12 @@ const modalSlice = createSlice({
         typeControl: 1,
         limit: false,
         FixCard: false,
+        deleteCard: false,
     },
     reducers: {
+        deleteCard: (state) => {
+            return { ...state, deleteCard: !state.deleteCard };
+        },
         cardTypeReducer: (state) => {
             return { ...state, FixCard: !state.FixCard };
         },
@@ -50,6 +54,7 @@ const modalSlice = createSlice({
 });
 
 export const {
+    deleteCard,
     cardmodal,
     dateControl,
     endDateControl,

@@ -1,0 +1,46 @@
+{
+    "palette": [
+        {
+            "colorPaletteId": 1,
+            "color1": null,
+            "color2": null,
+            "color3": null,
+            "color4": null,
+            "color5": null,
+            "color6": null,
+            "color7": null
+        }
+    ],
+    "monthCard": [
+        {
+            "cardId": 19,
+            "title": "string",
+            "repeat": 2,
+            "start": "2023-10-07T15:00:00.000Z",
+            "end": "2023-10-08T14:59:59.000Z",
+            "deadline": null,
+            "memo": null,
+            "link": null
+        },
+        {
+            "cardId": 20,
+            "title": "string",
+            "repeat": 2,
+            "start": "2023-10-08T15:00:00.000Z",
+            "end": "2023-10-09T14:59:59.000Z",
+            "deadline": null,
+            "memo": null,
+            "link": null
+        },
+        {
+            "cardId": 21,
+            "title": "string",
+            "repeat": 1,
+            "start": "2023-10-08T15:00:00.000Z",
+            "end": "2023-10-09T14:59:59.000Z",
+            "deadline": null,
+            "memo": null,
+            "link": null
+        }
+    ]
+}

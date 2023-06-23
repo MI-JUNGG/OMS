@@ -1,13 +1,10 @@
 import axios from "axios";
 
-import { addCard } from "../../modules/module/card";
-
 export const API = "http://10.99.230.245:3001";
-export const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODczMjA5MzF9.IPsILZ50ZUhLMwCwkzHs3dM75GnaBrvNtjV7U0Ord08";
+export const token = localStorage.getItem("token");
 export const callUserCard = (handleOutClick, day) => {
     axios
-        .get("http://10.99.230.245:3001/day", {
+        .get(`${API}/day`, {
             params: {
                 //수정
                 startDate: day,
@@ -17,7 +14,6 @@ export const callUserCard = (handleOutClick, day) => {
             },
         })
         .then((response) => {
-            console.log(response.data);
             handleOutClick([...response.data]);
         })
         .catch((error) => {
@@ -28,14 +24,25 @@ export const callUserCard = (handleOutClick, day) => {
 export const counterHandler = (
     title,
     contents,
+    startDate,
     repeatE,
-    endDate,
     color,
     url,
-    repeatCardType,
+    repeatId,
+    limitDate,
 ) => {
-    console.log(repeatCardType);
-
+    console.log(
+        1,
+        "title: " + title,
+        "contents: " + contents,
+        "startDate :" + startDate,
+        "endDate :" + repeatE,
+        "color : " + color,
+        "url : " + url,
+        "repeatCardType : " + repeatId,
+        "limitDate : " + limitDate,
+    );
+    console.log(limitDate);
     const config = {
         headers: {
             Authorization: token,
@@ -44,12 +51,12 @@ export const counterHandler = (
 
     axios
         .post(
-            "http://10.99.230.245:3001/card",
+            `${API}/day`,
             {
                 title: title,
                 memo: contents,
-                startDate: repeatE.toISOString(),
-                repeatId: repeatCardType,
+                startDate: startDate.toISOString(),
+                repeatId: repeatId,
                 endDate: repeatE.toISOString(),
                 color: "#1234",
                 link: url,
@@ -63,33 +70,40 @@ export const counterHandler = (
         .catch((error) => {
             console.log("error", error);
         });
-
-    console.log(endDate);
 };
 
 export const FixCardHandler = (
     title,
     contents,
-    repeatE,
-    repeatId,
+    startDate,
     endDate,
     color,
     url,
+    repeatId,
 ) => {
-    console.log(title, contents, repeatE, repeatId, endDate, color, url);
+    console.log(
+        "title: " + title,
+        "contents: " + contents,
+        "startDate :" + startDate,
+        "endDate :" + endDate,
+        "color : " + color,
+        "url : " + url,
+        "repeatCardType : " + repeatCardType,
+    );
+
     axios
         .put(
-            `http://${API}:3001/card`,
+            `${API}/card`,
             {
-                cardId: 26,
+                cardId: cardId,
                 title: title,
                 memo: contents,
-                startDate: repeatE.toISOString(),
+                startDate: startDate.toISOString(),
                 repeatId: 2,
-                endDate: repeatE.toISOString(),
+                endDate: endDate.toISOString(),
                 color: color,
                 link: url,
-                deadline: repeatE.toISOString(),
+                deadline: endDate.toISOString(),
             },
             {
                 headers: {
@@ -106,13 +120,14 @@ export const FixCardHandler = (
 };
 
 export const DeleteCardHandler = (cardId) => {
+    console.log(cardId);
     axios
-        .delete(`http://${API}:3001/card`, {
+        .delete(`${API}/card`, {
             headers: {
                 Authorization: token,
             },
             data: {
-                cardId: 27,
+                cardId: cardId,
             },
         })
         .then(function (response) {

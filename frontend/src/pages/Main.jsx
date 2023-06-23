@@ -6,6 +6,17 @@ import { year } from "../modules/module/year";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 import axios from "axios";
+import {
+    background,
+    handleBlockColorTheme,
+    main,
+} from "../modules/module/setting";
+import {
+    setCustomMainColor,
+    setCustomBackgroundColor,
+} from "../modules/module/colorPicker";
+import Button from "./button/Button";
+import { addCard } from "../modules/module/card";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);
@@ -14,34 +25,63 @@ function Main() {
     const dispatch = useDispatch();
 
     const date = new Date(yearForm, monthForm - 1);
-    const [schedule, setSchedule] = useState([]);
+
+    const monthSchedule = useSelector((state) => state.cardReducer);
 
     useEffect(() => {
-        const startDate = `${yearForm}-${monthForm}-01_00:00:00`;
+        const startDate = `${yearForm}-${monthForm}-01`;
         const endDate = `${yearForm}-${monthForm}-${daysInMonth(
             yearForm,
             monthForm - 1,
-        )}_23:59:59`;
+        )}`;
 
-        fetch("/data/test.json")
-            .then((response) => response.json())
-            .then((data) => {
-                const backgroundColor = data[0].data.backgroundColor;
-                document.documentElement.style.setProperty(
-                    "--background-color",
-                    backgroundColor,
+        axios
+            .get("/data/monthMock.json")
+            .then((response) => {
+                dispatch(
+                    handleBlockColorTheme(
+                        response.data.palette[0].colorPaletteId,
+                    ),
                 );
-            });
 
-        //     axios
-        //         .get("/data/date.json")
-        //         .then((response) => {
-        //             setSchedule(response.data);
-        //         })
-        //         .catch((error) => {
-        //             console.error(error);
-        //         });
-        // }, []);
+                const customColors = response.data.palette[0];
+                const monthSchedule = response.data.monthCard;
+
+                dispatch(addCard(monthSchedule));
+
+                customColors &&
+                    Object.keys(customColors).forEach((key) => {
+                        if (
+                            key.startsWith("color") &&
+                            key !== "colorPaletteId"
+                        ) {
+                            const colorNumber = parseInt(
+                                key.replace("color", ""),
+                            );
+                            const customId = colorNumber - 1;
+                            const mainColor = customColors[key];
+
+                            dispatch(
+                                setCustomMainColor({
+                                    categoryId: 5,
+                                    customId: customId,
+                                    mainColor: mainColor,
+                                }),
+                            );
+                            dispatch(
+                                setCustomBackgroundColor({
+                                    categoryId: 5,
+                                    customId: customId,
+                                    backgroundColor:
+                                        mainColor !== null
+                                            ? `${mainColor}1A`
+                                            : null,
+                                }),
+                            );
+                        }
+                    });
+            })
+            .catch((err) => console.log(err));
 
         // axios
         //     .get("http://192.168.219.152:3001/month", {
@@ -64,14 +104,41 @@ function Main() {
         // fetch("http://192.168.0.5:3001/mypage/theme", {
         //     method: "GET",
         //     headers: {
-        //         Authorization:
-        //             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODYyMjEyNTN9.OTJL43-q4t35oxcfbQ0kcUVkTBmdJVIrEVSBdIdzeuY",
+        //         Authorization: localStorage.getItem("token"),
         //         "Content-Type": "application/json", // JSON 형식으로 요청을 보내기 위해 Content-Type을 설정
         //     },
         // })
         //     .then((response) => response.json())
         //     .then((data) => console.log(data))
-        //     .then((data) => dispatch(color(data)));
+        //     .then((res) => {
+        //         const mainColor = res[0].mainColor;
+        //         document.documentElement.style.setProperty(
+        //             "--main-color",
+        //             mainColor,
+        //         );
+        //         dispatch(main(mainColor));
+
+        //         const backgroundColor = res[0].backgroundColor;
+        //         document.documentElement.style.setProperty(
+        //             "--background-color",
+        //             backgroundColor,
+        //         );
+        //         dispatch(background(backgroundColor));
+
+        //         const textColor = res[0].textColor;
+        //         document.documentElement.style.setProperty(
+        //             "--text-color",
+        //             textColor,
+        //         );
+        //         dispatch(textColor(textColor));
+
+        //         const textStyle = res[0].textStyle;
+        //         document.documentElement.style.setProperty(
+        //             "--text-style",
+        //             textStyle,
+        //         );
+        //         dispatch(textStyle(textStyle));
+        //     });
     }, []);
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -153,23 +220,23 @@ function Main() {
                     );
                     day++;
                 } else {
-                    const dayHasSchedule = schedule.find((item) => {
-                        const itemDate = new Date(item.date);
+                    const dayHasSchedule = monthSchedule.find((item) => {
+                        const itemDate = new Date(item.start);
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
                             itemDate.getMonth() === date.getMonth() &&
                             itemDate.getDate() === day &&
-                            item.state_Id === 1
+                            item.repeat === 2
                         );
                     });
 
-                    const shortSchedule = schedule.find((item) => {
-                        const itemDate = new Date(item.date);
+                    const shortSchedule = monthSchedule.find((item) => {
+                        const itemDate = new Date(item.start);
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
                             itemDate.getMonth() === date.getMonth() &&
                             itemDate.getDate() === day &&
-                            item.state_Id === 2
+                            item.repeat === 1
                         );
                     });
 
@@ -185,7 +252,11 @@ function Main() {
                             {dayHasSchedule && (
                                 <div>{dayHasSchedule.title}</div>
                             )}
-                            {shortSchedule && <div>{shortSchedule.title}</div>}
+                            {shortSchedule && (
+                                <div className="short">
+                                    {shortSchedule.title}
+                                </div>
+                            )}
                         </div>,
                     );
 
@@ -229,6 +300,15 @@ function Main() {
                 </div>
 
                 <div className="days">{renderDays()}</div>
+                <div
+                    style={{
+                        position: "absolute",
+                        top: "100%",
+                        left: "90%",
+                    }}
+                >
+                    <Button />
+                </div>
             </div>
         </div>
     );
