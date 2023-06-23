@@ -68,7 +68,6 @@ const cardSlice = createSlice({
                 state.month.push(...cardData);
             }
         },
-        removeCard: (state, action) => {},
     },
 });
 
