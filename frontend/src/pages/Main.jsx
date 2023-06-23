@@ -17,12 +17,15 @@ import {
 } from "../modules/module/colorPicker";
 import Button from "./button/Button";
 import { addCard } from "../modules/module/card";
+import { useNavigate } from "react-router";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);
     const monthForm = useSelector((state) => state.monthReducer.month);
     const monthList = useSelector((state) => state.monthReducer.monthList);
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     const date = new Date(yearForm, monthForm - 1);
 
@@ -104,44 +107,44 @@ function Main() {
         //         console.error(error);
         //     });
 
-        // fetch("http://192.168.0.5:3001/mypage/theme", {
-        //     method: "GET",
-        //     headers: {
-        //         Authorization: localStorage.getItem("token"),
-        //         "Content-Type": "application/json", // JSON 형식으로 요청을 보내기 위해 Content-Type을 설정
-        //     },
-        // })
-        //     .then((response) => response.json())
-        //     .then((data) => console.log(data))
-        //     .then((res) => {
-        //         const mainColor = res[0].mainColor;
-        //         document.documentElement.style.setProperty(
-        //             "--main-color",
-        //             mainColor,
-        //         );
-        //         dispatch(main(mainColor));
+        fetch("http://192.168.0.5:3001/mypage/theme", {
+            method: "GET",
+            headers: {
+                Authorization: localStorage.getItem("token"),
+                "Content-Type": "application/json", // JSON 형식으로 요청을 보내기 위해 Content-Type을 설정
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+            .then((res) => {
+                const mainColor = res[0].mainColor;
+                document.documentElement.style.setProperty(
+                    "--main-color",
+                    mainColor,
+                );
+                dispatch(main(mainColor));
 
-        //         const backgroundColor = res[0].backgroundColor;
-        //         document.documentElement.style.setProperty(
-        //             "--background-color",
-        //             backgroundColor,
-        //         );
-        //         dispatch(background(backgroundColor));
+                const backgroundColor = res[0].backgroundColor;
+                document.documentElement.style.setProperty(
+                    "--background-color",
+                    "#1234",
+                );
+                dispatch(background(backgroundColor));
 
-        //         const textColor = res[0].textColor;
-        //         document.documentElement.style.setProperty(
-        //             "--text-color",
-        //             textColor,
-        //         );
-        //         dispatch(textColor(textColor));
+                const textColor = res[0].textColor;
+                document.documentElement.style.setProperty(
+                    "--text-color",
+                    textColor,
+                );
+                dispatch(textColor(textColor));
 
-        //         const textStyle = res[0].textStyle;
-        //         document.documentElement.style.setProperty(
-        //             "--text-style",
-        //             textStyle,
-        //         );
-        //         dispatch(textStyle(textStyle));
-        //     });
+                const textStyle = res[0].textStyle;
+                document.documentElement.style.setProperty(
+                    "--text-style",
+                    textStyle,
+                );
+                dispatch(textStyle(textStyle));
+            });
     }, []);
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -181,7 +184,8 @@ function Main() {
     const handleDateClick = (event) => {
         const clickedDate = event.target.textContent;
         const newLocation = `/day?date=${yearForm}-${monthForm}-${clickedDate}`;
-        window.location.href = newLocation;
+        navigate(newLocation);
+        console.log("A");
     };
 
     const renderDays = () => {
@@ -191,7 +195,7 @@ function Main() {
         const today = dateToday();
 
         let day = 1;
-        let rowCount = Math.ceil((firstDay + daysCount) / 7); // 총 줄 수 계산
+        let rowCount = Math.ceil((firstDay + daysCount) / 7);
 
         for (let r = 0; r < rowCount; r++) {
             const rowDays = [];
