@@ -12,9 +12,16 @@ import LoginModalBackground from "../sign/LoginModalBackground";
 import { cardmodal } from "../../modules/module/modal";
 import { addDate, addMonth, addDay } from "../../modules/module/date";
 import { eaddDate, eaddMonth, eaddDay } from "../../modules/module/endDate";
-import { laddDate, laddMonth, laddDay } from "../../modules/module/Limit";
+import {
+    laddDate,
+    laddMonth,
+    laddDay,
+    initialReducer,
+} from "../../modules/module/Limit";
+import { newDate } from "../../modules/module/repeatStart";
 import { addCard } from "../../modules/module/card";
 import { callUserCard } from "./server";
+
 import { callData } from "../weekly/weekSever";
 import dayjs from "dayjs";
 
@@ -30,7 +37,7 @@ function Daily() {
     const form = useSelector((state) => state.dateReducer);
     const handleOutClick = (data) => {
         dispatch(cardmodal());
-        dispatch(addCard(data));
+        dispatch(addCard({ cardType: "day", cardData: data }));
     };
 
     const initialState = () => {
@@ -42,10 +49,6 @@ function Daily() {
         const endmonthAction = eaddMonth(Number(month));
         const enddayAction = eaddDay(Number(day));
 
-        const limitdateAction = laddDate(Number(year));
-        const limitmonthAction = laddMonth(Number(month));
-        const limitdayAction = laddDay(Number(day));
-
         dispatch(enddateAction);
         dispatch(endmonthAction);
         dispatch(enddayAction);
@@ -54,9 +57,20 @@ function Daily() {
         dispatch(monthAction);
         dispatch(dayAction);
 
-        dispatch(limitdateAction);
-        dispatch(limitmonthAction);
-        dispatch(limitdayAction);
+        dispatch(
+            initialReducer({
+                year: year,
+                month: month,
+                day: day,
+            }),
+        );
+        dispatch(
+            newDate({
+                year: Number(year),
+                month: Number(month),
+                day: Number(day),
+            }),
+        );
     };
 
     useEffect(() => {

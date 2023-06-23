@@ -28,6 +28,7 @@ function Selectime() {
 
     const data = useSelector((state) => state.cardReducer);
     const card = useSelector((state) => state.cardReducer.day);
+    console.log(card);
 
     const datePlusHandler = () => {
         const formatDate = new Date(date);
@@ -58,11 +59,11 @@ function Selectime() {
         dispatch(cardTypeReducer());
         const getData = cardId;
 
-        const { start, end, title, url, memo, color } = card.find(
+        const { startDate, endDate, title, url, memo, color } = card.find(
             (data) => data.cardId === cardId,
         );
-        const parsedDate = dayjs(start);
-        const parsedEndDate = dayjs(end);
+        const parsedDate = dayjs(startDate);
+        const parsedEndDate = dayjs(endDate);
 
         const formatTime = {
             year: parsedDate.year(),
@@ -100,16 +101,16 @@ function Selectime() {
                     {hours.map((item) => {
                         const matchingData = card.filter(
                             (data) =>
-                                dayjs(data.start).format("HH:mm") <= item &&
-                                dayjs(data.end).format("HH:mm") > item,
+                                dayjs(data.startDate).format("HH:mm") <= item &&
+                                dayjs(data.endDate).format("HH:mm") > item,
                         );
 
                         if (matchingData.length > 0) {
                             return (
                                 <li key={item} className="renderCard">
                                     {matchingData.map(
-                                        ({ cardId, title, color, start }) =>
-                                            dayjs(start).format("HH:mm") ===
+                                        ({ cardId, title, color, startDate }) =>
+                                            dayjs(startDate).format("HH:mm") ===
                                             item ? (
                                                 <div
                                                     onClick={(e) =>
