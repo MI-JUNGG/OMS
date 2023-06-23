@@ -26,8 +26,6 @@ function Main() {
 
     const date = new Date(yearForm, monthForm - 1);
 
-    const [schedule, setSchedule] = useState([]);
-
     const monthScheduleData = useSelector((state) => state.cardReducer.month);
 
     useEffect(() => {
@@ -227,7 +225,7 @@ function Main() {
                     );
                     day++;
                 } else {
-                    const dayHasSchedule = schedule.find((item) => {
+                    const dayHasSchedule = monthScheduleData.find((item) => {
                         const itemDate = new Date(item.start);
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
@@ -237,7 +235,7 @@ function Main() {
                         );
                     });
 
-                    const shortSchedule = schedule.find((item) => {
+                    const shortSchedule = monthScheduleData.find((item) => {
                         const itemDate = new Date(item.start);
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
