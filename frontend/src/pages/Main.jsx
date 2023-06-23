@@ -26,7 +26,9 @@ function Main() {
 
     const date = new Date(yearForm, monthForm - 1);
 
-    const monthSchedule = useSelector((state) => state.cardReducer);
+    const [schedule, setSchedule] = useState([]);
+
+    const monthScheduleData = useSelector((state) => state.cardReducer.month);
 
     useEffect(() => {
         const startDate = `${yearForm}-${monthForm}-01`;
@@ -47,7 +49,10 @@ function Main() {
                 const customColors = response.data.palette[0];
                 const monthSchedule = response.data.monthCard;
 
-                dispatch(addCard(monthSchedule));
+                dispatch(
+                    addCard({ cardType: "month", cardData: monthSchedule }),
+                );
+                setSchedule(monthSchedule);
 
                 customColors &&
                     Object.keys(customColors).forEach((key) => {
@@ -188,7 +193,9 @@ function Main() {
         const today = dateToday();
 
         let day = 1;
-        for (let r = 0; r < 5; r++) {
+        let rowCount = Math.ceil((firstDay + daysCount) / 7); // 총 줄 수 계산
+
+        for (let r = 0; r < rowCount; r++) {
             const rowDays = [];
             for (let c = 0; c < 7; c++) {
                 if (r === 0 && c < firstDay) {
@@ -220,7 +227,7 @@ function Main() {
                     );
                     day++;
                 } else {
-                    const dayHasSchedule = monthSchedule.find((item) => {
+                    const dayHasSchedule = schedule.find((item) => {
                         const itemDate = new Date(item.start);
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
@@ -230,7 +237,7 @@ function Main() {
                         );
                     });
 
-                    const shortSchedule = monthSchedule.find((item) => {
+                    const shortSchedule = schedule.find((item) => {
                         const itemDate = new Date(item.start);
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&

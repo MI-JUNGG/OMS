@@ -40,7 +40,7 @@ const cardSlice = createSlice({
                 state.day.push(cardData);
             }
             if (cardType === "month") {
-                state.day.push(cardData);
+                state.month.push(cardData);
             }
         },
         removeCard: (state, action) => {},
