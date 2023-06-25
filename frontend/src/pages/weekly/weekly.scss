@@ -1,11 +1,10 @@
-.weekContainer {
-    margin-top: 30px;
+.weekTopContainer {
     display: flex;
-    justify-content: center;
-
+    flex-direction: column;
     width: 1280px;
-    min-width: 500px;
-    gap: 10px;
+    margin: 30px auto 0 auto;
+    padding-top: 10px;
+    background-color: #1234;
     .dayChanger {
         display: flex;
         align-items: center;
@@ -15,39 +14,46 @@
         height: 5%;
         font-size: x-large;
     }
-    .timetable {
+    .weekContainer {
+        margin-top: 30px;
         display: flex;
-        flex-direction: column;
-        width: 1100px;
-        &__header {
-            display: flex;
-            border-top: none;
-        }
-        .rederWeekData {
-            width: 100%;
-            height: 100%;
-        }
-        &__day,
-        &__cell {
-            flex: 1;
-            border-bottom: 1px solid #ccc;
-            border-left: 1px solid #ccc;
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            &:last-child {
-                border-right: 1px solid #ccc; /* 마지막 요소에 border-right 추가 */
-            }
-        }
+        justify-content: center;
+        gap: 10px;
 
-        &__body {
+        .timetable {
             display: flex;
             flex-direction: column;
-        }
+            width: 1100px;
+            &__header {
+                display: flex;
+                border-top: none;
+            }
+            .rederWeekData {
+                width: 100%;
+                height: 100%;
+            }
+            &__day,
+            &__cell {
+                flex: 1;
+                border-bottom: 1px solid #ccc;
+                border-left: 1px solid #ccc;
+                height: 100px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                &:last-child {
+                    border-right: 1px solid #ccc; /* 마지막 요소에 border-right 추가 */
+                }
+            }
 
-        &__row {
-            display: flex;
+            &__body {
+                display: flex;
+                flex-direction: column;
+            }
+
+            &__row {
+                display: flex;
+            }
         }
     }
 }

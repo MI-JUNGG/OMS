@@ -15,7 +15,7 @@ import { endUpdate } from "../../../modules/module/endDate";
 import { addCard } from "../../../modules/module/card";
 import { callUserCard } from "../server";
 
-function Selectime() {
+function Selectime({ setId }) {
     const dispatch = useDispatch();
     const location = useLocation();
     const searchParams = new URLSearchParams(window.location.search);
@@ -24,11 +24,11 @@ function Selectime() {
     const returnDate = formatDate.format("YYYY.MM.DD");
 
     const [date, setDate] = useState(returnDate);
+
     const navigate = useNavigate();
 
     const data = useSelector((state) => state.cardReducer);
     const card = useSelector((state) => state.cardReducer.day);
-    console.log(card);
 
     const datePlusHandler = () => {
         const formatDate = new Date(date);
@@ -55,6 +55,8 @@ function Selectime() {
     };
 
     const fixModalHandler = (e, cardId) => {
+        console.log("daily:" + cardId);
+        setId(cardId);
         dispatch(cardmodal());
         dispatch(cardTypeReducer());
         const getData = cardId;
