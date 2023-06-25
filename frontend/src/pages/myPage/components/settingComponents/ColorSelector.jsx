@@ -7,9 +7,12 @@ import {
     temporaryMainColor,
 } from "../../../../modules/module/temporaryColorSetting";
 
-function ColorSelector() {
+function ColorSelector(props) {
+    const existingSettingValue = props.existingSettingValue;
+
     const dispatch = useDispatch();
     const form = useSelector((state) => state.temporaryColorReducer);
+    console.log("adad", existingSettingValue);
 
     const changeTemporaryMainColor = (id) => {
         dispatch(temporaryMainColor(id));
@@ -20,11 +23,15 @@ function ColorSelector() {
 
     document.documentElement.style.setProperty(
         "--temporarybackgroundColor",
-        form.temporaryBackgroundColor,
+        form.temporaryBackgroundColor
+            ? form.temporaryBackgroundColor
+            : existingSettingValue.backgroundColor,
     );
     document.documentElement.style.setProperty(
         "--temporaryMainColor",
-        form.temporaryMainColor,
+        form.temporaryMainColor
+            ? form.temporaryMainColor
+            : existingSettingValue.mainColor,
     );
 
     return (

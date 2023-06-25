@@ -9,7 +9,7 @@ const SettingSlice = createSlice({
         textColor: "Dark",
         blockColor: "#AF71FF",
         blockColorTheme: 1,
-        blockColorThemeTitle: "bright",
+        blockColorThemeTitle: "",
         isModal: 0,
         isCustomPicker: false,
         axiosBlockColor: 0,
@@ -32,6 +32,28 @@ const SettingSlice = createSlice({
         },
         handleBlockColorTheme: (state, action) => {
             state.blockColorTheme = action.payload;
+            switch (action.payload) {
+                case 1:
+                    state.blockColorThemeTitle = "vivid";
+                    break;
+                case 2:
+                    state.blockColorThemeTitle = "bright";
+                    break;
+                case 3:
+                    state.blockColorThemeTitle = "soft";
+                    break;
+                case 4:
+                    state.blockColorThemeTitle = "reddish";
+                    break;
+                case 5:
+                    state.blockColorThemeTitle = "pale";
+                    break;
+                case 6:
+                    state.blockColorThemeTitle = "custom";
+                    break;
+                default:
+                    state.blockColorThemeTitle = "";
+            }
         },
         handleBlockColorThemeTitle: (state, action) => {
             state.blockColorThemeTitle = action.payload;

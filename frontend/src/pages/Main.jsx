@@ -10,6 +10,8 @@ import {
     background,
     handleBlockColorTheme,
     main,
+    textColor,
+    textStyle,
 } from "../modules/module/setting";
 import {
     setCustomMainColor,
@@ -18,6 +20,13 @@ import {
 import Button from "./button/Button";
 import { addCard } from "../modules/module/card";
 import { useNavigate } from "react-router";
+import {
+    temporaryMainColor,
+    temporaryBackgroundColor,
+    temporaryTextColor,
+    temporaryTextStyle,
+    temporaryBlockColorTheme,
+} from "../modules/module/temporaryColorSetting";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);
@@ -29,7 +38,12 @@ function Main() {
 
     const date = new Date(yearForm, monthForm - 1);
 
+    const setting = useSelector((state) => state.settingReducer);
+
     const monthScheduleData = useSelector((state) => state.cardReducer.month);
+
+    const tem = useSelector((state) => state.temporaryColorReducer);
+    console.log(tem);
 
     useEffect(() => {
         const startDate = `${yearForm}-${monthForm}-01`;
@@ -53,9 +67,9 @@ function Main() {
                 dispatch(
                     addCard({ cardType: "month", cardData: monthSchedule }),
                 );
-                setSchedule(monthSchedule);
 
                 customColors &&
+                    customColors.colorPaletteId === 6 &&
                     Object.keys(customColors).forEach((key) => {
                         if (
                             key.startsWith("color") &&
@@ -84,6 +98,7 @@ function Main() {
                                             : null,
                                 }),
                             );
+                        } else {
                         }
                     });
             })
@@ -107,7 +122,7 @@ function Main() {
         //         console.error(error);
         //     });
 
-        fetch("http://192.168.0.5:3001/mypage/theme", {
+        fetch("/data/myPage.json", {
             method: "GET",
             headers: {
                 Authorization: localStorage.getItem("token"),
@@ -115,37 +130,45 @@ function Main() {
             },
         })
             .then((response) => response.json())
-            .then((data) => console.log(data))
             .then((res) => {
-                const mainColor = res[0].mainColor;
-                document.documentElement.style.setProperty(
-                    "--main-color",
-                    mainColor,
-                );
+                const mainColor = res.mainColor;
                 dispatch(main(mainColor));
+                dispatch(temporaryMainColor(mainColor));
 
-                const backgroundColor = res[0].backgroundColor;
-                document.documentElement.style.setProperty(
-                    "--background-color",
-                    "#1234",
-                );
+                const backgroundColor = res.backgroundColor;
                 dispatch(background(backgroundColor));
+                dispatch(temporaryBackgroundColor(backgroundColor));
 
-                const textColor = res[0].textColor;
-                document.documentElement.style.setProperty(
-                    "--text-color",
-                    textColor,
-                );
-                dispatch(textColor(textColor));
+                const resTextColor = res.textColor;
+                dispatch(textColor(resTextColor));
+                dispatch(temporaryTextColor(resTextColor));
 
-                const textStyle = res[0].textStyle;
-                document.documentElement.style.setProperty(
-                    "--text-style",
-                    textStyle,
-                );
-                dispatch(textStyle(textStyle));
+                const resTextStyle = res.textStyle;
+                dispatch(textStyle(resTextStyle));
+                dispatch(temporaryTextStyle(resTextStyle));
+
+                const colorPaletteId = res.colorPaletteId;
+                dispatch(temporaryBlockColorTheme(colorPaletteId));
             });
     }, []);
+
+    document.documentElement.style.setProperty(
+        "--main-color",
+        setting.mainColor,
+    );
+
+    document.documentElement.style.setProperty(
+        "--background-color",
+        setting.backgroundColor,
+    );
+    document.documentElement.style.setProperty(
+        "--text-color",
+        setting.textColor,
+    );
+    document.documentElement.style.setProperty(
+        "--text-style",
+        setting.textStyle,
+    );
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const monthNames = [];
@@ -185,7 +208,6 @@ function Main() {
         const clickedDate = event.target.textContent;
         const newLocation = `/day?date=${yearForm}-${monthForm}-${clickedDate}`;
         navigate(newLocation);
-        console.log("A");
     };
 
     const renderDays = () => {

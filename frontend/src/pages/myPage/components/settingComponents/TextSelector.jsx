@@ -12,15 +12,20 @@ import {
     temporaryTextStyle,
 } from "../../../../modules/module/temporaryColorSetting";
 
-function TextSelector() {
+function TextSelector(props) {
+    const existingSettingValue = props.existingSettingValue;
+
     const dispatch = useDispatch();
     const ismodal = useSelector((state) => state.settingReducer.isModal);
     const handleOutClick = () => {
         dispatch(isModal(1));
     };
     const form = useSelector((state) => state.temporaryColorReducer);
+
+    const old = useSelector((state) => state.settingReducer);
+
     const blockColorTheme = useSelector(
-        (state) => state.settingReducer.blockColorTheme,
+        (state) => state.settingReducer.blockColorTheme - 1,
     );
     const blockColorThemeTitle = useSelector(
         (state) => state.settingReducer.blockColorThemeTitle,
@@ -29,13 +34,27 @@ function TextSelector() {
         (state) => state.settingReducer.isCustomPicker,
     );
 
+    const [blockColorId, setBlockColorId] = useState({
+        blockColorThemeId: blockColorTheme,
+        blockColorThemeTitleId: blockColorThemeTitle,
+    });
+
     const colorForm = useSelector((state) => state.colorPickerReducer.color);
 
     const [blockColor, setBlockColor] = useState([]);
 
+    const pickColorList = (key, title) => {
+        setBlockColorId({ key: key, title: title });
+    };
+
+    console.log("AA", blockColorTheme);
+    console.log("BB", blockColorThemeTitle);
+    console.log("cc", colorForm);
+
     useEffect(() => {
         setBlockColor(colorForm);
-    }, [colorForm]);
+        pickColorList({ key: blockColorTheme, title: blockColorThemeTitle });
+    }, [blockColorTheme]);
 
     const changeTemporaryTextStyle = (id) => {
         dispatch(temporaryTextStyle(id));
@@ -51,15 +70,21 @@ function TextSelector() {
 
     document.documentElement.style.setProperty(
         "--textPreviewFontColor",
-        form.temporaryTextColor,
+        form.temporaryTextColor
+            ? form.temporaryTextColor
+            : existingSettingValue.temporaryTextColor,
     );
     document.documentElement.style.setProperty(
         "--textPreviewBGColor",
-        form.temporaryBlockColor.bgColor,
+        form.temporaryBlockColor.bgColor
+            ? form.temporaryBlockColor.bgColor
+            : `${existingSettingValue.blockColor}1A`,
     );
     document.documentElement.style.setProperty(
         "--textPreviewMainColor",
-        form.temporaryBlockColor.mainColor,
+        form.temporaryBlockColor.mainColor
+            ? form.temporaryBlockColor.mainColor
+            : existingSettingValue.mainColor,
     );
 
     const TEXT_STYLE = [

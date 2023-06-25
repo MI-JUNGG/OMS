@@ -3,9 +3,16 @@ import Setting from "./components/Setting";
 import "./MyPage.scss";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function MyPage() {
     const navigate = useNavigate();
+
+    const setting = useSelector((state) => state.settingReducer);
+    document.documentElement.style.setProperty(
+        "--main-color",
+        setting.mainColor,
+    );
 
     const PAGE_STATE = [
         {
