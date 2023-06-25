@@ -13,18 +13,23 @@ import {
     setCustomMainColor,
     setCustomBackgroundColor,
 } from "../../../../modules/module/colorPicker";
-import { temporaryBlockColorTheme } from "../../../../modules/module/temporaryColorSetting";
+import {
+    temporaryBlockColorTheme,
+    temporaryBlockColorThemeTitle,
+} from "../../../../modules/module/temporaryColorSetting";
 
 function ColorPicker(props) {
-    const colorList = props.colorList;
+    const colorList = useSelector((state) => state.colorPickerReducer.color);
     const blockColorTheme = props.blockColorTheme;
     const blockColorThemeTitle = props.blockColorThemeTitle;
     const dispatch = useDispatch();
+    console.log(colorList);
 
     const [colorSub, setColorSub] = useState({
         key: blockColorTheme,
         title: blockColorThemeTitle,
     });
+    console.log(colorSub);
     const [customId, setCustomId] = useState("");
 
     const changeCustomColor = () => {
@@ -44,6 +49,7 @@ function ColorPicker(props) {
         );
         dispatch(isCustomPicker(false));
         dispatch(handleBlockColorTheme(colorSub.key));
+        dispatch(isModal(0));
     };
 
     const pickColorList = (key, title) => {
@@ -55,7 +61,8 @@ function ColorPicker(props) {
         dispatch(handleBlockColorThemeTitle(colorSub.title));
         dispatch(isModal(false));
         dispatch(handleaxiosBlockColor(colorSub.key + 1));
-        // dispatch(temporaryBlockColorTheme(colorSub.key));
+        dispatch(temporaryBlockColorTheme(colorSub.key));
+        dispatch(temporaryBlockColorThemeTitle(colorSub.title));
     };
     const isOnCustom = useSelector(
         (state) => state.settingReducer.isCustomPicker,
@@ -71,6 +78,8 @@ function ColorPicker(props) {
     const onCustom = () => {
         dispatch(isCustomPicker(true));
     };
+
+    useEffect(() => {}, [colorList]);
 
     return (
         <>

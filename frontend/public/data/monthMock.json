@@ -1,14 +1,14 @@
 {
     "palette": [
         {
-            "colorPaletteId": 1,
-            "color1": null,
-            "color2": null,
-            "color3": null,
-            "color4": null,
-            "color5": null,
-            "color6": null,
-            "color7": null
+            "colorPaletteId": 6,
+            "color1": "red",
+            "color2": "green",
+            "color3": "yellow",
+            "color4": "blue",
+            "color5": "magenta",
+            "color6": "orange",
+            "color7": "transparent"
         }
     ],
     "monthCard": [

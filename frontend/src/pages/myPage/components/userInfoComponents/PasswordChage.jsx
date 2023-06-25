@@ -15,8 +15,6 @@ function PasswordChage() {
 
     const form = useSelector((state) => state.userInfoChangeReducer);
 
-    console.log(form);
-
     const inputNewpassword = (e) => {
         dispatch(newPassword(e.target.value));
     };

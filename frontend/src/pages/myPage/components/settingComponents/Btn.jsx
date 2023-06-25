@@ -11,11 +11,19 @@ import {
     handleBlockColorThemeTitle,
     handleBlockColorTheme,
 } from "../../../../modules/module/setting";
+import {
+    temporaryMainColor,
+    temporaryBackgroundColor,
+    temporaryTextStyle,
+    temporaryTextColor,
+    temporaryBlockMainColor,
+    temporaryBlockColorTheme,
+    temporaryBlockColorThemeTitle,
+} from "../../../../modules/module/temporaryColorSetting";
 
 function Buttons() {
     const dispatch = useDispatch();
     const form = useSelector((state) => state.temporaryColorReducer);
-    console.log("dd", form);
 
     const colorPaletteld = useSelector((state) => state.colorPickerReducer);
 
@@ -25,6 +33,25 @@ function Buttons() {
     const axiosBlock = useSelector(
         (state) => state.settingReducer.axiosBlockColor,
     );
+
+    const pickTitle = (id) => {
+        switch (id) {
+            case 0:
+                return "vivid";
+            case 1:
+                return "bright";
+            case 2:
+                return "soft";
+            case 3:
+                return "reddish";
+            case 4:
+                return "pale";
+            case 5:
+                return "custom";
+            default:
+                return "";
+        }
+    };
 
     const settingSub = () => {
         // axios
@@ -72,9 +99,67 @@ function Buttons() {
         dispatch(textStyle(form.temporaryTextStyle));
         dispatch(handleBlockColor(form.temporaryBlockColor));
         dispatch(handleBlockColorTheme(form.temporaryBlockColorTheme));
+        dispatch(
+            temporaryBlockColorThemeTitle(
+                pickTitle(form.temporaryBlockColorTheme),
+            ),
+        );
 
         alert("업데이트 성공");
+
+        document.documentElement.style.setProperty(
+            "--global-font-weight",
+            "normal",
+        );
+        document.documentElement.style.setProperty(
+            "--global-font-style",
+            "normal",
+        );
+        document.documentElement.style.setProperty(
+            "--global-text-decoration",
+            "none",
+        );
+
+        if (form.temporaryTextStyle === "Regular") {
+            document.documentElement.style.setProperty(
+                "--global-font-weight",
+                "normal",
+            );
+        } else if (form.temporaryTextStyle === "Bold") {
+            document.documentElement.style.setProperty(
+                "--global-font-weight",
+                "bold",
+            );
+        } else if (form.temporaryTextStyle === "Italic") {
+            document.documentElement.style.setProperty(
+                "--global-font-style",
+                "italic",
+            );
+        } else if (form.temporaryTextStyle === "underline") {
+            document.documentElement.style.setProperty(
+                "--global-text-decoration",
+                "underline",
+            );
+        }
     };
+
+    const oldValue = useSelector((state) => state.settingReducer);
+
+    console.log("NN<", oldValue);
+
+    const defaultBtn = () => {
+        dispatch(temporaryMainColor(oldValue.mainColor));
+        dispatch(temporaryBackgroundColor(oldValue.backgroundColor));
+        dispatch(temporaryTextStyle(oldValue.textStyle));
+        dispatch(temporaryTextColor(oldValue.textColor));
+        dispatch(temporaryBlockMainColor(oldValue.blockColor));
+        dispatch(temporaryBlockColorTheme(oldValue.blockColorTheme));
+        dispatch(
+            handleBlockColorThemeTitle(pickTitle(oldValue.blockColorTheme)),
+        );
+    };
+    console.log(oldValue);
+    console.log("AA", form);
 
     return (
         <>
@@ -82,7 +167,9 @@ function Buttons() {
                 <button type="button" onClick={settingSub}>
                     Save
                 </button>
-                <button type="button">Default</button>
+                <button type="button" onClick={defaultBtn}>
+                    Default
+                </button>
             </div>
         </>
     );

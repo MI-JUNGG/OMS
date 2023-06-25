@@ -12,7 +12,6 @@ function ColorSelector(props) {
 
     const dispatch = useDispatch();
     const form = useSelector((state) => state.temporaryColorReducer);
-    console.log("adad", existingSettingValue);
 
     const changeTemporaryMainColor = (id) => {
         dispatch(temporaryMainColor(id));
@@ -44,18 +43,33 @@ function ColorSelector(props) {
                             {MAIN_COLOR.map((data, id) => {
                                 return (
                                     <div
-                                        key={id}
+                                        className={
+                                            form.temporaryMainColor ===
+                                            data.color
+                                                ? "active"
+                                                : "inActive"
+                                        }
                                         style={{
-                                            width: "30px",
-                                            height: "30px",
-                                            borderRadius: "100px",
-                                            backgroundColor: data.color,
                                             marginRight: "32px",
                                         }}
-                                        onClick={() =>
-                                            changeTemporaryMainColor(data.color)
-                                        }
-                                    />
+                                    >
+                                        <div
+                                            key={id}
+                                            style={{
+                                                width: "30px",
+                                                height: "30px",
+                                                borderRadius: "100px",
+                                                backgroundColor: data.color,
+
+                                                cursor: "pointer",
+                                            }}
+                                            onClick={() =>
+                                                changeTemporaryMainColor(
+                                                    data.color,
+                                                )
+                                            }
+                                        />
+                                    </div>
                                 );
                             })}
                         </div>
@@ -66,18 +80,32 @@ function ColorSelector(props) {
                             {BG_COLOR.map((data, id) => {
                                 return (
                                     <div
-                                        key={id}
+                                        className={
+                                            form.temporaryBackgroundColor ===
+                                            data.color
+                                                ? "active"
+                                                : "inActive"
+                                        }
                                         style={{
-                                            width: "30px",
-                                            height: "30px",
-                                            borderRadius: "100px",
-                                            backgroundColor: data.color,
                                             marginRight: "32px",
                                         }}
-                                        onClick={() => {
-                                            changeTemporaryBGColor(data.color);
-                                        }}
-                                    />
+                                    >
+                                        <div
+                                            key={id}
+                                            style={{
+                                                width: "30px",
+                                                height: "30px",
+                                                borderRadius: "100px",
+                                                backgroundColor: data.color,
+                                                cursor: "pointer",
+                                            }}
+                                            onClick={() => {
+                                                changeTemporaryBGColor(
+                                                    data.color,
+                                                );
+                                            }}
+                                        />
+                                    </div>
                                 );
                             })}
                         </div>

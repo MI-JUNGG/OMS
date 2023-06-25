@@ -9,6 +9,7 @@ import axios from "axios";
 import {
     background,
     handleBlockColorTheme,
+    handleBlockColorThemeTitle,
     main,
     textColor,
     textStyle,
@@ -26,6 +27,7 @@ import {
     temporaryTextColor,
     temporaryTextStyle,
     temporaryBlockColorTheme,
+    temporaryBlockColorThemeTitle,
 } from "../modules/module/temporaryColorSetting";
 
 function Main() {
@@ -41,9 +43,6 @@ function Main() {
     const setting = useSelector((state) => state.settingReducer);
 
     const monthScheduleData = useSelector((state) => state.cardReducer.month);
-
-    const tem = useSelector((state) => state.temporaryColorReducer);
-    console.log(tem);
 
     useEffect(() => {
         const startDate = `${yearForm}-${monthForm}-01`;
@@ -99,6 +98,27 @@ function Main() {
                                 }),
                             );
                         } else {
+                            dispatch(
+                                temporaryBlockColorTheme(
+                                    customColors.colorPaletteId - 1,
+                                ),
+                            );
+                            dispatch(
+                                handleBlockColorTheme(
+                                    customColors.colorPaletteId - 1,
+                                ),
+                            );
+
+                            dispatch(
+                                temporaryBlockColorThemeTitle(
+                                    pickTitle(customColors.colorPaletteId - 1),
+                                ),
+                            );
+                            dispatch(
+                                handleBlockColorThemeTitle(
+                                    pickTitle(customColors.colorPaletteId - 1),
+                                ),
+                            );
                         }
                     });
             })
@@ -148,9 +168,38 @@ function Main() {
                 dispatch(temporaryTextStyle(resTextStyle));
 
                 const colorPaletteId = res.colorPaletteId;
-                dispatch(temporaryBlockColorTheme(colorPaletteId));
+                dispatch(temporaryBlockColorTheme(colorPaletteId - 1));
+                dispatch(handleBlockColorTheme(colorPaletteId - 1));
+
+                dispatch(
+                    temporaryBlockColorThemeTitle(
+                        pickTitle(colorPaletteId - 1),
+                    ),
+                );
+                dispatch(
+                    handleBlockColorThemeTitle(pickTitle(colorPaletteId - 1)),
+                );
             });
     }, []);
+
+    const pickTitle = (id) => {
+        switch (id) {
+            case 0:
+                return "vivid";
+            case 1:
+                return "bright";
+            case 2:
+                return "soft";
+            case 3:
+                return "reddish";
+            case 4:
+                return "pale";
+            case 5:
+                return "custom";
+            default:
+                return "";
+        }
+    };
 
     document.documentElement.style.setProperty(
         "--main-color",

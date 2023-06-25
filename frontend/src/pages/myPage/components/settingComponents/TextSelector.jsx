@@ -25,7 +25,7 @@ function TextSelector(props) {
     const old = useSelector((state) => state.settingReducer);
 
     const blockColorTheme = useSelector(
-        (state) => state.settingReducer.blockColorTheme - 1,
+        (state) => state.settingReducer.blockColorTheme,
     );
     const blockColorThemeTitle = useSelector(
         (state) => state.settingReducer.blockColorThemeTitle,
@@ -34,27 +34,13 @@ function TextSelector(props) {
         (state) => state.settingReducer.isCustomPicker,
     );
 
-    const [blockColorId, setBlockColorId] = useState({
-        blockColorThemeId: blockColorTheme,
-        blockColorThemeTitleId: blockColorThemeTitle,
-    });
-
     const colorForm = useSelector((state) => state.colorPickerReducer.color);
 
     const [blockColor, setBlockColor] = useState([]);
 
-    const pickColorList = (key, title) => {
-        setBlockColorId({ key: key, title: title });
-    };
-
-    console.log("AA", blockColorTheme);
-    console.log("BB", blockColorThemeTitle);
-    console.log("cc", colorForm);
-
     useEffect(() => {
         setBlockColor(colorForm);
-        pickColorList({ key: blockColorTheme, title: blockColorThemeTitle });
-    }, [blockColorTheme]);
+    }, [ismodal]);
 
     const changeTemporaryTextStyle = (id) => {
         dispatch(temporaryTextStyle(id));
@@ -86,27 +72,39 @@ function TextSelector(props) {
             ? form.temporaryBlockColor.mainColor
             : existingSettingValue.mainColor,
     );
+    document.documentElement.style.setProperty(
+        "--existing-text-preview-main-color",
+        existingSettingValue.mainColor,
+    );
+    document.documentElement.style.setProperty(
+        "--existing-text-preview-BG-color",
+        `${existingSettingValue.mainColor}1A`,
+    );
 
     const TEXT_STYLE = [
         {
             id: 1,
-            style: "Regular",
+            style: "regular",
             fontSize: "14px",
+            className: "text-regular",
         },
         {
             id: 2,
-            style: "Bold",
+            style: "bold",
             fontSize: "20px",
+            className: "text-bold",
         },
         {
             id: 3,
-            style: "Italic",
+            style: "italic",
             fontSize: "19px",
+            className: "text-italic",
         },
         {
             id: 4,
             style: "underline",
             fontSize: "15px",
+            className: "text-underline",
         },
     ];
 
@@ -118,10 +116,22 @@ function TextSelector(props) {
         },
         {
             id: 2,
-            title: "Colored",
+            title: "colored",
             color: form.temporaryBlockColor.mainColor,
         },
     ];
+
+    const previewFont = () => {
+        if (form.temporaryTextStyle === "regular") {
+            return "textPreview text-regular";
+        } else if (form.temporaryTextStyle === "bold") {
+            return "textPreview text-bold";
+        } else if (form.temporaryTextStyle === "italic") {
+            return "textPreview text-italic";
+        } else if (form.temporaryTextStyle === "underline") {
+            return "textPreview text-underline";
+        }
+    };
 
     return (
         <>
@@ -131,15 +141,20 @@ function TextSelector(props) {
                         <div className="textSelectorZone">
                             <div className="textStyleSelectZone">
                                 <h3>Text Style</h3>
-                                <div className="textStyleSelect">
+                                <div className="textStyleSelect ">
                                     {TEXT_STYLE.map((style, i) => {
                                         const fixStyle = {
                                             fontSize: style.fontSize,
-                                            fontStyle: style.style,
-                                            textDecoration: style.style,
                                         };
                                         return (
                                             <div
+                                                className={
+                                                    (style.className,
+                                                    form.temporaryTextStyle ===
+                                                    style.style
+                                                        ? "active"
+                                                        : "inactive")
+                                                }
                                                 key={i}
                                                 style={fixStyle}
                                                 onClick={() => {
@@ -161,7 +176,12 @@ function TextSelector(props) {
                                         return (
                                             <div
                                                 key={i}
-                                                className="textColor"
+                                                className={
+                                                    form.temporaryTextColor ===
+                                                    color.color
+                                                        ? "textColor active"
+                                                        : "textColor inActive"
+                                                }
                                                 onClick={() => {
                                                     changeTemporaryTextColor(
                                                         color.color,
@@ -187,17 +207,27 @@ function TextSelector(props) {
                                         ]?.map((data, i) => {
                                             return (
                                                 <div
-                                                    key={i}
-                                                    className="blockColorVivid"
-                                                    style={{
-                                                        backgroundColor: `${data.mainColor}`,
-                                                    }}
-                                                    onClick={() => {
-                                                        changeTemporaryBlockMainColor(
-                                                            data,
-                                                        );
-                                                    }}
-                                                ></div>
+                                                    className={
+                                                        form.temporaryBlockColor
+                                                            .mainColor ===
+                                                        data.mainColor
+                                                            ? " active"
+                                                            : " inactive"
+                                                    }
+                                                >
+                                                    <div
+                                                        key={i}
+                                                        className="blockColorVivid"
+                                                        style={{
+                                                            backgroundColor: `${data.mainColor}`,
+                                                        }}
+                                                        onClick={() => {
+                                                            changeTemporaryBlockMainColor(
+                                                                data,
+                                                            );
+                                                        }}
+                                                    ></div>
+                                                </div>
                                             );
                                         })}
                                     <div
@@ -232,7 +262,7 @@ function TextSelector(props) {
                         </div>
 
                         <div className="textPreviewContainer">
-                            <div className="textPreview">
+                            <div className={previewFont()}>
                                 <div className="textPreviewCard_1">
                                     ⚽ Schedule
                                 </div>
