@@ -86,8 +86,8 @@
 |          | CSS3            |                    | \-     |
 |          | JavaScript(ES6) |                    | \-     |
 |          | React           | React              | 18.2.0 |
-|          | React           | Sass               | 1.61.0 |
-|          | React           | Redux-toolkit      | 1.9.2  |
+|          | React           | Sass               | 1.61.0 |
+|          | React           | Redux-toolkit      | 1.9.2  |
 | Server   | 서버            | AWS EC2            | \-     |
 
 </details>
