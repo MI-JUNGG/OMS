@@ -145,8 +145,6 @@ function Buttons() {
 
     const oldValue = useSelector((state) => state.settingReducer);
 
-    console.log("NN<", oldValue);
-
     const defaultBtn = () => {
         dispatch(temporaryMainColor(oldValue.mainColor));
         dispatch(temporaryBackgroundColor(oldValue.backgroundColor));
@@ -158,8 +156,6 @@ function Buttons() {
             handleBlockColorThemeTitle(pickTitle(oldValue.blockColorTheme)),
         );
     };
-    console.log(oldValue);
-    console.log("AA", form);
 
     return (
         <>

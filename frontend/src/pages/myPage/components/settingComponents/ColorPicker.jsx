@@ -23,13 +23,12 @@ function ColorPicker(props) {
     const blockColorTheme = props.blockColorTheme;
     const blockColorThemeTitle = props.blockColorThemeTitle;
     const dispatch = useDispatch();
-    console.log(colorList);
 
     const [colorSub, setColorSub] = useState({
         key: blockColorTheme,
         title: blockColorThemeTitle,
     });
-    console.log(colorSub);
+
     const [customId, setCustomId] = useState("");
 
     const changeCustomColor = () => {
