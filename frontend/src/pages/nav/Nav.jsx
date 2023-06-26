@@ -13,9 +13,16 @@ import {
     password,
     confirmPassword,
 } from "../../modules/module/user";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 function Nav() {
+    const location = useLocation();
+
+    // myPage 경로인 경우 Nav 컴포넌트를 숨김
+    if (location.pathname === "/myPage") {
+        return null;
+    }
+
     const navigate = useNavigate();
     const isLoginModal = useSelector(
         (state) => state.loginModalReducer.loginModal,
@@ -48,6 +55,9 @@ function Nav() {
                 <div className="login">
                     {localStorage.getItem("token") ? (
                         <>
+                            <span className="nickName" onClick={moveMypage}>
+                                닉네임
+                            </span>
                             <span
                                 className="loginText"
                                 onClick={() => {
@@ -62,7 +72,6 @@ function Nav() {
                             >
                                 로그아웃
                             </span>
-                            <span onClick={moveMypage}>닉네임</span>
                         </>
                     ) : (
                         <>
