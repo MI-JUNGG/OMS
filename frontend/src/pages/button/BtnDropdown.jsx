@@ -11,11 +11,13 @@ function BtnDropdown() {
     };
     return (
         <div className="btnDropDown">
-            <Setting />
-            <div onClick={deleteCardHandler}>
-                <Trash />
+            <div className="clickIcon">
+                <Setting />
+                <div onClick={deleteCardHandler}>
+                    <Trash />
+                </div>
+                <Edit />
             </div>
-            <Edit />
         </div>
     );
 }

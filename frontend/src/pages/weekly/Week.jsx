@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { hours, days } from "../daily/time";
 import { callData } from "./weekSever";
 import { addCard } from "../../modules/module/card";
+import Button from "../button/Button";
 import Hour from "./Hour";
 import DateLeft from "../../assets/images/date_picker/DateLeft";
 import DateRight from "../../assets/images/date_picker/DateRight";
@@ -69,97 +70,105 @@ function Weekly() {
     }, []);
 
     return (
-        <div className="weekTopContainer">
-            <div className="dayChanger">
-                <div className="minusDay" onClick={dateMinusHandler}>
-                    <DateLeft />
+        <div className="week">
+            <div className="weekTopContainer">
+                <div className="dayChanger">
+                    <div className="minusDay" onClick={dateMinusHandler}>
+                        <DateLeft />
+                    </div>
+                    <div>{returnDate}</div>
+                    <div className="plusDay" onClick={datePlusHandler}>
+                        <DateRight />
+                    </div>
                 </div>
-                <div>{returnDate}</div>
-                <div className="plusDay" onClick={datePlusHandler}>
-                    <DateRight />
+                <div className="weekContainer">
+                    <Hour />
+                    <div className="timetable">
+                        <div className="timetable__header">
+                            {days.map((day, index) =>
+                                day === "Sun" || day === "Sat" ? (
+                                    <div
+                                        style={{ color: "#FC9690" }}
+                                        className="timetable__day"
+                                        key={index}
+                                    >
+                                        {day}
+                                        {dates[index]}
+                                    </div>
+                                ) : (
+                                    <div className="timetable__day" key={index}>
+                                        <p>{day}</p>
+                                        {dates[index]}
+                                    </div>
+                                ),
+                            )}
+                        </div>
+                        <div className="timetable__body">
+                            {hours.map((hour) => (
+                                <div className="timetable__row" key={hour}>
+                                    {days.map((day, index) => {
+                                        const currentDate = dates[index];
+                                        const findData = weekCard.filter(
+                                            (item) => {
+                                                const transStartHour = dayjs(
+                                                    item.startDate,
+                                                ).format("HH:mm");
+                                                const transEndHour = dayjs(
+                                                    item.endDate,
+                                                ).format("HH:mm");
+                                                const itemDate = dayjs(
+                                                    item.startDate,
+                                                ).format("DD");
+                                                return (
+                                                    currentDate === itemDate &&
+                                                    hour >= transStartHour &&
+                                                    hour < transEndHour
+                                                );
+                                            },
+                                        );
+
+                                        return (
+                                            <div
+                                                className="timetable__cell"
+                                                key={day + hour}
+                                            >
+                                                {findData.map((item) =>
+                                                    dayjs(
+                                                        item.startDate,
+                                                    ).format("HH:mm") ===
+                                                    hour ? (
+                                                        <div
+                                                            className="rederWeekData"
+                                                            style={{
+                                                                backgroundColor:
+                                                                    item.color,
+                                                            }}
+                                                            key={item.cardId}
+                                                        >
+                                                            {item.title}
+                                                        </div>
+                                                    ) : (
+                                                        <div
+                                                            className="rederWeekData"
+                                                            style={{
+                                                                backgroundColor:
+                                                                    item.color,
+                                                            }}
+                                                            key={item.cardId}
+                                                        ></div>
+                                                    ),
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className="weekContainer">
-                <Hour />
-                <div className="timetable">
-                    <div className="timetable__header">
-                        {days.map((day, index) =>
-                            day === "Sun" || day === "Sat" ? (
-                                <div
-                                    style={{ color: "#FC9690" }}
-                                    className="timetable__day"
-                                    key={index}
-                                >
-                                    {day}
-                                    {dates[index]}
-                                </div>
-                            ) : (
-                                <div className="timetable__day" key={index}>
-                                    <p>{day}</p>
-                                    {dates[index]}
-                                </div>
-                            ),
-                        )}
-                    </div>
-                    <div className="timetable__body">
-                        {hours.map((hour) => (
-                            <div className="timetable__row" key={hour}>
-                                {days.map((day, index) => {
-                                    const currentDate = dates[index];
-                                    const findData = weekCard.filter((item) => {
-                                        const transStartHour = dayjs(
-                                            item.startDate,
-                                        ).format("HH:mm");
-                                        const transEndHour = dayjs(
-                                            item.endDate,
-                                        ).format("HH:mm");
-                                        const itemDate = dayjs(
-                                            item.startDate,
-                                        ).format("DD");
-                                        return (
-                                            currentDate === itemDate &&
-                                            hour >= transStartHour &&
-                                            hour < transEndHour
-                                        );
-                                    });
-
-                                    return (
-                                        <div
-                                            className="timetable__cell"
-                                            key={day + hour}
-                                        >
-                                            {findData.map((item) =>
-                                                dayjs(item.startDate).format(
-                                                    "HH:mm",
-                                                ) === hour ? (
-                                                    <div
-                                                        className="rederWeekData"
-                                                        style={{
-                                                            backgroundColor:
-                                                                item.color,
-                                                        }}
-                                                        key={item.cardId}
-                                                    >
-                                                        {item.title}
-                                                    </div>
-                                                ) : (
-                                                    <div
-                                                        className="rederWeekData"
-                                                        style={{
-                                                            backgroundColor:
-                                                                item.color,
-                                                        }}
-                                                        key={item.cardId}
-                                                    ></div>
-                                                ),
-                                            )}
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        ))}
-                    </div>
-                </div>
+            <div className="buttonContainer">
+                <Button />
             </div>
         </div>
     );
