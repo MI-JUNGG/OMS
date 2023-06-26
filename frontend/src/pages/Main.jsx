@@ -20,7 +20,7 @@ import {
 } from "../modules/module/colorPicker";
 import Button from "./button/Button";
 import { addCard } from "../modules/module/card";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import {
     temporaryMainColor,
     temporaryBackgroundColor,
@@ -37,6 +37,7 @@ function Main() {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const date = new Date(yearForm, monthForm - 1);
 
@@ -201,23 +202,34 @@ function Main() {
         }
     };
 
-    document.documentElement.style.setProperty(
-        "--main-color",
-        setting.mainColor,
-    );
+    useEffect(() => {
+        const savedSetting = localStorage.getItem("setting");
 
-    document.documentElement.style.setProperty(
-        "--background-color",
-        setting.backgroundColor,
-    );
-    document.documentElement.style.setProperty(
-        "--text-color",
-        setting.textColor,
-    );
-    document.documentElement.style.setProperty(
-        "--text-style",
-        setting.textStyle,
-    );
+        if (savedSetting) {
+            const setting = JSON.parse(savedSetting);
+
+            document.documentElement.style.setProperty(
+                "--main-color",
+                setting.mainColor,
+            );
+            document.documentElement.style.setProperty(
+                "--background-color",
+                setting.backgroundColor,
+            );
+            document.documentElement.style.setProperty(
+                "--text-color",
+                setting.textColor,
+            );
+            document.documentElement.style.setProperty(
+                "--text-style",
+                setting.textStyle,
+            );
+            document.documentElement.style.setProperty(
+                "--block-color",
+                setting.blockColor,
+            );
+        }
+    }, []);
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const monthNames = [];

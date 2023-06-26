@@ -13,6 +13,7 @@ function MyPage() {
         "--main-color",
         setting.mainColor,
     );
+    console.log(setting);
 
     const PAGE_STATE = [
         {

@@ -9,7 +9,6 @@ $allDaySchedule: rgba(245, 158, 11, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
-    // background-color: $backgroundColor;
 
     .calendar {
         width: 1280px;
@@ -97,7 +96,8 @@ $allDaySchedule: rgba(245, 158, 11, 0.1);
         }
 
         .dayHasSchedule {
-            background-color: $allDaySchedule !important;
+            background-color: rgba(var(--block-color), 0.5) !important;
+            color: var(--block-color);
             z-index: 1;
         }
 
@@ -105,6 +105,7 @@ $allDaySchedule: rgba(245, 158, 11, 0.1);
             .short {
                 background-color: #fc9690;
                 z-index: 2;
+                border-left: 1px solid var(--block-color);
             }
         }
 
