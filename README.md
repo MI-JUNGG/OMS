@@ -36,7 +36,7 @@
 ### Project Manager
 |                                                              김자현 (PM)                                                              |
 | :-----------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>]() |
+| [<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>](https://github.com/jahyun314) |
 
 ### Front-End Developsers
 |                                                               조윤환 (FE)                                                                |                                                                장찬영 (FE)                                                                |
