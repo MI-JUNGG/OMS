@@ -1,6 +1,6 @@
 import Seletime from "./components/Seletime";
 import { useSelector, useDispatch } from "react-redux";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import axios from "axios";
@@ -31,6 +31,7 @@ function Daily() {
     const currentURL = window.location.href;
     const url = new URL(currentURL);
     const dateString = url.searchParams.get("date");
+    const [id, setId] = useState();
     const [year, month, day] = dateString.split("-");
     const token = localStorage.getItem("token");
     const openCard = useSelector((state) => state.modalReducer.cardmodal);
@@ -82,11 +83,11 @@ function Daily() {
     return (
         <div className="topContanier">
             <DndProvider backend={HTML5Backend}>
-                <Seletime />
+                <Seletime setId={setId} />
                 {openCard === true && (
                     <>
                         <LoginModalBackground onClick={handleOutClick} />
-                        <Card />
+                        <Card id={id} />
                     </>
                 )}
                 <div className="btnHeight">

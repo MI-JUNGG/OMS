@@ -21,15 +21,15 @@ import "./Card.scss";
 import Trash from "../../../assets/images/floating_action/Trash";
 import dayjs from "dayjs";
 
-function Card() {
+function Card({ id }) {
     const dispatch = useDispatch();
 
     const typeId = Number(
         useSelector((state) => state.modalReducer.typeControl),
     );
     /*카드삭제*/
-    const deleteHandler = (cardId) => {
-        DeleteCardHandler(cardId);
+    const deleteHandler = () => {
+        DeleteCardHandler(id);
         dispatch(removeCard());
         dispatch(cardTypeReducer());
     };
@@ -176,16 +176,18 @@ function Card() {
     const sendingData = () => {
         Fix === true
             ? FixCardHandler(
+                  id,
                   title,
                   contents,
                   repeat,
                   repeatE,
                   color,
                   url,
-                  repeatId,
+                  //   repeatId,
                   limitDate,
               )
             : counterHandler(
+                  id,
                   title,
                   contents,
                   repeat,
