@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Card from "../daily/components/Card";
 import { useNavigate } from "react-router-dom";
 import { hours, days } from "../daily/time";
 import { callData } from "./weekSever";
@@ -8,19 +9,29 @@ import Hour from "./Hour";
 import DateLeft from "../../assets/images/date_picker/DateLeft";
 import DateRight from "../../assets/images/date_picker/DateRight";
 import dayjs from "dayjs";
-import "./weekly.scss";
+import { cardmodal } from "../../modules/module/modal";
 import { useDispatch, useSelector } from "react-redux";
+import LoginModalBackground from "../sign/LoginModalBackground";
+import { addDate, addMonth, addDay } from "../../modules/module/date";
+import { eaddDate, eaddMonth, eaddDay } from "../../modules/module/endDate";
+import {
+    laddDate,
+    laddMonth,
+    laddDay,
+    initialReducer,
+} from "../../modules/module/Limit";
+import "./weekly.scss";
 
 function Weekly() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const searchParams = new URLSearchParams(window.location.search);
-    console.log(searchParams);
     const day = searchParams.get("sundayDate");
-
     const formatDate = dayjs(day);
+
     const starDate = formatDate.format("YYYY-MM-DD");
     const endDate = dayjs(starDate).add(7, "day").format("YYYY-MM-DD");
+    const openCard = useSelector((state) => state.modalReducer.cardmodal);
 
     const returnDate = formatDate.format("YYYY.MM.DD");
     const startDate = searchParams.get("sundayDate");
@@ -37,7 +48,43 @@ function Weekly() {
     const dayOfWeek = dayjs(formattedDateTime).format("ddd");
 
     const weekCard = useSelector((state) => state.cardReducer.week);
+    const initialState = () => {
+        const [year, month, day] = formatDate.split("-");
+        const dateAction = addDate(Number(year));
+        const monthAction = addMonth(Number(month));
+        const dayAction = addDay(Number(day));
 
+        const enddateAction = eaddDate(Number(year));
+        const endmonthAction = eaddMonth(Number(month));
+        const enddayAction = eaddDay(Number(day));
+
+        dispatch(enddateAction);
+        dispatch(endmonthAction);
+        dispatch(enddayAction);
+
+        dispatch(dateAction);
+        dispatch(monthAction);
+        dispatch(dayAction);
+
+        dispatch(
+            initialReducer({
+                year: year,
+                month: month,
+                day: day,
+            }),
+        );
+        dispatch(
+            newDate({
+                year: Number(year),
+                month: Number(month),
+                day: Number(day),
+            }),
+        );
+    };
+
+    useEffect(() => {
+        initialState();
+    }, []);
     const datePlusHandler = () => {
         const formatDate = new Date(date);
         formatDate.setDate(formatDate.getDate() + 7);
@@ -69,8 +116,18 @@ function Weekly() {
         callData(dateState, startDate, endDate);
     }, []);
 
+    const fixHandler = () => {
+        dispatch(cardmodal());
+    };
+
     return (
         <div className="week">
+            {openCard === true && (
+                <>
+                    <LoginModalBackground />
+                    <Card />
+                </>
+            )}
             <div className="weekTopContainer">
                 <div className="dayChanger">
                     <div className="minusDay" onClick={dateMinusHandler}>
@@ -92,7 +149,7 @@ function Weekly() {
                                         className="timetable__day"
                                         key={index}
                                     >
-                                        {day}
+                                        <p>{day}</p>
                                         {dates[index]}
                                     </div>
                                 ) : (
@@ -138,6 +195,7 @@ function Weekly() {
                                                     ).format("HH:mm") ===
                                                     hour ? (
                                                         <div
+                                                            onClick={fixHandler}
                                                             className="rederWeekData"
                                                             style={{
                                                                 backgroundColor:
@@ -149,6 +207,7 @@ function Weekly() {
                                                         </div>
                                                     ) : (
                                                         <div
+                                                            onClick={fixHandler}
                                                             className="rederWeekData"
                                                             style={{
                                                                 backgroundColor:
