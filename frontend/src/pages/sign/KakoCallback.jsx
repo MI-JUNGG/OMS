@@ -17,12 +17,38 @@ function KakoCallback() {
                 },
             )
             .then((res) => {
-                console.log("b");
                 console.log(res);
                 const accessToken = res.data.access_token;
                 localStorage.setItem("token", accessToken);
                 alert("성공적으로 로그인 했습니다");
-                window.location.replace("/");
+                //백엔드에 넘겨주기
+                axios
+                    .post(
+                        "http://10.99.230.245:3001/auth/kakao",
+                        {
+                            kakaoToken: localStorage.getItem("token"),
+                        },
+                        {
+                            headers: {
+                                Authorization: localStorage.getItem("token"),
+                                " Content-type":
+                                    "application/x-www-form-urlencoded;charset=utf-8",
+                            },
+                        },
+                    )
+                    .then((response) => {
+                        console.log(response);
+                        localStorage.setItem(
+                            "token",
+                            response.data.accessToken,
+                        );
+                        // window.location.replace("/");
+                    })
+                    .then((error) => {
+                        console.log(error);
+                    });
+
+                // window.location.replace("/");
             })
             .then((err) => console.log(err));
     }, [code]);
