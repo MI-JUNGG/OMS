@@ -13,8 +13,10 @@ import {
     password,
     confirmPassword,
 } from "../../modules/module/user";
+import { useNavigate } from "react-router";
 
 function Nav() {
+    const navigate = useNavigate();
     const isLoginModal = useSelector(
         (state) => state.loginModalReducer.loginModal,
     );
@@ -27,6 +29,10 @@ function Nav() {
         dispatch(eMail(""));
         dispatch(password(""));
         dispatch(confirmPassword(""));
+    };
+
+    const moveMypage = () => {
+        navigate("/myPage");
     };
 
     return (
@@ -56,6 +62,7 @@ function Nav() {
                             >
                                 로그아웃
                             </span>
+                            <span onClick={moveMypage}>닉네임</span>
                         </>
                     ) : (
                         <>

@@ -16,7 +16,6 @@ function UserInfo() {
         setContentSelector(id);
     };
     const form = useSelector((state) => state.userInfoChangeReducer);
-    console.log(form.nickName);
 
     // useEffect(() => {
     //     fetch("http://10.99.230.245/mypage", {
@@ -48,8 +47,6 @@ function UserInfo() {
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
     };
-
-    console.log(form.password, form.newPassword);
 
     const changepassword = () => {
         fetch("http://192.168.0.5:3001/mypage/changeInfo", {
@@ -102,7 +99,11 @@ function UserInfo() {
                         <button
                             className="SubButton"
                             type="button"
-                            onClick={changepassword}
+                            onClick={
+                                contentSelector === 0
+                                    ? changeNickname
+                                    : changepassword
+                            }
                         >
                             저장하기
                         </button>
