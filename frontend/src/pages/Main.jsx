@@ -52,7 +52,15 @@ function Main() {
         )}`;
 
         axios
-            .get("/data/monthMock.json")
+            .get("/data/monthMock.json", {
+                params: {
+                    startDate: startDate,
+                    endDate: endDate,
+                },
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                },
+            })
             .then((response) => {
                 dispatch(
                     handleBlockColorTheme(
@@ -141,7 +149,9 @@ function Main() {
         //     .catch((error) => {
         //         console.error(error);
         //     });
+    }, [monthForm]);
 
+    useEffect(() => {
         fetch("/data/myPage.json", {
             method: "GET",
             headers: {
