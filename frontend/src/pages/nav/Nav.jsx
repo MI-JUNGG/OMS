@@ -48,6 +48,9 @@ function Nav() {
                 <div className="login">
                     {localStorage.getItem("token") ? (
                         <>
+                            <span className="nickName" onClick={moveMypage}>
+                                닉네임
+                            </span>
                             <span
                                 className="loginText"
                                 onClick={() => {
@@ -62,7 +65,6 @@ function Nav() {
                             >
                                 로그아웃
                             </span>
-                            <span onClick={moveMypage}>닉네임</span>
                         </>
                     ) : (
                         <>

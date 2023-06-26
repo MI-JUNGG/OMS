@@ -66,12 +66,9 @@ function ColorPicker(props) {
     const isOnCustom = useSelector(
         (state) => state.settingReducer.isCustomPicker,
     );
-<<<<<<< HEAD
     const axiosBlock = useSelector(
         (state) => state.settingReducer.axiosBlockColor,
     );
-=======
->>>>>>> develop
 
     const [color, setColor] = useState("#ffffff"); // 초기 색상값 설정
     const handleChange = (selectedColor) => {
