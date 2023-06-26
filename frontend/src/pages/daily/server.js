@@ -1,4 +1,5 @@
 import axios from "axios";
+import card from "../../modules/module/card";
 
 export const API = "http://10.99.230.245:3001";
 export const token = localStorage.getItem("token");
@@ -32,7 +33,6 @@ export const counterHandler = (
     limitDate,
 ) => {
     console.log(
-        1,
         "title: " + title,
         "contents: " + contents,
         "startDate :" + startDate,
@@ -73,6 +73,7 @@ export const counterHandler = (
 };
 
 export const FixCardHandler = (
+    id,
     title,
     contents,
     startDate,
@@ -82,24 +83,25 @@ export const FixCardHandler = (
     repeatId,
 ) => {
     console.log(
+        "cardId:" + id,
         "title: " + title,
         "contents: " + contents,
         "startDate :" + startDate,
         "endDate :" + endDate,
         "color : " + color,
         "url : " + url,
-        "repeatCardType : " + repeatCardType,
+        "repeatCardType : " + repeatId,
     );
-
+    console.log("fix", id);
     axios
         .put(
             `${API}/card`,
             {
-                cardId: cardId,
+                cardId: id,
                 title: title,
                 memo: contents,
                 startDate: startDate.toISOString(),
-                repeatId: 2,
+                repeatId: repeatId,
                 endDate: endDate.toISOString(),
                 color: color,
                 link: url,
@@ -119,15 +121,14 @@ export const FixCardHandler = (
         });
 };
 
-export const DeleteCardHandler = (cardId) => {
-    console.log(cardId);
+export const DeleteCardHandler = (id) => {
     axios
         .delete(`${API}/card`, {
             headers: {
                 Authorization: token,
             },
             data: {
-                cardId: cardId,
+                cardId: id,
             },
         })
         .then(function (response) {
