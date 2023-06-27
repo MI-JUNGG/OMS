@@ -29,6 +29,7 @@ const monthPage = async (userId, plusStartDate, plusEndDate) => {
       c.deadline                  AS deadline,
       c.memo                      AS memo,
       c.link                      AS link,
+      c.color                     AS color,
       c.start_date                AS startDate,
       c.end_date                  AS endDate
     FROM

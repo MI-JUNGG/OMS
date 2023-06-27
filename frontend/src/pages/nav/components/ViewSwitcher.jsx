@@ -44,15 +44,15 @@ function ViewSwitcher() {
     const endDate = saturday.getDate();
 
     // 쿼리 파라미터가 포함된 URL을 만듦
-    const weekQuery = `startDate=${startYear}-${startMonth}-${startDate}&endDate=${endYear}-${endMonth}-${endDate}`;
+    const weekQuery = `date=${startYear}-${startMonth}-${startDate}`;
 
-    const dayQuery = `startDate=${currentDate.getFullYear()}-${getTwoDigitMonth(
+    const dayQuery = `date=${currentDate.getFullYear()}-${getTwoDigitMonth(
         currentDate.getMonth() + 1,
     )}-${currentDate.getDate()}`;
 
-    const monthQuery = `startDate=${currentDate.getFullYear()}-${getTwoDigitMonth(
+    const monthQuery = `date=${currentDate.getFullYear()}-${getTwoDigitMonth(
         currentDate.getMonth() + 1,
-    )}-01&endDate=${currentDate.getFullYear()}-${getTwoDigitMonth(
+    )}-01&date=${currentDate.getFullYear()}-${getTwoDigitMonth(
         currentDate.getMonth() + 1,
     )}-${daysInMonth(currentDate.getFullYear(), currentDate.getMonth() - 1)}`;
 
