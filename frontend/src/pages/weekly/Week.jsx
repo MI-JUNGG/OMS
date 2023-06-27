@@ -90,9 +90,6 @@ function Weekly() {
         );
     };
 
-    useEffect(() => {
-        initialState();
-    }, []);
     const datePlusHandler = () => {
         const formatDate = new Date(date);
         formatDate.setDate(formatDate.getDate() + 7);

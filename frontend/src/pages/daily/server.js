@@ -23,20 +23,22 @@ export const callUserCard = (handleOutClick, day) => {
 };
 
 export const counterHandler = (
+    id,
     title,
     contents,
     startDate,
-    repeatE,
+    endDate,
     color,
     url,
     repeatId,
     limitDate,
 ) => {
     console.log(
+        "id: " + id,
         "title: " + title,
         "contents: " + contents,
         "startDate :" + startDate,
-        "endDate :" + repeatE,
+        "endDate :" + endDate,
         "color : " + color,
         "url : " + url,
         "repeatCardType : " + repeatId,
@@ -53,14 +55,15 @@ export const counterHandler = (
         .post(
             `${API}/day`,
             {
+                cardId: id,
                 title: title,
                 memo: contents,
                 startDate: startDate.toISOString(),
                 repeatId: repeatId,
-                endDate: repeatE.toISOString(),
+                endDate: endDate.toISOString(),
                 color: "#1234",
                 link: url,
-                deadline: repeatE.toISOString(),
+                deadline: limitDate.toISOString(),
             },
             config,
         )
@@ -81,6 +84,7 @@ export const FixCardHandler = (
     color,
     url,
     repeatId,
+    limitDate,
 ) => {
     console.log(
         "cardId:" + id,
@@ -91,8 +95,9 @@ export const FixCardHandler = (
         "color : " + color,
         "url : " + url,
         "repeatCardType : " + repeatId,
+        limitDate,
     );
-    console.log("fix", id);
+    console.log("fix", limitDate);
     axios
         .put(
             `${API}/card`,
@@ -103,9 +108,9 @@ export const FixCardHandler = (
                 startDate: startDate.toISOString(),
                 repeatId: repeatId,
                 endDate: endDate.toISOString(),
-                color: color,
+                color: "#1234",
                 link: url,
-                deadline: endDate.toISOString(),
+                deadline: limitDate.toISOString(),
             },
             {
                 headers: {

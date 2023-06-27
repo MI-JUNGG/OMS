@@ -55,7 +55,6 @@ function Selectime({ setId }) {
     };
 
     const fixModalHandler = (e, cardId) => {
-        console.log("daily:" + cardId);
         setId(cardId);
         dispatch(cardmodal());
         dispatch(cardTypeReducer());
