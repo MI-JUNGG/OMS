@@ -9,7 +9,10 @@ import axios from "axios";
 import {
     background,
     handleBlockColorTheme,
+    handleBlockColorThemeTitle,
     main,
+    textColor,
+    textStyle,
 } from "../modules/module/setting";
 import {
     setCustomMainColor,
@@ -18,6 +21,14 @@ import {
 import Button from "./button/Button";
 import { addCard } from "../modules/module/card";
 import { useNavigate } from "react-router";
+import {
+    temporaryMainColor,
+    temporaryBackgroundColor,
+    temporaryTextColor,
+    temporaryTextStyle,
+    temporaryBlockColorTheme,
+    temporaryBlockColorThemeTitle,
+} from "../modules/module/temporaryColorSetting";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);
@@ -28,6 +39,8 @@ function Main() {
     const navigate = useNavigate();
 
     const date = new Date(yearForm, monthForm - 1);
+
+    const setting = useSelector((state) => state.settingReducer);
 
     const monthScheduleData = useSelector((state) => state.cardReducer.month);
 
@@ -53,9 +66,9 @@ function Main() {
                 dispatch(
                     addCard({ cardType: "month", cardData: monthSchedule }),
                 );
-                setSchedule(monthSchedule);
 
                 customColors &&
+                    customColors.colorPaletteId === 6 &&
                     Object.keys(customColors).forEach((key) => {
                         if (
                             key.startsWith("color") &&
@@ -84,6 +97,28 @@ function Main() {
                                             : null,
                                 }),
                             );
+                        } else {
+                            dispatch(
+                                temporaryBlockColorTheme(
+                                    customColors.colorPaletteId - 1,
+                                ),
+                            );
+                            dispatch(
+                                handleBlockColorTheme(
+                                    customColors.colorPaletteId - 1,
+                                ),
+                            );
+
+                            dispatch(
+                                temporaryBlockColorThemeTitle(
+                                    pickTitle(customColors.colorPaletteId - 1),
+                                ),
+                            );
+                            dispatch(
+                                handleBlockColorThemeTitle(
+                                    pickTitle(customColors.colorPaletteId - 1),
+                                ),
+                            );
                         }
                     });
             })
@@ -107,7 +142,7 @@ function Main() {
         //         console.error(error);
         //     });
 
-        fetch("http://192.168.0.5:3001/mypage/theme", {
+        fetch("/data/myPage.json", {
             method: "GET",
             headers: {
                 Authorization: localStorage.getItem("token"),
@@ -115,37 +150,74 @@ function Main() {
             },
         })
             .then((response) => response.json())
-            .then((data) => console.log(data))
             .then((res) => {
-                const mainColor = res[0].mainColor;
-                document.documentElement.style.setProperty(
-                    "--main-color",
-                    mainColor,
-                );
+                const mainColor = res.mainColor;
                 dispatch(main(mainColor));
+                dispatch(temporaryMainColor(mainColor));
 
-                const backgroundColor = res[0].backgroundColor;
-                document.documentElement.style.setProperty(
-                    "--background-color",
-                    "#1234",
-                );
+                const backgroundColor = res.backgroundColor;
                 dispatch(background(backgroundColor));
+                dispatch(temporaryBackgroundColor(backgroundColor));
 
-                const textColor = res[0].textColor;
-                document.documentElement.style.setProperty(
-                    "--text-color",
-                    textColor,
-                );
-                dispatch(textColor(textColor));
+                const resTextColor = res.textColor;
+                dispatch(textColor(resTextColor));
+                dispatch(temporaryTextColor(resTextColor));
 
-                const textStyle = res[0].textStyle;
-                document.documentElement.style.setProperty(
-                    "--text-style",
-                    textStyle,
+                const resTextStyle = res.textStyle;
+                dispatch(textStyle(resTextStyle));
+                dispatch(temporaryTextStyle(resTextStyle));
+
+                const colorPaletteId = res.colorPaletteId;
+                dispatch(temporaryBlockColorTheme(colorPaletteId - 1));
+                dispatch(handleBlockColorTheme(colorPaletteId - 1));
+
+                dispatch(
+                    temporaryBlockColorThemeTitle(
+                        pickTitle(colorPaletteId - 1),
+                    ),
                 );
-                dispatch(textStyle(textStyle));
+                dispatch(
+                    handleBlockColorThemeTitle(pickTitle(colorPaletteId - 1)),
+                );
             });
     }, []);
+
+    const pickTitle = (id) => {
+        switch (id) {
+            case 0:
+                return "vivid";
+            case 1:
+                return "bright";
+            case 2:
+                return "soft";
+            case 3:
+                return "reddish";
+            case 4:
+                return "pale";
+            case 5:
+                return "custom";
+            default:
+                return "";
+        }
+    };
+
+    document.documentElement.style.setProperty(
+        "--main-color",
+        setting.mainColor,
+    );
+
+    document.documentElement.style.setProperty(
+        "--background-color",
+        setting.backgroundColor,
+    );
+    document.documentElement.style.setProperty(
+        "--text-color",
+        setting.textColor,
+    );
+    document.documentElement.style.setProperty(
+        "--text-style",
+        setting.textStyle,
+    );
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const monthNames = [];
@@ -185,7 +257,6 @@ function Main() {
         const clickedDate = event.target.textContent;
         const newLocation = `/day?date=${yearForm}-${monthForm}-${clickedDate}`;
         navigate(newLocation);
-        console.log("A");
     };
 
     const renderDays = () => {
