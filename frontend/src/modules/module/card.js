@@ -78,8 +78,6 @@ const cardSlice = createSlice({
 
     reducers: {
         addCard: (state, action) => {
-            console.log(action.payload);
-            console.log(1);
             const { cardType, cardData } = action.payload;
             if (cardType === "day") {
                 state.day.push(...cardData);
