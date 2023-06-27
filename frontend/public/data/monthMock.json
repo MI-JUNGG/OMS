@@ -16,31 +16,34 @@
             "cardId": 19,
             "title": "string",
             "repeat": 2,
-            "start": "2023-10-07T15:00:00.000Z",
-            "end": "2023-10-08T14:59:59.000Z",
+            "start": "2023-09-07T15:00:00.000Z",
+            "end": "2023-09-08T14:59:59.000Z",
             "deadline": null,
             "memo": null,
-            "link": null
+            "link": null,
+            "color": "#fc9690"
         },
         {
             "cardId": 20,
             "title": "string",
             "repeat": 2,
-            "start": "2023-10-08T15:00:00.000Z",
-            "end": "2023-10-09T14:59:59.000Z",
+            "start": "2023-09-08T15:00:00.000Z",
+            "end": "2023-09-09T14:59:59.000Z",
             "deadline": null,
             "memo": null,
-            "link": null
+            "link": null,
+            "color": "#40e048"
         },
         {
             "cardId": 21,
             "title": "string",
             "repeat": 1,
-            "start": "2023-10-08T15:00:00.000Z",
-            "end": "2023-10-09T14:59:59.000Z",
+            "start": "2023-09-08T15:00:00.000Z",
+            "end": "2023-09-09T14:59:59.000Z",
             "deadline": null,
             "memo": null,
-            "link": null
+            "link": null,
+            "color": "#38b3ac"
         }
     ]
 }

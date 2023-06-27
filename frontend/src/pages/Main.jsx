@@ -20,7 +20,7 @@ import {
 } from "../modules/module/colorPicker";
 import Button from "./button/Button";
 import { addCard } from "../modules/module/card";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import {
     temporaryMainColor,
     temporaryBackgroundColor,
@@ -29,6 +29,7 @@ import {
     temporaryBlockColorTheme,
     temporaryBlockColorThemeTitle,
 } from "../modules/module/temporaryColorSetting";
+import { API } from "./myPage/getData";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);
@@ -37,6 +38,7 @@ function Main() {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const date = new Date(yearForm, monthForm - 1);
 
@@ -52,7 +54,15 @@ function Main() {
         )}`;
 
         axios
-            .get("/data/monthMock.json")
+            .get("/data/monthMock.json", {
+                params: {
+                    startDate: startDate,
+                    endDate: endDate,
+                },
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                },
+            })
             .then((response) => {
                 dispatch(
                     handleBlockColorTheme(
@@ -141,7 +151,9 @@ function Main() {
         //     .catch((error) => {
         //         console.error(error);
         //     });
+    }, [monthForm]);
 
+    useEffect(() => {
         fetch("/data/myPage.json", {
             method: "GET",
             headers: {
@@ -201,23 +213,34 @@ function Main() {
         }
     };
 
-    document.documentElement.style.setProperty(
-        "--main-color",
-        setting.mainColor,
-    );
+    useEffect(() => {
+        const savedSetting = localStorage.getItem("setting");
 
-    document.documentElement.style.setProperty(
-        "--background-color",
-        setting.backgroundColor,
-    );
-    document.documentElement.style.setProperty(
-        "--text-color",
-        setting.textColor,
-    );
-    document.documentElement.style.setProperty(
-        "--text-style",
-        setting.textStyle,
-    );
+        if (savedSetting) {
+            const setting = JSON.parse(savedSetting);
+
+            document.documentElement.style.setProperty(
+                "--main-color",
+                setting.mainColor,
+            );
+            document.documentElement.style.setProperty(
+                "--background-color",
+                setting.backgroundColor,
+            );
+            document.documentElement.style.setProperty(
+                "--text-color",
+                setting.textColor,
+            );
+            document.documentElement.style.setProperty(
+                "--text-style",
+                setting.textStyle,
+            );
+            document.documentElement.style.setProperty(
+                "--block-color",
+                setting.blockColor,
+            );
+        }
+    }, []);
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const monthNames = [];
@@ -320,6 +343,19 @@ function Main() {
                         );
                     });
 
+                    const cardColor = monthScheduleData.find((item) => {
+                        const itemDate = new Date(item.start);
+                        return (
+                            itemDate.getFullYear() === date.getFullYear() &&
+                            itemDate.getMonth() === date.getMonth() &&
+                            itemDate.getDate() === day
+                        );
+                    })?.color;
+
+                    const cardStyle = {
+                        backgroundColor: cardColor || "transparent",
+                    };
+
                     rowDays.push(
                         <div
                             key={`day-${day}`}
@@ -327,13 +363,33 @@ function Main() {
                                 dayHasSchedule ? "dayHasSchedule" : ""
                             } ${shortSchedule ? "shortSchedule" : ""}`}
                             onClick={handleDateClick}
+                            style={
+                                dayHasSchedule && {
+                                    backgroundColor: `${dayHasSchedule.color}1A`,
+                                }
+                            } // backgroundColor 스타일 지정
                         >
                             <span>{day}</span>
                             {dayHasSchedule && (
-                                <div>{dayHasSchedule.title}</div>
+                                <div
+                                    className="dayHasSchedule"
+                                    style={{
+                                        // backgroundColor: `${dayHasSchedule.color}1A`,
+                                        color: dayHasSchedule.color,
+                                    }}
+                                >
+                                    {dayHasSchedule.title}
+                                </div>
                             )}
                             {shortSchedule && (
-                                <div className="short">
+                                <div
+                                    className="shortSchedule"
+                                    style={{
+                                        backgroundColor: `${shortSchedule.color}1A`,
+                                        color: dayHasSchedule.color,
+                                        borderLeft: `3px solid ${shortSchedule.color}`,
+                                    }}
+                                >
                                     {shortSchedule.title}
                                 </div>
                             )}

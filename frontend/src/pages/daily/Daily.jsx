@@ -37,7 +37,7 @@ function Daily() {
     const openCard = useSelector((state) => state.modalReducer.cardmodal);
     const form = useSelector((state) => state.dateReducer);
     const handleOutClick = (data) => {
-        dispatch(cardmodal());
+        openCard === false && dispatch(cardmodal());
         dispatch(addCard({ cardType: "day", cardData: data }));
     };
 
