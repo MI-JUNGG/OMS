@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoginModalBackground from "../sign/LoginModalBackground";
 import { addDate, addMonth, addDay } from "../../modules/module/date";
 import { eaddDate, eaddMonth, eaddDay } from "../../modules/module/endDate";
+import { newDate } from "../../modules/module/repeatStart";
 import {
     laddDate,
     laddMonth,
@@ -21,6 +22,7 @@ import {
     initialReducer,
 } from "../../modules/module/Limit";
 import "./weekly.scss";
+import { formatDate } from "react-calendar/dist/cjs/shared/dateFormatter";
 
 function Weekly() {
     const navigate = useNavigate();
@@ -49,7 +51,13 @@ function Weekly() {
 
     const weekCard = useSelector((state) => state.cardReducer.week);
     const initialState = () => {
-        const [year, month, day] = formatDate.split("-");
+        const searchParams = new URLSearchParams(window.location.search);
+        const urlDate = searchParams.get("sundayDate");
+
+        const year = dayjs(urlDate).format("YYYY");
+        const month = dayjs(urlDate).format("MM");
+        const day = dayjs(urlDate).format("DD");
+
         const dateAction = addDate(Number(year));
         const monthAction = addMonth(Number(month));
         const dayAction = addDay(Number(day));
