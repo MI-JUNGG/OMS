@@ -14,6 +14,8 @@ import {
     confirmPassword,
 } from "../../modules/module/user";
 import { useNavigate, useLocation } from "react-router";
+import { getData } from "../myPage/getData";
+import { useState } from "react";
 
 function Nav() {
     const location = useLocation();
@@ -41,6 +43,8 @@ function Nav() {
     const moveMypage = () => {
         navigate("/myPage");
     };
+    const [userNickname, setUserNickname] = useState("");
+    getData("myPageUserInfo.json", setUserNickname, null);
 
     return (
         <>
@@ -56,7 +60,7 @@ function Nav() {
                     {localStorage.getItem("token") ? (
                         <>
                             <span className="nickName" onClick={moveMypage}>
-                                닉네임
+                                {userNickname.nickname}
                             </span>
                             <span
                                 className="loginText"
