@@ -1,3 +1,17 @@
 .Btn {
-    height: 100%;
+    background-color: white;
+    border-radius: 40px;
+    .plus {
+        border-radius: 100%;
+        padding: 1px;
+        margin: 0 auto;
+    }
+    .clickIcon {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        padding-top: 15px;
+    }
 }

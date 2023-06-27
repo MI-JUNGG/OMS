@@ -1,53 +1,73 @@
-.weekContainer {
-    margin-top: 30px;
+.week {
+    width: 1300px;
     display: flex;
+    margin: 30px auto 0 auto;
     justify-content: center;
+    align-items: center;
 
-    width: 1280px;
-    min-width: 500px;
-    gap: 10px;
-    .dayChanger {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
-        text-align: center;
-        height: 5%;
-        font-size: x-large;
+    .buttonContainer {
+        margin-top: auto;
+        position: sticky;
+        bottom: 0;
+        padding-left: 30px;
     }
-    .timetable {
+    .weekTopContainer {
         display: flex;
         flex-direction: column;
-        width: 1100px;
-        &__header {
+        width: 1280px;
+        border-radius: 50px;
+        padding-top: 10px;
+        background-color: #1234;
+        .dayChanger {
             display: flex;
-            border-top: none;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            text-align: center;
+            height: 5%;
+            font-size: x-large;
         }
-        .rederWeekData {
-            width: 100%;
-            height: 100%;
-        }
-        &__day,
-        &__cell {
-            flex: 1;
-            border-bottom: 1px solid #ccc;
-            border-left: 1px solid #ccc;
-            height: 100px;
+        .weekContainer {
+            margin-top: 30px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            &:last-child {
-                border-right: 1px solid #ccc; /* 마지막 요소에 border-right 추가 */
+            gap: 10px;
+
+            .timetable {
+                display: flex;
+                flex-direction: column;
+                width: 1100px;
+                &__header {
+                    display: flex;
+                    border-top: none;
+                }
+                .rederWeekData {
+                    width: 100%;
+                    height: 100%;
+                }
+                &__day,
+                &__cell {
+                    flex: 1;
+                    border-bottom: 1px solid #ccc;
+                    border-left: 1px solid #ccc;
+                    height: 100px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    &:last-child {
+                        border-right: 1px solid #ccc; /* 마지막 요소에 border-right 추가 */
+                    }
+                }
+
+                &__body {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                &__row {
+                    display: flex;
+                }
             }
-        }
-
-        &__body {
-            display: flex;
-            flex-direction: column;
-        }
-
-        &__row {
-            display: flex;
         }
     }
 }
