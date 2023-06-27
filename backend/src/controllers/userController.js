@@ -45,9 +45,19 @@ const naverLogin = catchAsync(async (req, res) => {
   return res.status(200).json({ accessToken: naver_accessToken });
 });
 
+// 탈퇴
+const deleteUser = catchAsync(async (req, res) => {
+  const token = req.headers.authorization;
+
+  await userService.deleteUser(token);
+
+  return res.status(201).json({ message: "USER_DELETED!" });
+});
+
 module.exports = {
   signUp,
   signIn,
   kakaoLogin,
   naverLogin,
+  deleteUser,
 };
