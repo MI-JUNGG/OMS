@@ -29,6 +29,7 @@ import {
     temporaryBlockColorTheme,
     temporaryBlockColorThemeTitle,
 } from "../modules/module/temporaryColorSetting";
+import { API } from "./myPage/getData";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);
