@@ -30,7 +30,7 @@ function Weekly() {
     const searchParams = new URLSearchParams(window.location.search);
     const day = searchParams.get("sundayDate");
     const formatDate = dayjs(day);
-
+    const [weekId, setWeekId] = useState();
     const starDate = formatDate.format("YYYY-MM-DD");
     const endDate = dayjs(starDate).add(7, "day").format("YYYY-MM-DD");
     const openCard = useSelector((state) => state.modalReducer.cardmodal);
@@ -124,8 +124,9 @@ function Weekly() {
         callData(dateState, startDate, endDate);
     }, []);
 
-    const fixHandler = () => {
+    const fixHandler = (id) => {
         dispatch(cardmodal());
+        setWeekId(id);
     };
 
     return (
@@ -133,7 +134,7 @@ function Weekly() {
             {openCard === true && (
                 <>
                     <LoginModalBackground />
-                    <Card />
+                    <Card id={weekId} />
                 </>
             )}
             <div className="weekTopContainer">
@@ -203,7 +204,11 @@ function Weekly() {
                                                     ).format("HH:mm") ===
                                                     hour ? (
                                                         <div
-                                                            onClick={fixHandler}
+                                                            onClick={() =>
+                                                                fixHandler(
+                                                                    item.cardId,
+                                                                )
+                                                            }
                                                             className="rederWeekData"
                                                             style={{
                                                                 backgroundColor:
@@ -215,7 +220,11 @@ function Weekly() {
                                                         </div>
                                                     ) : (
                                                         <div
-                                                            onClick={fixHandler}
+                                                            onClick={() =>
+                                                                fixHandler(
+                                                                    item.cardId,
+                                                                )
+                                                            }
                                                             className="rederWeekData"
                                                             style={{
                                                                 backgroundColor:
