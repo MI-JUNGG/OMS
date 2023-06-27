@@ -6,7 +6,8 @@ const mypageInfo = async (userId) => {
     `
     SELECT
       social_type_id       AS socialTypeId,
-      email                AS email
+      email                AS email,
+      nickname             AS nickname
     FROM
       users
     WHERE
