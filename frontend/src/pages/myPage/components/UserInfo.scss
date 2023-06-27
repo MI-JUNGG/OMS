@@ -1,14 +1,14 @@
 $MyPageFontColor: #58595b;
 
 .userInfoContainer {
-    width: 79vw;
+    width: calc(100vw - 331px);
     min-width: 600px;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding-bottom: 50px;
+    background-color: #ffffff;
 
     .userInfoBox {
         width: 600px;

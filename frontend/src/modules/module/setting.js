@@ -9,7 +9,7 @@ const SettingSlice = createSlice({
         textColor: "Dark",
         blockColor: "#AF71FF",
         blockColorTheme: 1,
-        blockColorThemeTitle: "bright",
+        blockColorThemeTitle: "",
         isModal: 0,
         isCustomPicker: false,
         axiosBlockColor: 0,
