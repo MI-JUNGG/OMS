@@ -122,6 +122,7 @@ export const FixCardHandler = (
 };
 
 export const DeleteCardHandler = (id) => {
+    console.log("id:" + id);
     axios
         .delete(`${API}/card`, {
             headers: {
