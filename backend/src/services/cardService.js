@@ -32,9 +32,9 @@ const patchCard = async (
   color,
   link,
   memo,
-  startDate,
-  endDate,
-  deadline,
+  formattedStartDate,
+  formattedEndDate,
+  formatteddeadlineDate,
   cardId,
   userId
 ) => {
@@ -44,9 +44,9 @@ const patchCard = async (
     color,
     link,
     memo,
-    startDate,
-    endDate,
-    deadline,
+    formattedStartDate,
+    formattedEndDate,
+    formatteddeadlineDate,
     cardId,
     userId
   );
