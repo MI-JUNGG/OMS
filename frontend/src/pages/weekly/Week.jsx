@@ -76,7 +76,8 @@ function Weekly() {
         navigate(newLocation);
     };
     const dateState = (data) => {
-        dispatch({ cardType: "week", cardData: data });
+        console.log(data);
+        dispatch(addCard({ cardType: "week", cardData: data }));
     };
 
     useEffect(() => {

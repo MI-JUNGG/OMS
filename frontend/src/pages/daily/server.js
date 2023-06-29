@@ -1,8 +1,11 @@
 import axios from "axios";
 import card from "../../modules/module/card";
 
-export const API = "http://10.99.230.245:3001";
-export const token = localStorage.getItem("token");
+export const API = "http://192.168.0.12:3001";
+// export const token = localStorage.getItem("token");
+export const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODc5MjA1NjJ9.rKtSAN2iGVWKkYZoTLRvzZ1kG-CVZ7P0WeS0O4TzX4k";
+
 export const callUserCard = (handleOutClick, day) => {
     axios
         .get(`${API}/day`, {
@@ -33,8 +36,8 @@ export const counterHandler = (
     repeatId,
     limitDate,
 ) => {
+    console.log("i'm here");
     console.log(
-        "id: " + id,
         "title: " + title,
         "contents: " + contents,
         "startDate :" + startDate,
@@ -44,7 +47,7 @@ export const counterHandler = (
         "repeatCardType : " + repeatId,
         "limitDate : " + limitDate,
     );
-    console.log(limitDate);
+    console.log(endDate);
     const config = {
         headers: {
             Authorization: token,
@@ -53,17 +56,16 @@ export const counterHandler = (
 
     axios
         .post(
-            `${API}/day`,
+            `${API}/card`,
             {
-                cardId: id,
                 title: title,
                 memo: contents,
-                startDate: startDate.toISOString(),
+                startDate: startDate,
                 repeatId: repeatId,
-                endDate: endDate.toISOString(),
+                endDate: endDate,
                 color: "#1234",
                 link: url,
-                deadline: limitDate.toISOString(),
+                deadline: limitDate,
             },
             config,
         )
@@ -97,7 +99,7 @@ export const FixCardHandler = (
         "repeatCardType : " + repeatId,
         limitDate,
     );
-    console.log("fix", limitDate);
+    console.log("fix", endDate);
     axios
         .put(
             `${API}/card`,
@@ -105,12 +107,12 @@ export const FixCardHandler = (
                 cardId: id,
                 title: title,
                 memo: contents,
-                startDate: startDate.toISOString(),
+                startDate: startDate,
                 repeatId: repeatId,
-                endDate: endDate.toISOString(),
+                endDate: endDate,
                 color: "#1234",
                 link: url,
-                deadline: limitDate.toISOString(),
+                deadline: limitDate,
             },
             {
                 headers: {

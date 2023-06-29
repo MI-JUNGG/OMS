@@ -78,12 +78,17 @@ function Card({ id }) {
     };
 
     const AllStartYear = useSelector((state) => state.dateReducer.year);
-    const AllStartMonth = useSelector((state) => state.dateReducer.Month);
-    const AllStartDay = useSelector((state) => state.dateReducer.Day);
+    const AllStartMonth = useSelector((state) => state.dateReducer.month);
+    const AllStartDay = useSelector((state) => state.dateReducer.day);
+    const toStringStart = `${AllStartYear}-${AllStartMonth}-${AllStartDay}`;
 
     const AllEndYear = useSelector((state) => state.endDateReducer.year);
     const AllEndMonth = useSelector((state) => state.endDateReducer.month);
     const AllEndDay = useSelector((state) => state.endDateReducer.day);
+
+    const toStringEnd = `${AllEndYear}-${AllEndMonth}-${AllEndDay}`;
+    const allStart = dayjs(toStringStart).format("YYYY-MM-DD");
+    const allEnd = dayjs(toStringEnd).format("YYYY-MM-DD");
 
     const repeatStartYear = useSelector((state) => state.dateReducer.year);
     const repeatStartMonth =
@@ -219,8 +224,8 @@ function Card({ id }) {
                   id,
                   title,
                   contents,
-                  repeat,
-                  repeatE,
+                  typeNum === 1 ? allStart : repeat,
+                  typeNum === 1 ? allEnd : repeatE,
                   color,
                   url,
                   typeNum,
@@ -230,8 +235,8 @@ function Card({ id }) {
                   id,
                   title,
                   contents,
-                  repeat,
-                  repeatE,
+                  typeNum === 1 ? allStart : repeat,
+                  typeNum === 1 ? allEnd : repeatE,
                   color,
                   url,
                   typeNum,
