@@ -29,7 +29,7 @@ import {
     temporaryBlockColorTheme,
     temporaryBlockColorThemeTitle,
 } from "../modules/module/temporaryColorSetting";
-import { API } from "./myPage/getData";
+import LoginModalBackground from "./sign/LoginModalBackground";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);
@@ -46,6 +46,11 @@ function Main() {
 
     const monthScheduleData = useSelector((state) => state.cardReducer.month);
 
+    const [backgroundState, setBackgroundState] = useState(false);
+    const backgroundStateHandler = () => {
+        setBackgroundState(!backgroundState);
+    };
+
     useEffect(() => {
         const startDate = `${yearForm}-${monthForm}-01`;
         const endDate = `${yearForm}-${monthForm}-${daysInMonth(
@@ -60,10 +65,13 @@ function Main() {
                     endDate: endDate,
                 },
                 headers: {
-                    Authorization: localStorage.getItem("token"),
+                    // Authorization: localStorage.getItem("token"),
+                    Authorization:
+                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODc5MjA1NjJ9.rKtSAN2iGVWKkYZoTLRvzZ1kG-CVZ7P0WeS0O4TzX4k",
                 },
             })
             .then((response) => {
+                console.log(response);
                 dispatch(
                     handleBlockColorTheme(
                         response.data.palette[0].colorPaletteId,
@@ -277,9 +285,11 @@ function Main() {
     };
 
     const handleDateClick = (event) => {
+        console.log(event.target);
         const clickedDate = event.target.textContent;
-        const newLocation = `/day?date=${yearForm}-${monthForm}-${clickedDate}`;
-        navigate(newLocation);
+        // const newLocation = `/day?date=${yearForm}-${monthForm}-${clickedDate}`;
+        // navigate(newLocation);
+        console.log(clickedDate);
     };
 
     const renderDays = () => {
@@ -323,76 +333,120 @@ function Main() {
                     );
                     day++;
                 } else {
-                    const dayHasSchedule = monthScheduleData.find((item) => {
-                        const itemDate = new Date(item.start);
+                    const dayHasSchedule = monthScheduleData.filter((item) => {
+                        const itemDate = new Date(item.startDate);
+
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
                             itemDate.getMonth() === date.getMonth() &&
-                            itemDate.getDate() === day &&
+                            itemDate.getDate() === day + 1 &&
                             item.repeat === 2
                         );
                     });
 
-                    const shortSchedule = monthScheduleData.find((item) => {
-                        const itemDate = new Date(item.start);
+                    const shortSchedule = monthScheduleData.filter((item) => {
+                        const itemDate = new Date(item.startDate);
+
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
                             itemDate.getMonth() === date.getMonth() &&
-                            itemDate.getDate() === day &&
+                            itemDate.getDate() === day + 1 &&
                             item.repeat === 1
                         );
                     });
 
                     const cardColor = monthScheduleData.find((item) => {
-                        const itemDate = new Date(item.start);
+                        const itemDate = new Date(item.startDate);
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
                             itemDate.getMonth() === date.getMonth() &&
                             itemDate.getDate() === day
                         );
                     })?.color;
+                    const dayHasScheduleColor = dayHasSchedule.find((item) => {
+                        const itemData = item.color;
+                        return itemData;
+                    });
 
                     const cardStyle = {
                         backgroundColor: cardColor || "transparent",
                     };
+                    console.log(day, dayHasSchedule);
 
                     rowDays.push(
                         <div
-                            key={`day-${day}`}
-                            className={`${today === day ? "today" : "day"} ${
-                                dayHasSchedule ? "dayHasSchedule" : ""
-                            } ${shortSchedule ? "shortSchedule" : ""}`}
+                            key={day}
+                            className={`${
+                                today === day ? "day today" : "day"
+                            } ${
+                                dayHasSchedule.length > 0
+                                    ? "dayHasSchedule"
+                                    : ""
+                            } ${
+                                shortSchedule.length > 0 ? "shortSchedule" : ""
+                            }`}
                             onClick={handleDateClick}
                             style={
-                                dayHasSchedule && {
-                                    backgroundColor: `${dayHasSchedule.color}1A`,
-                                }
+                                dayHasScheduleColor
+                                    ? {
+                                          backgroundColor: `${dayHasScheduleColor.color}1A`,
+                                      }
+                                    : null
                             } // backgroundColor 스타일 지정
                         >
-                            <span>{day}</span>
-                            {dayHasSchedule && (
-                                <div
-                                    className="dayHasSchedule"
-                                    style={{
-                                        // backgroundColor: `${dayHasSchedule.color}1A`,
-                                        color: dayHasSchedule.color,
-                                    }}
-                                >
-                                    {dayHasSchedule.title}
-                                </div>
-                            )}
-                            {shortSchedule && (
-                                <div
-                                    className="shortSchedule"
-                                    style={{
-                                        backgroundColor: `${shortSchedule.color}1A`,
-                                        color: dayHasSchedule.color,
-                                        borderLeft: `3px solid ${shortSchedule.color}`,
-                                    }}
-                                >
-                                    {shortSchedule.title}
-                                </div>
-                            )}
+                            {<span>{day}</span> || <span>{today}</span>}
+                            {dayHasSchedule &&
+                                dayHasSchedule.map(
+                                    (item, index) =>
+                                        index < 1 && (
+                                            <div
+                                                className="dayHasSchedule"
+                                                style={
+                                                    dayHasSchedule
+                                                        ? {
+                                                              // backgroundColor: `${dayHasSchedule.color}1A`,
+                                                              color: item.color,
+                                                          }
+                                                        : null
+                                                }
+                                            >
+                                                {item.title}
+                                            </div>
+                                        ),
+                                )}
+                            {shortSchedule &&
+                                shortSchedule.map(
+                                    (item, index) =>
+                                        index < 2 && (
+                                            <>
+                                                <div
+                                                    className="shortSchedule"
+                                                    style={
+                                                        dayHasSchedule
+                                                            ? {
+                                                                  backgroundColor: `${item.color}1A`,
+                                                                  color: item.color,
+                                                                  borderLeft: `3px solid ${item.color}`,
+                                                              }
+                                                            : null
+                                                    }
+                                                >
+                                                    {item.title}
+                                                </div>
+                                            </>
+                                        ),
+                                )}
+                            {dayHasSchedule &&
+                                shortSchedule &&
+                                dayHasSchedule.length + shortSchedule.length >
+                                    3 && (
+                                    <span
+                                        className="moreSchedule"
+                                        onClick={backgroundStateHandler}
+                                    >
+                                        + More
+                                    </span>
+                                )}
                         </div>,
                     );
 
@@ -408,6 +462,7 @@ function Main() {
 
         return <div className="calendar-grid">{days}</div>;
     };
+    const asd = useSelector((state) => state.cardReducer.month);
 
     return (
         <div className="mainContainer">
@@ -441,11 +496,15 @@ function Main() {
                         position: "absolute",
                         top: "100%",
                         left: "90%",
+                        zIndex: "99",
                     }}
                 >
                     <Button />
                 </div>
             </div>
+            {backgroundState && (
+                <LoginModalBackground onClick={backgroundStateHandler} />
+            )}
         </div>
     );
 }
