@@ -30,6 +30,7 @@ import {
     temporaryBlockColorThemeTitle,
 } from "../modules/module/temporaryColorSetting";
 import LoginModalBackground from "./sign/LoginModalBackground";
+import dayjs from "dayjs";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);
@@ -335,6 +336,23 @@ function Main() {
                 } else {
                     const dayHasSchedule = monthScheduleData.filter((item) => {
                         const itemDate = new Date(item.startDate);
+                        const a = dayjs(itemDate).format("YYYY-MM-DD");
+                        console.log(dayjs(itemDate).format("YYYY-MM-DD"));
+                        console
+                            .log
+                            // "들어온 년도",
+                            // itemDate.getFullYear(),
+                            // "이번 년도",
+                            // date.getFullYear(),
+                            // "들어온 월",
+                            // itemDate.getMonth(),
+                            // "이번 월",
+                            // date.getMonth(),
+                            // "들어온 날짜",
+                            // itemDate.getDate(),
+                            // "오늘 날짜",
+                            // day,
+                            ();
 
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
@@ -371,7 +389,7 @@ function Main() {
                     const cardStyle = {
                         backgroundColor: cardColor || "transparent",
                     };
-                    console.log(day, dayHasSchedule);
+                    // console.log(day, dayHasSchedule);
 
                     rowDays.push(
                         <div
