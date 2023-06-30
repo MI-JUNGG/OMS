@@ -3,7 +3,19 @@ import { createSlice } from "@reduxjs/toolkit";
 const cardSlice = createSlice({
     name: "counter",
     initialState: {
-        day: [],
+        day: [
+            {
+                cardId: 6,
+                title: "test5",
+                repeat: 2,
+                startDate: "2023-06-03 10:00",
+                endDate: "2023-06-03 11:00",
+                deadline: null,
+                color: "#F7F1FF",
+                memo: null,
+                link: null,
+            },
+        ],
         week: [],
         month: [],
     },

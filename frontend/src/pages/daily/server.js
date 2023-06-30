@@ -1,7 +1,9 @@
 import axios from "axios";
 import card from "../../modules/module/card";
 
-export const API = "http://192.168.0.12:3001";
+const { VITE_API_URL } = import.meta.env;
+// export const API = "http://192.168.0.12:3001";
+export const API = VITE_API_URL;
 // export const token = localStorage.getItem("token");
 export const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODc5MjA1NjJ9.rKtSAN2iGVWKkYZoTLRvzZ1kG-CVZ7P0WeS0O4TzX4k";

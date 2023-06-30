@@ -1,5 +1,5 @@
 .week {
-    width: 1300px;
+    width: 1380px;
     display: flex;
     margin: 30px auto 0 auto;
     justify-content: center;
@@ -15,9 +15,9 @@
     .weekTopContainer {
         display: flex;
         flex-direction: column;
-        width: 1280px;
+        width: 1300px;
         border-radius: 50px;
-        padding-top: 10px;
+        padding: 10px;
         background-color: #1234;
         background-color: white;
 
@@ -36,7 +36,7 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-
+            padding: 10px;
             .timetable {
                 display: flex;
                 flex-direction: column;
@@ -49,8 +49,8 @@
 
                 &__day {
                     flex: 1;
-                    border-bottom: 1px solid #ccc;
-                    border-left: 1px solid #ccc;
+                    border-bottom: 1px solid #abaeb5;
+                    border-left: 1px solid #abaeb5;
                     height: 100px;
                     display: flex;
                     flex-direction: column;
@@ -58,7 +58,7 @@
                     align-items: center;
 
                     &:last-child {
-                        border-right: 1px solid #ccc;
+                        border-right: 1px solid #abaeb5;
                     }
 
                     .dayOfWeek {
@@ -73,15 +73,15 @@
 
                 &__cell {
                     flex: 1;
-                    border-bottom: 1px solid #ccc;
-                    border-left: 1px solid #ccc;
+                    border-bottom: 1px solid #abaeb5;
+                    border-left: 1px solid #abaeb5;
                     height: 100px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
 
                     &:last-child {
-                        border-right: 1px solid #ccc;
+                        border-right: 1px solid #abaeb5;
                     }
                 }
 
