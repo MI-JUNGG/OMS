@@ -14,8 +14,9 @@ import { update } from "../../../modules/module/date";
 import { endUpdate } from "../../../modules/module/endDate";
 import { addCard } from "../../../modules/module/card";
 import { callUserCard } from "../server";
+import { idHandler } from "../../../modules/module/modal";
 
-function Selectime({ setId }) {
+function Selectime() {
     const dispatch = useDispatch();
     const location = useLocation();
     const searchParams = new URLSearchParams(window.location.search);
@@ -56,7 +57,7 @@ function Selectime({ setId }) {
     };
 
     const fixModalHandler = (e, cardId) => {
-        setId(cardId);
+        dispatch(idHandler({ cardData: "day", cardid: cardId }));
         dispatch(cardmodal());
         dispatch(cardTypeReducer());
         const getData = cardId;

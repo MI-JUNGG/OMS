@@ -25,8 +25,19 @@ import { initialReducer } from "../../../modules/module/Limit";
 import { newDate } from "../../../modules/module/repeatStart";
 import "./Card.scss";
 
-function Card({ findCard }) {
-    console.log(findCard);
+function Card() {
+    const [form, setForm] = useState({
+        title: "",
+        contents: "",
+        url: "",
+        color: "",
+    });
+    const id = useSelector((state) => state.modalReducer.cardID);
+    const CARD =
+        id.cardData === "week"
+            ? useSelector((state) => state.cardReducer.week)
+            : useSelector((state) => state.cardReducer.day);
+
     const dispatch = useDispatch();
     const initialState = () => {
         const currentURL = window.location.href;
@@ -66,8 +77,15 @@ function Card({ findCard }) {
     };
 
     useEffect(() => {
-        initialState();
-    }, []);
+        const findCARD = CARD.find((item) => item.cardId === id.cardid);
+        console.log(findCARD);
+        setForm({
+            title: findCARD.title,
+            contents: findCARD.memo,
+            url: findCARD.link,
+            // color: "",
+        });
+    }, [id]);
     const typeId = Number(
         useSelector((state) => state.modalReducer.typeControl),
     );
@@ -161,12 +179,6 @@ function Card({ findCard }) {
 
     const outerRef = useRef(null);
 
-    const [form, setForm] = useState({
-        title: "",
-        contents: "",
-        url: "",
-        color: "",
-    });
     const { title, contents, color, url } = form;
 
     const limitType = useSelector((state) => state.limitReducer.value);
@@ -181,13 +193,11 @@ function Card({ findCard }) {
             : limitType === "매년"
             ? 5
             : 1;
+
     useEffect(() => {
-        findCard &&
-            setForm({
-                title: findCard.title,
-                contents: findCard.memo,
-                url: findCard.url,
-            });
+        initialState();
+    }, []);
+    useEffect(() => {
         const handleScroll = (event) => {
             const { target } = event;
             const isScrollable =
@@ -205,7 +215,7 @@ function Card({ findCard }) {
         return () => {
             window.removeEventListener("wheel", handleScroll);
         };
-    }, [findCard]);
+    }, []);
 
     const createTitle = (e) => {
         const { name, value } = e.target;

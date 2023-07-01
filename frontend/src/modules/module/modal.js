@@ -15,8 +15,13 @@ const modalSlice = createSlice({
         limit: false,
         FixCard: false,
         deleteCard: false,
+        cardID: { cardData: null, cardid: null },
     },
     reducers: {
+        idHandler: (state, action) => {
+            const { cardData, cardid } = action.payload;
+            return { ...state, cardID: { cardData, cardid } };
+        },
         deleteCard: (state) => {
             return { ...state, deleteCard: !state.deleteCard };
         },
@@ -54,6 +59,7 @@ const modalSlice = createSlice({
 });
 
 export const {
+    idHandler,
     deleteCard,
     cardmodal,
     dateControl,

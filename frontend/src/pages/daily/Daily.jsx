@@ -20,7 +20,7 @@ function Daily() {
     const currentURL = window.location.href;
     const url = new URL(currentURL);
     const dateString = url.searchParams.get("date");
-    const [id, setId] = useState();
+
     const [year, month, day] = dateString.split("-");
     const token = localStorage.getItem("token");
     const openCard = useSelector((state) => state.modalReducer.cardmodal);
@@ -35,17 +35,14 @@ function Daily() {
         callUserCard(handleOutClick, DAY);
     }, []);
 
-    const card = useSelector((state) => state.cardReducer.day);
-    const findCard = card.find((item) => item.id === id);
-
     return (
         <div className="topContanier">
             <DndProvider backend={HTML5Backend}>
-                <Seletime setId={setId} />
+                <Seletime />
                 {openCard === true && (
                     <>
                         <LoginModalBackground onClick={handleOutClick} />
-                        <Card findCard={findCard} />
+                        <Card />
                     </>
                 )}
                 <div className="btnHeight">

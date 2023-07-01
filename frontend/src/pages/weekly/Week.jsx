@@ -23,6 +23,7 @@ import {
 } from "../../modules/module/Limit";
 import "./weekly.scss";
 import { formatDate } from "react-calendar/dist/cjs/shared/dateFormatter";
+import { idHandler } from "../../modules/module/modal";
 
 function Weekly() {
     const navigate = useNavigate();
@@ -30,7 +31,6 @@ function Weekly() {
     const searchParams = new URLSearchParams(window.location.search);
     const day = searchParams.get("date");
     const formatDate = dayjs(day);
-    const [weekId, setWeekId] = useState();
     const starDate = formatDate.format("YYYY-MM-DD");
     const endDate = dayjs(starDate).add(7, "day").format("YYYY-MM-DD");
     const openCard = useSelector((state) => state.modalReducer.cardmodal);
@@ -86,19 +86,15 @@ function Weekly() {
 
     const fixHandler = (id) => {
         dispatch(cardmodal());
-        setWeekId(id);
+        dispatch(idHandler({ cardData: "week", cardid: id }));
     };
-
-    const idCard = useSelector((state) => state.cardReducer.week);
-    const findCard = idCard.find((item) => item.id === weekId);
-    console.log(findCard);
 
     return (
         <div className="week">
             {openCard === true && (
                 <>
                     <LoginModalBackground />
-                    <Card findCard={findCard} />
+                    <Card />
                 </>
             )}
             <div className="weekTopContainer">
