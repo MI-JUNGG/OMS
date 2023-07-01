@@ -107,7 +107,7 @@ function Weekly() {
                         <div className="minusDay" onClick={dateMinusHandler}>
                             <DateLeft />
                         </div>
-                        <div>{returnDate}</div>
+                        <div className="showDay">{returnDate}</div>
                         <div className="plusDay" onClick={datePlusHandler}>
                             <DateRight />
                         </div>

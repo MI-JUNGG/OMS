@@ -93,7 +93,7 @@ function Selectime({ setId }) {
                     <div className="minusDay" onClick={dateMinusHandler}>
                         <DateLeft />
                     </div>
-                    <div>{`${returnDate} ${dayofWeek}`}</div>
+                    <div className="showDay">{`${returnDate} ${dayofWeek}`}</div>
                     <div className="plusDay" onClick={datePlusHandler}>
                         <DateRight />
                     </div>
