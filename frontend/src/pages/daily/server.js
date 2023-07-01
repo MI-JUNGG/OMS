@@ -2,7 +2,7 @@ import axios from "axios";
 import card from "../../modules/module/card";
 
 const { VITE_API_URL } = import.meta.env;
-// export const API = "http://192.168.0.12:3001";
+
 export const API = VITE_API_URL;
 // export const token = localStorage.getItem("token");
 export const token =
@@ -12,7 +12,6 @@ export const callUserCard = (handleOutClick, day) => {
     axios
         .get(`${API}/day`, {
             params: {
-                //수정
                 startDate: day,
             },
             headers: {
@@ -28,7 +27,6 @@ export const callUserCard = (handleOutClick, day) => {
 };
 
 export const counterHandler = (
-    id,
     title,
     contents,
     startDate,

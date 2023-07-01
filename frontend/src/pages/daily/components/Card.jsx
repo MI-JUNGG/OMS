@@ -25,7 +25,8 @@ import { initialReducer } from "../../../modules/module/Limit";
 import { newDate } from "../../../modules/module/repeatStart";
 import "./Card.scss";
 
-function Card({ id }) {
+function Card({ findCard }) {
+    console.log(findCard);
     const dispatch = useDispatch();
     const initialState = () => {
         const currentURL = window.location.href;
@@ -72,7 +73,7 @@ function Card({ id }) {
     );
     /*카드삭제*/
     const deleteHandler = () => {
-        DeleteCardHandler(id);
+        DeleteCardHandler(findCard.id);
         dispatch(removeCard());
         dispatch(cardTypeReducer());
     };
@@ -181,6 +182,12 @@ function Card({ id }) {
             ? 5
             : 1;
     useEffect(() => {
+        findCard &&
+            setForm({
+                title: findCard.title,
+                contents: findCard.memo,
+                url: findCard.url,
+            });
         const handleScroll = (event) => {
             const { target } = event;
             const isScrollable =
@@ -198,7 +205,7 @@ function Card({ id }) {
         return () => {
             window.removeEventListener("wheel", handleScroll);
         };
-    }, []);
+    }, [findCard]);
 
     const createTitle = (e) => {
         const { name, value } = e.target;
@@ -221,7 +228,7 @@ function Card({ id }) {
     const sendingData = () => {
         Fix === true
             ? FixCardHandler(
-                  id,
+                  findCard.id,
                   title,
                   contents,
                   typeNum === 1 ? allStart : repeat,
@@ -232,7 +239,7 @@ function Card({ id }) {
                   limitDate,
               )
             : counterHandler(
-                  id,
+                  findCard.id,
                   title,
                   contents,
                   typeNum === 1 ? allStart : repeat,

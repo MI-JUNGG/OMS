@@ -89,22 +89,28 @@ function Weekly() {
         setWeekId(id);
     };
 
+    const idCard = useSelector((state) => state.cardReducer.week);
+    const findCard = idCard.find((item) => item.id === weekId);
+    console.log(findCard);
+
     return (
         <div className="week">
             {openCard === true && (
                 <>
                     <LoginModalBackground />
-                    <Card id={weekId} />
+                    <Card findCard={findCard} />
                 </>
             )}
             <div className="weekTopContainer">
-                <div className="dayChanger">
-                    <div className="minusDay" onClick={dateMinusHandler}>
-                        <DateLeft />
-                    </div>
-                    <div>{returnDate}</div>
-                    <div className="plusDay" onClick={datePlusHandler}>
-                        <DateRight />
+                <div className="dayChangerContainer">
+                    <div className="dayChanger">
+                        <div className="minusDay" onClick={dateMinusHandler}>
+                            <DateLeft />
+                        </div>
+                        <div>{returnDate}</div>
+                        <div className="plusDay" onClick={datePlusHandler}>
+                            <DateRight />
+                        </div>
                     </div>
                 </div>
                 <div className="weekContainer">

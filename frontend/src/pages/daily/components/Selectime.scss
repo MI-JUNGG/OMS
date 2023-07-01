@@ -1,18 +1,25 @@
 .dayTable {
-    width: 1280px;
+    width: 1380px;
     min-width: 1280px;
     background-color: white;
     border-radius: 50px;
-    padding: 15px;
+    margin-left: 60px;
 
-    .dayChanger {
+    .dayChangerContainer {
         display: flex;
-        align-items: center;
         justify-content: center;
-        gap: 20px;
-        text-align: center;
-        height: 5%;
-        font-size: x-large;
+        align-items: center;
+        margin: 25px 0;
+        .dayChanger {
+            width: 440px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            text-align: center;
+            height: 5%;
+            font-size: x-large;
+        }
     }
 
     .timeTable {

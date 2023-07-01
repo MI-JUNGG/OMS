@@ -35,6 +35,9 @@ function Daily() {
         callUserCard(handleOutClick, DAY);
     }, []);
 
+    const card = useSelector((state) => state.cardReducer.day);
+    const findCard = card.find((item) => item.id === id);
+
     return (
         <div className="topContanier">
             <DndProvider backend={HTML5Backend}>
@@ -42,7 +45,7 @@ function Daily() {
                 {openCard === true && (
                     <>
                         <LoginModalBackground onClick={handleOutClick} />
-                        <Card id={id} />
+                        <Card findCard={findCard} />
                     </>
                 )}
                 <div className="btnHeight">

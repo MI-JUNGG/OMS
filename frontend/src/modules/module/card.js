@@ -16,7 +16,19 @@ const cardSlice = createSlice({
                 link: null,
             },
         ],
-        week: [],
+        week: [
+            {
+                cardId: 3,
+                title: "test5",
+                repeat: 2,
+                startDate: "2023-06-03 10:00",
+                endDate: "2023-06-03 11:00",
+                deadline: null,
+                color: "#F7F1FF",
+                memo: null,
+                link: null,
+            },
+        ],
         month: [],
     },
 
