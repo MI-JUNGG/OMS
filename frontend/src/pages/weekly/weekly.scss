@@ -1,10 +1,9 @@
 .week {
-    width: 1380px;
     display: flex;
-    margin: 30px auto 0 auto;
     justify-content: center;
     align-items: center;
-    margin-left: 60px;
+    margin-top: 30px;
+
     .buttonContainer {
         margin-top: auto;
         position: sticky;
@@ -49,7 +48,6 @@
                 display: flex;
                 flex-direction: column;
                 width: 1100px;
-
                 &__header {
                     display: flex;
                     border-top: none;
@@ -103,6 +101,7 @@
                 }
 
                 .rederWeekData {
+                    padding: 10px;
                     width: 100%;
                     height: 100%;
                 }
