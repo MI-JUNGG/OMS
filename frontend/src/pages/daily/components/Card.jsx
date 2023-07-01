@@ -17,30 +17,79 @@ import Repeat from "./repeat/Repeat";
 import { cardTypeReducer } from "../../../modules/module/modal";
 import { counterHandler } from "../server";
 import LimitDateSelect from "./limit/LimitDateSelect";
-import "./Card.scss";
 import Trash from "../../../assets/images/floating_action/Trash";
 import dayjs from "dayjs";
+import { addDate, addMonth, addDay } from "../../../modules/module/date";
+import { eaddDate, eaddMonth, eaddDay } from "../../../modules/module/endDate";
+import { initialReducer } from "../../../modules/module/Limit";
+import { newDate } from "../../../modules/module/repeatStart";
+import "./Card.scss";
 
-function Card({ id }) {
+function Card({ findCard }) {
+    console.log(findCard);
     const dispatch = useDispatch();
+    const initialState = () => {
+        const currentURL = window.location.href;
+        const url = new URL(currentURL);
+        const dateString = url.searchParams.get("date");
+        const [year, month, day] = dateString.split("-");
+        const dateAction = addDate(Number(year));
+        const monthAction = addMonth(Number(month));
+        const dayAction = addDay(Number(day));
 
+        const enddateAction = eaddDate(Number(year));
+        const endmonthAction = eaddMonth(Number(month));
+        const enddayAction = eaddDay(Number(day));
+
+        dispatch(enddateAction);
+        dispatch(endmonthAction);
+        dispatch(enddayAction);
+
+        dispatch(dateAction);
+        dispatch(monthAction);
+        dispatch(dayAction);
+
+        dispatch(
+            initialReducer({
+                year: year,
+                month: month,
+                day: day,
+            }),
+        );
+        dispatch(
+            newDate({
+                year: Number(year),
+                month: Number(month),
+                day: Number(day),
+            }),
+        );
+    };
+
+    useEffect(() => {
+        initialState();
+    }, []);
     const typeId = Number(
         useSelector((state) => state.modalReducer.typeControl),
     );
     /*카드삭제*/
     const deleteHandler = () => {
-        DeleteCardHandler(id);
+        DeleteCardHandler(findCard.id);
         dispatch(removeCard());
         dispatch(cardTypeReducer());
     };
 
     const AllStartYear = useSelector((state) => state.dateReducer.year);
-    const AllStartMonth = useSelector((state) => state.dateReducer.Month);
-    const AllStartDay = useSelector((state) => state.dateReducer.Day);
+    const AllStartMonth = useSelector((state) => state.dateReducer.month);
+    const AllStartDay = useSelector((state) => state.dateReducer.day);
+    const toStringStart = `${AllStartYear}-${AllStartMonth}-${AllStartDay}`;
 
     const AllEndYear = useSelector((state) => state.endDateReducer.year);
     const AllEndMonth = useSelector((state) => state.endDateReducer.month);
     const AllEndDay = useSelector((state) => state.endDateReducer.day);
+
+    const toStringEnd = `${AllEndYear}-${AllEndMonth}-${AllEndDay}`;
+    const allStart = dayjs(toStringStart).format("YYYY-MM-DD");
+    const allEnd = dayjs(toStringEnd).format("YYYY-MM-DD");
 
     const repeatStartYear = useSelector((state) => state.dateReducer.year);
     const repeatStartMonth =
@@ -72,13 +121,10 @@ function Card({ id }) {
         useSelector((state) => state.repeatEndReducer.minute),
     );
 
-    const repeatE = dayjs(
-        repeatEndYear,
-        repeatEndMonth,
-        repeatEndDay,
-        repeatEndTime,
-        repeatEndDayMinute,
-    ).format("YYYY-MM-DD HH:mm:ss");
+    const endDate = `${repeatEndYear}-${
+        repeatEndMonth + 1
+    }-${repeatEndDay} ${repeatEndTime}:${repeatEndDayMinute}`;
+    const repeatE = dayjs(endDate).format("YYYY-MM-DD HH:mm:ss");
 
     const limitY = useSelector((state) => state.limitReducer.year);
     const limitM = useSelector((state) => state.limitReducer.month);
@@ -134,8 +180,14 @@ function Card({ id }) {
             ? 4
             : limitType === "매년"
             ? 5
-            : 0;
+            : 1;
     useEffect(() => {
+        findCard &&
+            setForm({
+                title: findCard.title,
+                contents: findCard.memo,
+                url: findCard.url,
+            });
         const handleScroll = (event) => {
             const { target } = event;
             const isScrollable =
@@ -153,7 +205,7 @@ function Card({ id }) {
         return () => {
             window.removeEventListener("wheel", handleScroll);
         };
-    }, []);
+    }, [findCard]);
 
     const createTitle = (e) => {
         const { name, value } = e.target;
@@ -176,25 +228,25 @@ function Card({ id }) {
     const sendingData = () => {
         Fix === true
             ? FixCardHandler(
-                  id,
+                  findCard.id,
                   title,
                   contents,
-                  repeat,
-                  repeatE,
+                  typeNum === 1 ? allStart : repeat,
+                  typeNum === 1 ? allEnd : repeatE,
                   color,
                   url,
-                  //   repeatId,
+                  typeNum,
                   limitDate,
               )
             : counterHandler(
-                  id,
+                  findCard.id,
                   title,
                   contents,
-                  repeat,
-                  repeatE,
+                  typeNum === 1 ? allStart : repeat,
+                  typeNum === 1 ? allEnd : repeatE,
                   color,
                   url,
-                  repeatCardType,
+                  typeNum,
                   limitDate,
               );
         setForm({

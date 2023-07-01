@@ -10,19 +10,8 @@ import Card from "./components/Card";
 import Button from "../button/Button";
 import LoginModalBackground from "../sign/LoginModalBackground";
 import { cardmodal } from "../../modules/module/modal";
-import { addDate, addMonth, addDay } from "../../modules/module/date";
-import { eaddDate, eaddMonth, eaddDay } from "../../modules/module/endDate";
-import {
-    laddDate,
-    laddMonth,
-    laddDay,
-    initialReducer,
-} from "../../modules/module/Limit";
-import { newDate } from "../../modules/module/repeatStart";
 import { addCard } from "../../modules/module/card";
 import { callUserCard } from "./server";
-
-import { callData } from "../weekly/weekSever";
 import dayjs from "dayjs";
 
 function Daily() {
@@ -41,44 +30,13 @@ function Daily() {
         dispatch(addCard({ cardType: "day", cardData: data }));
     };
 
-    const initialState = () => {
-        const dateAction = addDate(Number(year));
-        const monthAction = addMonth(Number(month));
-        const dayAction = addDay(Number(day));
-
-        const enddateAction = eaddDate(Number(year));
-        const endmonthAction = eaddMonth(Number(month));
-        const enddayAction = eaddDay(Number(day));
-
-        dispatch(enddateAction);
-        dispatch(endmonthAction);
-        dispatch(enddayAction);
-
-        dispatch(dateAction);
-        dispatch(monthAction);
-        dispatch(dayAction);
-
-        dispatch(
-            initialReducer({
-                year: year,
-                month: month,
-                day: day,
-            }),
-        );
-        dispatch(
-            newDate({
-                year: Number(year),
-                month: Number(month),
-                day: Number(day),
-            }),
-        );
-    };
-
     useEffect(() => {
-        initialState();
         const DAY = dayjs(`${year}-${month}-${day}`).format("YYYY-MM-DD");
         callUserCard(handleOutClick, DAY);
     }, []);
+
+    const card = useSelector((state) => state.cardReducer.day);
+    const findCard = card.find((item) => item.id === id);
 
     return (
         <div className="topContanier">
@@ -87,7 +45,7 @@ function Daily() {
                 {openCard === true && (
                     <>
                         <LoginModalBackground onClick={handleOutClick} />
-                        <Card id={id} />
+                        <Card findCard={findCard} />
                     </>
                 )}
                 <div className="btnHeight">

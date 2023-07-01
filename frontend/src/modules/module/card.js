@@ -5,72 +5,28 @@ const cardSlice = createSlice({
     initialState: {
         day: [
             {
-                cardId: 24,
-                color: "#FFFFF",
-                deadline: "Invalid Date",
-                endDate: "2023-06-11 23:59:59",
-                link: null,
-                memo: null,
+                cardId: 6,
+                title: "test5",
                 repeat: 2,
-                startDate: "2023-06-11 01:00:00",
-                title: "string",
-            },
-            {
-                cardId: 25,
-                color: "#FFFFF",
-                deadline: "Invalid Date",
-                endDate: "2023-06-11 23:59:59",
-                link: null,
+                startDate: "2023-06-03 10:00",
+                endDate: "2023-06-03 11:00",
+                deadline: null,
+                color: "#F7F1FF",
                 memo: null,
-                repeat: 2,
-                startDate: "2023-06-11 01:00:00",
-                title: "string",
-            },
-            {
-                cardId: 26,
-                color: "#FFFFF",
-                deadline: "Invalid Date",
-                endDate: "2023-06-11 23:59:59",
                 link: null,
-                memo: null,
-                repeat: 2,
-                startDate: "2023-06-11 01:00:00",
-                title: "string",
             },
         ],
         week: [
             {
-                cardId: 24,
-                color: "green",
-                deadline: "Invalid Date",
-                endDate: "2023-06-11 23:59:59",
-                link: null,
-                memo: null,
+                cardId: 3,
+                title: "test5",
                 repeat: 2,
-                startDate: "2023-06-11 01:00:00",
-                title: "string",
-            },
-            {
-                cardId: 25,
-                color: "blue",
-                deadline: "Invalid Date",
-                endDate: "2023-06-11 23:59:59",
-                link: null,
+                startDate: "2023-06-03 10:00",
+                endDate: "2023-06-03 11:00",
+                deadline: null,
+                color: "#F7F1FF",
                 memo: null,
-                repeat: 2,
-                startDate: "2023-06-11 01:00:00",
-                title: "string",
-            },
-            {
-                cardId: 26,
-                color: "red",
-                deadline: "Invalid Date",
-                endDate: "2023-06-11 23:59:59",
                 link: null,
-                memo: null,
-                repeat: 2,
-                startDate: "2023-06-11 01:00:00",
-                title: "string",
             },
         ],
         month: [],
@@ -79,6 +35,7 @@ const cardSlice = createSlice({
     reducers: {
         addCard: (state, action) => {
             const { cardType, cardData } = action.payload;
+            console.log(action.payload);
             if (cardType === "day") {
                 state.day.push(...cardData);
             }
