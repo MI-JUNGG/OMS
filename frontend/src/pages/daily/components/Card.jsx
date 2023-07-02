@@ -33,6 +33,7 @@ function Card() {
         color: "",
     });
     const id = useSelector((state) => state.modalReducer.cardID);
+    console.log(id);
     const CARD =
         id.cardData === "week"
             ? useSelector((state) => state.cardReducer.week)
@@ -238,7 +239,7 @@ function Card() {
     const sendingData = () => {
         Fix === true
             ? FixCardHandler(
-                  findCard.id,
+                  id,
                   title,
                   contents,
                   typeNum === 1 ? allStart : repeat,
@@ -249,7 +250,7 @@ function Card() {
                   limitDate,
               )
             : counterHandler(
-                  findCard.id,
+                  id,
                   title,
                   contents,
                   typeNum === 1 ? allStart : repeat,
