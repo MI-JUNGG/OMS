@@ -14,8 +14,9 @@ import { update } from "../../../modules/module/date";
 import { endUpdate } from "../../../modules/module/endDate";
 import { addCard } from "../../../modules/module/card";
 import { callUserCard } from "../server";
+import { idHandler } from "../../../modules/module/modal";
 
-function Selectime({ setId }) {
+function Selectime() {
     const dispatch = useDispatch();
     const location = useLocation();
     const searchParams = new URLSearchParams(window.location.search);
@@ -24,6 +25,7 @@ function Selectime({ setId }) {
     const returnDate = formatDate.format("YYYY.MM.DD");
 
     const [date, setDate] = useState(returnDate);
+    const dayofWeek = dayjs(date).format("ddd");
 
     const navigate = useNavigate();
 
@@ -55,8 +57,7 @@ function Selectime({ setId }) {
     };
 
     const fixModalHandler = (e, cardId) => {
-        console.log("daily:" + cardId);
-        setId(cardId);
+        dispatch(idHandler({ cardData: "day", cardid: cardId }));
         dispatch(cardmodal());
         dispatch(cardTypeReducer());
         const getData = cardId;
@@ -88,13 +89,15 @@ function Selectime({ setId }) {
 
     return (
         <div className="dayTable">
-            <div className="dayChanger">
-                <div className="minusDay" onClick={dateMinusHandler}>
-                    <DateLeft />
-                </div>
-                <div>{returnDate}</div>
-                <div className="plusDay" onClick={datePlusHandler}>
-                    <DateRight />
+            <div className="dayChangerContainer">
+                <div className="dayChanger">
+                    <div className="minusDay" onClick={dateMinusHandler}>
+                        <DateLeft />
+                    </div>
+                    <div className="showDay">{`${returnDate} ${dayofWeek}`}</div>
+                    <div className="plusDay" onClick={datePlusHandler}>
+                        <DateRight />
+                    </div>
                 </div>
             </div>
             <div className="timeTable">

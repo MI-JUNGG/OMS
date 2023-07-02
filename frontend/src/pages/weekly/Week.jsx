@@ -23,22 +23,23 @@ import {
 } from "../../modules/module/Limit";
 import "./weekly.scss";
 import { formatDate } from "react-calendar/dist/cjs/shared/dateFormatter";
+import { idHandler } from "../../modules/module/modal";
 
 function Weekly() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const searchParams = new URLSearchParams(window.location.search);
-    const day = searchParams.get("sundayDate");
+    const day = searchParams.get("date");
     const formatDate = dayjs(day);
-    const [weekId, setWeekId] = useState();
     const starDate = formatDate.format("YYYY-MM-DD");
     const endDate = dayjs(starDate).add(7, "day").format("YYYY-MM-DD");
     const openCard = useSelector((state) => state.modalReducer.cardmodal);
 
     const returnDate = formatDate.format("YYYY.MM.DD");
-    const startDate = searchParams.get("sundayDate");
+    const startDate = searchParams.get("date");
     const data = useSelector((state) => state.cardReducer.week);
     const [date, setDate] = useState(returnDate);
+
     const dates = [];
     for (let i = 0; i < 7; i++) {
         let date = dayjs(startDate).add(i, "day");
@@ -50,49 +51,7 @@ function Weekly() {
     const dayOfWeek = dayjs(formattedDateTime).format("ddd");
 
     const weekCard = useSelector((state) => state.cardReducer.week);
-    const initialState = () => {
-        const searchParams = new URLSearchParams(window.location.search);
-        const urlDate = searchParams.get("sundayDate");
 
-        const year = dayjs(urlDate).format("YYYY");
-        const month = dayjs(urlDate).format("MM");
-        const day = dayjs(urlDate).format("DD");
-
-        const dateAction = addDate(Number(year));
-        const monthAction = addMonth(Number(month));
-        const dayAction = addDay(Number(day));
-
-        const enddateAction = eaddDate(Number(year));
-        const endmonthAction = eaddMonth(Number(month));
-        const enddayAction = eaddDay(Number(day));
-
-        dispatch(enddateAction);
-        dispatch(endmonthAction);
-        dispatch(enddayAction);
-
-        dispatch(dateAction);
-        dispatch(monthAction);
-        dispatch(dayAction);
-
-        dispatch(
-            initialReducer({
-                year: year,
-                month: month,
-                day: day,
-            }),
-        );
-        dispatch(
-            newDate({
-                year: Number(year),
-                month: Number(month),
-                day: Number(day),
-            }),
-        );
-    };
-
-    useEffect(() => {
-        initialState();
-    }, []);
     const datePlusHandler = () => {
         const formatDate = new Date(date);
         formatDate.setDate(formatDate.getDate() + 7);
@@ -101,7 +60,7 @@ function Weekly() {
         const day = String(formatDate.getDate()).padStart(2, "0");
         const formattedDate = `${year}-${month}-${day}`;
         setDate(formattedDate);
-        const newLocation = `/weekly?sundayDate=${year}-${month}-${day}`;
+        const newLocation = `/weekly?date=${year}-${month}-${day}`;
         navigate(newLocation);
     };
 
@@ -113,11 +72,12 @@ function Weekly() {
         const day = String(formatDate.getDate()).padStart(2, "0");
         const formattedDate = `${year}-${month}-${day}`;
         setDate(formattedDate);
-        const newLocation = `/weekly?sundayDate=${year}-${month}-${day}`;
+        const newLocation = `/weekly?date=${year}-${month}-${day}`;
         navigate(newLocation);
     };
     const dateState = (data) => {
-        dispatch({ cardType: "week", cardData: data });
+        console.log(data);
+        dispatch(addCard({ cardType: "week", cardData: data }));
     };
 
     useEffect(() => {
@@ -126,7 +86,7 @@ function Weekly() {
 
     const fixHandler = (id) => {
         dispatch(cardmodal());
-        setWeekId(id);
+        dispatch(idHandler({ cardData: "week", cardid: id }));
     };
 
     return (
@@ -134,17 +94,19 @@ function Weekly() {
             {openCard === true && (
                 <>
                     <LoginModalBackground />
-                    <Card id={weekId} />
+                    <Card />
                 </>
             )}
             <div className="weekTopContainer">
-                <div className="dayChanger">
-                    <div className="minusDay" onClick={dateMinusHandler}>
-                        <DateLeft />
-                    </div>
-                    <div>{returnDate}</div>
-                    <div className="plusDay" onClick={datePlusHandler}>
-                        <DateRight />
+                <div className="dayChangerContainer">
+                    <div className="dayChanger">
+                        <div className="minusDay" onClick={dateMinusHandler}>
+                            <DateLeft />
+                        </div>
+                        <div className="showDay">{returnDate}</div>
+                        <div className="plusDay" onClick={datePlusHandler}>
+                            <DateRight />
+                        </div>
                     </div>
                 </div>
                 <div className="weekContainer">

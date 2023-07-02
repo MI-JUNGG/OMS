@@ -12,7 +12,7 @@ function Router() {
         <BrowserRouter>
             <Nav />
             <Routes>
-                <Route path="/" element={<Main />} />
+                <Route path="/month" element={<Main />} />
                 <Route path="/day" element={<Daily />} />
                 <Route path="/weekly" element={<Week />} />
                 <Route path="/myPage" element={<MyPage />} />

@@ -115,9 +115,18 @@ const naverLogin = async (naverToken) => {
   return (accessToken = jwt.sign({ userId: userId }, process.env.JWT_SECRET));
 };
 
+// 탈퇴
+const deleteUser = async (token) => {
+  const deleteUser = jwt.verify(token, process.env.JWT_SECRET);
+  const userId = deleteUser.userId;
+
+  return await userDao.deleteUser(userId);
+};
+
 module.exports = {
   signUp,
   signIn,
   kakaoLogin,
   naverLogin,
+  deleteUser,
 };
