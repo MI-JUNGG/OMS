@@ -24,16 +24,16 @@ function Daily() {
     const [year, month, day] = dateString.split("-");
     const token = localStorage.getItem("token");
     const openCard = useSelector((state) => state.modalReducer.cardmodal);
-    const form = useSelector((state) => state.dateReducer);
+
     const handleOutClick = (data) => {
-        openCard === false && dispatch(cardmodal());
         dispatch(addCard({ cardType: "day", cardData: data }));
     };
 
     useEffect(() => {
         const DAY = dayjs(`${year}-${month}-${day}`).format("YYYY-MM-DD");
-        callUserCard(handleOutClick, DAY);
-    }, []);
+        callUserCard(DAY);
+        const form = useSelector((state) => statecardReducer);
+    }, [form]);
 
     return (
         <div className="topContanier">
