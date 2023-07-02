@@ -265,30 +265,15 @@ function Main() {
                     day++;
                 } else {
                     const dayHasSchedule = monthScheduleData.filter((item) => {
-                        // console.log(item.startDate);
+                        console.log("A", item.startDate);
                         const itemDate = new Date(item.startDate);
-                        const a = dayjs(itemDate).format("YYYY-MM-DD");
-                        // console.log(dayjs(itemDate).format("YYYY-MM-DD"));
-                        console
-                            .log
-                            // "들어온 년도",
-                            // itemDate.getFullYear(),
-                            // "이번 년도",
-                            // date.getFullYear(),
-                            // "들어온 월",
-                            // itemDate.getMonth(),
-                            // "이번 월",
-                            // date.getMonth(),
-                            // "들어온 날짜",
-                            // itemDate.getDate(),
-                            // "오늘 날짜",
-                            // day,
-                            ();
+                        console.log(itemDate);
+                        console.log(dayjs(itemDate).format("YYYY-MM-DD"));
 
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
                             itemDate.getMonth() === date.getMonth() &&
-                            itemDate.getDate() === day + 1 &&
+                            itemDate.getDate() === day &&
                             item.repeat === 2
                         );
                     });
@@ -299,27 +284,16 @@ function Main() {
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
                             itemDate.getMonth() === date.getMonth() &&
-                            itemDate.getDate() === day + 1 &&
+                            itemDate.getDate() === day &&
                             item.repeat === 1
                         );
                     });
 
-                    const cardColor = monthScheduleData.find((item) => {
-                        const itemDate = new Date(item.startDate);
-                        return (
-                            itemDate.getFullYear() === date.getFullYear() &&
-                            itemDate.getMonth() === date.getMonth() &&
-                            itemDate.getDate() === day
-                        );
-                    })?.color;
                     const dayHasScheduleColor = dayHasSchedule.find((item) => {
                         const itemData = item.color;
                         return itemData;
                     });
 
-                    const cardStyle = {
-                        backgroundColor: cardColor || "transparent",
-                    };
                     // console.log(day, dayHasSchedule);
 
                     rowDays.push(
