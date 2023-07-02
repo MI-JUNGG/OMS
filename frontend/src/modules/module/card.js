@@ -8,7 +8,7 @@ const cardSlice = createSlice({
                 cardId: 3,
                 title: "데이",
                 repeat: 2,
-                startDate: "2023-07-03 10:00",
+                startDate: "2023-07-03 00:00",
                 endDate: "2023-07-03 11:00",
                 deadline: null,
                 color: "#F7F1FF",
