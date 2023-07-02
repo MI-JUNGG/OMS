@@ -6,7 +6,7 @@ const { VITE_API_URL } = import.meta.env;
 export const API = VITE_API_URL;
 // export const token = localStorage.getItem("token");
 export const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODc5MjA1NjJ9.rKtSAN2iGVWKkYZoTLRvzZ1kG-CVZ7P0WeS0O4TzX4k";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODgzMDIzMzV9.D9eAyiUwfuWFNxgNXOi5bnHb3vH8UAtFRTbK-i3nNBs";
 
 export const callUserCard = (handleOutClick, day) => {
     axios
