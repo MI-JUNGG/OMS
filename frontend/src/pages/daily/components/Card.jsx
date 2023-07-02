@@ -78,13 +78,13 @@ function Card() {
 
     useEffect(() => {
         const findCARD = CARD.find((item) => item.cardId === id.cardid);
-        console.log(findCARD);
-        setForm({
-            title: findCARD.title,
-            contents: findCARD.memo,
-            url: findCARD.link,
-            // color: "",
-        });
+        findCARD &&
+            setForm({
+                title: findCARD.title,
+                contents: findCARD.memo,
+                url: findCARD.link,
+                // color: "",
+            });
     }, [id]);
     const typeId = Number(
         useSelector((state) => state.modalReducer.typeControl),
