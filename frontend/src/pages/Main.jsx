@@ -77,6 +77,7 @@ function Main() {
             yearForm,
             monthForm - 1,
         )}`;
+        console.log("startDate", startDate, "endDate", endDate);
 
         axios
             .get("/data/monthMock.json", {
@@ -161,24 +162,6 @@ function Main() {
                     });
             })
             .catch((err) => console.log(err));
-
-        // axios
-        //     .get("http://192.168.219.152:3001/month", {
-        //         params: {
-        //             startDate: startDate,
-        //             endDate: endDate,
-        //         },
-        //         headers: {
-        //             Authorization: localStorage.getItem("token"),
-        //         },
-        //     })
-        //     .then((response) => {
-        //         console.log(response);
-        //         setSchedule(response.data);
-        //     })
-        //     .catch((error) => {
-        //         console.error(error);
-        //     });
     }, [monthForm]);
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -264,20 +247,6 @@ function Main() {
                     );
                     day++;
                 } else {
-                    const dayHasSchedule = monthScheduleData.filter((item) => {
-                        console.log("A", item.startDate);
-                        const itemDate = new Date(item.startDate);
-                        console.log(itemDate);
-                        console.log(dayjs(itemDate).format("YYYY-MM-DD"));
-
-                        return (
-                            itemDate.getFullYear() === date.getFullYear() &&
-                            itemDate.getMonth() === date.getMonth() &&
-                            itemDate.getDate() === day &&
-                            item.repeat === 2
-                        );
-                    });
-
                     const shortSchedule = monthScheduleData.filter((item) => {
                         const itemDate = new Date(item.startDate);
 
@@ -289,12 +258,45 @@ function Main() {
                         );
                     });
 
+                    const dayHasSchedule = monthScheduleData.filter((item) => {
+                        const itemDate = dayjs(item.startDate);
+
+                        return (
+                            itemDate.year() === date.getFullYear() &&
+                            itemDate.month() === date.getMonth() &&
+                            itemDate.date() === day &&
+                            item.repeat === 2
+                        );
+                    });
+
+                    const weekSchedule = monthScheduleData.filter((item) => {
+                        const itemDate = dayjs(item.startDate);
+                        const startDay = new Date(itemDate);
+                        const startDayOfWeek = startDay.getDay();
+
+                        return (
+                            itemDate.year() === date.getFullYear() &&
+                            itemDate.month() === date.getMonth() &&
+                            (itemDate.date() - startDay.getDate()) %
+                                item.repeat ===
+                                0 &&
+                            itemDate.day() ===
+                                (startDayOfWeek + (day - startDay.getDate())) %
+                                    7 &&
+                            item.repeat === 3
+                        );
+                    });
+
+                    const monthSchedule = monthScheduleData.filter((item) => {
+                        const itemDate = dayjs(item.startDate);
+                    });
+
                     const dayHasScheduleColor = dayHasSchedule.find((item) => {
                         const itemData = item.color;
                         return itemData;
                     });
 
-                    // console.log(day, dayHasSchedule);
+                    // console.log(day, shortSchedule);
 
                     rowDays.push(
                         <div
@@ -307,7 +309,8 @@ function Main() {
                                     : ""
                             } ${
                                 shortSchedule.length > 0 ? "shortSchedule" : ""
-                            }`}
+                            } ${weekSchedule.length > 0 ? "weekSchedule" : ""}`}
+                            q
                             onClick={handleDateClick}
                             style={
                                 dayHasScheduleColor
@@ -359,9 +362,33 @@ function Main() {
                                             </>
                                         ),
                                 )}
+                            {weekSchedule &&
+                                weekSchedule.map(
+                                    (item, index) =>
+                                        index < 2 && (
+                                            <>
+                                                <div
+                                                    className="weekSchedule"
+                                                    style={
+                                                        weekSchedule
+                                                            ? {
+                                                                  backgroundColor: `${item.color}1A`,
+                                                                  color: item.color,
+                                                                  borderLeft: `3px solid ${item.color}`,
+                                                              }
+                                                            : null
+                                                    }
+                                                >
+                                                    {item.title}
+                                                </div>
+                                            </>
+                                        ),
+                                )}
                             {dayHasSchedule &&
                                 shortSchedule &&
-                                dayHasSchedule.length + shortSchedule.length >
+                                dayHasSchedule.length +
+                                    shortSchedule.length +
+                                    weekSchedule.length >
                                     3 && (
                                     <span
                                         className="moreSchedule"

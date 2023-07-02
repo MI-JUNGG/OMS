@@ -15,45 +15,45 @@
         {
             "cardId": 41,
             "title": "테스트",
-            "repeat": 4,
-            "deadline": "2023-06-07",
+            "repeat": 3,
+            "deadline": "2023-07-15",
             "memo": "테스트",
             "link": "테스트",
-            "startDate": "2023-06-07 00:00:00",
-            "endDate": "2023-06-07 00:00:00",
-            "color": "#f3f3f3"
+            "startDate": "2023-07-15 00:00:00",
+            "endDate": "2023-07-07 00:00:00",
+            "color": "#030303"
         },
         {
             "cardId": 24,
             "title": "string",
-            "repeat": 2,
+            "repeat": 4,
             "deadline": "Invalid Date",
             "memo": null,
             "link": null,
-            "startDate": "2023-06-11 01:00:00",
-            "endDate": "2023-06-11 23:59:59",
+            "startDate": "2023-07-11 01:00:00",
+            "endDate": "2023-07-11 23:59:59",
             "color": "#030303"
         },
         {
             "cardId": 25,
             "title": "string",
-            "repeat": 2,
+            "repeat": 5,
             "deadline": "Invalid Date",
             "memo": null,
             "link": null,
-            "startDate": "2023-06-11 01:00:00",
-            "endDate": "2023-06-11 23:59:59",
+            "startDate": "2023-07-13 01:00:00",
+            "endDate": "2023-07-11 23:59:59",
             "color": "#030303"
         },
         {
             "cardId": 44,
             "title": "string",
             "repeat": 2,
-            "deadline": "2023-06-11",
+            "deadline": "2023-07-11",
             "memo": null,
             "link": null,
-            "startDate": "2023-06-11 13:00:00",
-            "endDate": "2023-06-11 13:00:00",
+            "startDate": "2023-07-11 13:00:00",
+            "endDate": "2023-07-11 13:00:00",
             "color": "#030303"
         },
         {
@@ -64,18 +64,29 @@
             "memo": "하이",
             "link": "하이",
             "startDate": "2023-07-31 00:00:00",
-            "endDate": "2023-06-18 00:00:00",
+            "endDate": "2023-07-18 00:00:00",
             "color": "#030303"
         },
         {
             "cardId": 43,
             "title": "6월 30일",
             "repeat": 1,
-            "deadline": "2023-06-19",
+            "deadline": "2023-07-19",
             "memo": "하이",
             "link": "하이",
-            "startDate": "2023-06-30 00:00:00",
-            "endDate": "2023-06-18 00:00:00",
+            "startDate": "2023-07-29 00:00:00",
+            "endDate": "2023-07-18 00:00:00",
+            "color": "#030303"
+        },
+        {
+            "cardId": 46,
+            "title": "6월 30일",
+            "repeat": 1,
+            "deadline": "2023-07-19",
+            "memo": "하이",
+            "link": "하이",
+            "startDate": "2023-10-29 00:00:00",
+            "endDate": "2023-07-18 00:00:00",
             "color": "#030303"
         }
     ]
