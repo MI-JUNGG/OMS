@@ -148,4 +148,5 @@ export const DeleteCardHandler = (id) => {
         .then(function (data) {
             console.log(data);
         });
+    alert("삭제 완료");
 };

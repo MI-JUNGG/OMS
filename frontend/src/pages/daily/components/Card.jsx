@@ -92,7 +92,7 @@ function Card() {
     );
     /*카드삭제*/
     const deleteHandler = () => {
-        DeleteCardHandler(findCard.id);
+        DeleteCardHandler(id.cardid);
         dispatch(removeCard());
         dispatch(cardTypeReducer());
     };
@@ -268,6 +268,7 @@ function Card() {
             endDate: "",
             color: "",
         });
+        dispatch(cardmodal());
     };
 
     return (
