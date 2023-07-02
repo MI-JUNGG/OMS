@@ -52,6 +52,25 @@ function Main() {
         setBackgroundState(!backgroundState);
     };
 
+    const pickTitle = (id) => {
+        switch (id) {
+            case 0:
+                return "vivid";
+            case 1:
+                return "bright";
+            case 2:
+                return "soft";
+            case 3:
+                return "reddish";
+            case 4:
+                return "pale";
+            case 5:
+                return "custom";
+            default:
+                return "";
+        }
+    };
+
     useEffect(() => {
         const startDate = `${yearForm}-${monthForm}-01`;
         const endDate = `${yearForm}-${monthForm}-${daysInMonth(
@@ -162,95 +181,6 @@ function Main() {
         //     });
     }, [monthForm]);
 
-    useEffect(() => {
-        fetch("/data/myPage.json", {
-            method: "GET",
-            headers: {
-                Authorization: localStorage.getItem("token"),
-                "Content-Type": "application/json", // JSON 형식으로 요청을 보내기 위해 Content-Type을 설정
-            },
-        })
-            .then((response) => response.json())
-            .then((res) => {
-                const mainColor = res.mainColor;
-                dispatch(main(mainColor));
-                dispatch(temporaryMainColor(mainColor));
-
-                const backgroundColor = res.backgroundColor;
-                dispatch(background(backgroundColor));
-                dispatch(temporaryBackgroundColor(backgroundColor));
-
-                const resTextColor = res.textColor;
-                dispatch(textColor(resTextColor));
-                dispatch(temporaryTextColor(resTextColor));
-
-                const resTextStyle = res.textStyle;
-                dispatch(textStyle(resTextStyle));
-                dispatch(temporaryTextStyle(resTextStyle));
-
-                const colorPaletteId = res.colorPaletteId;
-                dispatch(temporaryBlockColorTheme(colorPaletteId - 1));
-                dispatch(handleBlockColorTheme(colorPaletteId - 1));
-
-                dispatch(
-                    temporaryBlockColorThemeTitle(
-                        pickTitle(colorPaletteId - 1),
-                    ),
-                );
-                dispatch(
-                    handleBlockColorThemeTitle(pickTitle(colorPaletteId - 1)),
-                );
-            });
-    }, []);
-
-    const pickTitle = (id) => {
-        switch (id) {
-            case 0:
-                return "vivid";
-            case 1:
-                return "bright";
-            case 2:
-                return "soft";
-            case 3:
-                return "reddish";
-            case 4:
-                return "pale";
-            case 5:
-                return "custom";
-            default:
-                return "";
-        }
-    };
-
-    useEffect(() => {
-        const savedSetting = localStorage.getItem("setting");
-
-        if (savedSetting) {
-            const setting = JSON.parse(savedSetting);
-
-            document.documentElement.style.setProperty(
-                "--main-color",
-                setting.mainColor,
-            );
-            document.documentElement.style.setProperty(
-                "--background-color",
-                setting.backgroundColor,
-            );
-            document.documentElement.style.setProperty(
-                "--text-color",
-                setting.textColor,
-            );
-            document.documentElement.style.setProperty(
-                "--text-style",
-                setting.textStyle,
-            );
-            document.documentElement.style.setProperty(
-                "--block-color",
-                setting.blockColor,
-            );
-        }
-    }, []);
-
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const monthNames = [];
     monthNames.push(monthList.map((value) => value + "월"));
@@ -335,6 +265,7 @@ function Main() {
                     day++;
                 } else {
                     const dayHasSchedule = monthScheduleData.filter((item) => {
+                        console.log(item.startDate);
                         const itemDate = new Date(item.startDate);
                         const a = dayjs(itemDate).format("YYYY-MM-DD");
                         console.log(dayjs(itemDate).format("YYYY-MM-DD"));
