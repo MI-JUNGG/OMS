@@ -265,10 +265,10 @@ function Main() {
                     day++;
                 } else {
                     const dayHasSchedule = monthScheduleData.filter((item) => {
-                        console.log(item.startDate);
+                        // console.log(item.startDate);
                         const itemDate = new Date(item.startDate);
                         const a = dayjs(itemDate).format("YYYY-MM-DD");
-                        console.log(dayjs(itemDate).format("YYYY-MM-DD"));
+                        // console.log(dayjs(itemDate).format("YYYY-MM-DD"));
                         console
                             .log
                             // "들어온 년도",
