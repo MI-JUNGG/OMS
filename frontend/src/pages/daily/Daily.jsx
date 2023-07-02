@@ -28,11 +28,12 @@ function Daily() {
     const handleOutClick = (data) => {
         dispatch(addCard({ cardType: "day", cardData: data }));
     };
+    const form = useSelector((state) => state.cardReducer);
 
     useEffect(() => {
         const DAY = dayjs(`${year}-${month}-${day}`).format("YYYY-MM-DD");
-        callUserCard(DAY);
-        const form = useSelector((state) => statecardReducer);
+
+        callUserCard(handleOutClick, DAY);
     }, [form]);
 
     return (
