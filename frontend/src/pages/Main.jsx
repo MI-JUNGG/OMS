@@ -31,11 +31,13 @@ import {
 } from "../modules/module/temporaryColorSetting";
 import LoginModalBackground from "./sign/LoginModalBackground";
 import dayjs from "dayjs";
+import Card from "./daily/components/Card";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);
     const monthForm = useSelector((state) => state.monthReducer.month);
     const monthList = useSelector((state) => state.monthReducer.monthList);
+    const card = useSelector((state) => state.modalReducer.cardmodal);
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -501,6 +503,7 @@ function Main() {
 
     return (
         <div className="mainContainer">
+            {card && <Card />}
             <div className="calendar">
                 <div className="header">
                     <AiOutlineLeft
