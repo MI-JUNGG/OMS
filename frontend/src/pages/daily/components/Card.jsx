@@ -236,6 +236,56 @@ function Card() {
     const closeModal =
         !openModal && !endDateModal && !repeatEnd && !repeatStart && !showLimit;
     const Fix = useSelector((state) => state.modalReducer.deleteCard);
+
+    const repeatCard = () => {
+        if (typeNum === 1) {
+            const startDate = dayjs(allStart);
+            const endDate = dayjs(limitDate);
+            const daysDifference = endDate.diff(startDate, "day");
+
+            for (let i = 0; i <= daysDifference; i++) {
+                const currentDate = allStart.add(i, "day").format("YYYY-MM-DD");
+                const currentEndDate = allEnd
+                    .add(i, "day")
+                    .format("YYYY-MM-DD");
+                counterHandler(
+                    title,
+                    contents,
+                    currentDate,
+                    currentEndDate,
+                    color,
+                    url,
+                    typeNum,
+                    limitDate,
+                );
+            }
+        } else {
+            const startDate = dayjs(repeat);
+            const endDate = dayjs(repeatE);
+            const enddaysDifference = endDate.diff(startDate, "day");
+
+            for (let i = 0; i <= enddaysDifference; i++) {
+                const currentDate = startDate
+                    .add(i, "day")
+                    .format("YYYY-MM-DD");
+                const currentEndDate = endDate
+                    .add(i, "day")
+                    .format("YYYY-MM-DD");
+
+                counterHandler(
+                    title,
+                    contents,
+                    currentDate,
+                    currentEndDate,
+                    color,
+                    url,
+                    typeNum,
+                    limitDate,
+                );
+            }
+        }
+    };
+
     const sendingData = () => {
         Fix === true
             ? FixCardHandler(
@@ -249,16 +299,7 @@ function Card() {
                   typeNum,
                   limitDate,
               )
-            : counterHandler(
-                  title,
-                  contents,
-                  typeNum === 1 ? allStart : repeat,
-                  typeNum === 1 ? allEnd : repeatE,
-                  color,
-                  url,
-                  typeNum,
-                  limitDate,
-              );
+            : repeatCard();
         setForm({
             title: "",
             contents: "",
