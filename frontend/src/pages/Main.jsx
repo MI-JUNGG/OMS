@@ -175,6 +175,12 @@ function Main() {
         } else {
             dispatch(month(monthForm - 1));
         }
+
+        navigate(
+            `/month?date=${yearForm}-${monthForm - 1}-01&date=${yearForm}-${
+                monthForm - 1
+            }-${daysInMonth(yearForm, monthForm - 2)}`, // 쿼리문 변경
+        );
     };
 
     const handleNextMonth = () => {
@@ -184,6 +190,12 @@ function Main() {
         } else {
             dispatch(month(monthForm + 1));
         }
+
+        navigate(
+            `/month?date=${yearForm}-${monthForm + 1}-01&date=${yearForm}-${
+                monthForm + 1
+            }-${daysInMonth(yearForm, monthForm)}`, // 쿼리문 변경
+        );
     };
 
     const daysInMonth = (year, month) => {
@@ -273,10 +285,13 @@ function Main() {
                         const itemDate = dayjs(item.startDate);
                         const startDay = new Date(itemDate);
                         const startDayOfWeek = startDay.getDay();
+                        console.log(
+                            itemDate.format("dddd") && item.repeat === 3,
+                        );
 
                         return (
-                            itemDate.year() === date.getFullYear() &&
-                            itemDate.month() === date.getMonth() &&
+                            itemDate.year() <= date.getFullYear() &&
+                            itemDate.month() <= date.getMonth() &&
                             (itemDate.date() - startDay.getDate()) %
                                 item.repeat ===
                                 0 &&
@@ -287,9 +302,32 @@ function Main() {
                         );
                     });
 
-                    const monthSchedule = monthScheduleData.filter((item) => {
-                        const itemDate = dayjs(item.startDate);
-                    });
+                    const monthRepeatSchedule = monthScheduleData.filter(
+                        (item) => {
+                            const itemDate = dayjs(item.startDate);
+
+                            return (
+                                itemDate.date() === day &&
+                                (itemDate.year() > date.getFullYear() ||
+                                    (itemDate.year() === date.getFullYear() &&
+                                        itemDate.month() <= date.getMonth())) &&
+                                item.repeat === 4
+                            );
+                        },
+                    );
+
+                    const yearRepeatSchedule = monthScheduleData.filter(
+                        (item) => {
+                            const itemDate = dayjs(item.startDate);
+
+                            return (
+                                itemDate.date() === day &&
+                                itemDate.month() === date.getMonth() &&
+                                itemDate.year() <= date.getFullYear() &&
+                                item.repeat === 5
+                            );
+                        },
+                    );
 
                     const dayHasScheduleColor = dayHasSchedule.find((item) => {
                         const itemData = item.color;
@@ -384,11 +422,58 @@ function Main() {
                                             </>
                                         ),
                                 )}
+                            {monthRepeatSchedule &&
+                                monthRepeatSchedule.map(
+                                    (item, index) =>
+                                        index < 2 && (
+                                            <>
+                                                <div
+                                                    className="monthRepeatSchedule"
+                                                    style={
+                                                        monthRepeatSchedule
+                                                            ? {
+                                                                  backgroundColor: `${item.color}1A`,
+                                                                  color: item.color,
+                                                                  borderLeft: `3px solid ${item.color}`,
+                                                              }
+                                                            : null
+                                                    }
+                                                >
+                                                    {item.title}
+                                                </div>
+                                            </>
+                                        ),
+                                )}
+                            {yearRepeatSchedule &&
+                                yearRepeatSchedule.map(
+                                    (item, index) =>
+                                        index < 2 && (
+                                            <>
+                                                <div
+                                                    className="yearRepeatSchedule"
+                                                    style={
+                                                        yearRepeatSchedule
+                                                            ? {
+                                                                  backgroundColor: `${item.color}1A`,
+                                                                  color: item.color,
+                                                                  borderLeft: `3px solid ${item.color}`,
+                                                              }
+                                                            : null
+                                                    }
+                                                >
+                                                    {item.title}
+                                                </div>
+                                            </>
+                                        ),
+                                )}
+
                             {dayHasSchedule &&
                                 shortSchedule &&
-                                dayHasSchedule.length +
-                                    shortSchedule.length +
-                                    weekSchedule.length >
+                                shortSchedule.length +
+                                    dayHasSchedule.length +
+                                    weekSchedule.length +
+                                    monthRepeatSchedule.length +
+                                    yearRepeatSchedule.length >
                                     3 && (
                                     <span
                                         className="moreSchedule"
