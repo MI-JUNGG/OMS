@@ -268,15 +268,11 @@ function Card() {
                 const currentDate = startDate
                     .add(i, "day")
                     .format("YYYY-MM-DD");
-                const currentEndDate = endDate
-                    .add(i, "day")
-                    .format("YYYY-MM-DD");
-
                 counterHandler(
                     title,
                     contents,
                     currentDate,
-                    currentEndDate,
+                    endDate,
                     color,
                     url,
                     typeNum,
