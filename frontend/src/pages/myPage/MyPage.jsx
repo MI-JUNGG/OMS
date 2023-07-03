@@ -57,7 +57,7 @@ function MyPage() {
     const secession = () => {
         if (window.confirm("확인을 누르면 회원 정보가 삭제됩니다.")) {
             axios
-                .DELETE(`${API}/auth/deleteUser`, {
+                .delete(`${API}/auth/deleteUser`, {
                     headders: {
                         Authorization: `${token}`,
                     },
