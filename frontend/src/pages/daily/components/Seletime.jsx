@@ -104,11 +104,13 @@ function Selectime() {
                 <DayHours />
                 <ul>
                     {hours.map((item) => {
-                        const matchingData = card.filter(
-                            (data) =>
-                                dayjs(data.startDate).format("HH:mm") <= item &&
-                                dayjs(data.endDate).format("HH:mm") > item,
-                        );
+                        const matchingData = card.filter((data) => {
+                            const time = item.slice(0, 2);
+                            return (
+                                dayjs(data.startDate).format("HH") <= time &&
+                                dayjs(data.endDate).format("HH:mm") > item
+                            );
+                        });
 
                         if (matchingData.length > 0) {
                             return (

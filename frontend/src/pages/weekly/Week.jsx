@@ -82,7 +82,7 @@ function Weekly() {
 
     useEffect(() => {
         callData(dateState, startDate, endDate);
-    }, []);
+    }, [startDate]);
 
     const fixHandler = (id) => {
         dispatch(cardmodal());
