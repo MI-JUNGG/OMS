@@ -11,6 +11,7 @@ const monthPage = catchAsync(async (req, res) => {
 
   const plusStartDate = startDate + "T00:00:00";
   const plusEndDate = endDate + "T23:59:59";
+
   const result = await getpageService.monthPage(
     userId,
     plusStartDate,
@@ -39,6 +40,7 @@ const weekPage = catchAsync(async (req, res) => {
 
   const plusStartDate = startDate + "T00:00:00";
   const plusEndDate = endDate + "T23:59:59";
+
   const result = await getpageService.weekPage(
     userId,
     plusStartDate,
