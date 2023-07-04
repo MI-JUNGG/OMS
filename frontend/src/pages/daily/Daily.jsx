@@ -34,7 +34,7 @@ function Daily() {
         const DAY = dayjs(`${year}-${month}-${day}`).format("YYYY-MM-DD");
 
         callUserCard(handleOutClick, DAY);
-    }, [form]);
+    }, []);
 
     return (
         <div className="topContanier">

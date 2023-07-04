@@ -36,18 +36,17 @@ export const counterHandler = (
     repeatId,
     limitDate,
 ) => {
-    console.log("i'm here");
-    console.log(
-        "title: " + title,
-        "contents: " + contents,
-        "startDate :" + startDate,
-        "endDate :" + endDate,
-        "color : " + color,
-        "url : " + url,
-        "repeatCardType : " + repeatId,
-        "limitDate : " + limitDate,
-    );
-    console.log(endDate);
+    // console.log(
+    //     "title: " + title,
+    //     "contents: " + contents,
+    //     "startDate :" + startDate,
+    //     "endDate :" + endDate,
+    //     "color : " + color,
+    //     "url : " + url,
+    //     "repeatCardType : " + repeatId,
+    //     "limitDate : " + limitDate,
+    // );
+
     const config = {
         headers: {
             Authorization: token,

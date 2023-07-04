@@ -52,7 +52,7 @@ function Day() {
 
     const lastDayOfMonth = getLastDayOfMonth(year, month);
     const DAY = String(Number(day)).padStart(2, "0");
-    console.log(DAY);
+
     const DAYPlus = String(Number(day) + 1).padStart(2, "0");
     const DAYMius = String(Number(day) - 1).padStart(2, "0");
     return (

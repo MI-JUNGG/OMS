@@ -33,7 +33,7 @@ function Card() {
         color: "",
     });
     const id = useSelector((state) => state.modalReducer.cardID);
-    console.log(id);
+
     const CARD =
         id.cardData === "week"
             ? useSelector((state) => state.cardReducer.week)
@@ -107,7 +107,8 @@ function Card() {
     const AllEndDay = useSelector((state) => state.endDateReducer.day);
 
     const toStringEnd = `${AllEndYear}-${AllEndMonth}-${AllEndDay} 23:59:59`;
-    const allStart = dayjs(toStringStart).format("YYYY-MM-DD 00:00:01");
+    const allStart = dayjs(toStringStart).format("YYYY-MM-DD 00:00:00");
+
     const allEnd = dayjs(toStringEnd).format("YYYY-MM-DD 23:59:59");
 
     const repeatStartYear = useSelector((state) => state.dateReducer.year);
@@ -237,17 +238,22 @@ function Card() {
         !openModal && !endDateModal && !repeatEnd && !repeatStart && !showLimit;
     const Fix = useSelector((state) => state.modalReducer.deleteCard);
 
+    const isALL = useSelector((state) => state.modalReducer.dateType);
+
     const repeatCard = () => {
-        if (typeNum === 1) {
+        if (isALL === false) {
             const startDate = dayjs(allStart);
             const endDate = dayjs(limitDate);
-            const daysDifference = endDate.diff(startDate, "day");
+            const daysDifference = dayjs(endDate).diff(startDate, "day");
 
             for (let i = 0; i <= daysDifference; i++) {
-                const currentDate = allStart.add(i, "day").format("YYYY-MM-DD");
-                const currentEndDate = allEnd
+                const currentDate = startDate
                     .add(i, "day")
                     .format("YYYY-MM-DD");
+                const currentEndDate = dayjs(allEnd)
+                    .add(i, "day")
+                    .format("YYYY-MM-DD");
+                console.log(currentEndDate);
                 counterHandler(
                     title,
                     contents,
