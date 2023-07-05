@@ -88,7 +88,7 @@ const dayPage = async (userId, plusStartDate, plusEndDate) => {
       card c
     WHERE c.user_id = ?
     AND DATE(c.start_date) >= ?
-    AND DATE(c.end_date) <= ?
+    AND DATE(c.start_date) <= ?
     ORDER BY c.start_date ASC
     `,
     [userId, plusStartDate, plusEndDate]
