@@ -7,12 +7,8 @@ import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 import axios from "axios";
 import {
-    background,
     handleBlockColorTheme,
     handleBlockColorThemeTitle,
-    main,
-    textColor,
-    textStyle,
 } from "../modules/module/setting";
 import {
     setCustomMainColor,
@@ -20,25 +16,24 @@ import {
 } from "../modules/module/colorPicker";
 import Button from "./button/Button";
 import { addCard } from "../modules/module/card";
-import { useNavigate, useLocation } from "react-router";
+import { useNavigate } from "react-router";
 import {
-    temporaryMainColor,
-    temporaryBackgroundColor,
-    temporaryTextColor,
-    temporaryTextStyle,
     temporaryBlockColorTheme,
     temporaryBlockColorThemeTitle,
 } from "../modules/module/temporaryColorSetting";
 import LoginModalBackground from "./sign/LoginModalBackground";
+import dayjs from "dayjs";
+import Card from "./daily/components/Card";
+import MoreSchedule from "./monthComponent/moreSchedule";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);
     const monthForm = useSelector((state) => state.monthReducer.month);
     const monthList = useSelector((state) => state.monthReducer.monthList);
+    const card = useSelector((state) => state.modalReducer.cardmodal);
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
-    const location = useLocation();
 
     const date = new Date(yearForm, monthForm - 1);
 
@@ -46,9 +41,31 @@ function Main() {
 
     const monthScheduleData = useSelector((state) => state.cardReducer.month);
 
+    const [currentDate, setCurrentDate] = useState("");
     const [backgroundState, setBackgroundState] = useState(false);
-    const backgroundStateHandler = () => {
+    const backgroundStateHandler = (e, currentDate) => {
+        e.stopPropagation();
+        setCurrentDate(currentDate);
         setBackgroundState(!backgroundState);
+    };
+
+    const pickTitle = (id) => {
+        switch (id) {
+            case 0:
+                return "vivid";
+            case 1:
+                return "bright";
+            case 2:
+                return "soft";
+            case 3:
+                return "reddish";
+            case 4:
+                return "pale";
+            case 5:
+                return "custom";
+            default:
+                return "";
+        }
     };
 
     useEffect(() => {
@@ -57,6 +74,7 @@ function Main() {
             yearForm,
             monthForm - 1,
         )}`;
+        // console.log("startDate", startDate, "endDate", endDate);
 
         axios
             .get("/data/monthMock.json", {
@@ -71,7 +89,7 @@ function Main() {
                 },
             })
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 dispatch(
                     handleBlockColorTheme(
                         response.data.palette[0].colorPaletteId,
@@ -141,114 +159,7 @@ function Main() {
                     });
             })
             .catch((err) => console.log(err));
-
-        // axios
-        //     .get("http://192.168.219.152:3001/month", {
-        //         params: {
-        //             startDate: startDate,
-        //             endDate: endDate,
-        //         },
-        //         headers: {
-        //             Authorization: localStorage.getItem("token"),
-        //         },
-        //     })
-        //     .then((response) => {
-        //         console.log(response);
-        //         setSchedule(response.data);
-        //     })
-        //     .catch((error) => {
-        //         console.error(error);
-        //     });
     }, [monthForm]);
-
-    useEffect(() => {
-        fetch("/data/myPage.json", {
-            method: "GET",
-            headers: {
-                Authorization: localStorage.getItem("token"),
-                "Content-Type": "application/json", // JSON 형식으로 요청을 보내기 위해 Content-Type을 설정
-            },
-        })
-            .then((response) => response.json())
-            .then((res) => {
-                const mainColor = res.mainColor;
-                dispatch(main(mainColor));
-                dispatch(temporaryMainColor(mainColor));
-
-                const backgroundColor = res.backgroundColor;
-                dispatch(background(backgroundColor));
-                dispatch(temporaryBackgroundColor(backgroundColor));
-
-                const resTextColor = res.textColor;
-                dispatch(textColor(resTextColor));
-                dispatch(temporaryTextColor(resTextColor));
-
-                const resTextStyle = res.textStyle;
-                dispatch(textStyle(resTextStyle));
-                dispatch(temporaryTextStyle(resTextStyle));
-
-                const colorPaletteId = res.colorPaletteId;
-                dispatch(temporaryBlockColorTheme(colorPaletteId - 1));
-                dispatch(handleBlockColorTheme(colorPaletteId - 1));
-
-                dispatch(
-                    temporaryBlockColorThemeTitle(
-                        pickTitle(colorPaletteId - 1),
-                    ),
-                );
-                dispatch(
-                    handleBlockColorThemeTitle(pickTitle(colorPaletteId - 1)),
-                );
-            });
-    }, []);
-
-    const pickTitle = (id) => {
-        switch (id) {
-            case 0:
-                return "vivid";
-            case 1:
-                return "bright";
-            case 2:
-                return "soft";
-            case 3:
-                return "reddish";
-            case 4:
-                return "pale";
-            case 5:
-                return "custom";
-            default:
-                return "";
-        }
-    };
-
-    useEffect(() => {
-        const savedSetting = localStorage.getItem("setting");
-
-        if (savedSetting) {
-            const setting = JSON.parse(savedSetting);
-
-            document.documentElement.style.setProperty(
-                "--main-color",
-                setting.mainColor,
-            );
-            document.documentElement.style.setProperty(
-                "--background-color",
-                setting.backgroundColor,
-            );
-            document.documentElement.style.setProperty(
-                "--text-color",
-                setting.textColor,
-            );
-            document.documentElement.style.setProperty(
-                "--text-style",
-                setting.textStyle,
-            );
-            document.documentElement.style.setProperty(
-                "--block-color",
-                setting.blockColor,
-            );
-        }
-    }, []);
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const monthNames = [];
@@ -261,6 +172,12 @@ function Main() {
         } else {
             dispatch(month(monthForm - 1));
         }
+
+        navigate(
+            `/month?date=${yearForm}-${monthForm - 1}-01&date=${yearForm}-${
+                monthForm - 1
+            }-${daysInMonth(yearForm, monthForm - 2)}`, // 쿼리문 변경
+        );
     };
 
     const handleNextMonth = () => {
@@ -270,6 +187,12 @@ function Main() {
         } else {
             dispatch(month(monthForm + 1));
         }
+
+        navigate(
+            `/month?date=${yearForm}-${monthForm + 1}-01&date=${yearForm}-${
+                monthForm + 1
+            }-${daysInMonth(yearForm, monthForm)}`, // 쿼리문 변경
+        );
     };
 
     const daysInMonth = (year, month) => {
@@ -284,12 +207,9 @@ function Main() {
         return new Date().getDate();
     };
 
-    const handleDateClick = (event) => {
-        console.log(event.target);
-        const clickedDate = event.target.textContent;
-        // const newLocation = `/day?date=${yearForm}-${monthForm}-${clickedDate}`;
-        // navigate(newLocation);
-        console.log(clickedDate);
+    const handleDateClick = (event, currentDate) => {
+        const newLocation = `/day?date=${yearForm}-${monthForm}-${currentDate}`;
+        navigate(newLocation);
     };
 
     const renderDays = () => {
@@ -304,6 +224,7 @@ function Main() {
         for (let r = 0; r < rowCount; r++) {
             const rowDays = [];
             for (let c = 0; c < 7; c++) {
+                const currentDate = day; // 새로운 변수에 현재 날짜를 할당
                 if (r === 0 && c < firstDay) {
                     const prevMonthDaysCount = daysInMonth(
                         date.getFullYear(),
@@ -334,44 +255,70 @@ function Main() {
                     day++;
                 } else {
                     const dayHasSchedule = monthScheduleData.filter((item) => {
-                        const itemDate = new Date(item.startDate);
+                        const itemDate = dayjs(item.startDate);
 
                         return (
-                            itemDate.getFullYear() === date.getFullYear() &&
-                            itemDate.getMonth() === date.getMonth() &&
-                            itemDate.getDate() === day + 1 &&
-                            item.repeat === 2
-                        );
-                    });
-
-                    const shortSchedule = monthScheduleData.filter((item) => {
-                        const itemDate = new Date(item.startDate);
-
-                        return (
-                            itemDate.getFullYear() === date.getFullYear() &&
-                            itemDate.getMonth() === date.getMonth() &&
-                            itemDate.getDate() === day + 1 &&
+                            itemDate.year() === date.getFullYear() &&
+                            itemDate.month() === date.getMonth() &&
+                            itemDate.date() === day &&
                             item.repeat === 1
                         );
                     });
 
-                    const cardColor = monthScheduleData.find((item) => {
+                    const daySchedule = monthScheduleData.filter((item) => {
                         const itemDate = new Date(item.startDate);
+
                         return (
                             itemDate.getFullYear() === date.getFullYear() &&
                             itemDate.getMonth() === date.getMonth() &&
-                            itemDate.getDate() === day
+                            itemDate.getDate() === day &&
+                            item.repeat === 2
                         );
-                    })?.color;
+                    });
+
+                    const weekSchedule = monthScheduleData.filter((item) => {
+                        const itemDate = dayjs(item.startDate);
+
+                        return (
+                            itemDate.year() === date.getFullYear() &&
+                            itemDate.month() === date.getMonth() &&
+                            itemDate.date() === day &&
+                            item.repeat === 3
+                        );
+                    });
+
+                    const monthRepeatSchedule = monthScheduleData.filter(
+                        (item) => {
+                            const itemDate = dayjs(item.startDate);
+
+                            return (
+                                itemDate.year() === date.getFullYear() &&
+                                itemDate.month() === date.getMonth() &&
+                                itemDate.date() === day &&
+                                item.repeat === 4
+                            );
+                        },
+                    );
+
+                    const yearRepeatSchedule = monthScheduleData.filter(
+                        (item) => {
+                            const itemDate = dayjs(item.startDate);
+
+                            return (
+                                itemDate.date() === day &&
+                                itemDate.month() === date.getMonth() &&
+                                itemDate.year() <= date.getFullYear() &&
+                                item.repeat === 5
+                            );
+                        },
+                    );
+
                     const dayHasScheduleColor = dayHasSchedule.find((item) => {
                         const itemData = item.color;
                         return itemData;
                     });
 
-                    const cardStyle = {
-                        backgroundColor: cardColor || "transparent",
-                    };
-                    console.log(day, dayHasSchedule);
+                    // console.log(day, daySchedule);
 
                     rowDays.push(
                         <div
@@ -382,10 +329,13 @@ function Main() {
                                 dayHasSchedule.length > 0
                                     ? "dayHasSchedule"
                                     : ""
-                            } ${
-                                shortSchedule.length > 0 ? "shortSchedule" : ""
+                            } ${daySchedule.length > 0 ? "daySchedule" : ""} ${
+                                weekSchedule.length > 0 ? "weekSchedule" : ""
                             }`}
-                            onClick={handleDateClick}
+                            q
+                            onClick={(event) =>
+                                handleDateClick(event, currentDate)
+                            }
                             style={
                                 dayHasScheduleColor
                                     ? {
@@ -414,13 +364,13 @@ function Main() {
                                             </div>
                                         ),
                                 )}
-                            {shortSchedule &&
-                                shortSchedule.map(
+                            {daySchedule &&
+                                daySchedule.map(
                                     (item, index) =>
-                                        index < 2 && (
+                                        index < 3 && (
                                             <>
                                                 <div
-                                                    className="shortSchedule"
+                                                    className="daySchedule"
                                                     style={
                                                         dayHasSchedule
                                                             ? {
@@ -436,13 +386,92 @@ function Main() {
                                             </>
                                         ),
                                 )}
+                            {weekSchedule &&
+                                weekSchedule.map(
+                                    (item, index) =>
+                                        index < 3 && (
+                                            <>
+                                                <div
+                                                    className="weekSchedule"
+                                                    style={
+                                                        weekSchedule
+                                                            ? {
+                                                                  backgroundColor: `${item.color}1A`,
+                                                                  color: item.color,
+                                                                  borderLeft: `3px solid ${item.color}`,
+                                                              }
+                                                            : null
+                                                    }
+                                                >
+                                                    {item.title}
+                                                </div>
+                                            </>
+                                        ),
+                                )}
+                            {monthRepeatSchedule &&
+                                monthRepeatSchedule.map(
+                                    (item, index) =>
+                                        index < 3 && (
+                                            <>
+                                                <div
+                                                    className="monthRepeatSchedule"
+                                                    style={
+                                                        monthRepeatSchedule
+                                                            ? {
+                                                                  backgroundColor: `${item.color}1A`,
+                                                                  color: item.color,
+                                                                  borderLeft: `3px solid ${item.color}`,
+                                                              }
+                                                            : null
+                                                    }
+                                                >
+                                                    {item.title}
+                                                </div>
+                                            </>
+                                        ),
+                                )}
+                            {yearRepeatSchedule &&
+                                yearRepeatSchedule.map(
+                                    (item, index) =>
+                                        index < 3 && (
+                                            <>
+                                                <div
+                                                    className="yearRepeatSchedule"
+                                                    style={
+                                                        yearRepeatSchedule
+                                                            ? {
+                                                                  backgroundColor: `${item.color}1A`,
+                                                                  color: item.color,
+                                                                  borderLeft: `3px solid ${item.color}`,
+                                                              }
+                                                            : null
+                                                    }
+                                                >
+                                                    {item.title}
+                                                </div>
+                                            </>
+                                        ),
+                                )}
+
                             {dayHasSchedule &&
-                                shortSchedule &&
-                                dayHasSchedule.length + shortSchedule.length >
+                                daySchedule &&
+                                weekSchedule &&
+                                monthRepeatSchedule &&
+                                yearRepeatSchedule &&
+                                daySchedule.length +
+                                    dayHasSchedule.length +
+                                    weekSchedule.length +
+                                    monthRepeatSchedule.length +
+                                    yearRepeatSchedule.length >
                                     3 && (
                                     <span
                                         className="moreSchedule"
-                                        onClick={backgroundStateHandler}
+                                        onClick={(e) =>
+                                            backgroundStateHandler(
+                                                e,
+                                                currentDate,
+                                            )
+                                        }
                                     >
                                         + More
                                     </span>
@@ -462,10 +491,10 @@ function Main() {
 
         return <div className="calendar-grid">{days}</div>;
     };
-    const asd = useSelector((state) => state.cardReducer.month);
 
     return (
         <div className="mainContainer">
+            {card && <Card />}
             <div className="calendar">
                 <div className="header">
                     <AiOutlineLeft
@@ -473,9 +502,8 @@ function Main() {
                         onClick={handlePrevMonth}
                     />
                     <h1>
-                        {yearForm + " . "}
-                        {monthForm + " . "}
-                        {dateToday()}
+                        {yearForm} . {monthForm.toString().padStart(2, "0")} .{" "}
+                        {dateToday().toString().padStart(2, "0")}
                     </h1>
                     <AiOutlineRight
                         className="nextBtn"
@@ -503,7 +531,22 @@ function Main() {
                 </div>
             </div>
             {backgroundState && (
-                <LoginModalBackground onClick={backgroundStateHandler} />
+                <>
+                    <MoreSchedule
+                        yearForm={yearForm}
+                        monthForm={monthForm}
+                        currentDate={currentDate}
+                        monthScheduleData={monthScheduleData}
+                        setBackgroundState={setBackgroundState}
+                        backgroundState={backgroundState}
+                    />
+                    {/* <LoginModalBackground
+                        onClick={backgroundStateHandler}
+                        style={{
+                            backGroundColor: "transparent",
+                        }}
+                    /> */}
+                </>
             )}
         </div>
     );

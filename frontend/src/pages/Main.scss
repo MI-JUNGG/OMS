@@ -97,13 +97,9 @@ $allDaySchedule: rgba(245, 158, 11, 0.1);
 
         .dayHasSchedule {
             // background-color: $allDaySchedule !important;
-
-            z-index: 1;
         }
 
         .shortSchedule {
-            z-index: 2;
-
             .short {
                 // background-color: #fc9690;
             }
@@ -120,8 +116,8 @@ $allDaySchedule: rgba(245, 158, 11, 0.1);
         .moreSchedule {
             font-size: 12px;
             color: $systemColor;
-            z-index: 4;
-            background-color: #000000;
+
+            // background-color: #000000;
             justify-content: baseline;
         }
 

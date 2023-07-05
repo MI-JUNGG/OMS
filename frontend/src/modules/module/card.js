@@ -54,7 +54,14 @@ const cardSlice = createSlice({
                 state.week.push(...cardData);
             }
             if (cardType === "month") {
-                state.month.push(...cardData);
+                cardData.forEach((card) => {
+                    const existingCard = state.month.find(
+                        (c) => c.cardId === card.cardId,
+                    );
+                    if (!existingCard) {
+                        state.month.push(card);
+                    }
+                });
             }
         },
     },
