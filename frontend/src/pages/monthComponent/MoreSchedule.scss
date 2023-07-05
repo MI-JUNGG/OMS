@@ -21,15 +21,53 @@
 
         .scheduleDate {
             font-size: 26px;
+            font-weight: bold;
+        }
+        .closeModal {
+            position: relative;
+            top: -30px;
+            left: 130px;
+            cursor: pointer;
         }
     }
-
-    .scheduleContents {
-        width: 430px;
-        height: 464px;
+    .scheduleContentsBox {
         border-bottom: 1px solid #abaeb5;
         border-top: 1px solid #abaeb5;
-        padding: 24px auto;
-        margin-top: 17px;
+        margin-top: 10px;
+
+        .scheduleContents {
+            width: 430px;
+            height: 444px;
+            margin: 20px auto;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+                background: #ffffff;
+            }
+            &::-webkit-scrollbar-thumb {
+                border-radius: 3.5px;
+                background-color: rgba(#d9d9d9, 0.79);
+
+                &:hover {
+                    background-color: #adb5bd;
+                }
+            }
+            &::-webkit-scrollbar-track {
+                background: #ffffff;
+            }
+
+            .scheduleContent {
+                // width: 389px;
+                height: 48px;
+                flex-direction: column;
+                display: flex;
+                justify-content: center;
+                align-items: left;
+                padding-left: 17px;
+                margin: 6px auto;
+            }
+        }
     }
 }

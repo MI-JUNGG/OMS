@@ -502,9 +502,8 @@ function Main() {
                         onClick={handlePrevMonth}
                     />
                     <h1>
-                        {yearForm + " . "}
-                        {monthForm + " . "}
-                        {dateToday()}
+                        {yearForm} . {monthForm.toString().padStart(2, "0")} .{" "}
+                        {dateToday().toString().padStart(2, "0")}
                     </h1>
                     <AiOutlineRight
                         className="nextBtn"
@@ -537,6 +536,9 @@ function Main() {
                         yearForm={yearForm}
                         monthForm={monthForm}
                         currentDate={currentDate}
+                        monthScheduleData={monthScheduleData}
+                        setBackgroundState={setBackgroundState}
+                        backgroundState={backgroundState}
                     />
                     {/* <LoginModalBackground
                         onClick={backgroundStateHandler}
