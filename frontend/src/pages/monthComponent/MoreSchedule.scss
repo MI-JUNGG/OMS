@@ -1,0 +1,35 @@
+.scheduleContainer {
+    z-index: 4;
+    width: 525px;
+    height: 620px;
+    background-color: #ffffff;
+    position: fixed;
+    top: calc(50% - 620px / 2);
+    left: calc(50% - 525px / 2);
+    border-radius: 30px;
+    box-shadow: 3px 3px 3px 3px #b1b1b1;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .scheduleBoxTop {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 430px;
+
+        .scheduleDate {
+            font-size: 26px;
+        }
+    }
+
+    .scheduleContents {
+        width: 430px;
+        height: 464px;
+        border-bottom: 1px solid #abaeb5;
+        border-top: 1px solid #abaeb5;
+        padding: 24px auto;
+        margin-top: 17px;
+    }
+}

@@ -7,12 +7,8 @@ import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 import axios from "axios";
 import {
-    background,
     handleBlockColorTheme,
     handleBlockColorThemeTitle,
-    main,
-    textColor,
-    textStyle,
 } from "../modules/module/setting";
 import {
     setCustomMainColor,
@@ -20,18 +16,15 @@ import {
 } from "../modules/module/colorPicker";
 import Button from "./button/Button";
 import { addCard } from "../modules/module/card";
-import { useNavigate, useLocation } from "react-router";
+import { useNavigate } from "react-router";
 import {
-    temporaryMainColor,
-    temporaryBackgroundColor,
-    temporaryTextColor,
-    temporaryTextStyle,
     temporaryBlockColorTheme,
     temporaryBlockColorThemeTitle,
 } from "../modules/module/temporaryColorSetting";
 import LoginModalBackground from "./sign/LoginModalBackground";
 import dayjs from "dayjs";
 import Card from "./daily/components/Card";
+import MoreSchedule from "./monthComponent/moreSchedule";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);
@@ -41,7 +34,6 @@ function Main() {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
-    const location = useLocation();
 
     const date = new Date(yearForm, monthForm - 1);
 
@@ -49,8 +41,11 @@ function Main() {
 
     const monthScheduleData = useSelector((state) => state.cardReducer.month);
 
+    const [currentDate, setCurrentDate] = useState("");
     const [backgroundState, setBackgroundState] = useState(false);
-    const backgroundStateHandler = () => {
+    const backgroundStateHandler = (e, currentDate) => {
+        e.stopPropagation();
+        setCurrentDate(currentDate);
         setBackgroundState(!backgroundState);
     };
 
@@ -79,7 +74,7 @@ function Main() {
             yearForm,
             monthForm - 1,
         )}`;
-        console.log("startDate", startDate, "endDate", endDate);
+        // console.log("startDate", startDate, "endDate", endDate);
 
         axios
             .get("/data/monthMock.json", {
@@ -94,7 +89,7 @@ function Main() {
                 },
             })
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 dispatch(
                     handleBlockColorTheme(
                         response.data.palette[0].colorPaletteId,
@@ -212,12 +207,9 @@ function Main() {
         return new Date().getDate();
     };
 
-    const handleDateClick = (event) => {
-        console.log(event.target);
-        const clickedDate = event.target.textContent;
-        // const newLocation = `/day?date=${yearForm}-${monthForm}-${clickedDate}`;
-        // navigate(newLocation);
-        console.log(clickedDate);
+    const handleDateClick = (event, currentDate) => {
+        const newLocation = `/day?date=${yearForm}-${monthForm}-${currentDate}`;
+        navigate(newLocation);
     };
 
     const renderDays = () => {
@@ -232,6 +224,7 @@ function Main() {
         for (let r = 0; r < rowCount; r++) {
             const rowDays = [];
             for (let c = 0; c < 7; c++) {
+                const currentDate = day; // 새로운 변수에 현재 날짜를 할당
                 if (r === 0 && c < firstDay) {
                     const prevMonthDaysCount = daysInMonth(
                         date.getFullYear(),
@@ -325,7 +318,7 @@ function Main() {
                         return itemData;
                     });
 
-                    console.log(day, daySchedule);
+                    // console.log(day, daySchedule);
 
                     rowDays.push(
                         <div
@@ -340,7 +333,9 @@ function Main() {
                                 weekSchedule.length > 0 ? "weekSchedule" : ""
                             }`}
                             q
-                            onClick={handleDateClick}
+                            onClick={(event) =>
+                                handleDateClick(event, currentDate)
+                            }
                             style={
                                 dayHasScheduleColor
                                     ? {
@@ -471,7 +466,12 @@ function Main() {
                                     3 && (
                                     <span
                                         className="moreSchedule"
-                                        onClick={backgroundStateHandler}
+                                        onClick={(e) =>
+                                            backgroundStateHandler(
+                                                e,
+                                                currentDate,
+                                            )
+                                        }
                                     >
                                         + More
                                     </span>
@@ -491,7 +491,6 @@ function Main() {
 
         return <div className="calendar-grid">{days}</div>;
     };
-    const asd = useSelector((state) => state.cardReducer.month);
 
     return (
         <div className="mainContainer">
@@ -533,7 +532,19 @@ function Main() {
                 </div>
             </div>
             {backgroundState && (
-                <LoginModalBackground onClick={backgroundStateHandler} />
+                <>
+                    <MoreSchedule
+                        yearForm={yearForm}
+                        monthForm={monthForm}
+                        currentDate={currentDate}
+                    />
+                    {/* <LoginModalBackground
+                        onClick={backgroundStateHandler}
+                        style={{
+                            backGroundColor: "transparent",
+                        }}
+                    /> */}
+                </>
             )}
         </div>
     );
