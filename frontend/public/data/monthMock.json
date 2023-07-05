@@ -19,7 +19,7 @@
             "deadline": "2023-07-08",
             "memo": "",
             "link": "과연?",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-01 00:00:00",
             "endDate": "2023-07-01 00:00:00"
         },
@@ -30,7 +30,7 @@
             "deadline": "2023-07-01",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-01 00:00:00",
             "endDate": "2023-07-01 00:00:00"
         },
@@ -41,7 +41,7 @@
             "deadline": "2023-07-01",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-01 00:00:00",
             "endDate": "2023-07-07 00:00:00"
         },
@@ -52,7 +52,7 @@
             "deadline": "2023-07-03",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-01 00:00:00",
             "endDate": "2023-07-01 00:00:00"
         },
@@ -63,7 +63,7 @@
             "deadline": "2023-07-01",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-01 00:00:00",
             "endDate": "2023-07-04 00:00:00"
         },
@@ -74,7 +74,7 @@
             "deadline": "2023-07-01",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-02 00:00:00",
             "endDate": "2023-07-08 00:00:00"
         },
@@ -85,7 +85,7 @@
             "deadline": "2023-07-01",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-02 00:00:00",
             "endDate": "2023-07-05 00:00:00"
         },
@@ -96,7 +96,7 @@
             "deadline": "2023-07-01",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-03 00:00:00",
             "endDate": "2023-07-09 00:00:00"
         },
@@ -107,7 +107,7 @@
             "deadline": "2023-07-01",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-03 00:00:00",
             "endDate": "2023-07-06 00:00:00"
         },
@@ -118,7 +118,7 @@
             "deadline": "2023-07-01",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-04 00:00:00",
             "endDate": "2023-07-10 00:00:00"
         },
@@ -129,7 +129,7 @@
             "deadline": "2023-07-01",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-04 00:00:00",
             "endDate": "2023-07-07 00:00:00"
         },
@@ -140,7 +140,7 @@
             "deadline": "2023-07-01",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-05 00:00:00",
             "endDate": "2023-07-11 00:00:00"
         },
@@ -151,7 +151,7 @@
             "deadline": "2023-07-01",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-06 00:00:00",
             "endDate": "2023-07-12 00:00:00"
         },
@@ -162,7 +162,7 @@
             "deadline": "2023-07-07",
             "memo": "testMEMO",
             "link": "1",
-            "color": "#FFFFFF",
+            "color": "#FFDDA6",
             "startDate": "2023-07-07 00:00:00",
             "endDate": "2023-07-07 00:00:00"
         },
@@ -173,7 +173,7 @@
             "deadline": "2023-07-07",
             "memo": "hi",
             "link": "1",
-            "color": "#FFFFFF",
+            "color": "#FFDDA6",
             "startDate": "2023-07-07 00:00:00",
             "endDate": "2023-07-07 00:00:00"
         },
@@ -184,7 +184,7 @@
             "deadline": "2023-07-07",
             "memo": "",
             "link": "1",
-            "color": "#FFFFFF",
+            "color": "#FFDDA6",
             "startDate": "2023-07-07 00:00:00",
             "endDate": "2023-07-07 00:00:00"
         },
@@ -195,7 +195,7 @@
             "deadline": "2023-07-07",
             "memo": null,
             "link": null,
-            "color": "#FFFFFF",
+            "color": "#FFDDA6",
             "startDate": "2023-07-07 00:00:00",
             "endDate": "2023-07-07 00:00:00"
         },
@@ -206,7 +206,7 @@
             "deadline": "2023-07-01",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-07 00:00:00",
             "endDate": "2023-07-13 00:00:00"
         },
@@ -217,7 +217,7 @@
             "deadline": "2023-07-08",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-08 00:00:00",
             "endDate": "2023-07-11 23:59:00"
         },
@@ -228,7 +228,7 @@
             "deadline": "2023-07-09",
             "memo": "카드",
             "link": "1",
-            "color": "#FFFFFF",
+            "color": "#FFDDA6",
             "startDate": "2023-07-09 00:00:00",
             "endDate": "2023-07-09 00:00:00"
         },
@@ -239,7 +239,7 @@
             "deadline": "2023-07-09",
             "memo": "안녕\n",
             "link": "1",
-            "color": "#FFFFFF",
+            "color": "#FFDDA6",
             "startDate": "2023-07-09 00:00:00",
             "endDate": "2023-07-09 00:00:00"
         },
@@ -250,7 +250,7 @@
             "deadline": "2023-07-09",
             "memo": "안녕",
             "link": "1",
-            "color": "#FFFFFF",
+            "color": "#FFDDA6",
             "startDate": "2023-07-09 00:00:00",
             "endDate": "2023-07-09 00:00:00"
         },
@@ -261,7 +261,7 @@
             "deadline": "2023-07-09",
             "memo": "1",
             "link": "1",
-            "color": "#FFFFFF",
+            "color": "#FFDDA6",
             "startDate": "2023-07-09 00:00:00",
             "endDate": "2023-07-09 00:00:00"
         },
@@ -272,7 +272,7 @@
             "deadline": "2023-07-09",
             "memo": "1",
             "link": "1",
-            "color": "#FFFFFF",
+            "color": "#FFDDA6",
             "startDate": "2023-07-09 00:00:00",
             "endDate": "2023-07-09 00:00:00"
         },
@@ -283,7 +283,7 @@
             "deadline": "2023-07-09",
             "memo": "hi",
             "link": "1",
-            "color": "#FFFFFF",
+            "color": "#FFDDA6",
             "startDate": "2023-07-09 00:00:00",
             "endDate": "2023-07-09 00:00:00"
         },
@@ -294,7 +294,7 @@
             "deadline": "2023-07-09",
             "memo": "asdf",
             "link": "1",
-            "color": "#FFFFFF",
+            "color": "#FFDDA6",
             "startDate": "2023-07-09 00:00:00",
             "endDate": "2023-07-09 00:00:00"
         },
@@ -305,7 +305,7 @@
             "deadline": "2023-07-08",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-09 00:00:00",
             "endDate": "2023-07-11 23:59:00"
         },
@@ -316,18 +316,18 @@
             "deadline": "2023-07-08",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-10 00:00:00",
             "endDate": "2023-07-11 23:59:00"
         },
         {
             "cardId": 74,
             "title": "endDate",
-            "repeat": 2,
+            "repeat": 1,
             "deadline": "2023-07-08",
             "memo": "",
             "link": "",
-            "color": "#1234",
+            "color": "#CCD1FF",
             "startDate": "2023-07-11 00:00:00",
             "endDate": "2023-07-11 23:59:00"
         }

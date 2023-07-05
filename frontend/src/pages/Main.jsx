@@ -261,17 +261,6 @@ function Main() {
                     );
                     day++;
                 } else {
-                    const shortSchedule = monthScheduleData.filter((item) => {
-                        const itemDate = new Date(item.startDate);
-
-                        return (
-                            itemDate.getFullYear() === date.getFullYear() &&
-                            itemDate.getMonth() === date.getMonth() &&
-                            itemDate.getDate() === day &&
-                            item.repeat === 1
-                        );
-                    });
-
                     const dayHasSchedule = monthScheduleData.filter((item) => {
                         const itemDate = dayjs(item.startDate);
 
@@ -279,27 +268,28 @@ function Main() {
                             itemDate.year() === date.getFullYear() &&
                             itemDate.month() === date.getMonth() &&
                             itemDate.date() === day &&
+                            item.repeat === 1
+                        );
+                    });
+
+                    const daySchedule = monthScheduleData.filter((item) => {
+                        const itemDate = new Date(item.startDate);
+
+                        return (
+                            itemDate.getFullYear() === date.getFullYear() &&
+                            itemDate.getMonth() === date.getMonth() &&
+                            itemDate.getDate() === day &&
                             item.repeat === 2
                         );
                     });
 
                     const weekSchedule = monthScheduleData.filter((item) => {
                         const itemDate = dayjs(item.startDate);
-                        const startDay = new Date(itemDate);
-                        const startDayOfWeek = startDay.getDay();
-                        console.log(
-                            itemDate.format("dddd") && item.repeat === 3,
-                        );
 
                         return (
-                            itemDate.year() <= date.getFullYear() &&
-                            itemDate.month() <= date.getMonth() &&
-                            (itemDate.date() - startDay.getDate()) %
-                                item.repeat ===
-                                0 &&
-                            itemDate.day() ===
-                                (startDayOfWeek + (day - startDay.getDate())) %
-                                    7 &&
+                            itemDate.year() === date.getFullYear() &&
+                            itemDate.month() === date.getMonth() &&
+                            itemDate.date() === day &&
                             item.repeat === 3
                         );
                     });
@@ -309,10 +299,9 @@ function Main() {
                             const itemDate = dayjs(item.startDate);
 
                             return (
+                                itemDate.year() === date.getFullYear() &&
+                                itemDate.month() === date.getMonth() &&
                                 itemDate.date() === day &&
-                                (itemDate.year() > date.getFullYear() ||
-                                    (itemDate.year() === date.getFullYear() &&
-                                        itemDate.month() <= date.getMonth())) &&
                                 item.repeat === 4
                             );
                         },
@@ -336,7 +325,7 @@ function Main() {
                         return itemData;
                     });
 
-                    // console.log(day, shortSchedule);
+                    console.log(day, daySchedule);
 
                     rowDays.push(
                         <div
@@ -347,9 +336,9 @@ function Main() {
                                 dayHasSchedule.length > 0
                                     ? "dayHasSchedule"
                                     : ""
-                            } ${
-                                shortSchedule.length > 0 ? "shortSchedule" : ""
-                            } ${weekSchedule.length > 0 ? "weekSchedule" : ""}`}
+                            } ${daySchedule.length > 0 ? "daySchedule" : ""} ${
+                                weekSchedule.length > 0 ? "weekSchedule" : ""
+                            }`}
                             q
                             onClick={handleDateClick}
                             style={
@@ -380,13 +369,13 @@ function Main() {
                                             </div>
                                         ),
                                 )}
-                            {shortSchedule &&
-                                shortSchedule.map(
+                            {daySchedule &&
+                                daySchedule.map(
                                     (item, index) =>
-                                        index < 2 && (
+                                        index < 3 && (
                                             <>
                                                 <div
-                                                    className="shortSchedule"
+                                                    className="daySchedule"
                                                     style={
                                                         dayHasSchedule
                                                             ? {
@@ -405,7 +394,7 @@ function Main() {
                             {weekSchedule &&
                                 weekSchedule.map(
                                     (item, index) =>
-                                        index < 2 && (
+                                        index < 3 && (
                                             <>
                                                 <div
                                                     className="weekSchedule"
@@ -427,7 +416,7 @@ function Main() {
                             {monthRepeatSchedule &&
                                 monthRepeatSchedule.map(
                                     (item, index) =>
-                                        index < 2 && (
+                                        index < 3 && (
                                             <>
                                                 <div
                                                     className="monthRepeatSchedule"
@@ -449,7 +438,7 @@ function Main() {
                             {yearRepeatSchedule &&
                                 yearRepeatSchedule.map(
                                     (item, index) =>
-                                        index < 2 && (
+                                        index < 3 && (
                                             <>
                                                 <div
                                                     className="yearRepeatSchedule"
@@ -470,8 +459,11 @@ function Main() {
                                 )}
 
                             {dayHasSchedule &&
-                                shortSchedule &&
-                                shortSchedule.length +
+                                daySchedule &&
+                                weekSchedule &&
+                                monthRepeatSchedule &&
+                                yearRepeatSchedule &&
+                                daySchedule.length +
                                     dayHasSchedule.length +
                                     weekSchedule.length +
                                     monthRepeatSchedule.length +
