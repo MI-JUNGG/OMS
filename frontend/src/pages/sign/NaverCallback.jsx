@@ -59,9 +59,8 @@ const NaverCallback = () => {
     // 3부에 작성 될 Redirect 페이지를 통해 빠르고, 깨끗하게 처리가 가능하다.
 
     const userAccessToken = () => {
-        window.location.href.includes("access_token") &&
-            getToken() &&
-            navigate(homePageUrl);
+        window.location.href.includes("access_token") && getToken();
+        navigate(homePageUrl);
     };
 
     const getToken = () => {
