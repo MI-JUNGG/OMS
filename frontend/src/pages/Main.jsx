@@ -254,71 +254,39 @@ function Main() {
                     );
                     day++;
                 } else {
-                    const dayHasSchedule = monthScheduleData.filter((item) => {
+                    const allSchedules = monthScheduleData.filter((item) => {
                         const itemDate = dayjs(item.startDate);
 
                         return (
                             itemDate.year() === date.getFullYear() &&
                             itemDate.month() === date.getMonth() &&
-                            itemDate.date() === day &&
-                            item.repeat === 1
+                            itemDate.date() === day
                         );
                     });
 
-                    const daySchedule = monthScheduleData.filter((item) => {
-                        const itemDate = new Date(item.startDate);
+                    const slicedSchedules = allSchedules.slice(0, 3); // 최대 3개의 스케줄만 선택
 
-                        return (
-                            itemDate.getFullYear() === date.getFullYear() &&
-                            itemDate.getMonth() === date.getMonth() &&
-                            itemDate.getDate() === day &&
-                            item.repeat === 2
-                        );
-                    });
+                    const hasMoreSchedules = allSchedules.length > 3;
 
-                    const weekSchedule = monthScheduleData.filter((item) => {
-                        const itemDate = dayjs(item.startDate);
-
-                        return (
-                            itemDate.year() === date.getFullYear() &&
-                            itemDate.month() === date.getMonth() &&
-                            itemDate.date() === day &&
-                            item.repeat === 3
-                        );
-                    });
-
-                    const monthRepeatSchedule = monthScheduleData.filter(
-                        (item) => {
-                            const itemDate = dayjs(item.startDate);
-
-                            return (
-                                itemDate.year() === date.getFullYear() &&
-                                itemDate.month() === date.getMonth() &&
-                                itemDate.date() === day &&
-                                item.repeat === 4
-                            );
-                        },
+                    const dayHasSchedule = slicedSchedules.filter(
+                        (item) => item.repeat === 1,
+                    );
+                    const daySchedule = slicedSchedules.filter(
+                        (item) => item.repeat === 2,
+                    );
+                    const weekSchedule = slicedSchedules.filter(
+                        (item) => item.repeat === 3,
+                    );
+                    const monthRepeatSchedule = slicedSchedules.filter(
+                        (item) => item.repeat === 4,
+                    );
+                    const yearRepeatSchedule = slicedSchedules.filter(
+                        (item) => item.repeat === 5,
                     );
 
-                    const yearRepeatSchedule = monthScheduleData.filter(
-                        (item) => {
-                            const itemDate = dayjs(item.startDate);
-
-                            return (
-                                itemDate.date() === day &&
-                                itemDate.month() === date.getMonth() &&
-                                itemDate.year() <= date.getFullYear() &&
-                                item.repeat === 5
-                            );
-                        },
+                    const dayHasScheduleColor = dayHasSchedule.find(
+                        (item) => item.color,
                     );
-
-                    const dayHasScheduleColor = dayHasSchedule.find((item) => {
-                        const itemData = item.color;
-                        return itemData;
-                    });
-
-                    // console.log(day, daySchedule);
 
                     rowDays.push(
                         <div
@@ -329,10 +297,7 @@ function Main() {
                                 dayHasSchedule.length > 0
                                     ? "dayHasSchedule"
                                     : ""
-                            } ${daySchedule.length > 0 ? "daySchedule" : ""} ${
-                                weekSchedule.length > 0 ? "weekSchedule" : ""
                             }`}
-                            q
                             onClick={(event) =>
                                 handleDateClick(event, currentDate)
                             }
@@ -342,140 +307,78 @@ function Main() {
                                           backgroundColor: `${dayHasScheduleColor.color}1A`,
                                       }
                                     : null
-                            } // backgroundColor 스타일 지정
+                            }
                         >
                             {<span>{day}</span> || <span>{today}</span>}
-                            {dayHasSchedule &&
-                                dayHasSchedule.map(
-                                    (item, index) =>
-                                        index < 1 && (
-                                            <div
-                                                className="dayHasSchedule"
-                                                style={
-                                                    dayHasSchedule
-                                                        ? {
-                                                              // backgroundColor: `${dayHasSchedule.color}1A`,
-                                                              color: item.color,
-                                                          }
-                                                        : null
-                                                }
-                                            >
-                                                {item.title}
-                                            </div>
-                                        ),
-                                )}
-                            {daySchedule &&
-                                daySchedule.map(
-                                    (item, index) =>
-                                        index < 3 && (
-                                            <>
-                                                <div
-                                                    className="daySchedule"
-                                                    style={
-                                                        dayHasSchedule
-                                                            ? {
-                                                                  backgroundColor: `${item.color}1A`,
-                                                                  color: item.color,
-                                                                  borderLeft: `3px solid ${item.color}`,
-                                                              }
-                                                            : null
-                                                    }
-                                                >
-                                                    {item.title}
-                                                </div>
-                                            </>
-                                        ),
-                                )}
-                            {weekSchedule &&
-                                weekSchedule.map(
-                                    (item, index) =>
-                                        index < 3 && (
-                                            <>
-                                                <div
-                                                    className="weekSchedule"
-                                                    style={
-                                                        weekSchedule
-                                                            ? {
-                                                                  backgroundColor: `${item.color}1A`,
-                                                                  color: item.color,
-                                                                  borderLeft: `3px solid ${item.color}`,
-                                                              }
-                                                            : null
-                                                    }
-                                                >
-                                                    {item.title}
-                                                </div>
-                                            </>
-                                        ),
-                                )}
-                            {monthRepeatSchedule &&
-                                monthRepeatSchedule.map(
-                                    (item, index) =>
-                                        index < 3 && (
-                                            <>
-                                                <div
-                                                    className="monthRepeatSchedule"
-                                                    style={
-                                                        monthRepeatSchedule
-                                                            ? {
-                                                                  backgroundColor: `${item.color}1A`,
-                                                                  color: item.color,
-                                                                  borderLeft: `3px solid ${item.color}`,
-                                                              }
-                                                            : null
-                                                    }
-                                                >
-                                                    {item.title}
-                                                </div>
-                                            </>
-                                        ),
-                                )}
-                            {yearRepeatSchedule &&
-                                yearRepeatSchedule.map(
-                                    (item, index) =>
-                                        index < 3 && (
-                                            <>
-                                                <div
-                                                    className="yearRepeatSchedule"
-                                                    style={
-                                                        yearRepeatSchedule
-                                                            ? {
-                                                                  backgroundColor: `${item.color}1A`,
-                                                                  color: item.color,
-                                                                  borderLeft: `3px solid ${item.color}`,
-                                                              }
-                                                            : null
-                                                    }
-                                                >
-                                                    {item.title}
-                                                </div>
-                                            </>
-                                        ),
-                                )}
 
-                            {dayHasSchedule &&
-                                daySchedule &&
-                                weekSchedule &&
-                                monthRepeatSchedule &&
-                                yearRepeatSchedule &&
-                                daySchedule.length +
-                                    dayHasSchedule.length +
-                                    weekSchedule.length +
-                                    monthRepeatSchedule.length +
-                                    yearRepeatSchedule.length >
-                                    3 && (
-                                    <span
-                                        className="moreSchedule"
-                                        onClick={(e) =>
-                                            backgroundStateHandler(
-                                                e,
-                                                currentDate,
-                                            )
-                                        }
-                                    >
-                                        + More
-                                    </span>
-                                )}
+                            {/* 스케줄 렌더링 */}
+                            {dayHasSchedule.map((item) => (
+                                <div
+                                    className="dayHasSchedule"
+                                    style={{ color: item.color }}
+                                >
+                                    {item.title}
+                                </div>
+                            ))}
+                            {daySchedule.map((item) => (
+                                <div
+                                    className="daySchedule"
+                                    style={{
+                                        backgroundColor: `${item.color}1A`,
+                                        color: item.color,
+                                        borderLeft: `3px solid ${item.color}`,
+                                    }}
+                                >
+                                    {item.title}
+                                </div>
+                            ))}
+                            {weekSchedule.map((item) => (
+                                <div
+                                    className="weekSchedule"
+                                    style={{
+                                        backgroundColor: `${item.color}1A`,
+                                        color: item.color,
+                                        borderLeft: `3px solid ${item.color}`,
+                                    }}
+                                >
+                                    {item.title}
+                                </div>
+                            ))}
+                            {monthRepeatSchedule.map((item) => (
+                                <div
+                                    className="monthRepeatSchedule"
+                                    style={{
+                                        backgroundColor: `${item.color}1A`,
+                                        color: item.color,
+                                        borderLeft: `3px solid ${item.color}`,
+                                    }}
+                                >
+                                    {item.title}
+                                </div>
+                            ))}
+                            {yearRepeatSchedule.map((item) => (
+                                <div
+                                    className="yearRepeatSchedule"
+                                    style={{
+                                        backgroundColor: `${item.color}1A`,
+                                        color: item.color,
+                                        borderLeft: `3px solid ${item.color}`,
+                                    }}
+                                >
+                                    {item.title}
+                                </div>
+                            ))}
+
+                            {hasMoreSchedules && (
+                                <span
+                                    className="moreSchedule"
+                                    onClick={(e) =>
+                                        backgroundStateHandler(e, currentDate)
+                                    }
+                                >
+                                    + More
+                                </span>
+                            )}
                         </div>,
                     );
 
@@ -491,7 +394,6 @@ function Main() {
 
         return <div className="calendar-grid">{days}</div>;
     };
-
     return (
         <div className="mainContainer">
             {card && <Card />}
