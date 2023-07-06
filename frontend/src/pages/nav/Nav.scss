@@ -1,6 +1,7 @@
 .navWrapper {
     height: 96px;
     // width: 100vw;
+    min-width: 860px;
     padding: 30px 50px;
     background-color: transparent;
     display: flex;
@@ -11,6 +12,7 @@
 
     .logo {
         white-space: pre-line;
+        cursor: pointer;
 
         img {
             width: 118px;

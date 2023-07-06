@@ -1,10 +1,24 @@
 import React, { useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const NaverCallback = () => {
     const { naver } = window;
     const NAVER_CLIENT_ID = "W9f_MEprUwIoTeyjePIb";
     const NAVER_CALLBACK_URL = "http://localhost:5173/auth/naver/callback";
+    const navigate = useNavigate();
+
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const lastDay = new Date(year, month, 0);
+
+    const startDate = `${year}-${month.toString().padStart(2, "0")}-01`;
+    const endDate = `${year}-${month
+        .toString()
+        .padStart(2, "0")}-${lastDay.getDate()}`;
+
+    const homePageUrl = `/month?date=${startDate}&date=${endDate}`;
 
     const initializeNaverLogin = () => {
         const naverLogin = new naver.LoginWithNaverId({
@@ -45,7 +59,9 @@ const NaverCallback = () => {
     // 3부에 작성 될 Redirect 페이지를 통해 빠르고, 깨끗하게 처리가 가능하다.
 
     const userAccessToken = () => {
-        window.location.href.includes("access_token") && getToken();
+        window.location.href.includes("access_token") &&
+            getToken() &&
+            navigate(homePageUrl);
     };
 
     const getToken = () => {
@@ -56,37 +72,34 @@ const NaverCallback = () => {
         console.log(accessToken);
 
         localStorage.setItem("token", accessToken);
-        // console.log, alert 창을 통해 어스코드가 잘 추출 되는지 확인하자!
 
-        // 이후 로컬 스토리지 또는 state에 저장하여 사용하자!
-
-        // setGetToken(token)
-        axios
-            .post(
-                "http://10.99.230.245:3001/auth/naver",
-                {
-                    naverToken: localStorage.getItem("token"),
-                },
-                {
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        " Content-type":
-                            "application/x-www-form-urlencoded;charset=utf-8",
-                    },
-                },
-            )
-            .then((response) => {
-                console.log(response);
-                // localStorage.setItem("1", response.data.accessToken);
-                window.location.replace("/");
-            })
-            .then((error) => {
-                console.log(error);
-            });
+        // axios
+        //     .post(
+        //         "http://10.99.230.245:3001/auth/naver",
+        //         {
+        //             naverToken: localStorage.getItem("token"),
+        //         },
+        //         {
+        //             headers: {
+        //                 Authorization: localStorage.getItem("token"),
+        //                 " Content-type":
+        //                     "application/x-www-form-urlencoded;charset=utf-8",
+        //             },
+        //         },
+        //     )
+        //     .then((response) => {
+        //         console.log(response);
+        //         // localStorage.setItem("1", response.data.accessToken);
+        //         window.location.href = homePageUrl;
+        //     })
+        //     .then((error) => {
+        //         console.log(error);
+        //         alert("에러가 발생했습니다. 다시 로그인 해주세요");
+        //         window.location.href = homePageUrl;
+        //     });
     };
 
     useEffect(() => {
-        console.log("3");
         initializeNaverLogin();
         userAccessToken();
     }, []);
