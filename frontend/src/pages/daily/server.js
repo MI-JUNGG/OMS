@@ -1,13 +1,17 @@
 import axios from "axios";
 import card from "../../modules/module/card";
 
-export const API = "http://10.99.230.245:3001";
-export const token = localStorage.getItem("token");
+const { VITE_API_URL } = import.meta.env;
+
+export const API = VITE_API_URL;
+// export const token = localStorage.getItem("token");
+export const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODgzOTM1ODV9._My69GAEXFUmA7BZ2iib1WsvhY2e3Rzbof6QKKZg4_s";
+
 export const callUserCard = (handleOutClick, day) => {
     axios
         .get(`${API}/day`, {
             params: {
-                //수정
                 startDate: day,
             },
             headers: {
@@ -26,23 +30,23 @@ export const counterHandler = (
     title,
     contents,
     startDate,
-    repeatE,
+    endDate,
     color,
     url,
     repeatId,
     limitDate,
 ) => {
-    console.log(
-        "title: " + title,
-        "contents: " + contents,
-        "startDate :" + startDate,
-        "endDate :" + repeatE,
-        "color : " + color,
-        "url : " + url,
-        "repeatCardType : " + repeatId,
-        "limitDate : " + limitDate,
-    );
-    console.log(limitDate);
+    // console.log(
+    //     "title: " + title,
+    //     "contents: " + contents,
+    //     "startDate :" + startDate,
+    //     "endDate :" + endDate,
+    //     "color : " + color,
+    //     "url : " + url,
+    //     "repeatCardType : " + repeatId,
+    //     "limitDate : " + limitDate,
+    // );
+
     const config = {
         headers: {
             Authorization: token,
@@ -51,16 +55,16 @@ export const counterHandler = (
 
     axios
         .post(
-            `${API}/day`,
+            `${API}/card`,
             {
                 title: title,
                 memo: contents,
-                startDate: startDate.toISOString(),
+                startDate: startDate,
                 repeatId: repeatId,
-                endDate: repeatE.toISOString(),
+                endDate: endDate,
                 color: "#1234",
                 link: url,
-                deadline: repeatE.toISOString(),
+                deadline: limitDate,
             },
             config,
         )
@@ -81,6 +85,7 @@ export const FixCardHandler = (
     color,
     url,
     repeatId,
+    limitDate,
 ) => {
     console.log(
         "cardId:" + id,
@@ -91,8 +96,9 @@ export const FixCardHandler = (
         "color : " + color,
         "url : " + url,
         "repeatCardType : " + repeatId,
+        limitDate,
     );
-    console.log("fix", id);
+    console.log("fix", endDate);
     axios
         .put(
             `${API}/card`,
@@ -100,12 +106,12 @@ export const FixCardHandler = (
                 cardId: id,
                 title: title,
                 memo: contents,
-                startDate: startDate.toISOString(),
+                startDate: startDate,
                 repeatId: repeatId,
-                endDate: endDate.toISOString(),
-                color: color,
+                endDate: endDate,
+                color: "#1234",
                 link: url,
-                deadline: endDate.toISOString(),
+                deadline: limitDate,
             },
             {
                 headers: {
@@ -141,4 +147,5 @@ export const DeleteCardHandler = (id) => {
         .then(function (data) {
             console.log(data);
         });
+    alert("삭제 완료");
 };

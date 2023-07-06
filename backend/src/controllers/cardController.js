@@ -11,8 +11,8 @@ const postCard = catchAsync(async (req, res) => {
     detectError("KEY_ERROR", 400);
 
   const formattedStartDate = dayjs(startDate).format("YYYY-MM-DD HH:mm:ss");
-  const formattedEndDate = dayjs(startDate).format("YYYY-MM-DD HH:mm:ss");
-  const formatteddeadlineDate = dayjs(startDate).format("YYYY-MM-DD HH:mm:ss");
+  const formattedEndDate = dayjs(endDate).format("YYYY-MM-DD HH:mm:ss");
+  const formatteddeadlineDate = dayjs(deadline).format("YYYY-MM-DD HH:mm:ss");
 
   await cardService.postCard(
     userId,
@@ -44,15 +44,19 @@ const patchCard = catchAsync(async (req, res) => {
 
   if (!cardId || !userId) detectError("NEED_USER_ID OR NEED_CARD_ID)", 400);
 
+  const formattedStartDate = dayjs(startDate).format("YYYY-MM-DD HH:mm:ss");
+  const formattedEndDate = dayjs(endDate).format("YYYY-MM-DD HH:mm:ss");
+  const formatteddeadlineDate = dayjs(deadline).format("YYYY-MM-DD HH:mm:ss");
+
   await cardService.patchCard(
     repeatId,
     title,
     color,
     link,
     memo,
-    startDate,
-    endDate,
-    deadline,
+    formattedStartDate,
+    formattedEndDate,
+    formatteddeadlineDate,
     cardId,
     userId
   );

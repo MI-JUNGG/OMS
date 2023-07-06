@@ -5,72 +5,39 @@ const cardSlice = createSlice({
     initialState: {
         day: [
             {
-                cardId: 24,
-                color: "#FFFFF",
-                deadline: "Invalid Date",
-                endDate: "2023-06-11 23:59:59",
-                link: null,
-                memo: null,
+                cardId: 3,
+                title: "데이",
                 repeat: 2,
-                startDate: "2023-06-11 01:00:00",
-                title: "string",
-            },
-            {
-                cardId: 25,
-                color: "#FFFFF",
-                deadline: "Invalid Date",
-                endDate: "2023-06-11 23:59:59",
-                link: null,
-                memo: null,
-                repeat: 2,
-                startDate: "2023-06-11 01:00:00",
-                title: "string",
-            },
-            {
-                cardId: 26,
-                color: "#FFFFF",
-                deadline: "Invalid Date",
-                endDate: "2023-06-11 23:59:59",
-                link: null,
-                memo: null,
-                repeat: 2,
-                startDate: "2023-06-11 01:00:00",
-                title: "string",
+                startDate: "2023-07-03 10:00",
+                endDate: "2023-07-03 11:00",
+                deadline: null,
+                color: "#F7F1FF",
+                memo: "epdl",
+                link: "epdl",
             },
         ],
         week: [
             {
-                cardId: 24,
-                color: "green",
-                deadline: "Invalid Date",
-                endDate: "2023-06-11 23:59:59",
-                link: null,
-                memo: null,
+                cardId: 3,
+                title: "나와라",
                 repeat: 2,
-                startDate: "2023-06-11 01:00:00",
-                title: "string",
+                startDate: "2023-07-03 10:00",
+                endDate: "2023-07-03 11:00",
+                deadline: null,
+                color: "#F7F1FF",
+                memo: "나아ㅘ",
+                link: "네이버",
             },
             {
-                cardId: 25,
-                color: "blue",
-                deadline: "Invalid Date",
-                endDate: "2023-06-11 23:59:59",
-                link: null,
-                memo: null,
+                cardId: 4,
+                title: "4",
                 repeat: 2,
-                startDate: "2023-06-11 01:00:00",
-                title: "string",
-            },
-            {
-                cardId: 26,
-                color: "red",
-                deadline: "Invalid Date",
-                endDate: "2023-06-11 23:59:59",
-                link: null,
-                memo: null,
-                repeat: 2,
-                startDate: "2023-06-11 01:00:00",
-                title: "string",
+                startDate: "2023-07-03 09:00",
+                endDate: "2023-07-03 11:00",
+                deadline: null,
+                color: "#F7F1FF",
+                memo: "4",
+                link: "4",
             },
         ],
         month: [],
@@ -79,6 +46,7 @@ const cardSlice = createSlice({
     reducers: {
         addCard: (state, action) => {
             const { cardType, cardData } = action.payload;
+            console.log(action.payload);
             if (cardType === "day") {
                 state.day.push(...cardData);
             }
@@ -86,7 +54,14 @@ const cardSlice = createSlice({
                 state.week.push(...cardData);
             }
             if (cardType === "month") {
-                state.month.push(...cardData);
+                cardData.forEach((card) => {
+                    const existingCard = state.month.find(
+                        (c) => c.cardId === card.cardId,
+                    );
+                    if (!existingCard) {
+                        state.month.push(card);
+                    }
+                });
             }
         },
     },
