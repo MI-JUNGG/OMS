@@ -31,7 +31,9 @@ function Selectime() {
 
     const data = useSelector((state) => state.cardReducer);
     const card = useSelector((state) => state.cardReducer.day);
-
+    const handleOutClick = (data) => {
+        dispatch(addCard({ cardType: "day", cardData: data }));
+    };
     const datePlusHandler = () => {
         const formatDate = new Date(date);
         formatDate.setDate(formatDate.getDate() + 1);
@@ -42,6 +44,7 @@ function Selectime() {
         setDate(formattedDate);
         const newLocation = `/day?date=${year}-${month}-${day}`;
         navigate(newLocation);
+        callUserCard(handleOutClick, newLocation);
     };
 
     const dateMinusHandler = () => {
@@ -54,6 +57,7 @@ function Selectime() {
         setDate(formattedDate);
         const newLocation = `/day?date=${year}-${month}-${day}`;
         navigate(newLocation);
+        callUserCard(handleOutClick, newLocation);
     };
 
     const fixModalHandler = (e, cardId) => {
