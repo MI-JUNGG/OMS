@@ -7,7 +7,6 @@ function MoreSchedule(props) {
     const setBackgroundState = props.setBackgroundState;
     const backgroundState = props.backgroundState;
 
-    console.log(monthScheduleData);
     const isCorrectDate = monthScheduleData.filter((item) => {
         const date = props.currentDate;
 
