@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import "./TextSelector.scss";
 import { useDispatch, useSelector } from "react-redux";
-import ModalPlus from "/src/assets/images/modal/ModalPlus";
 import { isModal, isCustomPicker } from "../../../../modules/module/setting";
-import ColorPicker from "./ColorPicker";
-import ColorPickerBackground from "./ColorPickerBackground";
+
 import {
     temporaryBlockBGColor,
     temporaryBlockMainColor,
     temporaryTextColor,
     temporaryTextStyle,
 } from "../../../../modules/module/temporaryColorSetting";
+import ColorList from "./ColorList";
 
 function TextSelector(props) {
     const existingSettingValue = props.existingSettingValue;
@@ -200,64 +199,7 @@ function TextSelector(props) {
                             </div>
                             <div className="blockColorSelctZone">
                                 <h3>Block Color</h3>
-                                <div className="blockColorSelect">
-                                    {blockColor.length > 0 &&
-                                        blockColor[blockColorTheme][
-                                            blockColorThemeTitle
-                                        ]?.map((data, i) => {
-                                            return (
-                                                <div
-                                                    className={
-                                                        form.temporaryBlockColor
-                                                            .mainColor ===
-                                                        data.mainColor
-                                                            ? " active"
-                                                            : " inactive"
-                                                    }
-                                                >
-                                                    <div
-                                                        key={i}
-                                                        className="blockColorVivid"
-                                                        style={{
-                                                            backgroundColor: `${data.mainColor}`,
-                                                        }}
-                                                        onClick={() => {
-                                                            changeTemporaryBlockMainColor(
-                                                                data,
-                                                            );
-                                                        }}
-                                                    ></div>
-                                                </div>
-                                            );
-                                        })}
-                                    <div
-                                        className="moreColor"
-                                        onClick={handleOutClick}
-                                    >
-                                        <ModalPlus />
-                                    </div>
-                                    {ismodal === 1 && blockColor && (
-                                        <>
-                                            <ColorPicker
-                                                colorList={blockColor}
-                                                blockColorTheme={
-                                                    blockColorTheme
-                                                }
-                                                blockColorThemeTitle={
-                                                    blockColorThemeTitle
-                                                }
-                                            />
-                                            <ColorPickerBackground
-                                                onClick={() => {
-                                                    dispatch(isModal(0));
-                                                    dispatch(
-                                                        isCustomPicker(false),
-                                                    );
-                                                }}
-                                            />
-                                        </>
-                                    )}
-                                </div>
+                                <ColorList />
                             </div>
                         </div>
 
