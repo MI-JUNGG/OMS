@@ -16,6 +16,7 @@ import {
 import { useNavigate, useLocation } from "react-router";
 import { getData } from "../myPage/getData";
 import { useState } from "react";
+import dayjs from "dayjs";
 
 function Nav() {
     const location = useLocation();
@@ -43,13 +44,29 @@ function Nav() {
     const moveMypage = () => {
         navigate("/myPage");
     };
+    const moveHomePage = () => {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth() + 1;
+        const lastDay = new Date(year, month, 0);
+
+        const startDate = `${year}-${month.toString().padStart(2, "0")}-01`;
+        const endDate = `${year}-${month
+            .toString()
+            .padStart(2, "0")}-${lastDay.getDate()}`;
+
+        const url = `/month?date=${startDate}&date=${endDate}`;
+
+        window.location.href = url;
+    };
+
     const [userNickname, setUserNickname] = useState("");
     getData("myPageUserInfo.json", setUserNickname, null);
 
     return (
         <>
             <div className="navWrapper">
-                <div className="logo">
+                <div className="logo" onClick={moveHomePage}>
                     <img
                         src="/src/assets/images/logo/logo.svg"
                         alt="Oh My Calendar"
