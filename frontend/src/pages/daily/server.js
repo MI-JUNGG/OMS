@@ -6,7 +6,7 @@ const { VITE_API_URL } = import.meta.env;
 export const API = VITE_API_URL;
 // export const token = localStorage.getItem("token");
 export const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODgzMDIzMzV9.D9eAyiUwfuWFNxgNXOi5bnHb3vH8UAtFRTbK-i3nNBs";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODgzOTM1ODV9._My69GAEXFUmA7BZ2iib1WsvhY2e3Rzbof6QKKZg4_s";
 
 export const callUserCard = (handleOutClick, day) => {
     axios
@@ -36,18 +36,17 @@ export const counterHandler = (
     repeatId,
     limitDate,
 ) => {
-    console.log("i'm here");
-    console.log(
-        "title: " + title,
-        "contents: " + contents,
-        "startDate :" + startDate,
-        "endDate :" + endDate,
-        "color : " + color,
-        "url : " + url,
-        "repeatCardType : " + repeatId,
-        "limitDate : " + limitDate,
-    );
-    console.log(endDate);
+    // console.log(
+    //     "title: " + title,
+    //     "contents: " + contents,
+    //     "startDate :" + startDate,
+    //     "endDate :" + endDate,
+    //     "color : " + color,
+    //     "url : " + url,
+    //     "repeatCardType : " + repeatId,
+    //     "limitDate : " + limitDate,
+    // );
+
     const config = {
         headers: {
             Authorization: token,
@@ -148,4 +147,5 @@ export const DeleteCardHandler = (id) => {
         .then(function (data) {
             console.log(data);
         });
+    alert("삭제 완료");
 };

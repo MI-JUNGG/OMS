@@ -33,7 +33,7 @@ function Card() {
         color: "",
     });
     const id = useSelector((state) => state.modalReducer.cardID);
-    console.log(id);
+
     const CARD =
         id.cardData === "week"
             ? useSelector((state) => state.cardReducer.week)
@@ -92,7 +92,7 @@ function Card() {
     );
     /*카드삭제*/
     const deleteHandler = () => {
-        DeleteCardHandler(findCard.id);
+        DeleteCardHandler(id.cardid);
         dispatch(removeCard());
         dispatch(cardTypeReducer());
     };
@@ -100,15 +100,16 @@ function Card() {
     const AllStartYear = useSelector((state) => state.dateReducer.year);
     const AllStartMonth = useSelector((state) => state.dateReducer.month);
     const AllStartDay = useSelector((state) => state.dateReducer.day);
-    const toStringStart = `${AllStartYear}-${AllStartMonth}-${AllStartDay}`;
+    const toStringStart = `${AllStartYear}-${AllStartMonth}-${AllStartDay} 00:00:01`;
 
     const AllEndYear = useSelector((state) => state.endDateReducer.year);
     const AllEndMonth = useSelector((state) => state.endDateReducer.month);
     const AllEndDay = useSelector((state) => state.endDateReducer.day);
 
-    const toStringEnd = `${AllEndYear}-${AllEndMonth}-${AllEndDay}`;
-    const allStart = dayjs(toStringStart).format("YYYY-MM-DD");
-    const allEnd = dayjs(toStringEnd).format("YYYY-MM-DD");
+    const toStringEnd = `${AllEndYear}-${AllEndMonth}-${AllEndDay} 23:59:59`;
+    const allStart = dayjs(toStringStart).format("YYYY-MM-DD 00:00:00");
+
+    const allEnd = dayjs(toStringEnd).format("YYYY-MM-DD 23:59:59");
 
     const repeatStartYear = useSelector((state) => state.dateReducer.year);
     const repeatStartMonth =
@@ -236,6 +237,57 @@ function Card() {
     const closeModal =
         !openModal && !endDateModal && !repeatEnd && !repeatStart && !showLimit;
     const Fix = useSelector((state) => state.modalReducer.deleteCard);
+
+    const isALL = useSelector((state) => state.modalReducer.dateType);
+
+    const repeatCard = () => {
+        if (isALL === false) {
+            const startDate = dayjs(allStart);
+            const endDate = dayjs(limitDate);
+            const daysDifference = dayjs(endDate).diff(startDate, "day");
+
+            for (let i = 0; i <= daysDifference; i++) {
+                const currentDate = startDate
+                    .add(i, "day")
+                    .format("YYYY-MM-DD");
+                const currentEndDate = dayjs(allEnd)
+                    .add(i, "day")
+                    .format("YYYY-MM-DD");
+                console.log(currentEndDate);
+                counterHandler(
+                    title,
+                    contents,
+                    currentDate,
+                    currentEndDate,
+                    color,
+                    url,
+                    typeNum,
+                    limitDate,
+                );
+            }
+        } else {
+            const startDate = dayjs(repeat);
+            const endDate = dayjs(repeatE);
+            const enddaysDifference = endDate.diff(startDate, "day");
+
+            for (let i = 0; i <= enddaysDifference; i++) {
+                const currentDate = startDate
+                    .add(i, "day")
+                    .format("YYYY-MM-DD");
+                counterHandler(
+                    title,
+                    contents,
+                    currentDate,
+                    endDate,
+                    color,
+                    url,
+                    typeNum,
+                    limitDate,
+                );
+            }
+        }
+    };
+
     const sendingData = () => {
         Fix === true
             ? FixCardHandler(
@@ -249,17 +301,7 @@ function Card() {
                   typeNum,
                   limitDate,
               )
-            : counterHandler(
-                  id,
-                  title,
-                  contents,
-                  typeNum === 1 ? allStart : repeat,
-                  typeNum === 1 ? allEnd : repeatE,
-                  color,
-                  url,
-                  typeNum,
-                  limitDate,
-              );
+            : repeatCard();
         setForm({
             title: "",
             contents: "",
@@ -268,6 +310,7 @@ function Card() {
             endDate: "",
             color: "",
         });
+        dispatch(cardmodal());
     };
 
     return (
