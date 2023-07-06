@@ -15,7 +15,7 @@ import {
 } from "../../modules/module/user";
 import { useNavigate, useLocation } from "react-router";
 import { getData } from "../myPage/getData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 
 function Nav() {
@@ -61,7 +61,9 @@ function Nav() {
     };
 
     const [userNickname, setUserNickname] = useState("");
-    getData("myPageUserInfo.json", setUserNickname, null);
+    useEffect(() => {
+        getData("myPageUserInfo.json", setUserNickname, null);
+    }, []);
 
     return (
         <>
