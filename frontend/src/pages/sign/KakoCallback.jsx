@@ -4,6 +4,19 @@ import axios from "axios";
 
 function KakoCallback() {
     const code = new URL(window.location.href).searchParams.get("code");
+
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const lastDay = new Date(year, month, 0);
+
+    const startDate = `${year}-${month.toString().padStart(2, "0")}-01`;
+    const endDate = `${year}-${month
+        .toString()
+        .padStart(2, "0")}-${lastDay.getDate()}`;
+
+    const url = `/month?date=${startDate}&date=${endDate}`;
+
     useEffect(() => {
         axios
             .post(
@@ -48,7 +61,7 @@ function KakoCallback() {
                         console.log(error);
                     });
 
-                // window.location.replace("/");
+                window.location.href = url;
             })
             .then((err) => console.log(err));
     }, [code]);
