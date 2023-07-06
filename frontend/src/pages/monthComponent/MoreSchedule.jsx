@@ -7,7 +7,6 @@ function MoreSchedule(props) {
     const setBackgroundState = props.setBackgroundState;
     const backgroundState = props.backgroundState;
 
-    console.log(monthScheduleData);
     const isCorrectDate = monthScheduleData.filter((item) => {
         const date = props.currentDate;
 
@@ -18,7 +17,13 @@ function MoreSchedule(props) {
     });
 
     const sortedSchedule = [...isCorrectDate].sort((a, b) => {
-        return new Date(a.startDate) - new Date(b.startDate);
+        if (a.repeat === 1 && b.repeat !== 1) {
+            return -1;
+        } else if (a.repeat !== 1 && b.repeat === 1) {
+            return 1;
+        } else {
+            return new Date(a.startDate) - new Date(b.startDate);
+        }
     });
 
     const handleMoreClick = () => {
