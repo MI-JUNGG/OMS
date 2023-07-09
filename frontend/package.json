@@ -7,9 +7,7 @@
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "lint": "eslint .",
-        "deploy": "gh-pages -d build",
-        "predeploy": "npm run build"
+        "lint": "eslint ."
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -31,7 +29,6 @@
         "react-router-dom": "^6.10.0",
         "sass-loader": "^13.2.2"
     },
-    "homepage": "https://github.io/MI-JUNGG/OMS.git",
     "devDependencies": {
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.11",
