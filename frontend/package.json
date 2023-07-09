@@ -7,7 +7,9 @@
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "lint": "eslint ."
+        "lint": "eslint .",
+        "deploy": "gh-pages -d build",
+        "predeploy": "npm run build"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -18,6 +20,7 @@
         "@reduxjs/toolkit": "^1.9.2",
         "axios": "^1.3.6",
         "dayjs": "^1.11.8",
+        "gh-pages": "^5.0.0",
         "react": "^18.2.0",
         "react-calendar": "^4.2.1",
         "react-color": "^2.19.3",
@@ -28,6 +31,7 @@
         "react-router-dom": "^6.10.0",
         "sass-loader": "^13.2.2"
     },
+    "homepage": "https://github.io/MI-JUNGG/OMS.git",
     "devDependencies": {
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.11",
