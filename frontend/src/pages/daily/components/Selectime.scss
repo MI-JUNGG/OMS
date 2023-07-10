@@ -1,6 +1,7 @@
 .dayTable {
-    width: 1280px;
-    min-width: 1280px;
+    width: 100%;
+    max-width: 1280px;
+    min-width: 500px;
     background-color: white;
     border-radius: 50px;
 
@@ -27,25 +28,34 @@
     .timeTable {
         display: flex;
         justify-content: center;
-        width: 1170px;
-        .renderCard {
-            width: 1100px;
-            height: 100px;
+        width: 100%;
+        padding-left: 30px;
+        ul {
             display: flex;
-            list-style: none;
-            .rederTitle {
-                border-top: 1px solid #abaeb5;
-                width: 100%;
-                padding: 10px;
-            }
-            .rederempty {
-                width: 100%;
-                padding: 10px;
-                border-top: none;
-            }
-            .empty {
-                border-top: 1px solid #abaeb5;
-                width: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding-left: 10px;
+            .renderCard {
+                width: 90%;
+                height: 100px;
+                display: flex;
+                list-style: none;
+                .rederTitle {
+                    border-top: 1px solid #abaeb5;
+                    width: 100%;
+                    padding: 10px;
+                }
+                .rederempty {
+                    width: 100%;
+                    padding: 10px;
+                    border-top: none;
+                }
+                .empty {
+                    border-top: 1px solid #abaeb5;
+                    width: 100%;
+                }
             }
         }
     }
