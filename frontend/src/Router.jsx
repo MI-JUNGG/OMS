@@ -17,13 +17,13 @@ import {
     temporaryBlockColorTheme,
     temporaryBlockColorThemeTitle,
 } from "../src/modules/module/temporaryColorSetting";
-import Main from "./pages/main";
 import Daily from "./pages/daily/Daily";
 import Nav from "./pages/nav/Nav";
 import Week from "./pages/weekly/Week";
-import MyPage from "./pages/myPage/myPage";
-import KakoCallback from "./pages/sign/kakoCallback";
-import NaverCallback from "./pages/sign/naverCallback";
+import MyPage from "./pages/myPage/MyPage";
+import KakoCallback from "./pages/sign/KakoCallback";
+import NaverCallback from "./pages/sign/NaverCallback";
+import Main from "./pages/Main";
 
 function Router() {
     const dispatch = useDispatch();
@@ -117,7 +117,7 @@ function Router() {
     }, []);
 
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Nav />
             <Routes>
                 <Route path="/" element={<Main />} />
