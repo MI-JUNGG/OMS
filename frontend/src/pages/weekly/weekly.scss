@@ -12,7 +12,9 @@
     }
 
     .weekTopContainer {
-        width: 1280px;
+        width: 100%;
+        max-width: 1280px;
+        min-width: 500px;
         display: flex;
         flex-direction: column;
         width: 1300px;

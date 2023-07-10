@@ -23,6 +23,7 @@ import { addDate, addMonth, addDay } from "../../../modules/module/date";
 import { eaddDate, eaddMonth, eaddDay } from "../../../modules/module/endDate";
 import { initialReducer } from "../../../modules/module/Limit";
 import { newDate } from "../../../modules/module/repeatStart";
+import ColorList from "../../myPage/components/settingComponents/ColorList";
 import "./Card.scss";
 
 function Card() {
@@ -383,7 +384,9 @@ function Card() {
                         />
                     </div>
                 </div>
-                <div className="selectColor">{/* <ColorSelector /> */}</div>
+                <div className="selectColor">
+                    <ColorList />
+                </div>
             </div>
         </div>
     );

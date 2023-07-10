@@ -9,6 +9,7 @@ export const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODgzOTM1ODV9._My69GAEXFUmA7BZ2iib1WsvhY2e3Rzbof6QKKZg4_s";
 
 export const callUserCard = (handleOutClick, day) => {
+    console.log(1);
     axios
         .get(`${API}/day`, {
             params: {
