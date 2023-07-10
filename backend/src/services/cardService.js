@@ -32,10 +32,11 @@ const patchCard = async (
   color,
   link,
   memo,
-  startDate,
-  endDate,
-  deadline,
-  cardId
+  formattedStartDate,
+  formattedEndDate,
+  formatteddeadlineDate,
+  cardId,
+  userId
 ) => {
   const patchCard = await cardDao.patchCard(
     repeatId,
@@ -43,10 +44,11 @@ const patchCard = async (
     color,
     link,
     memo,
-    startDate,
-    endDate,
-    deadline,
-    cardId
+    formattedStartDate,
+    formattedEndDate,
+    formatteddeadlineDate,
+    cardId,
+    userId
   );
 
   return patchCard;

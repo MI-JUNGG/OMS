@@ -44,7 +44,7 @@ const localCreateUser = async (nickname, email, hashedPassword) => {
       ?,
       ?,
       ?,
-      ${SocialTypeId.LOCAL}
+      1
     )`,
     [nickname, email, hashedPassword]
   );
@@ -83,10 +83,23 @@ const createUser = async (socialId, nickname, email, socialTypeId) => {
   );
 };
 
+const deleteUser = async (userId) => {
+  return await appDataSource.query(
+    `
+  DELETE FROM
+    users
+  WHERE
+    id = ?
+  `,
+    [userId]
+  );
+};
+
 module.exports = {
   getUserId,
   getHashedPassword,
   checkUserById,
   createUser,
   localCreateUser,
+  deleteUser,
 };
