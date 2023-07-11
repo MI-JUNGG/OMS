@@ -212,11 +212,15 @@ function Main() {
         navigate(newLocation);
     };
 
+    // const todays = new Date().toISOString().slice(0, 10);
+    // console.log(todays);
+
     const renderDays = () => {
         const days = [];
         const daysCount = daysInMonth(date.getFullYear(), date.getMonth());
         const firstDay = firstDayOfMonth(date.getFullYear(), date.getMonth());
         const today = dateToday();
+        // const today = dayjs(todays).toDate();
 
         let day = 1;
         let rowCount = Math.ceil((firstDay + daysCount) / 7);
