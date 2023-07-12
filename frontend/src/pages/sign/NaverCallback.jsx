@@ -68,8 +68,6 @@ const NaverCallback = () => {
         const urlObject = new URL(url);
         const accessToken = urlObject.hash.split("=")[1].split("&")[0];
 
-        console.log(accessToken);
-
         localStorage.setItem("token", accessToken);
 
         // axios

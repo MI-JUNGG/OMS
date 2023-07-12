@@ -76,7 +76,6 @@ function Weekly() {
         navigate(newLocation);
     };
     const dateState = (data) => {
-        console.log(data);
         dispatch(addCard({ cardType: "week", cardData: data }));
     };
 

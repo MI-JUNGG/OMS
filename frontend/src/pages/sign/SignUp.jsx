@@ -49,7 +49,6 @@ function SignUp() {
     }
 
     const userInfoSub = () => {
-        console.log("A");
         axios
             .post(
                 "http://192.168.219.152:3001/auth/signup",

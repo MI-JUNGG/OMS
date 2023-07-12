@@ -10,7 +10,6 @@ export const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response
 export const NAVER_ACCESS_TOKEN_URL = `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NAVER_CLIENT_ID}&client_secret=${NAVER_CLIENT_SECRET}&code=EIc5bFrl4RibFls1&state=9kgsGTfH4j7IyAkg`;
 
 export function LoginNaver() {
-    console.log("A");
     const code = new URL(window.location.href).searchParams.get("code");
     const loginFormWithNaver = () => {
         const naverLogin = new window.naver.LoginWithNaverId({
@@ -35,8 +34,6 @@ export function LoginNaver() {
     const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${NAVER_STATE_STRING}&redirect_uri=${NAVER_CALLBACK_URI}`;
     const NAVER_ACCESS_TOKEN_URL = `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NAVER_CLIENT_ID}&client_secret=${NAVER_CLIENT_SECRET}&code=EIc5bFrl4RibFls1&state=9kgsGTfH4j7IyAkg&state=${state}`;
 
-    console.log(state);
-    console.log(code);
     useEffect(() => {
         axios
             .post(
@@ -52,7 +49,6 @@ export function LoginNaver() {
             .then((res) => res.json())
             .then((res) => {
                 console.log(res);
-                console.log("a");
             })
             .then((err) => console.log(err));
     }, [code]);

@@ -8,7 +8,6 @@ export const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2ODgzOTM1ODV9._My69GAEXFUmA7BZ2iib1WsvhY2e3Rzbof6QKKZg4_s";
 
 export const callUserCard = (handleOutClick, day) => {
-    console.log(1);
     axios
         .get(`${API}/day`, {
             params: {
@@ -36,17 +35,6 @@ export const counterHandler = (
     repeatId,
     limitDate,
 ) => {
-    // console.log(
-    //     "title: " + title,
-    //     "contents: " + contents,
-    //     "startDate :" + startDate,
-    //     "endDate :" + endDate,
-    //     "color : " + color,
-    //     "url : " + url,
-    //     "repeatCardType : " + repeatId,
-    //     "limitDate : " + limitDate,
-    // );
-
     const config = {
         headers: {
             Authorization: token,
@@ -87,18 +75,6 @@ export const FixCardHandler = (
     repeatId,
     limitDate,
 ) => {
-    console.log(
-        "cardId:" + id,
-        "title: " + title,
-        "contents: " + contents,
-        "startDate :" + startDate,
-        "endDate :" + endDate,
-        "color : " + color,
-        "url : " + url,
-        "repeatCardType : " + repeatId,
-        limitDate,
-    );
-    console.log("fix", endDate);
     axios
         .put(
             `${API}/card`,
@@ -128,7 +104,6 @@ export const FixCardHandler = (
 };
 
 export const DeleteCardHandler = (id) => {
-    console.log("id:" + id);
     axios
         .delete(`${API}/card`, {
             headers: {

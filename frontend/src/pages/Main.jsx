@@ -74,7 +74,6 @@ function Main() {
             yearForm,
             monthForm - 1,
         )}`;
-        // console.log("startDate", startDate, "endDate", endDate);
 
         axios
             .get("/data/monthMock.json", {
@@ -89,7 +88,6 @@ function Main() {
                 },
             })
             .then((response) => {
-                // console.log(response);
                 dispatch(
                     handleBlockColorTheme(
                         response.data.palette[0].colorPaletteId,

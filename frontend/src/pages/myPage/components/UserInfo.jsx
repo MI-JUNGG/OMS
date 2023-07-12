@@ -50,7 +50,7 @@ function UserInfo(props) {
         })
             .then((data) => data.json())
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 alert("닉네임이 수정되었습니다,");
             })
             .catch((err) => console.log(err));
@@ -78,7 +78,6 @@ function UserInfo(props) {
                   })
                   .catch((err) => console.log(err));
     };
-    console.log(userInfo);
 
     return (
         <>

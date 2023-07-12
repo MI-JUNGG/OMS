@@ -258,7 +258,7 @@ function Card() {
                 const currentEndDate = dayjs(allEnd)
                     .add(i, "day")
                     .format("YYYY-MM-DD");
-                console.log(currentEndDate);
+
                 counterHandler(
                     title,
                     contents,
