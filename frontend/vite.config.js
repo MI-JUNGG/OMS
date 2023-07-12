@@ -12,5 +12,5 @@ export default defineConfig({
             },
         },
     },
-    base: "/OMS/frontend/",
+    base: "",
 });
