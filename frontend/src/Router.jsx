@@ -67,7 +67,6 @@ function Router() {
                 );
             });
     }, []);
-
     const pickTitle = (id) => {
         switch (id) {
             case 0:
