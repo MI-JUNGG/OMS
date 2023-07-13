@@ -87,37 +87,49 @@ function Router() {
         }
     };
 
+    class ColorTheme {
+        constructor() {}
+        getColor(title, Setcolor) {
+            document.documentElement.style.setProperty(title, Setcolor);
+        }
+    }
+
     useEffect(() => {
         const savedSetting = localStorage.getItem("setting");
 
         if (savedSetting) {
             const setting = JSON.parse(savedSetting);
-
-            document.documentElement.style.setProperty(
-                "--main-color",
-                setting.mainColor,
-            );
-            document.documentElement.style.setProperty(
-                "--background-color",
-                setting.backgroundColor,
-            );
-            document.documentElement.style.setProperty(
-                "--text-color",
-                setting.textColor,
-            );
-            document.documentElement.style.setProperty(
-                "--text-style",
-                setting.textStyle,
-            );
-            document.documentElement.style.setProperty(
-                "--block-color",
-                setting.blockColor,
-            );
+            const color = new ColorTheme();
+            color.getColor("--main-color", setting.mainColor);
+            color.getColor("--background-color", setting.backgroundColor);
+            color.getColor("--text-color", setting.textColor);
+            color.getColor("--text-style", setting.textStyle);
+            color.getColor("--block-color", setting.blockColor);
+            // document.documentElement.style.setProperty(
+            //     "--main-color",
+            //     setting.mainColor,
+            // );
+            // document.documentElement.style.setProperty(
+            //     "--background-color",
+            //     setting.backgroundColor,
+            // );
+            // document.documentElement.style.setProperty(
+            //     "--text-color",
+            //     setting.textColor,
+            // );
+            // document.documentElement.style.setProperty(
+            //     "--text-style",
+            //     setting.textStyle,
+            // );
+            // document.documentElement.style.setProperty(
+            //     "--block-color",
+            //     setting.blockColor,
+            // );
         }
     }, []);
 
     return (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <BrowserRouter>
             <Nav />
             <Routes>
                 <Route path="/" element={<Main />} />
