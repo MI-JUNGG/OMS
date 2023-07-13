@@ -18,16 +18,15 @@ jobs:
         uses: cloudtype-github-actions/deploy@v1
         with:
           token: ${{ secrets.CLOUDTYPE_TOKEN }}
-          project: jyh2610/back
+          project: jyh2610/oms-front
           stage: main
           yaml: |
-            name: oms-front
+            name: oms
             app: web
             options:
               docbase: /dist
               nodeversion: "18"
               spa: true
-              indexpage: index.html
             context:
               git:
                 url: git@github.com:${{ github.repository }}.git
