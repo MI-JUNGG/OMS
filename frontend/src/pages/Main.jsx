@@ -16,7 +16,7 @@ import {
 } from "../modules/module/colorPicker.js";
 import Button from "./button/Button";
 import { addCard } from "../modules/module/card.js";
-import { useNavigate } from "react-router.js";
+import { useNavigate } from "react-router";
 import {
     temporaryBlockColorTheme,
     temporaryBlockColorThemeTitle,
