@@ -23,8 +23,8 @@ import {
 } from "../modules/module/temporaryColorSetting.js";
 import LoginModalBackground from "./sign/LoginModalBackground";
 import dayjs from "dayjs";
-import Card from "./daily/components/Card.js";
-import MoreSchedule from "./monthComponent/MoreSchedule.js";
+import Card from "./daily/components/Card";
+import MoreSchedule from "./monthComponent/MoreSchedule";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);
