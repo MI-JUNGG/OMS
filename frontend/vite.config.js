@@ -12,9 +12,5 @@ export default defineConfig({
             },
         },
     },
-<<<<<<< HEAD
-    base: "./frontend",
-=======
     base: "/frontend",
->>>>>>> 3170cf79be882b890797569f26617d180654a3b0
 });

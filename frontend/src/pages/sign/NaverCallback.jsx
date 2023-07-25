@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 const NaverCallback = () => {
     const { naver } = window;
     const NAVER_CLIENT_ID = "W9f_MEprUwIoTeyjePIb";
-    const NAVER_CALLBACK_URL = "http://localhost:5173/auth/naver/callback";
+    const NAVER_CALLBACK_URL =
+        "https://web-oms-k19y2kljwrybmc.sel4.cloudtype.app/auth/kakao/callback";
     const navigate = useNavigate();
 
     const currentDate = new Date();
