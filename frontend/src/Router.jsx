@@ -67,7 +67,6 @@ function Router() {
                 );
             });
     }, []);
-
     const pickTitle = (id) => {
         switch (id) {
             case 0:
@@ -117,7 +116,7 @@ function Router() {
     }, []);
 
     return (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <BrowserRouter>
             <Nav />
             <Routes>
                 <Route path="/" element={<Main />} />
