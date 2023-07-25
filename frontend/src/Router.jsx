@@ -8,7 +8,7 @@ import {
     main,
     textColor,
     textStyle,
-} from "../src/modules/module/setting";
+} from "../src/modules/module/setting.js";
 import {
     temporaryMainColor,
     temporaryBackgroundColor,
@@ -16,7 +16,7 @@ import {
     temporaryTextStyle,
     temporaryBlockColorTheme,
     temporaryBlockColorThemeTitle,
-} from "../src/modules/module/temporaryColorSetting";
+} from "../src/modules/module/temporaryColorSetting.js";
 import Daily from "./pages/daily/Daily";
 import Nav from "./pages/nav/Nav";
 import Week from "./pages/weekly/Week";

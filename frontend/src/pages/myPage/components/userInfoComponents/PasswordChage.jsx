@@ -3,7 +3,7 @@ import {
     newPassword,
     password,
     repeatNewPassword,
-} from "../../../../modules/module/userInfoChange";
+} from "../../../../modules/module/userInfoChange.js";
 import "./PasswordChage.scss";
 import { useDispatch, useSelector } from "react-redux";
 

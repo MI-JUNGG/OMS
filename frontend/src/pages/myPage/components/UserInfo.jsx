@@ -7,7 +7,7 @@ import {
     password,
     repeatNewPassword,
     newPassword,
-} from "../../../modules/module/userInfoChange";
+} from "../../../modules/module/userInfoChange.js";
 import { useSelector } from "react-redux";
 
 function UserInfo(props) {

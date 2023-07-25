@@ -1,30 +1,30 @@
 import { useEffect, useState } from "react";
 import "./Main.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { month } from "../modules/module/monthPicker";
-import { year } from "../modules/module/year";
+import { month } from "../modules/module/monthPicker.js";
+import { year } from "../modules/module/year.js";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 import axios from "axios";
 import {
     handleBlockColorTheme,
     handleBlockColorThemeTitle,
-} from "../modules/module/setting";
+} from "../modules/module/setting.js";
 import {
     setCustomMainColor,
     setCustomBackgroundColor,
-} from "../modules/module/colorPicker";
+} from "../modules/module/colorPicker.js";
 import Button from "./button/Button";
-import { addCard } from "../modules/module/card";
-import { useNavigate } from "react-router";
+import { addCard } from "../modules/module/card.js";
+import { useNavigate } from "react-router.js";
 import {
     temporaryBlockColorTheme,
     temporaryBlockColorThemeTitle,
-} from "../modules/module/temporaryColorSetting";
+} from "../modules/module/temporaryColorSetting.js";
 import LoginModalBackground from "./sign/LoginModalBackground";
 import dayjs from "dayjs";
-import Card from "./daily/components/Card";
-import MoreSchedule from "./monthComponent/MoreSchedule";
+import Card from "./daily/components/Card.js";
+import MoreSchedule from "./monthComponent/MoreSchedule.js";
 
 function Main() {
     const yearForm = useSelector((state) => state.yearReducer.value);

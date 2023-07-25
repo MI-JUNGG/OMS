@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     temporaryBackgroundColor,
     temporaryMainColor,
-} from "../../../../modules/module/temporaryColorSetting";
+} from "../../../../modules/module/temporaryColorSetting.js";
 
 function ColorSelector(props) {
     const existingSettingValue = props.existingSettingValue;
