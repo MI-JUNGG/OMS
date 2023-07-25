@@ -17,9 +17,9 @@ function MyPage() {
     );
 
     const [userInfo, setUserInfo] = useState(null);
-    // useEffect(() => {
-    //     getData("myPageUserInfo.json", setUserInfo, null);
-    // }, []);
+    useEffect(() => {
+        getData("myPageUserInfo.json", setUserInfo, null);
+    }, []);
 
     const PAGE_STATE = [
         {
