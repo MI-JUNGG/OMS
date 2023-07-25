@@ -17,6 +17,7 @@ import {
     temporaryBlockColorTheme,
     temporaryBlockColorThemeTitle,
 } from "../src/modules/module/temporaryColorSetting.js";
+<<<<<<< HEAD
 import Daily from "./pages/daily/Daily";
 import Nav from "./pages/nav/Nav";
 import Week from "./pages/weekly/Week";
@@ -24,6 +25,15 @@ import MyPage from "./pages/myPage/MyPage";
 import KakoCallback from "./pages/sign/KakoCallback";
 import NaverCallback from "./pages/sign/NaverCallback";
 import Main from "./pages/Main";
+=======
+import Daily from "./pages/daily/Daily.jsx";
+import Nav from "./pages/nav/Nav.jsx";
+import Week from "./pages/weekly/Week.jsx";
+import MyPage from "./pages/myPage/MyPage.jsx";
+import KakoCallback from "./pages/sign/KakoCallback.jsx";
+import NaverCallback from "./pages/sign/NaverCallback.jsx";
+import Main from "./pages/Main.jsx";
+>>>>>>> e093569bf97088a12df72637cc7064cf017fdebc
 
 function Router() {
     const dispatch = useDispatch();
