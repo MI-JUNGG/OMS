@@ -76,11 +76,7 @@ function Nav() {
                     {localStorage.getItem("token") ? (
                         <>
                             <span className="nickName" onClick={moveMypage}>
-<<<<<<< HEAD
-                                {userNickname
-=======
-                                {userNickname.legnth > 0
->>>>>>> develop
+                                {userNickname.length > 0
                                     ? userNickname.nickname
                                     : "마이페이지"}
                             </span>
