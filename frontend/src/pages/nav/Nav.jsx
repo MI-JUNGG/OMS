@@ -16,7 +16,7 @@ import {
 import { useNavigate, useLocation } from "react-router";
 import { getData } from "../myPage/getData";
 import { useState, useEffect } from "react";
-import dayjs from "dayjs";
+import omsLogo from "/src/assets/images/logo/logo.svg";
 
 function Nav() {
     const location = useLocation();
@@ -69,17 +69,16 @@ function Nav() {
         <>
             <div className="navWrapper">
                 <div className="logo" onClick={moveHomePage}>
-                    <img
-                        src="/src/assets/images/logo/logo.svg"
-                        alt="Oh My Calendar"
-                    />
+                    <img src={omsLogo} alt="Oh My Calendar" />
                 </div>
                 <ViewSwitcher />
                 <div className="login">
                     {localStorage.getItem("token") ? (
                         <>
                             <span className="nickName" onClick={moveMypage}>
-                                {userNickname.nickname}
+                                {userNickname.legnth > 0
+                                    ? userNickname.nickname
+                                    : "마이페이지"}
                             </span>
                             <span
                                 className="loginText"

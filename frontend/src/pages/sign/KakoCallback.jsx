@@ -56,6 +56,7 @@ function KakoCallback() {
                             response.data.accessToken,
                         );
                         // window.location.replace("/");
+                        window.Kakao.Auth.logout();
                     })
                     .then((error) => {
                         console.log(error);
