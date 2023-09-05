@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./ColorList.scss";
 import ModalPlus from "/src/assets/images/modal/ModalPlus";
-import { isModal, isCustomPicker } from "../../../../modules/module/setting";
+import { isModal, isCustomPicker } from "../../../../modules/module/setting.js";
 import ColorPicker from "./ColorPicker";
 import ColorPickerBackground from "./ColorPickerBackground";
 import {
@@ -10,7 +10,7 @@ import {
     temporaryBlockMainColor,
     temporaryTextColor,
     temporaryTextStyle,
-} from "../../../../modules/module/temporaryColorSetting";
+} from "../../../../modules/module/temporaryColorSetting.js";
 
 function ColorList() {
     const dispatch = useDispatch();

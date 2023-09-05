@@ -12,18 +12,8 @@ import dayjs from "dayjs";
 import { cardmodal } from "../../modules/module/modal.js";
 import { useDispatch, useSelector } from "react-redux";
 import LoginModalBackground from "../sign/LoginModalBackground.jsx";
-import { addDate, addMonth, addDay } from "../../modules/module/date.js";
-import { eaddDate, eaddMonth, eaddDay } from "../../modules/module/endDate.js";
-import { newDate } from "../../modules/module/repeatStart.js";
-import {
-    laddDate,
-    laddMonth,
-    laddDay,
-    initialReducer,
-} from "../../modules/module/Limit";
 import "./weekly.scss";
-import { formatDate } from "react-calendar/dist/cjs/shared/dateFormatter";
-import { idHandler } from "../../modules/module/modal";
+import { idHandler } from "../../modules/module/modal.js";
 
 function Weekly() {
     const navigate = useNavigate();

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import userInfoChange, {
     nickName,
-} from "../../../../modules/module/userInfoChange";
+} from "../../../../modules/module/userInfoChange.js";
 
 function NicknameChage(props) {
     const form = useSelector((state) => state.userInfoChangeReducer);
