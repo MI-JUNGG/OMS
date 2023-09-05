@@ -10,6 +10,7 @@ import { useLocation } from "react-router";
 import { email, password } from "/src/modules/module/login";
 import { useEffect } from "react";
 import NaverCallback from "./NaverCallback";
+import kakaoLogo from "/src/assets/images/social_logo/kakao.svg";
 
 function SignIn() {
     const dispatch = useDispatch();
@@ -92,7 +93,7 @@ function SignIn() {
                             window.location.href = KAKAO_AUTH_URL;
                         }}
                     >
-                        <img src="/src/assets/images/social_logo/kakao.svg" />
+                        <img src={kakaoLogo} />
                         <span>
                             Kakao
                             <br />
