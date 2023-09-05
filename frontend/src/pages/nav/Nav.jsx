@@ -76,9 +76,7 @@ function Nav() {
                     {localStorage.getItem("token") ? (
                         <>
                             <span className="nickName" onClick={moveMypage}>
-                                {userNickname.legnth > 0
-                                    ? userNickname.nickname
-                                    : "마이페이지"}
+                                마이페이지
                             </span>
                             <span
                                 className="loginText"
