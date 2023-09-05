@@ -9,6 +9,8 @@ import {
 import axios from "axios";
 import "./SignUp.scss";
 import { sign } from "../../modules/module/sign.js";
+import kakaoLogo from "/src/assets/images/social_logo/kakao.svg";
+import naverLogo from "/src/assets/images/social_logo/naver.svg";
 
 function SignUp() {
     const [isComplete, setIsComplete] = useState(false);
@@ -213,7 +215,7 @@ function SignUp() {
                 </div>
                 <div className="socialSignUp">
                     <div className="kakaoSignUp" onClick={kakaoSignUp}>
-                        <img src="/src/assets/images/social_logo/kakao.svg" />
+                        <img src={kakaoLogo} />
                         <span>
                             Kakao
                             <br />
@@ -221,7 +223,7 @@ function SignUp() {
                         </span>
                     </div>
                     <div className="naverSignUp" onClick={naverSignUp}>
-                        <img src="/src/assets/images/social_logo/naver.svg" />
+                        <img src={naverLogo} />
                         <span>
                             Naver
                             <br />
