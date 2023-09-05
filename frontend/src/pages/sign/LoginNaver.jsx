@@ -28,7 +28,8 @@ export function LoginNaver() {
     const NAVER_CLIENT_ID = "W9f_MEprUwIoTeyjePIb";
     const NAVER_CLIENT_SECRET = "z9qj_eIPjD";
     const NAVER_STATE_STRING = Math.random().toString(36).substr(3, 14);
-    const NAVER_CALLBACK_URI = "http://localhost:5173/auth/naver/callback";
+    const NAVER_CALLBACK_URI =
+        "https://web-oms-k19y2kljwrybmc.sel4.cloudtype.app/auth/naver/callback";
 
     const state = new URL(window.location.href).searchParams.get("state");
 
