@@ -49,6 +49,15 @@ function Main() {
         setBackgroundState(!backgroundState);
     };
 
+    document.documentElement.style.setProperty(
+        "--main-color",
+        setting.mainColor,
+    );
+    document.documentElement.style.setProperty(
+        "--background-color",
+        setting.backgroundColor,
+    );
+
     const pickTitle = (id) => {
         switch (id) {
             case 0:
@@ -440,12 +449,12 @@ function Main() {
                         setBackgroundState={setBackgroundState}
                         backgroundState={backgroundState}
                     />
-                    {/* <LoginModalBackground
+                    <LoginModalBackground
                         onClick={backgroundStateHandler}
                         style={{
                             backGroundColor: "transparent",
                         }}
-                    /> */}
+                    />
                 </>
             )}
         </div>

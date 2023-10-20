@@ -1,0 +1,71 @@
+{
+    "palette": [
+        {
+            "colorPaletteId": 5,
+            "color1": "#FFFFF",
+            "color2": "#FFFFF",
+            "color3": null,
+            "color4": null,
+            "color5": null,
+            "color6": null,
+            "color7": null
+        }
+    ],
+    "monthCard": [
+        {
+            "cardId": 58,
+            "title": "예비군 훈련",
+            "repeat": 1,
+            "deadline": "2023-07-08",
+            "memo": "",
+            "link": "과연?",
+            "color": "#55cbcd",
+            "startDate": "2023-10-5 00:00:00",
+            "endDate": "2023-10-5 00:00:00"
+        },
+        {
+            "cardId": 59,
+            "title": "업데이트 예정일",
+            "repeat": 1,
+            "deadline": "2023-07-01",
+            "memo": "",
+            "link": "",
+            "color": "#55cbcd",
+            "startDate": "2023-10-11 00:00:00",
+            "endDate": "2023-10-11 00:00:00"
+        },
+        {
+            "cardId": 60,
+            "title": "친구들 모임",
+            "repeat": 2,
+            "deadline": "2023-07-01",
+            "memo": "",
+            "link": "",
+            "color": "#55cbcd",
+            "startDate": "2023-10-23 00:00:00",
+            "endDate": "2023-10-23 00:00:00"
+        },
+        {
+            "cardId": 67,
+            "title": "다람이 생일",
+            "repeat": 2,
+            "deadline": "2023-07-03",
+            "memo": "",
+            "link": "",
+            "color": "#55cbcd",
+            "startDate": "2023-10-28 00:00:00",
+            "endDate": "2023-10-28 00:00:00"
+        },
+        {
+            "cardId": 70,
+            "title": "강아지 건강검진",
+            "repeat": 3,
+            "deadline": "2023-07-01",
+            "memo": "",
+            "link": "",
+            "color": "#55cbcd",
+            "startDate": "2023-10-28 00:00:00",
+            "endDate": "2023-10-28 00:00:00"
+        }
+    ]
+}

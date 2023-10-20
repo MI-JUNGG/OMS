@@ -11,9 +11,14 @@ function MyPage() {
     const navigate = useNavigate();
 
     const setting = useSelector((state) => state.settingReducer);
+
     document.documentElement.style.setProperty(
         "--main-color",
         setting.mainColor,
+    );
+    document.documentElement.style.setProperty(
+        "--background-color",
+        setting.backgroundColor,
     );
 
     const [userInfo, setUserInfo] = useState(null);
